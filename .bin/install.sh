@@ -69,8 +69,14 @@ brew install
 echo -n "Installing fonts..."
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     fc-cache && echo "Success"
-else if [[ "$OSTYPE" == "darwin"* ]]; then
+elif [[ "$OSTYPE" == "darwin"* ]]; then
     cp $HOME/.local/share/fonts/* $HOME/Library/Fonts/ && echo "Success"
 else
     echo "Failed [don't know how to install fonts]"
-end
+fi
+
+# install doom 
+echo "Installing Doom Emacs"
+[ -d "$HOME/.emacs.d" ] && echo "Backing up pre-existing emacs config" && mv "$HOME/.emacs.d" "$HOME/.emacs.d.old"
+git clone --depth 1 https://github.com/doomemacs/doomemacs $HOME/.emacs.d
+$HOME/.emacs.d/doom install -y
