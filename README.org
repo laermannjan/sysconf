@@ -1,0 +1,25 @@
+#+title: Dotfiles
+#+author: Jan Laermann
+#+date: 2022-06-10
+
+* Dotfiles management
+
+These dotfiles are managed via a /bare/ git repository.
+The files live at their original position. No sym-linking, copying, or whatever needed.
+Instead, a /bare/ git repository lives at =~/.dotfiles=, with its worktree pointed towards =$HOME=.
+Together with a little helper this becomes a really elegant workflow.
+
+** Initialize new dotfiles repo
+#+begin_src bash
+git init --bare ~/.dotfiles
+alias dotfiles="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+dotfiles config --local showUntrackedFiles no
+
+alias dotfiles="git --git-dir=$HOME/.dotfiles --work-tree=$HOME" >> ~/.bashrc
+alias dotfiles="git --git-dir=$HOME/.dotfiles --work-tree=$HOME" >> ~/.zshrc
+alias dotfiles="git --git-dir=$HOME/.dotfiles --work-tree=$HOME" >> ~/.config/fish/config.fish
+
+dotfiles add ~/.mynewdotfile
+dotfiles commit -m "add my new dotfile"
+dotfiles status
+#+end_src
