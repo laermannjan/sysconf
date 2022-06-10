@@ -28,3 +28,14 @@ dotfiles add ~/.mynewdotfile
 dotfiles commit -m "add my new dotfile"
 dotfiles status
 #+end_src
+
+
+* Overview
+
+** Terminal Emulator
+*** iterm2
+When setting up a new system, go to *Preferences* > *General* > *Preferences*, set the path to =~/.config/iterm2/= and change =Save changes at= to =Automatically=.
+Under *Preferences* > *Colors* click =Color Presets...= and import all =*.itermcolors= files from the path above.
+
+** Shell
+Fish is the main shell, but some basic functionality will also be present in zshand some essentials are also setup in bash.
