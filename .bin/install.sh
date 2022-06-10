@@ -62,5 +62,15 @@ echo "Dotfiles installed successfully."
 dotfiles config --local status.showUntrackedFiles no
 
 # install applications and packages
-echo "Installing applications, casks, formulae from Brewfile (this may take a _long_ while)"
+echo "Installing from Brewfile (this may take a _long_ while)"
 brew install
+
+# install fonts
+echo -n "Installing fonts..."
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    fc-cache && echo "Success"
+else if [[ "$OSTYPE" == "darwin"* ]]; then
+    cp $HOME/.local/share/fonts/* $HOME/Library/Fonts/ && echo "Success"
+else
+    echo "Failed [don't know how to install fonts]"
+end
