@@ -1,0 +1,51 @@
+
+# tap repositories and their packages
+
+tap homebrew/core
+brew bat
+brew ca-certificates
+brew coreutils
+brew exa
+brew fish
+brew gdbm
+brew gettext
+brew gmp
+brew libtermkey
+brew libuv
+brew luajit-openresty
+brew luv
+brew mas
+brew mpdecimal
+brew msgpack
+brew ncurses
+brew neovim
+brew openssl@1.1
+brew pcre2
+brew python@3.9
+brew readline
+brew sqlite
+brew tree-sitter
+brew unibilium
+brew xz
+brew zoxide
+
+tap homebrew/cask
+cask 1password
+cask alfred
+cask brave-browser
+cask fantastical
+cask firefox
+cask iterm2
+cask pycharm
+cask slack
+
+tap rcmdnk/file
+brew brew-file
+
+# App Store applications
+appstore 682658836   GarageBand  (10.4.5)
+appstore 408981434   iMovie      (10.3.1)
+appstore 409183694   Keynote     (11.2)
+appstore 409203825   Numbers     (11.2)
+appstore 409201541   Pages       (11.2)
+appstore 441258766   Magnet      (2.8.0)

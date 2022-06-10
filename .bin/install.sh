@@ -1,5 +1,43 @@
 #!/usr/bin/env bash
 
+# Install Homebrew
+brew_installed=1
+if ! which brew >& /dev/null;then
+  brew_installed=0
+  echo Homebrew is not installed!
+  echo Install now...
+  echo /bin/bash -c \"\$\(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh\)\"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ret=$?
+  if [ $ret -ne 0 ];then
+    echo Failed to install Homebrew... please check your environment
+    exit $ret
+  fi
+  echo
+
+  for path in /home/linuxbrew/.linuxbrew $HOME/.linuxbrew /opt/homebrew /usr/local;do
+    if [ -f "$path/bin" ];then
+      PATH="$path/bin/brew"
+    fi
+  done
+fi
+
+# Install Brew-file
+echo
+echo Install Brew-file...
+brew install rcmdnk/file/brew-file
+
+# Check if homebrew got problems
+if [ $brew_installed -eq 0 ];then
+  brew doctor
+  if [ $? -ne 0 ];then
+    echo Check brew environment!
+    exit 1
+  fi
+fi
+
+# Save any pre-existing dotfiles that are already in the git repo and install those from the repo in
+# their place
 export DOTFILES_DIR="${HOME}/.dotfiles"
 export BACKUP_DIR="${DOTFILES_DIR}.old"
 
@@ -20,5 +58,9 @@ git clone --bare git@github.com:laermannjan/dotfiles "$DOTFILES_DIR"
 dotfiles checkout 2>&1 | grep -E "^\t" | awk {'print $1'} | xargs -I{} bash -c 'backup "{}"'
 dotfiles checkout
 
-echo " >> Dotfiles installed successfully."
+echo "Dotfiles installed successfully."
 dotfiles config --local status.showUntrackedFiles no
+
+# install applications and packages
+echo "Installing applications, casks, formulae from Brewfile (this may take a _long_ while)"
+brew install
