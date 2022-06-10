@@ -15,9 +15,14 @@ git init --bare ~/.dotfiles
 alias dotfiles="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 dotfiles config --local showUntrackedFiles no
 
+# bash
 alias dotfiles="git --git-dir=$HOME/.dotfiles --work-tree=$HOME" >> ~/.bashrc
+
+# zsh
 alias dotfiles="git --git-dir=$HOME/.dotfiles --work-tree=$HOME" >> ~/.zshrc
-alias dotfiles="git --git-dir=$HOME/.dotfiles --work-tree=$HOME" >> ~/.config/fish/config.fish
+
+# fish (must be executed in fish)
+alias -s dotfiles "git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 
 dotfiles add ~/.mynewdotfile
 dotfiles commit -m "add my new dotfile"
