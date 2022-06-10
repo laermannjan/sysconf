@@ -3,13 +3,14 @@
 DOTFILES_DIR="${HOME}/.dotfiles"
 BACKUP_DIR="${DOTFILES_DIR}.old"
 
+echo "backupdir $BACKUP_DIR"
 function dotfiles {
     git --git-dir="$DOTFILES_DIR" --work-tree="$HOME" "$@"
 }
 
-backup() {
-    mkdir -p "$(dirname "$BACKUP_DIR/$1")";
-    mv "$1" "$BACKUP_DIR/$1"
+function backup {
+    mkdir -p "$(dirname "${BACKUP_DIR}/$1")";
+    mv "$1" "${BACKUP_DIR}/$1"
 }
 export -f backup
 git clone --bare git@github.com:laermannjan/dotfiles "$DOTFILES_DIR"
