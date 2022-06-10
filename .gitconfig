@@ -1,0 +1,10 @@
+[user]
+    name = Jan Laermann
+    email = laermannjan@gmail.com
+
+[core]
+    excludesFile = ~/.gitignore
+
+[init]
+    defaultBranch = main
+
