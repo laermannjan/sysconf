@@ -17,7 +17,7 @@ function backup {
 export -f backup
 git clone --bare git@github.com:laermannjan/dotfiles "$DOTFILES_DIR"
 
-dotfiles checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} bash -c 'backup "{}"'
+dotfiles checkout 2>&1 | grep -E "^\t" | awk {'print $1'} | xargs -I{} bash -c 'backup "{}"'
 dotfiles checkout
 
 echo " >> Dotfiles installed successfully."
