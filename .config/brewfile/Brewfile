@@ -33,6 +33,8 @@ brew unibilium
 brew xz
 brew zoxide
 
+tap homebrew/cask-fonts
+
 tap homebrew/cask
 cask 1password
 cask alfred
