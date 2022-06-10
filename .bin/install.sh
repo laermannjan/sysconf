@@ -17,11 +17,7 @@ function backup {
 export -f backup
 git clone --bare git@github.com:laermannjan/dotfiles "$DOTFILES_DIR"
 
-dotfiles checkout 
-if [ $? != 0 ]; then 
-    echo "Backing up pre-existing dotfiles.";
-        dotfiles checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} bash -c 'backup "{}"'
-fi;
+dotfiles checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} bash -c 'backup "{}"'
 dotfiles checkout
 
 echo " >> Dotfiles installed successfully."
