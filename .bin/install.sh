@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-DOTFILES_DIR="${HOME}/.dotfiles"
-BACKUP_DIR="${DOTFILES_DIR}.old"
+export DOTFILES_DIR="${HOME}/.dotfiles"
+export BACKUP_DIR="${DOTFILES_DIR}.old"
 
 cd "$HOME" || exit
 
