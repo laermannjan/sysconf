@@ -949,3 +949,9 @@ $RECYCLE.BIN/
 # End of gitignore.io: vim,emacs,cmake,pycharm,visualstudiocode,linux,windows,macos,python,tags,rust,kotlin,java,go,haskell,elisp,latex
 
 .config/nvim/plugin/packer_compiled.lua
+
+.ssh/*
+!.ssh/config
+!.ssh/conf.d
+!.ssh/conf.d/*
+.ssh/known_hosts*
