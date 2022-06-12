@@ -53,7 +53,7 @@ export -f backup
 git clone --bare git@github.com:laermannjan/dotfiles "$DOTFILES_DIR" && echo "OK" || (echo "Failed" && exit 1)
 
 echo "Checking out dotfiles into \$HOME..."
-dotfiles checkout 2>&1 | grep -E "^(\s+)" | awk {'print $1'} | xargs -I{} bash -c 'backup "{}"' && dotfiles checkout && echo "Ok" || echo "Failed"
+dotfiles checkout 2>&1 | grep -E "^(\s+)" | cut -f 2- | xargs -I{} bash -c 'backup "{}"' && dotfiles checkout && echo "Ok" || echo "Failed"
 dotfiles config --local status.showUntrackedFiles no
 
 # install applications and packages
