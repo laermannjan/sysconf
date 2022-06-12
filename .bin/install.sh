@@ -79,4 +79,4 @@ fi
 echo "Installing Doom Emacs"
 [ -d "$HOME/.emacs.d" ] && echo "Backing up pre-existing emacs config" && mv "$HOME/.emacs.d" "$HOME/.emacs.d.old"
 git clone --depth 1 https://github.com/doomemacs/doomemacs $HOME/.emacs.d
-$HOME/.emacs.d/doom install -y
+$HOME/.emacs.d/bin/doom install -y
