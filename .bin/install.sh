@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Installing Jan's configuration to this system. Buckle up!"
-cd "$HOME" || echo "  ERROR: can't cd into $HOME" && exit 1
+cd "$HOME" || (echo "  ERROR: can't cd into $HOME" && exit 1)
 
 # Install Homebrew
 brew_installed=1
@@ -32,7 +32,7 @@ else
 fi
 
 echo -n "- Installing Brew-file..."
-brew install rcmdnk/file/brew-file && echo "Ok" || echo "Failed" && exit 1
+brew install rcmdnk/file/brew-file && echo "Ok" || (echo "Failed" && exit 1)
 
 # Save any pre-existing dotfiles that are already in the git repo and install those from the repo in
 # their place
@@ -51,7 +51,7 @@ function backup {
 }
 export -f backup
 echo "Cloning bare git repo into $DOTFILES_DIR..."
-git clone --bare git@github.com:laermannjan/dotfiles "$DOTFILES_DIR" && echo "OK" || echo "Failed" && exit 1
+git clone --bare git@github.com:laermannjan/dotfiles "$DOTFILES_DIR" && echo "OK" || (echo "Failed" && exit 1)
 
 echo "Checking out dotfiles into \$HOME..."
 dotfiles checkout 2>&1 | grep -E "^\t" | awk {'print $1'} | xargs -I{} bash -c 'backup "{}"' && dotfiles checkout && echo "Ok" || echo "Failed"
