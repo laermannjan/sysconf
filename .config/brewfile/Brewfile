@@ -125,10 +125,12 @@ tap homebrew/cask
 cask 1password
 cask alfred
 cask brave-browser
+cask docker
 cask fantastical
 cask firefox
 cask iterm2
 cask pycharm
+cask signal
 cask slack
 cask spotify
 
