@@ -32,7 +32,7 @@ else
 fi
 
 echo -n "- Installing Brew-file..."
-brew install rcmdnk/file/brew-file && echo "Ok" || (echo "Failed" && exit 1)
+brew install rcmdnk/file/brew-file >& /dev/null  && echo "Ok" || (echo "Failed" && exit 1)
 
 # Save any pre-existing dotfiles that are already in the git repo and install those from the repo in
 # their place
@@ -50,11 +50,10 @@ function backup {
     mv "$1" "${BACKUP_DIR}/$1"
 }
 export -f backup
-echo "Cloning bare git repo into $DOTFILES_DIR..."
 git clone --bare git@github.com:laermannjan/dotfiles "$DOTFILES_DIR" && echo "OK" || (echo "Failed" && exit 1)
 
 echo "Checking out dotfiles into \$HOME..."
-dotfiles checkout 2>&1 | grep -E "^\t" | awk {'print $1'} | xargs -I{} bash -c 'backup "{}"' && dotfiles checkout && echo "Ok" || echo "Failed"
+dotfiles checkout 2>&1 | grep -E "^(\s+)" | awk {'print $1'} | xargs -I{} bash -c 'backup "{}"' && dotfiles checkout && echo "Ok" || echo "Failed"
 dotfiles config --local status.showUntrackedFiles no
 
 # install applications and packages
