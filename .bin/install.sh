@@ -45,9 +45,11 @@ function dotfiles {
 }
 
 function backup {
-    echo "Backing up $PWD/$1  =>  $BACKUP_DIR/$1"
-    mkdir -p "$(dirname "${BACKUP_DIR}/$1")";
-    mv "$1" "${BACKUP_DIR}/$1"
+    if test -f "$PWD/$1"; then
+	    echo "Backing up $PWD/$1  =>  $BACKUP_DIR/$1"
+	    mkdir -p "$(dirname "${BACKUP_DIR}/$1")";
+	    mv "$1" "${BACKUP_DIR}/$1"
+    fi
 }
 export -f backup
 git clone --bare git@github.com:laermannjan/dotfiles "$DOTFILES_DIR" && echo "OK" || (echo "Failed" && exit 1)
