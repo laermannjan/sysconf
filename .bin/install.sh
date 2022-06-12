@@ -53,7 +53,7 @@ export -f backup
 git clone --bare git@github.com:laermannjan/dotfiles "$DOTFILES_DIR" && echo "OK" || (echo "Failed" && exit 1)
 
 echo "Backing up pre-existing dotfiles..."
-dotfiles checkout 2>&1 | grep -E "^(\s+)" | cut -f 2- | xargs -I{} bash -c 'backup "{}"' && echo "Ok" || echo "Failed"
+dotfiles status 2>&1 | grep -E "^(\s+)deleted:" | awk '{$1=$1};1' | cut -f 2- -d ' ' | xargs -I{} bash -c 'backup "{}"' && echo "Ok" || echo "Failed"
 echo "Checking out dotfiles into \$HOME..."
 dotfiles checkout && echo "Ok" || (echo "Failed" && exit 1)
 dotfiles config --local status.showUntrackedFiles no
