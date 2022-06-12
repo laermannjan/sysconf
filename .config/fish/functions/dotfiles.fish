@@ -1,3 +1,3 @@
-function dotfiles --wraps='git --git-dir=/Users/jan/.dotfiles/ --work-tree=/Users/jan' --description 'alias dotfiles git --git-dir=/Users/jan/.dotfiles/ --work-tree=/Users/jan'
-  git --git-dir=/Users/jan/.dotfiles/ --work-tree=/Users/jan $argv; 
+function dotfiles --wraps='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME' --description 'alias dotfiles git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+  git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $argv; 
 end
