@@ -63,7 +63,7 @@ dotfiles config --local status.showUntrackedFiles no
 
 # install applications and packages
 echo "Installing from Brewfile (this may take a _long_ while)"
-brew install
+brew file update
 
 # install fonts
 echo -n "Installing fonts..."
