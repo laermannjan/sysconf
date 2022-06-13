@@ -45,3 +45,10 @@ Under *Preferences* > *Colors* click =Color Presets...= and import all =*.itermc
 
 ** Shell
 Fish is the main shell, but some basic functionality will also be present in zshand some essentials are also setup in bash.
+
+
+** Letting alfred/spotlight find apps on apple silicon macs
+1. In Finder go to the Cellar location =/opt/homebrew/Cellar/<application_name>=
+2. Open a new window (cmd+n) and got to =/Apllications= (cmd+shift+n)
+3. Create an mac alias (not a symlink) by cmd+option+dragging the =.app= container into =/Applications=
+
