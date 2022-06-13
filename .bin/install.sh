@@ -80,6 +80,10 @@ echo "Installing Doom Emacs..."
 git clone --depth 1 https://github.com/doomemacs/doomemacs $HOME/.emacs.d
 $HOME/.emacs.d/bin/doom -y install
 
+#install rust
+echo "Installing rust..."
+$(brew --prefix)/bin/rustup-init -y
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
     echo "Adjusting macOS settings. This is going to ask for sudo permissions..."
     bash $HOME/.bin/macos-settings.sh
