@@ -107,6 +107,7 @@ brew shared-mime-info
 brew shellcheck
 brew six
 brew sqlite
+brew starship
 brew texinfo
 brew tree-sitter
 brew unbound
