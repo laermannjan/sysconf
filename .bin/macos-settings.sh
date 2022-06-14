@@ -146,7 +146,7 @@ defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 
-# Use list view in all Finder windows by default
+# Use column view in all Finder windows by default
 # Four-letter codes for the other view modes: `icnv`=iconview, `clmv`=columnview, `Nlsv`=listview
 defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 
@@ -222,6 +222,10 @@ defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 ###############################################################################
 # Terminal & iTerm 2                                                          #
 ###############################################################################
+
+# Specify the preferences directory and use custom preference path
+defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/.config/iterm2"
+defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
 
 # install colorschemes
 open "${HOME}/.config/iterm2/FirefoxDev.itermcolors"
