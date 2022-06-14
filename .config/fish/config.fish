@@ -8,7 +8,7 @@ if status is-interactive && ! functions --query fisher
     end
 end
 
-# source every file in conf.d/
+#source every file in conf.d/
 source $__fisher_path/conf.d/fisher_path.fish
 
 fish_add_path -g ~/bin
