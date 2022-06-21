@@ -156,6 +156,8 @@ cask visual-studio-code
 tap d12frosted/emacs-plus
 brew emacs-plus@28 --with-xwidgets --with-imagemagick
 
+tap hyde46/hoard
+
 tap rcmdnk/file
 brew brew-file
 

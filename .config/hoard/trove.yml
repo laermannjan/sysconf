@@ -1,0 +1,11 @@
+---
+version: 1.0.1
+commands:
+  - name: kubeconfig_context_alcemy
+    namespace: k8s
+    tags:
+      - aws
+      - alcemy
+      - k8s
+    command: "aws eks --region eu-central-1 update-kubeconfig --name #"
+    description: "Makes the alcemy kubernetes cluster [prod|dev] locally available to kubectl."
