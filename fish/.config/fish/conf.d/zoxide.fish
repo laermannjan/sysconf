@@ -1,3 +1,3 @@
-if status is-interactive && command -s zoxide >/dev/null
+if status --is-interactive && command -s zoxide >/dev/null
     zoxide init fish | source
 end

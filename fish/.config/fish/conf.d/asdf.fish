@@ -1,3 +1,3 @@
-if test -f $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.fish
+if status --is-interactive && test -f $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.fish
     source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.fish
 end
