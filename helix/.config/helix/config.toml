@@ -1,0 +1,17 @@
+theme = "noctis"
+
+[editor]
+middle-click-paste = false
+shell = ["fish", "-c"]
+line-number = "relative"
+cursorline = true
+color-modes = true
+
+[editor.statusline]
+# left = ["position"]
+separator = "/"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "block"
