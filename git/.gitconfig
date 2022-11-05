@@ -1,0 +1,46 @@
+[include]
+    path = /opt/homebrew/etc/delta/themes.gitconfig
+[user]
+    name = Jan Laermann
+    email = laermannjan@gmail.com
+
+[core]
+    excludesFile = ~/.gitignore
+    pager = delta
+    editor = /Users/jan/.local/bin/lvim
+
+[init]
+    defaultBranch = main
+
+[interactive]
+    diffFilter = delta --color-only
+[add.interactive]
+    useBuiltin = false  # required for git 2.37.0
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    light = false  # use dark mode
+    side-by-side = true
+    hyperlinks = true
+    zero-style = "syntax black"
+    file-style = "blue black"
+    line-numbers-zero-style = "normal black"
+    line-numbers-minus-style = minus-style
+    line-numbers-plus-style = plus-style
+    line-numbers-left-style = omit
+    line-numbers-right-style = omit
+
+    ; pager = bat
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[gitlab]
+	user = laermannjan
+[github]
+	user = laermannjan
+[gitlab "gitlab.com/api"]
+	user = laermannjan
