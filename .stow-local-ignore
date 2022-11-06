@@ -1,5 +1,5 @@
 \.git
-\.gitignore
+^/\.gitignore
 
 .+~          # emacs backup files
 \#.*\#       # emacs autosave files

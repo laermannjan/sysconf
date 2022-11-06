@@ -5,7 +5,7 @@
     email = laermannjan@gmail.com
 
 [core]
-    excludesFile = ~/.gitignore
+    excludesFile = ~/.gitignore-global
     pager = delta
     editor = /Users/jan/.local/bin/lvim
 
