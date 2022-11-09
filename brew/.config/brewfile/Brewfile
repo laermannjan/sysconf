@@ -228,11 +228,14 @@ cask 1password
 cask 1password-cli
 cask alacritty
 cask alfred
+cask alt-tab
 cask amethyst
+cask balenaetcher
 cask beekeeper-studio
 cask brave-browser
 cask cardhop
 cask contexts
+cask devtoys
 cask docker
 cask fantastical
 cask fig
@@ -244,15 +247,17 @@ cask karabiner-elements
 cask kitty
 cask librewolf
 cask miro
+cask monitorcontrol
 cask notion
 cask obs
 cask plex
 cask postico
-cask prudent
 cask pycharm
+cask rectangle
 cask signal
 cask slack
 cask spotify
+cask stats
 cask steam
 cask ubersicht
 cask unnaturalscrollwheels
@@ -278,11 +283,16 @@ appstore 1236045954  Canary Mail  (3.69)
 appstore 682658836   GarageBand   (10.4.7)
 appstore 1444383602  GoodNotes    (5.9.51)
 appstore 408981434   iMovie       (10.3.5)
-appstore 1136220934  Infuse       (7.4.6)
+appstore 1136220934  Infuse       (7.4.7)
 appstore 409183694   Keynote      (12.2)
 appstore 441258766   Magnet       (2.10.0)
-appstore 360593530   Notability   (11.7.6)
+appstore 360593530   Notability   (11.7.7)
 appstore 409203825   Numbers      (12.2)
 appstore 409201541   Pages        (12.2)
+appstore 1569600264  Pandan       (1.13.0)
+appstore 1596283165  rcmd         (2.3.1)
+appstore 1596706466  Speediness   (1.5.0)
 appstore 1312926037  stoic.       (2022.56)
 appstore 904280696   Things       (3.16.1)
+appstore 1607635845  Velja        (1.12.1)
+appstore 1601814648  Volum        (1.2.2)
