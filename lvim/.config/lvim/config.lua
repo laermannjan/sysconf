@@ -1,4 +1,5 @@
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
+--
 -- keymappings [view all the defaults by pressing <leader>Lk]
 
 -- general
