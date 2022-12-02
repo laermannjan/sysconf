@@ -76,6 +76,7 @@ end
 
 M._get_sources = function()
    local sources = {
+      { name = "copilot" },
       { name = 'path' },
       { name = 'nvim_lsp', keyword_length = 3 },
       { name = 'buffer', keyword_length = 3 },

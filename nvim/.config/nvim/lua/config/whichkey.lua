@@ -37,10 +37,6 @@ local function normal_keymap()
       ["w"] = { "<cmd>w!<CR>", "Save" },
       ["q"] = { "<cmd>lua require('utils').quit()<CR>", "Quit" },
 
-      d = {
-         name = "Debug",
-      },
-
       x = {
          name = "Trouble",
          x = { "<cmd>TroubleToggle<cr>", "default" },
@@ -56,7 +52,34 @@ local function normal_keymap()
          s = { "<cmd>SidebarNvimToggle<CR>", "sidebar" },
       },
 
+      d = {
+         name = "Debug",
+      },
+
+      r = {
+         name = "refactor",
+         r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" }
+      },
+
+      t = {
+         name = "Test",
+         a = { "<cmd>lua require('neotest').run.attach()<cr>", "Attach" },
+         f = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "Run File" },
+         F = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>", "Debug File" },
+         l = { "<cmd>lua require('neotest').run.run_last()<cr>", "Run Last" },
+         L = { "<cmd>lua require('neotest').run.run_last({ strategy = 'dap' })<cr>", "Debug Last" },
+         n = { "<cmd>lua require('neotest').run.run()<cr>", "Run Nearest" },
+         N = { "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", "Debug Nearest" },
+         o = { "<cmd>lua require('neotest').output.open({ enter = true })<cr>", "Output" },
+         S = { "<cmd>lua require('neotest').run.stop()<cr>", "Stop" },
+         s = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Summary" },
+         p = { "<Plug>PlenaryTestFile", "PlenaryTestFile" },
+         v = { "<cmd>TestVisit<cr>", "Visit" },
+         x = { "<cmd>TestSuite<cr>", "Suite" },
+      },
+
       f = {
+         name = "files",
          z = { "<cmd>lua require('telescope').extensions.zoxide.list()<CR>", "zoxide" }
       },
 

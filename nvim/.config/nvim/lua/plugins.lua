@@ -178,6 +178,18 @@ function M.setup()
             -- Snippets
             { "L3MON4D3/LuaSnip" },
             { "rafamadriz/friendly-snippets" },
+
+            -- AI assistance
+            {
+               "zbirenbaum/copilot.lua",
+               event = "VimEnter",
+               requires = "zbirenbaum/copilot-cmp",
+               config = function()
+                  vim.defer_fn(function()
+                     require("config.copilot").setup()
+                  end, 100)
+               end
+            }
          },
          config = require("config.lsp").setup()
       })
@@ -223,6 +235,50 @@ function M.setup()
          config = function()
             require("config.dap").setup()
          end,
+      }
+
+      -- Test
+      use {
+         "nvim-neotest/neotest",
+         opt = true,
+         wants = {
+            "plenary.nvim",
+            "nvim-treesitter",
+            "FixCursorHold.nvim",
+            "neotest-python",
+            "neotest-plenary",
+            "neotest-go",
+            "neotest-jest",
+            "neotest-vim-test",
+            "neotest-rust",
+            "vim-test",
+            "overseer.nvim",
+         },
+         requires = {
+            "vim-test/vim-test",
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "antoinemadec/FixCursorHold.nvim",
+            "nvim-neotest/neotest-python",
+            "nvim-neotest/neotest-plenary",
+            "nvim-neotest/neotest-go",
+            "haydenmeade/neotest-jest",
+            "nvim-neotest/neotest-vim-test",
+            "rouge8/neotest-rust",
+            "stevearc/overseer.nvim",
+         },
+         module = { "neotest", "neotest.async" },
+         cmd = {
+            "TestNearest",
+            "TestFile",
+            "TestSuite",
+            "TestLast",
+            "TestVisit",
+         },
+         config = function()
+            require("config.neotest").setup()
+         end,
+         disable = false,
       }
 
       -- colorschemes
