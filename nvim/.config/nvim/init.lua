@@ -1,7 +1,9 @@
-local lj = {
-    colorscheme = "tokyonight"
-}
+_G.LJ = {}
 
-vim.lj = lj
-require("lj.plugins")
-require("lj.config")
+_G.LJ.colorscheme = "tokyonight"
+
+require("options")
+require("cmds")
+require("mappings")
+require("autocmds")
+require("plugins").setup()
