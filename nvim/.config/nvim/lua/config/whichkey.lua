@@ -61,6 +61,17 @@ local function normal_keymap()
          r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" }
       },
 
+      g = {
+         name = "Git",
+         g = { "<cmd>lua require('utils.term').git_client_toggle()<CR>", "lazygit" },
+         h = { name = "hunk" },
+         -- b = { "<Cmd>Gitsigns blame_line<CR>", "Toggle Git Blame" },
+      },
+
+      o = {
+         name = "Org",
+      },
+
       t = {
          name = "Test",
          a = { "<cmd>lua require('neotest').run.attach()<cr>", "Attach" },
@@ -85,10 +96,14 @@ local function normal_keymap()
 
       z = {
          name = "System",
+         r = { "<cmd>lua require('nabla').popup()<CR>", "Render Latex under point" },
+         R = { "<cmd>lua require('nabla').toggle_virt()<CR>", "Render Latex in buffer" },
          p = { "<cmd>PackerProfile<cr>", "packer profile" },
          s = { "<cmd>PackerSync<cr>", "packer sync" },
          S = { "<cmd>PackerStatus<cr>", "packer status" },
          u = { "<cmd>PackerUpdate<cr>", "packer update" },
+         d = { "<cmd>DiffviewOpen<cr>", "Diff View Open" },
+         D = { "<cmd>DiffviewClose<cr>", "Diff View Close" },
       }
    }
 
