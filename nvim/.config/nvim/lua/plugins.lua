@@ -305,11 +305,76 @@ function M.setup()
          disable = false,
       }
 
+      -- code assistance
+      use {
+         'sudormrfbin/cheatsheet.nvim',
+         requires = {
+            { 'nvim-telescope/telescope.nvim' },
+            { 'nvim-lua/popup.nvim' },
+            { 'nvim-lua/plenary.nvim' },
+         },
+         config = function()
+            require("cheatsheet").setup()
+         end
+      }
+
+      -- terminal in nvim
+      use {
+         "akinsho/toggleterm.nvim",
+         tag = '*',
+         config = function()
+            require("toggleterm").setup()
+         end
+      }
+
+      -- Git stuff
+      use {
+         'lewis6991/gitsigns.nvim',
+         config = function()
+            require('config.gitsigns').setup()
+         end
+      }
+
+      -- direnv
+      use { "direnv/direnv.vim" }
+
+      -- Diffview
+      use {
+         "sindrets/diffview.nvim",
+         requires = "nvim-lua/plenary.nvim",
+         cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles" },
+         config = function()
+            require("diffview").setup {
+               view = { merge_tool = { layout = "diff4_mixed" } }
+            }
+         end
+      }
+
+      -- note taking
+      use {
+         'nvim-orgmode/orgmode',
+         requires = "nvim-treesitter/nvim-treesitter",
+         config = function()
+            require('config.orgmode').setup()
+         end
+      }
+
+      -- latex fomulae rendering
+      use { "jbyuki/nabla.nvim" }
+
       -- colorschemes
       use({
          "folke/tokyonight.nvim",
          config = require("config.colorschemes.tokyonight").setup(),
          disable = _G.LJ.colorscheme ~= "tokyonight"
+      })
+
+      -- focus mode
+      use({
+         "Pocco81/true-zen.nvim",
+         config = function()
+            require("config.truezen").setup()
+         end,
       })
 
       -- Bootstrap Neovim
