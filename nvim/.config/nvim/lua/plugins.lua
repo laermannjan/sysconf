@@ -369,6 +369,14 @@ function M.setup()
          disable = _G.LJ.colorscheme ~= "tokyonight"
       })
 
+      use {
+         "folke/todo-comments.nvim",
+         requires = "nvim-lua/plenary.nvim",
+         config = function()
+            require("todo-comments").setup()
+         end
+      }
+
       -- focus mode
       use({
          "Pocco81/true-zen.nvim",
