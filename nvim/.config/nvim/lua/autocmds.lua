@@ -13,6 +13,30 @@ api.nvim_create_autocmd("BufWritePre", {
    command = [[call mkdir(expand('<afile>:p:h'), 'p')]],
 })
 
+-- windows to close with q
+api.nvim_create_autocmd("FileType", {
+   pattern = {
+      "help",
+      "startuptime",
+      "qf",
+      "lspinfo",
+      "vim",
+      "OverseerList",
+      "OverseerForm",
+      "fugitive",
+      "toggleterm",
+      "floggraph",
+      "git",
+      "neotest-summary",
+      "query",
+      "tsplayground",
+      "neotest-output",
+   },
+   command = [[nnoremap <buffer><silent> q :close<CR>]],
+})
+api.nvim_create_autocmd("FileType", { pattern = "man", command = [[nnoremap <buffer><silent> q :quit<CR>]] })
+api.nvim_create_autocmd("FileType", { pattern = "cheat", command = [[nnoremap <buffer><silent> q :quit<CR>]] })
+
 
 -- Run PackerCompile if there are changes in this file
 -- local packer_grp = vim.api.nvim_create_augroup("packer_user_config", { clear = true })
