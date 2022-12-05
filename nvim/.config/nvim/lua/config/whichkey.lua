@@ -49,6 +49,10 @@ local function normal_keymap()
       c = {
          name = "Code",
          a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "code action" },
+         d = { "<cmd>TroubleToggle document_diagnostics<cr>", "diagnostics" },
+         D = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace diagnostics" },
+         t = { "<cmd>TroubleToggle todo<cr>", "todos" },
+         q = { "<cmd>TroubleToggle lsp_references<cr>", "open lsp reference" },
          s = { "<cmd>SidebarNvimToggle<CR>", "sidebar" },
       },
 
