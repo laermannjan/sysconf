@@ -216,6 +216,30 @@ function M.setup()
          config = require("config.sidebar").setup()
       }
 
+
+      -- Rust
+      use {
+         "simrat39/rust-tools.nvim",
+         requires = { "nvim-lua/plenary.nvim", "rust-lang/rust.vim" },
+         -- opt = true,
+         -- module = "rust-tools",
+         -- ft = { "rust" },
+      }
+      use {
+         "saecki/crates.nvim",
+         event = { "BufRead Cargo.toml" },
+         requires = { { "nvim-lua/plenary.nvim" } },
+         config = function()
+            -- local null_ls = require "null-ls"
+            require("crates").setup {
+               null_ls = {
+                  enabled = true,
+                  name = "crates.nvim",
+               },
+            }
+         end,
+      }
+
       -- Debugging
       use {
          "mfussenegger/nvim-dap",

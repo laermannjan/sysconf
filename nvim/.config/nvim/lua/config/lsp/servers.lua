@@ -17,6 +17,16 @@ M.setup = function()
       }
    })
 
+   -- rust
+   local rust_lsp = lsp.build_options('rust_analyzer', {
+      cargo = { allFeatures = true },
+      checkOnSave = {
+         command = "cargo clippy",
+         extraArgs = { "--no-deps" },
+      }
+   })
+   require('rust-tools').setup({ server = rust_lsp })
+
    -- python
    lsp.configure("pyright", {
       before_init = function(_, config)
