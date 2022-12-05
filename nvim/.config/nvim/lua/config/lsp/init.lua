@@ -40,6 +40,7 @@ M.setup = function()
       'sumneko_lua',
       'pyright',
       -- 'debugpy',
+      'rust_analyzer',
    })
 
    lsp.setup()
