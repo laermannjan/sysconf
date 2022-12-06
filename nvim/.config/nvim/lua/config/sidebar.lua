@@ -9,7 +9,7 @@ M.setup = function()
 
    sidebar.setup {
       side = "right",
-      sections = { "symbols", "diagnostics", "files" },
+      sections = { "git", "diagnostics", "symbols", "files", "containers", "todos", },
       files = {
          show_hidden = true
       },

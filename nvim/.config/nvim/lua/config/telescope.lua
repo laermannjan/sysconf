@@ -26,6 +26,7 @@ M.setup = function()
    telescope.load_extension "file_browser"
    -- telescope.load_extension "project" -- telescope-project
    telescope.load_extension "projects" -- project.nvim
+   telescope.load_extension "aerial"
 
 end
 return M
