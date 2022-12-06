@@ -119,7 +119,7 @@ local function normal_keymap()
          z = { "<cmd>lua require('telescope').extensions.zoxide.list()<CR>", "zoxide" },
          e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
          ['/'] = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>", "grep" },
-         w = { "<cmd>w!<CR>", "Save" },
+         s = { "<cmd>w!<CR>", "Save" },
       },
 
       z = {
