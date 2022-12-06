@@ -100,26 +100,21 @@ function M.setup()
             { "RRethy/nvim-treesitter-textsubjects", event = "BufReadPre" },
             { "windwp/nvim-ts-autotag", event = "InsertEnter" },
             { "JoosepAlviste/nvim-ts-context-commentstring", event = "BufReadPre" },
-            { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre", disable = true },
+            { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre", disable = false },
             { "mfussenegger/nvim-treehopper", module = { "tsht" }, disable = true },
             {
                "m-demare/hlargs.nvim",
                config = function()
                   require("config.hlargs").setup()
                end,
+               -- currently does not apply highlight correctly
+               -- apparently need to reset HlGroup on colorscheme changed
+               -- check issues in the plugin repo
                disable = true,
             },
          }
 
       }
-      use {
-         "m-demare/hlargs.nvim",
-         config = function()
-            require("config.hlargs").setup()
-         end,
-         disable = false,
-      }
-
 
       use {
          'numToStr/Comment.nvim',
