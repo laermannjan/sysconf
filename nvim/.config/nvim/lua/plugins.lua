@@ -459,6 +459,13 @@ function M.setup()
          disable = false,
       }
 
+      use {
+         "b0o/incline.nvim",
+         config = function()
+            require("incline").setup()
+         end
+      }
+
       -- focus mode
       use({
          "Pocco81/true-zen.nvim",
