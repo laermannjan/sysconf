@@ -191,6 +191,7 @@ function M.setup()
             { "saadparwaiz1/cmp_luasnip" },
             { "hrsh7th/cmp-nvim-lsp" },
             { "hrsh7th/cmp-nvim-lua" },
+            { "davidsierradz/cmp-conventionalcommits" },
             {
                "windwp/nvim-autopairs",
                config = function()

@@ -21,12 +21,26 @@ local docker_client = Terminal:new {
    },
 }
 
+local git_commit = Terminal:new {
+   cmd = "git cz",
+   dir = "git_dir",
+   hidden = true,
+   direction = "float",
+   float_opts = {
+      border = "double",
+   },
+}
+
 function M.git_client_toggle()
    git_client:toggle()
 end
 
 function M.docker_client_toggle()
    docker_client:toggle()
+end
+
+function M.git_commit_toggle()
+   git_commit:toggle()
 end
 
 -- Open a terminal

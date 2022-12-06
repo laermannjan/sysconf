@@ -70,6 +70,7 @@ local function normal_keymap()
          name = "Git",
          g = { "<cmd>lua require('utils.term').git_client_toggle()<CR>", "lazygit" },
          s = { "<cmd>lua require('neogit').open()<CR>", "neogit status" },
+         c = { "<cmd>lua require('utils.term').git_commit_toggle()<CR>", "Conventional Commits" },
          h = { name = "hunk" },
          -- b = { "<Cmd>Gitsigns blame_line<CR>", "Toggle Git Blame" },
       },
