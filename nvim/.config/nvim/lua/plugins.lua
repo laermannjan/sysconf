@@ -408,6 +408,21 @@ function M.setup()
          end
       }
 
+      use {
+         "stevearc/dressing.nvim",
+         event = "BufReadPre",
+         config = function()
+            require("dressing").setup {
+               insert_only = true,
+               input = { relative = "editor" },
+               select = {
+                  backend = { "telescope", "fzf", "builtin" },
+               },
+            }
+         end,
+         disable = false,
+      }
+
       -- focus mode
       use({
          "Pocco81/true-zen.nvim",
