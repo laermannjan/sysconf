@@ -164,10 +164,8 @@ local function code_keymap()
                "<cmd>update<cr><cmd>lua require('utils.term').open_term([[python3 ]] .. vim.fn.shellescape(vim.fn.getreg('%'), 1), {direction = 'float'})<cr>",
                "run file",
             },
-            R = {
-               "<cmd>update<cr><cmd>lua require('utils.term').open_term([[python3 ]] .. vim.fn.shellescape(vim.fn.getreg('%'), 1) .. ' ' .. vim.fn.input('args: '), {direction = 'float'})<cr>",
-               "run file with args",
-            },
+            R = { "<cmd>update<cr><cmd>lua vim.ui.input({prompt = 'args: '}, function(input) require('utils.term').open_term([[python3 ]] .. vim.fn.shellescape(vim.fn.getreg('%'), 1) .. ' ' .. input, {direction = 'float'})end)<cr>",
+               "run file with args" },
             m = { "<cmd>TermExec cmd='nodemon -e py %'<cr>", "Monitor" },
          }
       elseif ft == "lua" then
