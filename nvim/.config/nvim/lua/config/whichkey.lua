@@ -41,9 +41,19 @@ local v_opts = {
 
 local function normal_keymap()
    local keymap = {
-      ["w"] = { "<cmd>w!<CR>", "Save" },
       ["q"] = { "<cmd>lua require('utils').quit()<CR>", "Quit" },
       ["/"] = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "find in buffer" },
+
+      w = {
+         name = "window",
+         h = { "<C-w>h", "focus left" },
+         j = { "<C-w>j", "focus below" },
+         k = { "<C-w>k", "focus above" },
+         l = { "<C-w>l", "focus right" },
+         v = { "<cmd>vsplit<cr>", "split right" },
+         V = { "<cmd>vsplit<cr>", "split below" },
+         q = { "<cmd>close<cr>", "close window" },
+      },
 
       c = {
          name = "Code",
@@ -109,6 +119,7 @@ local function normal_keymap()
          z = { "<cmd>lua require('telescope').extensions.zoxide.list()<CR>", "zoxide" },
          e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
          ['/'] = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>", "grep" },
+         w = { "<cmd>w!<CR>", "Save" },
       },
 
       z = {
