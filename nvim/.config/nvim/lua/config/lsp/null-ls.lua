@@ -35,7 +35,6 @@ M.setup = function()
          --    })
          -- end
       end,
-
       sources = {
          -- english
          null_ls.builtins.diagnostics.write_good,
@@ -55,6 +54,9 @@ M.setup = function()
          null_ls.builtins.diagnostics.mypy.with {
             command = require("config.lsp.utils").get_python_bin_path { bin = "mypy" }
          },
+
+         -- require "config.lsp.diagnostics.refurb",
+
          -- -- The Refactoring library based off the Refactoring book by Martin Fowler
          -- null_ls.builtins.code_actions.refactoring,
          -- -- Semgrep is a fast, open-source, static analysis tool for finding bugs and enforcing code standards at editor, commit, and CI time
