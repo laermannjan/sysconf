@@ -466,6 +466,14 @@ function M.setup()
          end
       }
 
+      -- peek lines before jumping :<line_number>
+      use {
+         "nacro90/numb.nvim",
+         config = function()
+            require("numb").setup()
+         end,
+      }
+
       -- Bootstrap Neovim
       if packer_bootstrap then
          print "Neovim restart is required after installation!"
