@@ -43,6 +43,7 @@ local function normal_keymap()
    local keymap = {
       ["w"] = { "<cmd>w!<CR>", "Save" },
       ["q"] = { "<cmd>lua require('utils').quit()<CR>", "Quit" },
+      ["/"] = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "find in buffer" },
 
       c = {
          name = "Code",
@@ -98,13 +99,15 @@ local function normal_keymap()
          name = "files",
          f = { "<cmd>lua require('utils.finder').find_files()<cr>", "find file" },
          p = { "<cmd>Telescope file_browser<cr>", "browse from project root" },
-         ['.'] = { "<cmd>lua require('telescope').extensions.file_browser.file_browser({path=vim.fn.expand('%:p:h')})<cr>",
+         ['.'] = { "<cmd>lua require('telescope').extensions.file_browser.file_browser({path=require('telescope.utils').buffer_dir()})<cr>",
             "browse from here" },
-         d = { "<cmd>lua require('telescope').extensions.file_browser.file_browser({path='~/code/lj/dotfiles/'})<cr>",
-            "browse dotfiles" },
-         c = { "<cmd>lua require('telescope').extensions.file_browser.file_browser({path='~/.config/nvim'})<cr>",
-            "browse nvim config" },
-         z = { "<cmd>lua require('telescope').extensions.zoxide.list()<CR>", "zoxide" }
+         d = { "<cmd>lua require('utils.finder').find_files({cwd='~/code/lj/dotfiles/'})<cr>",
+            "find in dotfiles" },
+         c = { "<cmd>lua require('telescope.builtin').find_files({cwd='~/.config/nvim/'})<cr>",
+            "find in nvim config" },
+         z = { "<cmd>lua require('telescope').extensions.zoxide.list()<CR>", "zoxide" },
+         e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
+         ['/'] = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>", "grep" },
       },
 
       z = {
