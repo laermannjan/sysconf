@@ -53,7 +53,9 @@ local function normal_keymap()
          D = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace diagnostics" },
          t = { "<cmd>TroubleToggle todo<cr>", "todos" },
          q = { "<cmd>TroubleToggle lsp_references<cr>", "open lsp reference" },
-         s = { "<cmd>SidebarNvimToggle<CR>", "sidebar" },
+         S = { "<cmd>SidebarNvimToggle<CR>", "sidebar" },
+         s = { "<cmd>Telescope aerial<cr>", "symbols" },
+         o = { "<cmd>AerialToggle<cr>", "outline" }
       },
 
       d = {

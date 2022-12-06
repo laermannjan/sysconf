@@ -231,6 +231,20 @@ function M.setup()
          "sidebar-nvim/sidebar.nvim",
          config = require("config.sidebar").setup()
       }
+      use {
+         "stevearc/aerial.nvim",
+         config = function()
+            require("aerial").setup {
+               backends = { "treesitter", "lsp" },
+               on_attach = function(bufnr)
+                  vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+                  vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+               end,
+            }
+         end,
+         module = { "aerial", "telescope._extensions.aerial" },
+         cmd = { "AerialToggle" },
+      }
 
 
       -- Rust
