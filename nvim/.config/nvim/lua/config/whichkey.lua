@@ -44,15 +44,6 @@ local function normal_keymap()
       ["w"] = { "<cmd>w!<CR>", "Save" },
       ["q"] = { "<cmd>lua require('utils').quit()<CR>", "Quit" },
 
-      x = {
-         name = "Trouble",
-         x = { "<cmd>TroubleToggle<cr>", "default" },
-         w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "workspace diagnostics" },
-         d = { "<cmd>TroubleToggle<cr> document_diagnostics", "document diagnostics" },
-         l = { "<cmd>TroubleToggle loclist<cr>", "open loclist" },
-         q = { "<cmd>TroubleToggle lsp_references<cr>", "open lsp reference" },
-
-      },
       c = {
          name = "Code",
          a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "code action" },
@@ -105,6 +96,14 @@ local function normal_keymap()
 
       f = {
          name = "files",
+         f = { "<cmd>lua require('utils.finder').find_files()<cr>", "find file" },
+         p = { "<cmd>Telescope file_browser<cr>", "browse from project root" },
+         ['.'] = { "<cmd>lua require('telescope').extensions.file_browser.file_browser({path=vim.fn.expand('%:p:h')})<cr>",
+            "browse from here" },
+         d = { "<cmd>lua require('telescope').extensions.file_browser.file_browser({path='~/code/lj/dotfiles/'})<cr>",
+            "browse dotfiles" },
+         c = { "<cmd>lua require('telescope').extensions.file_browser.file_browser({path='~/.config/nvim'})<cr>",
+            "browse nvim config" },
          z = { "<cmd>lua require('telescope').extensions.zoxide.list()<CR>", "zoxide" }
       },
 

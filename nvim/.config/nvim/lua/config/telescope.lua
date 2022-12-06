@@ -12,7 +12,7 @@ M.setup = function()
             theme = "ivy"
          },
          find_files = {
-            theme = "dropdown"
+            theme = "ivy"
          },
 
       },
