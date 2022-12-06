@@ -6,6 +6,7 @@ function M.setup()
 
    -- packer.nvim configuration
    local conf = {
+      max_jobs = 30, -- needed so packer doesn't hang when >70 plugins are around
       profile = {
          enable = true,
          threshold = 0, -- the amount in ms that a plugins load time must be over for it to be included in the profile
