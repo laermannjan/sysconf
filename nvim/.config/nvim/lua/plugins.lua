@@ -226,6 +226,16 @@ function M.setup()
             require("config.whichkey").setup()
          end
       }
+      use {
+         "mrjones2014/legendary.nvim",
+         opt = true,
+         keys = { [[<C-p>]] },
+         module = { "legendary" },
+         cmd = { "Legendary" },
+         config = function()
+            require("config.legendary").setup()
+         end,
+      }
 
       use {
          "sidebar-nvim/sidebar.nvim",
