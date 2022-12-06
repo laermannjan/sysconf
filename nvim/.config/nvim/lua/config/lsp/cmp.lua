@@ -78,6 +78,7 @@ M._get_sources = function()
    local sources = {
       { name = "orgmode" },
       { name = "copilot" },
+      { name = "conventionalcommits" },
       { name = 'path' },
       { name = 'nvim_lsp', keyword_length = 3 },
       { name = 'buffer', keyword_length = 3 },
