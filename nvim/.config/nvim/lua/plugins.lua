@@ -96,10 +96,30 @@ function M.setup()
             require("config.treesitter").setup()
          end,
          requires = {
+            { "nvim-treesitter/nvim-treesitter-textobjects", event = "BufReadPre" },
             { "RRethy/nvim-treesitter-textsubjects", event = "BufReadPre" },
+            { "windwp/nvim-ts-autotag", event = "InsertEnter" },
+            { "JoosepAlviste/nvim-ts-context-commentstring", event = "BufReadPre" },
+            { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre", disable = true },
+            { "mfussenegger/nvim-treehopper", module = { "tsht" }, disable = true },
+            {
+               "m-demare/hlargs.nvim",
+               config = function()
+                  require("config.hlargs").setup()
+               end,
+               disable = true,
+            },
          }
 
       }
+      use {
+         "m-demare/hlargs.nvim",
+         config = function()
+            require("config.hlargs").setup()
+         end,
+         disable = false,
+      }
+
 
       use {
          'numToStr/Comment.nvim',
@@ -328,17 +348,6 @@ function M.setup()
          end
       }
 
-      -- Git stuff
-      use {
-         'lewis6991/gitsigns.nvim',
-         config = function()
-            require('config.gitsigns').setup()
-         end
-      }
-
-      -- direnv
-      use { "direnv/direnv.vim" }
-
       -- Diffview
       use {
          "sindrets/diffview.nvim",
@@ -350,6 +359,27 @@ function M.setup()
             }
          end
       }
+
+      -- Git stuff
+      use {
+         'lewis6991/gitsigns.nvim',
+         config = function()
+            require('config.gitsigns').setup()
+         end
+      }
+
+      use {
+         "ruifm/gitlinker.nvim",
+         requires = "nvim-lua/plenary.nvim",
+         module = "gitlinker",
+         config = function()
+            require("gitlinker").setup { mappings = nil }
+         end,
+      }
+
+      -- direnv
+      use { "direnv/direnv.vim" }
+
 
       -- note taking
       use {
