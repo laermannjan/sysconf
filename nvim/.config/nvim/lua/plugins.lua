@@ -132,16 +132,22 @@ function M.setup()
             require("config.telescope").setup()
          end,
          requires = {
-            "nvim-lua/popup.nvim",
-            "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope-file-browser.nvim",
+            { "nvim-lua/popup.nvim" },
+            { "nvim-lua/plenary.nvim" },
+            { "nvim-telescope/telescope-file-browser.nvim" },
             {
                "ahmedkhalf/project.nvim",
                config = function()
                   require("config.project").setup()
                end,
             },
-            "jvgrootveld/telescope-zoxide",
+            { "jvgrootveld/telescope-zoxide" },
+            { "nvim-telescope/telescope-dap.nvim" },
+
+            {
+               "AckslD/nvim-neoclip.lua",
+               requires = { { 'kkharji/sqlite.lua', module = 'sqlite' } }, -- persistent history between sessions
+            },
          }
       }
 

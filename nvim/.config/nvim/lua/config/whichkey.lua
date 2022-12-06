@@ -110,6 +110,7 @@ local function normal_keymap()
 
       z = {
          name = "System",
+         c = { "<cmd>Telescope neoclip<cr>", "Clipboard" },
          r = { "<cmd>lua require('nabla').popup()<CR>", "Render Latex under point" },
          R = { "<cmd>lua require('nabla').toggle_virt()<CR>", "Render Latex in buffer" },
          p = { "<cmd>PackerProfile<cr>", "packer profile" },
