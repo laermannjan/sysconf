@@ -135,6 +135,7 @@ function M.setup()
             { "nvim-lua/popup.nvim" },
             { "nvim-lua/plenary.nvim" },
             { "nvim-telescope/telescope-file-browser.nvim" },
+            { "nvim-telescope/telescope-live-grep-args.nvim" },
             {
                "ahmedkhalf/project.nvim",
                config = function()
