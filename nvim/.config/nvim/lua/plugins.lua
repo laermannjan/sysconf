@@ -491,9 +491,28 @@ function M.setup()
          end
       }
 
-      -- peek lines before jumping :<line_number>
+      -- Jumps
       use {
-         "nacro90/numb.nvim",
+         "ggandor/leap.nvim",
+         keys = { "s", "S" },
+         config = function()
+            local leap = require "leap"
+            leap.add_default_mappings()
+         end,
+         disable = false,
+      }
+      use {
+         "abecodes/tabout.nvim",
+         after = { "nvim-cmp" },
+         config = function()
+            require("tabout").setup {
+               completion = false,
+               ignore_beginning = true,
+            }
+         end,
+      }
+      use {
+         "nacro90/numb.nvim", -- peek lines before jumping :<line_number>
          config = function()
             require("numb").setup()
          end,
