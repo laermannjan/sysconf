@@ -431,6 +431,23 @@ function M.setup()
          end,
       })
 
+      use {
+         "folke/twilight.nvim",
+         config = function()
+            require("twilight").setup {
+               context = 0,
+               expand = { -- for treesitter, we we always try to expand to the top-most ancestor with these types
+                  -- "function",
+                  -- "method",
+                  "method_definition",
+                  "function_definition",
+                  -- "table",
+                  -- "if_statement",
+               },
+            }
+         end
+      }
+
       -- Bootstrap Neovim
       if packer_bootstrap then
          print "Neovim restart is required after installation!"
