@@ -67,9 +67,9 @@ M.setup = function()
 
          -- -- git
          -- null_ls.builtins.code_actions.gitrebase,
-         -- null_ls.builtins.code_actions.gitsigns.with {
-         --    disabled_filetypes = { "NeogitCommitMessage" },
-         -- },
+         null_ls.builtins.code_actions.gitsigns.with {
+            disabled_filetypes = { "NeogitCommitMessage" },
+         },
       }
    })
 

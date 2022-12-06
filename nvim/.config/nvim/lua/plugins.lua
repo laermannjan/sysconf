@@ -386,6 +386,15 @@ function M.setup()
          end,
       }
 
+      use {
+         "TimUntersberger/neogit",
+         cmd = "Neogit",
+         module = { "neogit" },
+         config = function()
+            require("neogit").setup()
+         end,
+      }
+
       -- direnv
       use { "direnv/direnv.vim" }
 
