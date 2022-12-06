@@ -108,6 +108,10 @@ local function normal_keymap()
          u = { "<cmd>PackerUpdate<cr>", "packer update" },
          d = { "<cmd>DiffviewOpen<cr>", "Diff View Open" },
          D = { "<cmd>DiffviewClose<cr>", "Diff View Close" },
+         z = {
+            name = "Zen",
+            t = { "<cmd>Twilight<cr>", "Twilight" },
+         }
       }
    }
 
