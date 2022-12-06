@@ -17,4 +17,5 @@ fish_add_path -g ~/.emacs.d/bin
 fish_add_path -g ~/.cargo/bin
 # fish_add_path -g ~/.gem/ruby/3.1.0/bin
 
-set -gx EDITOR /Users/jan/.local/bin/lvim
+set -gx EDITOR nvim
+set -gx XDG_CONFIG_HOME "$HOME/.config"
