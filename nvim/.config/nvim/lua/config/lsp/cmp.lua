@@ -63,12 +63,12 @@ M._get_mapping = function()
          end
       end, { 'i', 's' }),
       -- navigate selection
-      ["<C-j>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
-      ["<C-k>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
+      ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
+      ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
 
       -- scroll docs
-      ["<C-n>"] = cmp.mapping.scroll_docs(2),
-      ["<C-p>"] = cmp.mapping.scroll_docs(-2),
+      ["<C-d>"] = cmp.mapping.scroll_docs(2),
+      ["<C-u>"] = cmp.mapping.scroll_docs(-2),
    }
 
    return mapping
