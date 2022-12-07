@@ -366,15 +366,17 @@ function M.setup()
          end
       }
 
-      -- terminal in nvim
+      -- Terminal
       use {
          "akinsho/toggleterm.nvim",
          tag = '*',
+         keys = { [[<C-\>]] },
+         cmd = { "ToggleTerm", "TermExec" },
+         module = { "toggleterm", "toggleterm.terminal" },
          config = function()
-            require("toggleterm").setup()
-         end
+            require("config.toggleterm").setup()
+         end,
       }
-
       -- Diffview
       use {
          "sindrets/diffview.nvim",
