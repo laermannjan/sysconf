@@ -1,0 +1,5 @@
+!.local/
+.local/*
+!.local/share/
+.local/share/*
+!.local/share/.gitkeep
