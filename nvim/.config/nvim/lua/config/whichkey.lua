@@ -64,7 +64,9 @@ local function normal_keymap()
          q = { "<cmd>TroubleToggle lsp_references<cr>", "open lsp reference" },
          S = { "<cmd>SidebarNvimToggle<CR>", "sidebar" },
          s = { "<cmd>Telescope aerial<cr>", "symbols" },
-         o = { "<cmd>AerialToggle<cr>", "outline" }
+         o = { "<cmd>AerialToggle<cr>", "outline" },
+         g = { "<cmd>Neogen func<Cr>", "Generate Func Doc" },
+         G = { "<cmd>Neogen class<Cr>", "Generate Class Doc" },
       },
 
       d = {

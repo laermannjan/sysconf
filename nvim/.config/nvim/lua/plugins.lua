@@ -520,6 +520,25 @@ function M.setup()
          end,
       }
 
+      -- database
+      use {
+         "dinhhuy258/vim-database",
+         run = ":UpdateRemotePlugins",
+         cmd = { "VDToggleDatabase", "VDToggleQuery", "VimDatabaseListTablesFzf" },
+      }
+
+
+      -- doc generation
+      use {
+         "danymat/neogen",
+         config = function()
+            require("config.neogen").setup()
+         end,
+         cmd = { "Neogen" },
+         module = "neogen",
+         disable = false,
+      }
+
       -- Bootstrap Neovim
       if packer_bootstrap then
          print "Neovim restart is required after installation!"
