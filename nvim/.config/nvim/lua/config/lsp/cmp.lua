@@ -30,6 +30,12 @@ M._get_mapping = function()
       return
    end
 
+   local neogen_present, neogen = pcall(require, "neogen")
+   if not neogen_present then
+      require("utils").warn("could not require neogen from lsp keymaps", "cmp-config")
+      return
+   end
+
    local mapping = {
       -- toggle auto complete
       ["<C-Space>"] = cmp.mapping(function(fallback)
@@ -49,6 +55,9 @@ M._get_mapping = function()
             cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
          elseif luasnip.jumpable(1) then
             luasnip.jump(1)
+         elseif neogen.jumpable() then
+            require('utils').warn('should be jumping neogen')
+            neogen.jump_next()
          else
             fallback()
          end
@@ -58,6 +67,8 @@ M._get_mapping = function()
       ["<S-Tab>"] = cmp.mapping(function(fallback)
          if luasnip.jumpable(-1) then
             luasnip.jump(-1)
+            -- elseif neogen.jumpable() then
+            --    neogen.jump_prev()
          else
             fallback()
          end
