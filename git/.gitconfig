@@ -44,3 +44,5 @@
 	user = laermannjan
 [gitlab "gitlab.com/api"]
 	user = laermannjan
+[push]
+	autoSetupRemote = true
