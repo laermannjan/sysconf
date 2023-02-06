@@ -13,6 +13,7 @@ brew bash
 brew bat
 brew bdw-gc
 brew boost
+brew borgmatic
 brew brotli
 brew c-ares
 brew ca-certificates
@@ -20,6 +21,7 @@ brew cairo
 brew cjson
 brew cmake
 brew cmocka
+brew commitizen
 brew coreutils
 brew dav1d
 brew docbook
@@ -59,6 +61,7 @@ brew gobject-introspection
 brew graphite2
 brew graphviz
 brew grip
+brew gsasl
 brew gts
 brew guile
 brew harfbuzz
@@ -66,6 +69,7 @@ brew helix
 brew helm
 brew highway
 brew hledger
+brew hyperfine
 brew icu4c
 brew imagemagick
 brew imath
@@ -76,7 +80,9 @@ brew jbig2dec
 brew jpeg
 brew jpeg-turbo
 brew jpeg-xl
+brew jq
 brew lame
+brew lazydocker
 brew lazygit
 brew ledger
 brew leptonica
@@ -91,6 +97,7 @@ brew libcerf
 brew libde265
 brew libevent
 brew libffi
+brew libgccjit
 brew libgcrypt
 brew libgpg-error
 brew libheif
@@ -129,21 +136,25 @@ brew libxau
 brew libxcb
 brew libxdmcp
 brew libxext
+brew libxml2
 brew libxrender
 brew libyaml
 brew little-cms2
 brew lua
 brew luajit
 brew luajit-openresty
+brew luarocks
 brew luv
 brew lz4
 brew lzo
 brew m4
+brew mailutils
 brew make
 brew mas
 brew mbedtls
 brew mpdecimal
 brew mpfr
+brew mpg123
 brew mr
 brew msgpack
 brew ncurses
@@ -153,6 +164,8 @@ brew netpbm
 brew nettle
 brew node
 brew npth
+brew nushell
+brew oniguruma
 brew opencore-amr
 brew openexr
 brew openjpeg
@@ -169,9 +182,11 @@ brew pixman
 brew pkg-config
 brew pngpaste
 brew proselint
+brew python-typing-extensions
 brew python@3.10
 brew python@3.11
 brew python@3.9
+brew pyyaml
 brew qt@5
 brew ranger
 brew rav1e
@@ -210,6 +225,7 @@ brew x265
 brew xmlto
 brew xorgproto
 brew xvid
+brew xxhash
 brew xz
 brew youtube-dl
 brew zeromq
@@ -229,41 +245,34 @@ tap homebrew/services
 tap homebrew/cask
 cask 1password
 cask 1password-cli
-cask alfred
 cask alt-tab
-cask amethyst
-cask beekeeper-studio
 cask brave-browser
-cask devtoys
 cask docker
-cask element
 cask fantastical
 cask firefox
-cask insomnia
 cask intellij-idea-ce
 cask iterm2
 cask kitty
+cask macfuse
 cask miro
 cask notion
-cask obs
-cask obsidian
 cask plex
-cask postico
 cask pycharm
+cask raycast
 cask rectangle
 cask signal
 cask slack
-cask spotify
 cask stats
 cask steam
-cask ubersicht
 cask unnaturalscrollwheels
 cask visual-studio-code
 cask vlc
-cask zoom
+
+tap borgbackup/tap
+brew borgbackup-fuse
 
 tap d12frosted/emacs-plus
-brew emacs-plus@28 --with-xwidgets --with-imagemagick
+brew emacs-plus@28 --with-imagemagick --with-mailutils --with-modern-doom3-icon
 
 tap hyde46/hoard
 
@@ -272,25 +281,26 @@ tap jesseduffield/lazygit
 tap koekeishiya/formulae
 brew skhd
 
+tap railwaycat/emacsmacport
+
 tap rcmdnk/file
 brew brew-file
 
 # App Store applications
-appstore 1287445660  Agenda       (16.1)
-appstore 1236045954  Canary Mail  (3.74)
-appstore 682658836   GarageBand   (10.4.7)
-appstore 1444383602  GoodNotes    (5.9.56)
-appstore 408981434   iMovie       (10.3.5)
-appstore 1136220934  Infuse       (7.4.8)
-appstore 409183694   Keynote      (12.2)
-appstore 441258766   Magnet       (2.10.0)
-appstore 360593530   Notability   (11.8.4)
-appstore 409203825   Numbers      (12.2)
-appstore 409201541   Pages        (12.2)
-appstore 1569600264  Pandan       (1.13.1)
-appstore 1596283165  rcmd         (2.3.3)
-appstore 1596706466  Speediness   (1.5.0)
-appstore 1312926037  stoic.       (2022.60)
-appstore 904280696   Things       (3.16.2)
-appstore 1607635845  Velja        (1.12.1)
-appstore 1601814648  Volum        (1.3.0)
+appstore 1287445660  Agenda      (16.1)
+appstore 1218241304  Finances    (1.7.10)
+appstore 682658836   GarageBand  (10.4.7)
+appstore 1444383602  GoodNotes   (5.9.80)
+appstore 408981434   iMovie      (10.3.5)
+appstore 1136220934  Infuse      (7.4.10)
+appstore 409183694   Keynote     (12.2.1)
+appstore 1511185140  MoneyWiz    (2022.50.1)
+appstore 360593530   Notability  (11.8.10)
+appstore 409203825   Numbers     (12.2.1)
+appstore 409201541   Pages       (12.2.1)
+appstore 1569600264  Pandan      (1.13.2)
+appstore 1596283165  rcmd        (2.3.5)
+appstore 1596706466  Speediness  (1.5.0)
+appstore 1312926037  stoic.      (2023.4)
+appstore 904280696   Things      (3.17.1)
+appstore 1607635845  Velja       (1.12.4)
