@@ -1,17 +1,21 @@
 return {
     {
-        "nvim-treesitter/nvim-treesitter",
+        "nvim-treesitter",
         opts = function(_, opts)
             vim.list_extend(opts.ensure_installed, { "beancount" })
         end,
     },
     {
-        "VonHeikemen/lsp-zero.nvim",
+        "mason.nvim",
         opts = function(_, opts)
-            vim.list_extend(opts.lsp.ensure_installed, { "beancount" })
-
+            vim.list_extend(opts.ensure_installed, { "beancount" })
+        end,
+    },
+    {
+        "null-ls.nvim",
+        opts = function(_, opts)
             local null_ls = require("null-ls")
-            vim.list_extend(opts.null_ls.sources, { null_ls.builtins.formatting.bean_format })
+            vim.list_extend(opts.sources, { null_ls.builtins.formatting.bean_format })
         end,
     },
 }

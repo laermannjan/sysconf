@@ -86,44 +86,50 @@ end
 
 return {
     {
-        "nvim-treesitter/nvim-treesitter",
+        "nvim-treesitter",
         opts = function(_, opts)
             vim.list_extend(opts.ensure_installed, { "python", "toml", "yaml" })
         end,
     },
     {
-        "VonHeikemen/lsp-zero.nvim",
+        "mason.nvim",
         opts = function(_, opts)
-            vim.list_extend(opts.lsp.ensure_installed, { "pyright", "ruff_lsp" })
-
-            opts.pre_lsp_setup_hooks = {
-                pyright = {
-                    single_file_support = true,
-                    settings = {
-                        pyright = {
-                            disableLanguageServices = false,
-                            disableOrganizeImports = false,
-                        },
-                        python = {
-                            analysis = {
-                                autoImportCompletions = true,
-                                autoSearchPaths = true,
-                                diagnosticMode = "workspace", -- openFilesOnly, workspace
-                                typeCheckingMode = "basic", -- off, basic, strict
-                                useLibraryCodeForTypes = true,
-                            },
+            vim.list_extend(opts.ensure_installed, { "pyright", "ruff_lsp" })
+        end,
+    },
+    {
+        "nvim-lspconfig",
+        config = function(_, opts)
+            require("lspconfig").pyright.setup({
+                single_file_support = true,
+                settings = {
+                    pyright = {
+                        disableLanguageServices = false,
+                        disableOrganizeImports = false,
+                    },
+                    python = {
+                        analysis = {
+                            autoImportCompletions = true,
+                            autoSearchPaths = true,
+                            diagnosticMode = "workspace", -- openFilesOnly, workspace
+                            typeCheckingMode = "basic", -- off, basic, strict
+                            useLibraryCodeForTypes = true,
                         },
                     },
                 },
-            }
-
+            })
+        end,
+    },
+    {
+        "null-ls.nvim",
+        opts = function(_, opts)
             local null_ls = require("null-ls")
-            vim.list_extend(opts.null_ls.sources, {
+            vim.list_extend(opts.sources, {
                 null_ls.builtins.formatting.black.with({
                     command = get_python_bin_path({ bin = "black" }),
                 }),
             })
-            vim.list_extend(opts.null_ls.sources, {
+            vim.list_extend(opts.sources, {
                 null_ls.builtins.diagnostics.mypy.with({
                     command = get_python_bin_path({ bin = "mypy" }),
                 }),

@@ -1,17 +1,21 @@
 return {
     {
-        "nvim-treesitter/nvim-treesitter",
+        "nvim-treesitter",
         opts = function(_, opts)
             vim.list_extend(opts.ensure_installed, { "lua", "luadoc", "luau", "luap" })
         end,
     },
     {
-        "VonHeikemen/lsp-zero.nvim",
+        "mason.nvim",
         opts = function(_, opts)
-            vim.list_extend(opts.lsp.ensure_installed, { "lua_ls" })
-
+            vim.list_extend(opts.ensure_installed, { "lua_ls" })
+        end,
+    },
+    {
+        "null-ls.nvim",
+        opts = function(_, opts)
             local nls = require("null-ls")
-            vim.list_extend(opts.null_ls.sources, { nls.builtins.formatting.stylua })
+            vim.list_extend(opts.sources, { nls.builtins.formatting.stylua })
         end,
     },
 }
