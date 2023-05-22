@@ -1,12 +1,12 @@
-local colorscheme = vim.g.colorscheme or "rose-pine"
+local colorscheme = vim.g.flabber.ui.colorscheme or "rose-pine"
 
 local M = {}
 
 M.colorschemes = {
-    { "folke/tokyonight.nvim", name = "tokyonight", opts = { style = "night" } },
-    { "rose-pine/neovim", name = "rose-pine", opts = { variant = "auto" } }, -- moon
+    { "folke/tokyonight.nvim",    name = "tokyonight", opts = { style = "night" } },
+    { "rose-pine/neovim",         name = "rose-pine",  opts = { variant = "auto" } }, -- moon
     { "ellisonleao/gruvbox.nvim", name = "gruvbox" },
-    { "catppuccin/nvim", name = "catppuccin", opts = { flavour = "moccha" } },
+    { "catppuccin/nvim",          name = "catppuccin", opts = { flavour = "moccha" } },
 }
 
 for i, value in ipairs(M.colorschemes) do

@@ -1,3 +1,7 @@
+if not vim.g.flabber.pde.python then
+    return {}
+end
+
 local path = require("lspconfig/util").path
 
 local is_empty = function(s)

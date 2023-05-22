@@ -12,6 +12,7 @@ require("lazy").setup({
         { import = "flabber.base" },
         { import = "flabber.code" },
         { import = "flabber.ui" },
+        { import = "flabber.pde" },
     },
     install = { missing = true, colorscheme = { "tokyonight", "rose-pine", "gruvbox", "habamax" } },
 })

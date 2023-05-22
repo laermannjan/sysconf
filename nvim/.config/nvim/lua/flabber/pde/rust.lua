@@ -1,3 +1,7 @@
+if not vim.g.flabber.pde.rust then
+    return {}
+end
+
 return {
     {
         "nvim-treesitter",

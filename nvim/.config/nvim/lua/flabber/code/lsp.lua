@@ -213,11 +213,4 @@ return {
             lsp.setup()
         end,
     },
-
-    -- load extra language configs
-    { import = "flabber.code.langs.lua" },
-    { import = "flabber.code.langs.python" },
-    { import = "flabber.code.langs.rust" },
-    { import = "flabber.code.langs.beancount" },
-    { import = "flabber.code.langs.go" },
 }
