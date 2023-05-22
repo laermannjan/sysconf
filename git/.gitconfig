@@ -7,7 +7,7 @@
 [core]
     excludesFile = ~/.gitignore-global
     pager = delta
-    editor = /Users/jan/.local/bin/lvim
+    editor = nvim
 
 [init]
     defaultBranch = main
