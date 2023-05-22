@@ -1,6 +1,24 @@
-customCommands:
-  - key: "Z"
-    command: "git cz c"
-    context: "files"
-    loadingText: "opening commitizen commit tool"
-    subprocess: true
+lastupdatecheck: 0
+recentrepos:
+- /Users/jan/code/lj/interpreterbook
+- /Users/jan/code/lj/dotfiles
+- /Users/jan/code/alcemy/prism_raymond
+- /Users/jan/code/alcemy/prism_ada
+- /Users/jan/code/alcemy/prism_charles
+- /Users/jan/code/alcemy/prism_john
+- /Users/jan/Documents/Finanzen/Haushaltsbuch/beancount
+- /Users/jan/code/alcemy/magrathea
+- /Users/jan/code/lj/advent-of-code
+- /Users/jan/code/lj/adventofcode
+- /Users/jan/code/alcemy/prism_cbo_test
+- /Users/jan/code/lj/rustbook
+- /Users/jan/code/ext/lunarvim.org
+- /Users/jan/code/lj/donut-rs
+- /Users/jan/code/lj/donut-py
+- /Users/jan/code/lj/wordle-py
+- /Users/jan/code/lj/todolist
+- /Users/jan/code/lj/pacioli
+startuppopupversion: 5
+customcommandshistory:
+- q
+hidecommandlog: true
