@@ -1,17 +1,21 @@
 return {
     {
-        "nvim-treesitter/nvim-treesitter",
+        "nvim-treesitter",
         opts = function(_, opts)
             vim.list_extend(opts.ensure_installed, { "go", "gomod" })
         end,
     },
     {
-        "VonHeikemen/lsp-zero.nvim",
+        "mason.nvim",
         opts = function(_, opts)
-            vim.list_extend(opts.lsp.ensure_installed, { "gopls" })
-
+            vim.list_extend(opts.ensure_installed, { "gopls" })
+        end,
+    },
+    {
+        "null-ls.nvim",
+        opts = function(_, opts)
             local null_ls = require("null-ls")
-            vim.list_extend(opts.null_ls.sources, {
+            vim.list_extend(opts.sources, {
                 null_ls.builtins.formatting.gofumpt,
                 null_ls.builtins.formatting.goimports_reviser,
                 null_ls.builtins.formatting.golines,
