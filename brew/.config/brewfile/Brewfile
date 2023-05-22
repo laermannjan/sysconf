@@ -1,9 +1,39 @@
 
 # tap repositories and their packages
 
-tap homebrew/core
+tap homebrew/cask-drivers
+
+tap homebrew/cask-fonts
+
+tap homebrew/services
+
+tap borgbackup/tap
+brew borgbackup-fuse
+
+tap d12frosted/emacs-plus
+brew emacs-plus@28 --with-imagemagick --with-mailutils --with-modern-doom3-icon
+
+tap hyde46/hoard
+
+tap jesseduffield/lazygit
+brew lazygit
+
+tap koekeishiya/formulae
+brew skhd
+brew yabai
+
+tap railwaycat/emacsmacport
+
+tap rcmdnk/file
+brew brew-file
+
+tap tnk-studio/tools
+brew lazykube
+
+# Other Homebrew packages
 brew aom
 brew argo
+brew aribb24
 brew asdf
 brew autoconf
 brew automake
@@ -15,9 +45,11 @@ brew bdw-gc
 brew boost
 brew borgmatic
 brew brotli
+brew btop
 brew c-ares
 brew ca-certificates
 brew cairo
+brew cffi
 brew cjson
 brew cmake
 brew cmocka
@@ -28,6 +60,7 @@ brew docbook
 brew docbook-xsl
 brew docutils
 brew exa
+brew fastfetch
 brew fd
 brew ffmpeg
 brew fish
@@ -42,6 +75,7 @@ brew gcc
 brew gd
 brew gdbm
 brew gdk-pixbuf
+brew gdu
 brew gettext
 brew gh
 brew ghostscript
@@ -58,8 +92,10 @@ brew gnupg
 brew gnuplot
 brew gnutls
 brew gobject-introspection
+brew gpgme
 brew graphite2
 brew graphviz
+brew grep
 brew grip
 brew gsasl
 brew gts
@@ -83,7 +119,6 @@ brew jpeg-xl
 brew jq
 brew lame
 brew lazydocker
-brew lazygit
 brew ledger
 brew leptonica
 brew less
@@ -99,6 +134,7 @@ brew libevent
 brew libffi
 brew libgccjit
 brew libgcrypt
+brew libgit2
 brew libgpg-error
 brew libheif
 brew libidn
@@ -119,10 +155,12 @@ brew libsamplerate
 brew libsndfile
 brew libsodium
 brew libsoxr
+brew libssh2
 brew libtasn1
 brew libtermkey
 brew libtiff
 brew libtool
+brew libunibreak
 brew libunistring
 brew libusb
 brew libuv
@@ -158,6 +196,7 @@ brew mpg123
 brew mr
 brew msgpack
 brew ncurses
+brew neofetch
 brew neovide
 brew neovim
 brew netpbm
@@ -182,6 +221,7 @@ brew pixman
 brew pkg-config
 brew pngpaste
 brew proselint
+brew pycparser
 brew python-typing-extensions
 brew python@3.10
 brew python@3.11
@@ -195,6 +235,7 @@ brew ripgrep
 brew rubberband
 brew rust-analyzer
 brew rustup-init
+brew screenresolution
 brew sdl2
 brew shared-mime-info
 brew shellcheck
@@ -206,6 +247,7 @@ brew sqlite
 brew srt
 brew starship
 brew stow
+brew svt-av1
 brew tcl-tk
 brew tealdeer
 brew tesseract
@@ -235,20 +277,16 @@ brew zoxide
 brew zsh
 brew zstd
 
-tap homebrew/cask-drivers
-cask synology-drive
-
-tap homebrew/cask-fonts
-
-tap homebrew/services
-
-tap homebrew/cask
+# Other Cask applications
 cask 1password
 cask 1password-cli
+cask adobe-creative-cloud
 cask alt-tab
 cask brave-browser
+cask caffeine
 cask docker
 cask fantastical
+cask fig
 cask firefox
 cask intellij-idea-ce
 cask iterm2
@@ -256,6 +294,7 @@ cask kitty
 cask macfuse
 cask miro
 cask notion
+cask obsidian
 cask plex
 cask pycharm
 cask raycast
@@ -264,43 +303,22 @@ cask signal
 cask slack
 cask stats
 cask steam
+cask synology-drive
 cask unnaturalscrollwheels
 cask visual-studio-code
 cask vlc
-
-tap borgbackup/tap
-brew borgbackup-fuse
-
-tap d12frosted/emacs-plus
-brew emacs-plus@28 --with-imagemagick --with-mailutils --with-modern-doom3-icon
-
-tap hyde46/hoard
-
-tap jesseduffield/lazygit
-
-tap koekeishiya/formulae
-brew skhd
-
-tap railwaycat/emacsmacport
-
-tap rcmdnk/file
-brew brew-file
+cask warp
 
 # App Store applications
-appstore 1287445660  Agenda      (16.1)
-appstore 1218241304  Finances    (1.7.10)
-appstore 682658836   GarageBand  (10.4.7)
-appstore 1444383602  GoodNotes   (5.9.80)
-appstore 408981434   iMovie      (10.3.5)
-appstore 1136220934  Infuse      (7.4.10)
-appstore 409183694   Keynote     (12.2.1)
-appstore 1511185140  MoneyWiz    (2022.50.1)
-appstore 360593530   Notability  (11.8.10)
-appstore 409203825   Numbers     (12.2.1)
-appstore 409201541   Pages       (12.2.1)
-appstore 1569600264  Pandan      (1.13.2)
-appstore 1596283165  rcmd        (2.3.5)
-appstore 1596706466  Speediness  (1.5.0)
-appstore 1312926037  stoic.      (2023.4)
-appstore 904280696   Things      (3.17.1)
-appstore 1607635845  Velja       (1.12.4)
+appstore 1287445660  Agenda          (17.0.2)
+appstore 1444383602  GoodNotes       (5.9.106)
+appstore 1136220934  Infuse          (7.5.3)
+appstore 409183694   Keynote         (13.0)
+appstore 360593530   Notability      (12.1.6)
+appstore 409203825   Numbers         (13.0)
+appstore 409201541   Pages           (13.0)
+appstore 1569600264  Pandan          (1.14.0)
+appstore 1596283165  rcmd            (2.3.7)
+appstore 425424353   The Unarchiver  (4.3.5)
+appstore 904280696   Things          (3.17.7)
+appstore 1607635845  Velja           (1.14.1)
