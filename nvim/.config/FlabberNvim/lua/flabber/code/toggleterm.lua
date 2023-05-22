@@ -9,7 +9,9 @@ end
 local get_bin = function(bins)
     -- check whether binary is in $PATH
     for _, bin in pairs(bins) do
+        vim.notify("checking " .. bin)
         if vim.fn.executable(bin) == 1 then
+            vim.notify("found " .. bin)
             return bin
         end
     end
@@ -33,12 +35,12 @@ return {
         },
     },
     keys = {
-        { "<F7>", "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" },
+        { "<F7>",       "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" },
         { "<leader>tt", "<cmd>ToggleTerm<cr>", desc = "Floating terminal" },
         {
             "<leader>tp",
             function()
-                tterm(get_bin({ "ipython", "python", "python3" }))
+                tterm(get_bin({ "python", "python3" }))
             end,
             desc = "Python REPL",
         },
@@ -64,7 +66,7 @@ return {
             desc = "Lazydocker",
         },
         {
-            "<leader>tp",
+            "<leader>tP",
             function()
                 tterm(get_bin({ "btop", "btm" }))
             end,
