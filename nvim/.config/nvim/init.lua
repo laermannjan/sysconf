@@ -1,2 +1,2 @@
 vim.g.colorscheme = "rose-pine"
-require("flabber")
+require("flabber.config")
