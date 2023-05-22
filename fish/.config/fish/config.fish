@@ -1,6 +1,5 @@
 # Install fisher, if it does not exist
 if status is-interactive && ! functions --query fisher && test -z "$INTELLIJ_ENVIRONMENT_READER"
-    echo hola
     curl -sL https://git.io/fisher | source
     if test -f "$__fisher_path/fish_plugins"
         fisher update
@@ -17,5 +16,10 @@ fish_add_path -g ~/.emacs.d/bin
 fish_add_path -g ~/.cargo/bin
 # fish_add_path -g ~/.gem/ruby/3.1.0/bin
 
+set -gx NVIM_APPNAME FlabberNvim
 set -gx EDITOR nvim
 set -gx XDG_CONFIG_HOME "$HOME/.config"
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
