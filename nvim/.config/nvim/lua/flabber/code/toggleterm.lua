@@ -35,10 +35,10 @@ return {
         },
     },
     keys = {
-        { "<F7>",       "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" },
-        { "<leader>tt", "<cmd>ToggleTerm<cr>", desc = "Floating terminal" },
+        { "<F7>", "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" },
+        { "<leader>TT", "<cmd>ToggleTerm<cr>", desc = "Floating terminal" },
         {
-            "<leader>tp",
+            "<leader>Tp",
             function()
                 tterm(get_bin({ "python", "python3" }))
             end,
@@ -52,42 +52,42 @@ return {
             desc = "Lazygit",
         },
         {
-            "<leader>tg",
+            "<leader>Tg",
             function()
                 tterm(get_bin({ "lazygit" }))
             end,
             desc = "Lazygit",
         },
         {
-            "<leader>td",
+            "<leader>Td",
             function()
                 tterm(get_bin({ "lazydocker" }))
             end,
             desc = "Lazydocker",
         },
         {
-            "<leader>tP",
+            "<leader>TP",
             function()
                 tterm(get_bin({ "btop", "btm" }))
             end,
             desc = "Processes (top-like)",
         },
         {
-            "<leader>tn",
+            "<leader>Tn",
             function()
                 tterm(get_bin({ "node" }))
             end,
             desc = "Node",
         },
         {
-            "<leader>tu",
+            "<leader>Tu",
             function()
                 tterm(get_bin({ "gdu" }))
             end,
             desc = "Disk usage (gdu)",
         },
         {
-            "<leader>tk",
+            "<leader>Tk",
             function()
                 tterm(get_bin({ "lazykube" }))
             end,
