@@ -35,7 +35,7 @@ return {
         },
     },
     keys = {
-        { "<F7>", "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" },
+        { "<F7>",       "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" },
         { "<leader>TT", "<cmd>ToggleTerm<cr>", desc = "Floating terminal" },
         {
             "<leader>Tp",

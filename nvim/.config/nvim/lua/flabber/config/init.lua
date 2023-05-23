@@ -1,15 +1,17 @@
 local flabber_conf = {
     ui = {
-        colorscheme = "rose-pine"
+        colorscheme = "rose-pine",
     },
     pde = {
         beancount = true,
         go = true,
         lua = true,
         python = true,
-        rust = true
+        rust = true,
     },
-
+    testing = {
+        neotest = true,
+    },
 }
 vim.g.flabber = flabber_conf
 -- plugins are managed with lazy.nvim

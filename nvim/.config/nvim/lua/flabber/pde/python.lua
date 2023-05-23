@@ -119,7 +119,7 @@ return {
                             autoImportCompletions = true,
                             autoSearchPaths = true,
                             diagnosticMode = "workspace", -- openFilesOnly, workspace
-                            typeCheckingMode = "basic",   -- off, basic, strict
+                            typeCheckingMode = "basic", -- off, basic, strict
                             useLibraryCodeForTypes = true,
                         },
                     },
@@ -144,11 +144,11 @@ return {
         end,
     },
 
-    -- {
-    --     "neotest",
-    --     dependencies = { "nvim-neotest/neotest-python" },
-    --     opts = function(_, opts)
-    --         vim.list_extend(opts.adapters, require("neotest-python"))
-    --     end,
-    -- },
+    {
+        "neotest",
+        dependencies = { "nvim-neotest/neotest-python" },
+        opts = function(_, opts)
+            vim.list_extend(opts.adapters, require("neotest-python"))
+        end,
+    },
 }
