@@ -157,7 +157,15 @@ return {
         dependencies = {
             "mfussenegger/nvim-dap-python",
             config = function()
-                require("dap-python").setup() -- Use default python
+                local python_path = get_python_bin_path({ bin = "python" })
+                require("dap-python").resolve_python = function()
+                    return python_path
+                end
+
+                -- FIX: dap does not work with pipenv
+                -- I can start a session and run the ui, but it will not pickup the python venv with its dependencies
+                vim.notify("Using python: " .. python_path)
+                require("dap-python").setup(python_path) -- Use default python
             end,
         },
     },
