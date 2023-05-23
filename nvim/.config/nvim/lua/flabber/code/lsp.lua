@@ -1,46 +1,46 @@
-local lsp_diagnostic_signs = {
-    error = "✘",
-    warn = "▲",
-    hint = "⚑",
-    info = "»",
-}
-local cmp_kind_icons = {
-    Text = "",
-    Method = "󰆧",
-    Function = "󰊕",
-    Constructor = "",
-    Field = "󰇽",
-    Variable = "󰂡",
-    Class = "󰠱",
-    Interface = "",
-    Module = "",
-    Property = "󰜢",
-    Unit = "",
-    Value = "󰎠",
-    Enum = "",
-    Keyword = "󰌋",
-    Snippet = "",
-    Color = "󰏘",
-    File = "󰈙",
-    Reference = "",
-    Folder = "󰉋",
-    EnumMember = "",
-    Constant = "󰏿",
-    Struct = "",
-    Event = "",
-    Operator = "󰆕",
-    TypeParameter = "󰅲",
-    Copilot = "",
-}
-
-local cmp_menu_names = {
-    nvim_lua = "Nvim",
-    nvim_lsp = "LSP",
-    luasnip = "Snippet",
-    buffer = "Buffer",
-    path = "Path",
-    copilot = "AI",
-}
+-- local lsp_diagnostic_signs = {
+--     error = "✘",
+--     warn = "▲",
+--     hint = "⚑",
+--     info = "»",
+-- }
+-- local cmp_kind_icons = {
+--     Text = "",
+--     Method = "󰆧",
+--     Function = "󰊕",
+--     Constructor = "",
+--     Field = "󰇽",
+--     Variable = "󰂡",
+--     Class = "󰠱",
+--     Interface = "",
+--     Module = "",
+--     Property = "󰜢",
+--     Unit = "",
+--     Value = "󰎠",
+--     Enum = "",
+--     Keyword = "󰌋",
+--     Snippet = "",
+--     Color = "󰏘",
+--     File = "󰈙",
+--     Reference = "",
+--     Folder = "󰉋",
+--     EnumMember = "",
+--     Constant = "󰏿",
+--     Struct = "",
+--     Event = "",
+--     Operator = "󰆕",
+--     TypeParameter = "󰅲",
+--     Copilot = "",
+-- }
+--
+-- local cmp_menu_names = {
+--     nvim_lua = "Nvim",
+--     nvim_lsp = "LSP",
+--     luasnip = "Snippet",
+--     buffer = "Buffer",
+--     path = "Path",
+--     copilot = "AI",
+-- }
 
 return {
     {
@@ -52,9 +52,9 @@ return {
             "williamboman/mason-lspconfig.nvim",
             "williamboman/mason.nvim",
 
-            "hrsh7th/nvim-cmp", -- Required
+            "hrsh7th/nvim-cmp",     -- Required
             "hrsh7th/cmp-nvim-lsp", -- Required
-            "L3MON4D3/LuaSnip", -- Required
+            "L3MON4D3/LuaSnip",     -- Required
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-nvim-lua",
             "saadparwaiz1/cmp_luasnip",
@@ -101,7 +101,7 @@ return {
                 },
             })
 
-            lsp.set_sign_icons(lsp_diagnostic_signs)
+            lsp.set_sign_icons(require("flabber.config.icons").diagnostics)
 
             lsp.on_attach(function(client, bufnr)
                 function wrap(desc)
@@ -141,12 +141,12 @@ return {
             local cmp_action = require("lsp-zero").cmp_action()
             cmp.setup({
                 sources = {
-                    { name = "copilot", group_index = 2 },
-                    { name = "path", group_index = 2 },
+                    { name = "copilot",  group_index = 2 },
+                    { name = "path",     group_index = 2 },
                     { name = "nvim_lua", group_index = 2 },
                     { name = "nvim_lsp", group_index = 2 },
-                    { name = "buffer", group_index = 2, keyword_length = 3 },
-                    { name = "luasnip", group_index = 2, keyword_length = 3 },
+                    { name = "buffer",   group_index = 2, keyword_length = 3 },
+                    { name = "luasnip",  group_index = 2, keyword_length = 3 },
                 },
                 mapping = {
                     -- `Enter` key to confirm completion and insert at cursor

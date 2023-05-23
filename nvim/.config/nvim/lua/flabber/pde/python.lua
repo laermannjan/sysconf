@@ -151,4 +151,14 @@ return {
             vim.list_extend(opts.adapters, require("neotest-python"))
         end,
     },
+
+    {
+        "mfussenegger/nvim-dap",
+        dependencies = {
+            "mfussenegger/nvim-dap-python",
+            config = function()
+                require("dap-python").setup() -- Use default python
+            end,
+        },
+    },
 }
