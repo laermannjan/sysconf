@@ -2,6 +2,9 @@ if not vim.g.flabber.pde.go then
     return {}
 end
 
+-- Vim test
+vim.g["test#go#runner"] = "delve"
+
 return {
     {
         "nvim-treesitter",

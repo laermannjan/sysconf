@@ -2,6 +2,9 @@ if not vim.g.flabber.pde.python then
     return {}
 end
 
+-- Vim test
+vim.g["test#python#runner"] = "pytest"
+
 local path = require("lspconfig/util").path
 
 local is_empty = function(s)
@@ -116,7 +119,7 @@ return {
                             autoImportCompletions = true,
                             autoSearchPaths = true,
                             diagnosticMode = "workspace", -- openFilesOnly, workspace
-                            typeCheckingMode = "basic", -- off, basic, strict
+                            typeCheckingMode = "basic",   -- off, basic, strict
                             useLibraryCodeForTypes = true,
                         },
                     },

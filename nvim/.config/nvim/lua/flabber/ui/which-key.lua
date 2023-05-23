@@ -25,7 +25,8 @@ return {
                 d = { name = " Debugger" },
                 g = { name = "󰊢 Git" },
                 -- S = { name = "󱂬 Session" },
-                t = { name = " Terminal" },
+                t = { name = " Tests" },
+                T = { name = " Terminal" },
                 x = { name = " Trouble" },
             },
         })
