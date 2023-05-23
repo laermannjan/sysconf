@@ -39,8 +39,6 @@ return {
         cmd = { "TodoTrouble", "TodoTelescope" },
         event = { "BufReadPost", "BufNewFile" },
         config = true,
-        -- TODO: test
-        --
         -- stylua: ignore
         keys = {
             { "]t",         function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
@@ -48,9 +46,5 @@ return {
             { "<leader>xt", "<cmd>TodoTrouble<cr>",                              desc = "Trouble Todo/Fix/Hack" },
             { "<leader>ft", "<cmd>TodoTelescope<cr>",                            desc = "Find Todo/Fix/Hack" },
         },
-
-        -- HACK: this is bragile
-        --
-        -- FIXME: this should be 1
     },
 }
