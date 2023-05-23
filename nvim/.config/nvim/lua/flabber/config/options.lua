@@ -15,7 +15,7 @@ opt.shiftround = true -- round indent to multiple of shiftwidth. > and < will mo
 opt.smarttab = true -- insert `shiftwidth` spaces, when hitting <Tab> infront of a line, also delete them in one go when hitting backspace
 opt.expandtab = true -- in insert mode convert a <Tab> press to spaces
 opt.autoindent = true -- indent next line similarly to current line when pressing <CR> in insert or o/O in normal mode
-opt.smartindent = true --  adjust indentation based on syntax TODO: review tpope/sleuth.for an automated supposedly better indentation experience
+opt.smartindent = true --  adjust indentation based on syntax
 -- opt.showtabline = 4 -- show tab line? 0: never, 1: if #tabs >= 2, 2: always -- disable, for plugin
 opt.textwidth = 128 -- max width of text that is being inserted (e.g. pasted), line break on next whitespace after reaching this width (might be overridden in ftplugins)
 
