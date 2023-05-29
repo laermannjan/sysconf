@@ -42,6 +42,18 @@
 --     copilot = "AI",
 -- }
 
+local M = {}
+M.autoformat = nil
+
+local function toggle_autoformat()
+    if M.autoformat == nil then
+        M.autoformat = vim.g.flabber.editor.autoformat
+    end
+    M.autoformat = not M.autoformat
+    vim.b.lsp_zero_enable_autoformat = M.autoformat
+    vim.notify("Autoformat is now " .. (M.autoformat and "enabled" or "disabled"))
+end
+
 return {
     {
         "VonHeikemen/lsp-zero.nvim",
@@ -52,9 +64,9 @@ return {
             "williamboman/mason-lspconfig.nvim",
             "williamboman/mason.nvim",
 
-            "hrsh7th/nvim-cmp",     -- Required
+            "hrsh7th/nvim-cmp", -- Required
             "hrsh7th/cmp-nvim-lsp", -- Required
-            "L3MON4D3/LuaSnip",     -- Required
+            "L3MON4D3/LuaSnip", -- Required
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-nvim-lua",
             "saadparwaiz1/cmp_luasnip",
@@ -124,6 +136,10 @@ return {
                 vim.keymap.set("n", "gl", function() vim.diagnostic.open_float() end, wrap("Show diagnostic"))
                 vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, wrap("Previous diagnostic"))
                 vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, wrap("Next diagnostic"))
+
+
+                vim.keymap.set("n", "<leader>af", toggle_autoformat,
+                    { buffer = 0, remap = true, desc = "Toggle autoformat" })
                 -- stylua: ignore end
                 lsp.buffer_autoformat({ async = false }) -- runs all attached LSPs with formatting capabilities (in no guaranteed order)
             end)
@@ -141,12 +157,12 @@ return {
             local cmp_action = require("lsp-zero").cmp_action()
             cmp.setup({
                 sources = {
-                    { name = "copilot",  group_index = 2 },
-                    { name = "path",     group_index = 2 },
+                    { name = "copilot", group_index = 2 },
+                    { name = "path", group_index = 2 },
                     { name = "nvim_lua", group_index = 2 },
                     { name = "nvim_lsp", group_index = 2 },
-                    { name = "buffer",   group_index = 2, keyword_length = 3 },
-                    { name = "luasnip",  group_index = 2, keyword_length = 3 },
+                    { name = "buffer", group_index = 2, keyword_length = 3 },
+                    { name = "luasnip", group_index = 2, keyword_length = 3 },
                 },
                 mapping = {
                     -- `Enter` key to confirm completion and insert at cursor

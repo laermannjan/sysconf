@@ -1,4 +1,7 @@
 local flabber_conf = {
+    editor = {
+        autoformat = true,
+    },
     ui = {
         colorscheme = "rose-pine",
     },
