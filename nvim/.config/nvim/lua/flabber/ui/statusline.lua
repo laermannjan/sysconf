@@ -76,11 +76,18 @@ M.LSP_status = function()
 end
 
 return {
-    "nvimlualine/lualine.nvim",
+    "nvim-lualine/lualine.nvim",
     opts = {
         sections = {
             lualine_x = {
-                M.LSP_status or "",
+                {
+                    M.LSP_status or "",
+                    -- icon = "WWW",
+                    color = { gui = "bold" },
+                    on_click = function()
+                        vim.cmd([[LspInfo]])
+                    end,
+                },
                 M.LSP_progress or "",
                 -- M.LSP_Diagnostics or "",
             },
