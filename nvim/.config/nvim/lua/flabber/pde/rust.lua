@@ -2,6 +2,10 @@ if not vim.g.flabber.pde.rust then
     return {}
 end
 
+local M = {}
+
+M.inlay_hints = true
+
 return {
     {
         "nvim-treesitter",
@@ -30,12 +34,28 @@ return {
                 server = {
                     on_attach = function(client, bufnr)
                         -- stylua: ignore
-                        vim.keymap.set("n", "<leader>ca", rust_tools.hover_actions.hover_actions,
+                        vim.keymap.set("n", "<leader>la", rust_tools.hover_actions.hover_actions,
                             { buffer = bufnr, desc = "Code action" })
                         -- stylua: ignore
-                        vim.keymap.set("n", "<Leader>cA", rust_tools.code_action_group.code_action_group,
+                        vim.keymap.set("n", "<Leader>lA", rust_tools.code_action_group.code_action_group,
                             { buffer = bufnr, desc = "Code action group" }
                         )
+                        vim.keymap.set("n", "<leader>lr", function()
+                            require("rust-tools").runnables.runnables()
+                        end, { buffer = bufnr, desc = "Runnables" })
+                        vim.keymap.set("n", "<leader>lR", function()
+                            require("rust-tools").debuggables()
+                        end, { buffer = bufnr, desc = "Debuggables" })
+                        vim.keymap.set("n", "<leader>lh", function()
+                            local ih = require("rust-tools").inlay_hints
+                            if M.inlay_hints == true then
+                                ih.disable()
+                                M.inlay_hints = false
+                            else
+                                ih.enable()
+                                M.inlay_hints = true
+                            end
+                        end, { buffer = bufnr, desc = "Inlay hints" })
                     end,
                 },
             })
