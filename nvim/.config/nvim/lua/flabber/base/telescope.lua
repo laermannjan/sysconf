@@ -61,6 +61,24 @@ return {
         },
         opts = {
             extensions = {},
+            defaults = {
+                mappings = {
+                    i = {
+                        ["<C-n>"] = function(...)
+                            require("telescope.actions").move_selection_next(...)
+                        end,
+                        ["<C-p>"] = function(...)
+                            require("telescope.actions").move_selection_previous(...)
+                        end,
+                        ["<Down>"] = function(...)
+                            require("telescope.actions").cycle_history_next(...)
+                        end,
+                        ["<Up>"] = function(...)
+                            require("telescope.actions").cycle_history_prev(...)
+                        end,
+                    },
+                },
+            },
         },
 
         config = function(_, opts)
