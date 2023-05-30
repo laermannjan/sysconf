@@ -1,0 +1,14 @@
+[tools]
+python = "pipenv"
+pipenv = "latest"
+terraform = "latest"
+golang = "latest"
+lua = "latest"
+ruby = "latest"
+nodejs = "18"
+
+[settings]
+experimental = true
+
+[alias.python]
+pipenv = "3.9.5"
