@@ -117,12 +117,12 @@ return {
 
             lsp.on_attach(function(client, bufnr)
                 function wrap(desc)
-                    return { buffer = bufnr, remap = false, desc = desc }
+                    return { buffer = bufnr, remap = false, desc = desc, expr = true }
                 end
 
                 -- stylua: ignore start
                 vim.keymap.set({ "n", "x" }, "=", function() vim.lsp.buf.format() end, wrap("Format"))
-                vim.keymap.set("n", "<leader>lr", function() vim.lsp.buf.rename() end, wrap("Rename current symbol"))
+                vim.keymap.set("n", "<leader>lr", function() return ":IncRename " end, wrap("Rename current symbol"))
                 vim.keymap.set("n", "<leader>la", function() vim.lsp.buf.code_action() end, wrap("Code Action"))
 
                 vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, wrap("Hover docs"))
