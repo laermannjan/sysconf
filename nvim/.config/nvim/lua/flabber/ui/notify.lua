@@ -1,14 +1,5 @@
 return {
     "rcarriga/nvim-notify",
-    keys = {
-        {
-            "<leader>un",
-            function()
-                require("notify").dismiss({ silent = true, pending = true })
-            end,
-            desc = "Dismiss all Notifications",
-        },
-    },
     opts = {
         timeout = 3000,
         max_height = function()
@@ -19,8 +10,6 @@ return {
         end,
     },
     init = function()
-        if require("lazy.core.config").plugins["noice.nvim"] == nil then
-            vim.notify = require("notify")
-        end
+        vim.notify = require("notify")
     end,
 }
