@@ -957,4 +957,8 @@ $RECYCLE.BIN/
 
 .fleet
 settings.json
+
+.worktrees/
+.worktrees/*
+
 .rtx.toml
