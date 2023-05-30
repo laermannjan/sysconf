@@ -14,7 +14,7 @@ return {
         end,
     },
     {
-        "mason.nvim",
+        "mason-lspconfig.nvim",
         opts = function(_, opts)
             vim.list_extend(opts.ensure_installed, { "rust_analyzer", "taplo" })
         end,
@@ -40,10 +40,10 @@ return {
                         vim.keymap.set("n", "<Leader>lA", rust_tools.code_action_group.code_action_group,
                             { buffer = bufnr, desc = "Code action group" }
                         )
-                        vim.keymap.set("n", "<leader>lr", function()
+                        vim.keymap.set("n", "<leader>lR", function()
                             require("rust-tools").runnables.runnables()
                         end, { buffer = bufnr, desc = "Runnables" })
-                        vim.keymap.set("n", "<leader>lR", function()
+                        vim.keymap.set("n", "<leader>lD", function()
                             require("rust-tools").debuggables()
                         end, { buffer = bufnr, desc = "Debuggables" })
                         vim.keymap.set("n", "<leader>lh", function()
