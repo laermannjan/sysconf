@@ -1,49 +1,5 @@
 local M = {}
 
-M.LSP_progress = function()
-    if not rawget(vim, "lsp") then
-        return ""
-    end
-
-    local Lsp = vim.lsp.util.get_progress_messages()[1]
-
-    if vim.o.columns < 120 or not Lsp then
-        return ""
-    end
-
-    local msg = Lsp.message or ""
-    local percentage = Lsp.percentage or 0
-    local title = Lsp.title or ""
-    local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪢", "󰪣", "󰪤", "󰪥" }
-    local ms = vim.loop.hrtime() / 1000000
-    local frame = math.floor(ms / 120) % #spinners
-    local content = string.format(" %%<%s %s %s (%s%%%%) ", spinners[frame + 1], title, msg, percentage)
-
-    -- if config.lsprogress_len then
-    --     content = string.sub(content, 1, config.lsprogress_len)
-    -- end
-
-    return ("%#St_LspProgress#" .. content) or ""
-end
-
-M.LSP_Diagnostics = function()
-    if not rawget(vim, "lsp") then
-        return ""
-    end
-
-    local errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
-    local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
-    local hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
-    local info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
-
-    errors = (errors and errors > 0) and ("%#St_lspError#" .. " " .. errors .. " ") or ""
-    warnings = (warnings and warnings > 0) and ("%#St_lspWarning#" .. "  " .. warnings .. " ") or ""
-    hints = (hints and hints > 0) and ("%#St_lspHints#" .. "󰛩 " .. hints .. " ") or ""
-    info = (info and info > 0) and ("%#St_lspInfo#" .. "󰋼 " .. info .. " ") or ""
-
-    return errors .. warnings .. hints .. info
-end
-
 M.LSP_status = function()
     if rawget(vim, "lsp") then
         local client_names = {}
@@ -88,8 +44,6 @@ return {
                         vim.cmd([[LspInfo]])
                     end,
                 },
-                M.LSP_progress or "",
-                -- M.LSP_Diagnostics or "",
             },
         },
     },
