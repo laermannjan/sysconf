@@ -32,4 +32,8 @@ return {
             require("nvim-treesitter.configs").setup(opts) -- important to call on .configs
         end,
     },
+    "nvim-treesitter/nvim-treesitter-context",
+    opts = {
+        mode = "topline",
+    },
 }
