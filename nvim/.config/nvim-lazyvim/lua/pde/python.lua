@@ -39,6 +39,7 @@ return {
       end
     end,
   },
+
   {
     "neovim/nvim-lspconfig",
     opts = {
@@ -66,4 +67,29 @@ return {
       },
     },
   },
+
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/neotest-python",
+    },
+    opts = function(_, opts)
+      vim.list_extend(opts.adapters, {
+        require("neotest-python")({
+          dap = { justMyCode = false },
+          runner = "unittest",
+        }),
+      })
+    end,
+  },
+
+  -- {
+  --   "mfussenegger/nvim-dap",
+  --   dependencies = {
+  --     "mfussenegger/nvim-dap-python",
+  --     config = function()
+  --       require("dap-python").setup() -- Use default python
+  --     end,
+  --   },
+  -- },
 }
