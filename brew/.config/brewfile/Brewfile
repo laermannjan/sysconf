@@ -34,7 +34,6 @@ brew lazykube
 brew aom
 brew argo
 brew aribb24
-brew asdf
 brew autoconf
 brew automake
 brew awk
@@ -264,12 +263,14 @@ brew webp
 brew wget
 brew x264
 brew x265
+brew xh
 brew xmlto
 brew xorgproto
 brew xvid
 brew xxhash
 brew xz
 brew youtube-dl
+brew zellij
 brew zeromq
 brew zimg
 brew zlib
@@ -308,11 +309,12 @@ cask unnaturalscrollwheels
 cask visual-studio-code
 cask vlc
 cask warp
+cask wezterm
 
 # App Store applications
 appstore 1287445660  Agenda          (17.0.2)
-appstore 1444383602  GoodNotes       (5.9.106)
-appstore 1136220934  Infuse          (7.5.3)
+appstore 1444383602  GoodNotes       (5.9.108)
+appstore 1136220934  Infuse          (7.5.4)
 appstore 409183694   Keynote         (13.0)
 appstore 360593530   Notability      (12.1.6)
 appstore 409203825   Numbers         (13.0)
@@ -321,4 +323,4 @@ appstore 1569600264  Pandan          (1.14.0)
 appstore 1596283165  rcmd            (2.3.7)
 appstore 425424353   The Unarchiver  (4.3.5)
 appstore 904280696   Things          (3.17.7)
-appstore 1607635845  Velja           (1.14.1)
+appstore 1607635845  Velja           (1.15.0)
