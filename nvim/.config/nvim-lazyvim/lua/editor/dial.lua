@@ -11,11 +11,22 @@ return {
     local augend = require("dial.augend")
     local groups = {
       default = {
-        augend.semver.alias.semver,
-        augend.integer.alias.decimal,
+        augend.date.new({
+          pattern = "%Y.%m.%d",
+          default_kind = "day",
+          -- if true, it does not match dates which does not exist, such as 2022/05/32
+          only_valid = true,
+          -- if true, it only matches dates with word boundary
+          word = false,
+
+          augend.constant.alias.bool,
+        }),
         augend.date.alias["%Y-%m-%d"],
         augend.date.alias["%Y/%m/%d"],
+        augend.date.alias["%d.%m.%Y"],
         augend.constant.alias.bool,
+        augend.semver.alias.semver,
+        augend.integer.alias.decimal,
       },
     }
     return {
