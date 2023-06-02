@@ -45,11 +45,11 @@ return {
     opts = {
       servers = {
         ruff_lsp = {
-          -- init_options = {
-          --   settings = {
-          --     args = { "--max-line-length=180" },
-          --   },
-          -- },
+          init_options = {
+            settings = {
+              --     args = { "--max-line-length=180" },
+            },
+          },
         },
         pyright = {
           settings = {
@@ -77,7 +77,7 @@ return {
       vim.list_extend(opts.adapters, {
         require("neotest-python")({
           dap = { justMyCode = false },
-          runner = "unittest",
+          runner = "pytest",
         }),
       })
     end,
