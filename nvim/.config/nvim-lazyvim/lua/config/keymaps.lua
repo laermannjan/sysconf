@@ -3,4 +3,4 @@
 -- Add any additional keymaps here
 local keymap = vim.keymap.set
 
-keymap("n", "<leader>w", ":w<CR>", { desc = "Save file", silent = true })
+keymap("n", "<leader>fs", ":w<CR>", { desc = "Save file", silent = true })
