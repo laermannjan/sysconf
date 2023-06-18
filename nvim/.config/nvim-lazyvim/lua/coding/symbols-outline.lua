@@ -2,6 +2,7 @@ return {
   {
     "simrat39/symbols-outline.nvim",
     cmd = "SymbolsOutline",
+    enabled = false,
     keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
     config = function()
       local icons = require("lazyvim.config").icons
@@ -39,5 +40,16 @@ return {
         },
       })
     end,
+  },
+  {
+    "stevearc/aerial.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
+    keys = { { "<leader>cs", "<cmd>AerialToggle!<cr>", desc = "Symbols Outline" } },
+    opts = {
+      backends = { "lsp", "treesitterl", "markdown", "man" },
+    },
   },
 }
