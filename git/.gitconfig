@@ -54,3 +54,5 @@
 	user = laermannjan
 [push]
 	autoSetupRemote = true
+[pull]
+	rebase = true
