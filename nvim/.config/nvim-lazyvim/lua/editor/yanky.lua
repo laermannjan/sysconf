@@ -1,16 +1,26 @@
 return {
-  "gbprod/yanky.nvim",
-  opts = {
-    highlight = {
-      timer = 100,
-    },
-  },
-  keys = {
-    { "p", "<Plug>(YankyPutIndentAfterLinewise)" },
-    { "P", "<Plug>(YankyPutIndentBeforeLinewise)" },
-    { "]p", "<Plug>(YankyPutIndentAfterLinewise)" },
-    { "[p", "<Plug>(YankyPutIndentBeforeLinewise)" },
-    { "<C-n>", "<Plug>(YankyCycleForward)" },
-    { "<C-p>", "<Plug>(YankyCycleBackward)" },
-  },
+  --
+  --   {
+  --     "gbprod/cutlass.nvim",
+  --     config = function()
+  --       require("cutlass").setup()
+  --     end,
+  --   },
+  --   {
+  --     "gbprod/yanky.nvim",
+  --     opts = {
+  --       highlight = {
+  --         timer = 100,
+  --       },
+  --     },
+  --     keys = {
+  --       { "y", "<Plug>(YankyYank)", mode = { "n", "x" } },
+  --       { "y", "<Plug>(YankyYank)", mode = { "n", "x" } },
+  --       { "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" } },
+  --       { "]p", "<Plug>(YankyPutIndentAfterLinewise)", mode = { "n", "x" } },
+  --       { "[p", "<Plug>(YankyPutIndentBeforeLinewise)", mode = { "n", "x" } },
+  --       { "<C-n>", "<Plug>(YankyCycleForward)", mode = { "n", "x" } },
+  --       { "<C-p>", "<Plug>(YankyCycleBackward)", mode = { "n", "x" } },
+  --     },
+  --   },
 }

@@ -4,3 +4,4 @@
 local keymap = vim.keymap.set
 
 keymap("n", "<leader>fs", ":w<CR>", { desc = "Save file", silent = true })
+keymap("v", "p", '"_dP', { desc = "Paste without yank", silent = true })
