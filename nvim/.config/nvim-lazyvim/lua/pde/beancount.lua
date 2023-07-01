@@ -30,7 +30,12 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        beancount = {},
+        beancount = {
+          init_options = {
+            journal_file = "~/Documents/Finanzen/Haushaltsbuch/new_beans/ledger/main.beancount",
+            -- pythonPath = vim.fn.exepath("python3"),
+          },
+        },
       },
     },
   },
