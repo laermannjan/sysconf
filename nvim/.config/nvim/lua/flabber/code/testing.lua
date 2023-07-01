@@ -1,12 +1,12 @@
 local vim_test_spec = {
     "vim-test/vim-test",
     keys = {
-        { "<leader>tc", "<cmd>TestClass<cr>", desc = "Class" },
-        { "<leader>tf", "<cmd>TestFile<cr>", desc = "File" },
-        { "<leader>tl", "<cmd>TestLast<cr>", desc = "Last" },
+        { "<leader>tc", "<cmd>TestClass<cr>",   desc = "Class" },
+        { "<leader>tf", "<cmd>TestFile<cr>",    desc = "File" },
+        { "<leader>tl", "<cmd>TestLast<cr>",    desc = "Last" },
         { "<leader>tn", "<cmd>TestNearest<cr>", desc = "Nearest" },
-        { "<leader>ts", "<cmd>TestSuite<cr>", desc = "Suite" },
-        { "<leader>tv", "<cmd>TestVisit<cr>", desc = "Visit" },
+        { "<leader>ts", "<cmd>TestSuite<cr>",   desc = "Suite" },
+        { "<leader>tv", "<cmd>TestVisit<cr>",   desc = "Visit" },
     },
     config = function()
         -- vim.g["test#strategy"] = "neovim"
@@ -67,9 +67,4 @@ local neotest_spec = {
         },
     },
 }
-
-if vim.g.flabber.testing.neotest then
-    return neotest_spec
-else
-    return vim_test_spec
-end
+return { vim_test_spec, neotest_spec }
