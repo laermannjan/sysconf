@@ -1,0 +1,126 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+format = """\
+$username\
+$hostname\
+$directory\
+${custom.git_host}\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$all\
+$fill\
+$docker_context\
+$kubecontext\
+$cmd_duration\
+$time\
+$line_break\
+$character"""
+
+[fill]
+symbol = " "
+
+[character]
+# success_symbol = "[󰜥](bold green)"
+
+# [python]
+# format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+#
+# [rust]
+# format = '[$symbol($version )]($style)'
+
+# [golang]
+# symbol = " "
+# format = '[$symbol($version )]($style)'
+
+# [docker_context]
+# format = '[$symbol$context ]($style)'
+
+[time]
+format = '[  $time ]($style)'
+style = "bright-black"
+disabled = false
+
+[aws]
+disabled = true
+
+[git_branch]
+symbol = " "
+
+[git_status]
+format = '([$ahead_behind](yellow) -- [$all_status]($style) )'
+ahead = ' ${count}'
+diverged = ' ${ahead_count} ${behind_count}'
+behind = ' ${count}'
+untracked = "[${count} ](bright-black)"
+staged = "[ ${count} ](bright-green)"
+modified = "[ ${count} ](bright-yellow)"
+deleted = "[ ${count} ](bright-red)"
+renamed = "[ ${count} ](bright-cyan)"
+stashed = "[${count} ](red)"
+
+[custom]
+
+[custom.git_host]
+command = """
+URL=$(command git ls-remote --get-url 2> /dev/null)
+if [[ "$URL" =~ "github" ]]; then
+    ICON=" "
+elif [[ "$URL" =~ "gitlab" ]]; then
+    ICON=" "
+elif [[ "$URL" =~ "bitbucket" ]];then
+    ICON=" "
+elif [[ "$URL" =~ "kernel" ]];then
+    ICON=" "
+elif [[ "$URL" =~ "archlinux" ]];then
+    ICON=" "
+elif [[ "$URL" =~ "gnu" ]];then
+    ICON=" "
+elif [[ "$URL" =~ "git" ]];then
+    ICON=" "
+else
+    ICON=" "
+    URL="localhost"
+fi
+for PATTERN in "https" "http" "git" "://" "@"; do
+    [[ "$URL" == "$PATTERN"* ]] && URL="${URL##$PATTERN}"
+done
+for PATTERN in "/" ".git"; do
+    [[ "$URL" == *"$PATTERN" ]] && URL="${URL%%$PATTERN}"
+done
+echo -n "${ICON}${URL}"
+"""
+directories = [".git"]
+when = 'git rev-parse --is-inside-work-tree 2> /dev/null'
+shell = ["bash", "--norc", "--noprofile"]
+style = "bright-yellow bold"
+format = "at [$output ]($style)"
+
+[custom.env_slug]
+description = "Display ENVIRONMENT_SLUG if set and notify if "
+when = """[[ $(git ls-remote --get-url) =~ ^gitlab.com:alcemy ]] && [[ -f $(git rev-parse --show-toplevel)/.env ]]"""
+format = "(in [$symbol($output )]($style))"
+style = "bold yellow"
+command = """
+SYMBOL=""
+GIT_ROOT=$(git rev-parse --show-toplevel)
+DYN_ENV=$(git branch --show-current | cut -s -d '+' -f 2)
+ENV_SLUG=$(cat $GIT_ROOT/.env | grep "^ENVIRONMENT_SLUG" | xargs | cut -s -d '=' -f 2)
+
+[[ -z $DYN_ENV ]] && [[ $ENV_SLUG == "testing" ]] && exit
+
+[[ -z $DYN_ENV ]] && [[ $ENV_SLUG =~ ^dyn_ ]] && SYMBOL="🚧 "
+[[ -n $DYN_ENV ]] && [[ "dyn_$DYN_ENV" != $ENV_SLUG ]] && SYMBOL="🚧 "
+
+[[ -z $ENV_SLUG ]] && ENV_SLUG="<undefined env slug>"
+
+[[ $ENV_SLUG =~ ^prod ]] && SYMBOL="🛑 $SYMBOL" && ENV_SLUG=${ENV_SLUG^^}
+
+echo "${SYMBOL}${ENV_SLUG}"
+"""
+shell = ["bash", "--noprofile", "--norc"]
