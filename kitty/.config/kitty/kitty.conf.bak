@@ -10,7 +10,8 @@
 # bold_font        auto
 # italic_font      auto
 # bold_italic_font auto
-font_family Consolas NF
+# font_family Consolas NF
+font_family     ComicCode Nerd Font
 font_size 15.0
 
 #: You can specify different fonts for the bold/italic/bold-italic
@@ -77,7 +78,7 @@ font_size 15.0
 
 #:     narrow_symbols codepoints [optionally the number of cells]
 
-# disable_ligatures never
+disable_ligatures always
 
 #: Choose how you want to handle multi-character ligatures. The
 #: default is to always render them. You can tell kitty to not render
@@ -97,7 +98,7 @@ font_size 15.0
 
 # font_features
 
-#: E.g. font_features none
+font_features ComicCodeLigatures -liga
 
 #: Choose exactly which OpenType features to enable or disable. This
 #: is useful as some fonts might have features worthwhile in a
@@ -758,7 +759,7 @@ font_size 15.0
 #: Fade the text in inactive windows by the specified amount (a number
 #: between zero and one, with zero being fully faded).
 
-# hide_window_decorations no
+hide_window_decorations no
 
 #: Hide the window decorations (title-bar and window borders) with
 #: yes. On macOS, titlebar-only can be used to only hide the titlebar.
@@ -1144,8 +1145,7 @@ font_size 15.0
 #: --login and --interactive to ensure that the shell starts in
 #: interactive mode and reads its startup rc files.
 
-# editor .
-
+editor /opt/homebrew/bin/nvim
 #: The terminal based text editor (such as vim or nano) to use when
 #: editing the kitty config file or similar tasks.
 
@@ -1412,8 +1412,7 @@ listen_on unix:/tmp/kitty
 #: means to use the default system color, a value of background means
 #: to use the background color of the currently active window and
 #: finally you can use an arbitrary color, such as #12af59 or red.
-
-# macos_titlebar_color system
+# macos_titlebar_color #1a1b26
 
 #: The color of the kitty window's titlebar on macOS. A value of
 #: system means to use the default system color, light or dark can
@@ -1946,6 +1945,15 @@ listen_on unix:/tmp/kitty
 
 #:     map ctrl+alt+1 goto_tab 1
 #:     map ctrl+alt+2 goto_tab 2
+map cmd+1 goto_tab 1
+map cmd+2 goto_tab 2
+map cmd+3 goto_tab 3
+map cmd+4 goto_tab 4
+map cmd+5 goto_tab 5
+map cmd+6 goto_tab 6
+map cmd+7 goto_tab 7
+map cmd+8 goto_tab 8
+map cmd+9 goto_tab 9
 
 #: Just as with new_window above, you can also pass the name of
 #: arbitrary commands to run when using new_tab and new_tab_with_cwd.
@@ -2243,6 +2251,6 @@ listen_on unix:/tmp/kitty
 
 
 # BEGIN_KITTY_THEME
-# Tokyo Night Day
+# Rosé Pine Moon
 include current-theme.conf
 # END_KITTY_THEME
