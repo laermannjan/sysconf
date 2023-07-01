@@ -1,36 +1,7 @@
 
 # tap repositories and their packages
 
-tap homebrew/cask-drivers
-
-tap homebrew/cask-fonts
-
-tap homebrew/services
-
-tap borgbackup/tap
-brew borgbackup-fuse
-
-tap d12frosted/emacs-plus
-brew emacs-plus@28 --with-imagemagick --with-mailutils --with-modern-doom3-icon
-
-tap hyde46/hoard
-
-tap jesseduffield/lazygit
-brew lazygit
-
-tap koekeishiya/formulae
-brew skhd
-brew yabai
-
-tap railwaycat/emacsmacport
-
-tap rcmdnk/file
-brew brew-file
-
-tap tnk-studio/tools
-brew lazykube
-
-# Other Homebrew packages
+tap homebrew/core
 brew aom
 brew argo
 brew aribb24
@@ -55,6 +26,7 @@ brew cmocka
 brew commitizen
 brew coreutils
 brew dav1d
+brew direnv
 brew docbook
 brew docbook-xsl
 brew docutils
@@ -116,8 +88,10 @@ brew jpeg
 brew jpeg-turbo
 brew jpeg-xl
 brew jq
+brew just
 brew lame
 brew lazydocker
+brew lazygit
 brew ledger
 brew leptonica
 brew less
@@ -219,8 +193,10 @@ brew pinentry
 brew pixman
 brew pkg-config
 brew pngpaste
+brew pre-commit
 brew proselint
 brew pycparser
+brew pygments
 brew python-typing-extensions
 brew python@3.10
 brew python@3.11
@@ -259,6 +235,7 @@ brew unibilium
 brew unixodbc
 brew utf8proc
 brew vcsh
+brew virtualenv
 brew webp
 brew wget
 brew x264
@@ -278,7 +255,7 @@ brew zoxide
 brew zsh
 brew zstd
 
-# Other Cask applications
+tap homebrew/cask
 cask 1password
 cask 1password-cli
 cask adobe-creative-cloud
@@ -289,14 +266,18 @@ cask docker
 cask fantastical
 cask fig
 cask firefox
+cask google-chrome
+cask insomnia
 cask intellij-idea-ce
 cask iterm2
+cask karabiner-elements
 cask kitty
 cask macfuse
 cask miro
 cask notion
 cask obsidian
 cask plex
+cask postman
 cask pycharm
 cask raycast
 cask rectangle
@@ -308,19 +289,48 @@ cask synology-drive
 cask unnaturalscrollwheels
 cask visual-studio-code
 cask vlc
-cask warp
 cask wezterm
 
+tap homebrew/cask-drivers
+
+tap homebrew/cask-fonts
+
+tap homebrew/services
+
+tap borgbackup/tap
+brew borgbackup-fuse
+
+tap d12frosted/emacs-plus
+brew emacs-plus@28 --with-imagemagick --with-mailutils --with-modern-doom3-icon
+
+tap hyde46/hoard
+
+tap jdxcode/tap
+
+tap jesseduffield/lazygit
+
+tap koekeishiya/formulae
+brew skhd
+brew yabai
+
+tap railwaycat/emacsmacport
+
+tap rcmdnk/file
+brew brew-file
+
+tap tnk-studio/tools
+brew lazykube
+
 # App Store applications
-appstore 1287445660  Agenda          (17.0.2)
-appstore 1444383602  GoodNotes       (5.9.108)
-appstore 1136220934  Infuse          (7.5.4)
-appstore 409183694   Keynote         (13.0)
-appstore 360593530   Notability      (12.1.6)
-appstore 409203825   Numbers         (13.0)
-appstore 409201541   Pages           (13.0)
-appstore 1569600264  Pandan          (1.14.0)
-appstore 1596283165  rcmd            (2.3.7)
-appstore 425424353   The Unarchiver  (4.3.5)
-appstore 904280696   Things          (3.17.7)
-appstore 1607635845  Velja           (1.15.0)
+appstore 1287445660 Agenda (17.0.2)
+appstore 1444383602 GoodNotes (5.9.118)
+appstore 1136220934 Infuse (7.5.6)
+appstore 409183694 Keynote (13.1)
+appstore 360593530 Notability (12.1.9)
+appstore 409203825 Numbers (13.1)
+appstore 409201541 Pages (13.1)
+appstore 1569600264 Pandan (1.14.1)
+appstore 1596283165 rcmd (2.3.7)
+appstore 425424353 The Unarchiver (4.3.5)
+appstore 904280696 Things3 (3.17.7)
+appstore 1607635845 Velja (1.15.2)
