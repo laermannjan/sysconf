@@ -19,9 +19,10 @@ fish_add_path -g ~/.cargo/bin
 set -gx EDITOR nvim
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 
-set -gx NVIM_APPNAME "nvim-lazyvim"
+set -gx NVIM_APPNAME nvim-lazyvim
 
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 rtx activate fish | source
+direnv hook fish | source
