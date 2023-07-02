@@ -5,7 +5,7 @@
     email = laermannjan@gmail.com
 
 [core]
-    excludesFile = ~/.gitignore-global
+    excludesFile = ~/.config/git/ignore
     pager = delta
     editor = nvim
 
