@@ -24,6 +24,8 @@ config.front_end = "WebGpu"
 config.max_fps = 240
 
 config.color_scheme = "tokyonight_night"
+-- config.color_scheme = "Gotham (Gogh)"
+-- config.color_scheme = "SeaShells"
 config.font = wezterm.font("ComicCode Nerd Font")
 
 config.font_size = 16.0
@@ -36,8 +38,8 @@ config.enable_tab_bar = true
 config.use_fancy_tab_bar = true
 
 config.window_decorations = "RESIZE"
-config.window_background_opacity = 0.95
-config.macos_window_background_blur = 20
+-- config.window_background_opacity = 0.95
+-- config.macos_window_background_blur = 20
 config.window_padding = {
 	left = 0,
 	right = 0,
