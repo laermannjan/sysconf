@@ -1,5 +1,5 @@
 return {
-  { "polarmutex/beancount.nvim" },
+  -- { "polarmutex/beancount.nvim" },
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
@@ -32,7 +32,7 @@ return {
       servers = {
         beancount = {
           init_options = {
-            journal_file = "~/Documents/Finanzen/Haushaltsbuch/new_beans/ledger/main.beancount",
+            journal_file = "/Users/jan/Documents/Finanzen/Haushaltsbuch/new_beans/ledger/main.beancount",
             -- pythonPath = vim.fn.exepath("python3"),
           },
         },
