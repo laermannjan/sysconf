@@ -2,12 +2,13 @@ return {
   {
     "simrat39/symbols-outline.nvim",
     cmd = "SymbolsOutline",
-    enabled = false,
+    enabled = true,
     keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
     config = function()
       local icons = require("lazyvim.config").icons
       require("symbols-outline").setup({
         position = "right",
+        symbol_blacklist = { "Variable" },
         symbols = {
           File = { icon = icons.kinds.File, hl = "@text.uri" },
           Module = { icon = icons.kinds.Module, hl = "@namespace" },
@@ -43,6 +44,7 @@ return {
   },
   {
     "stevearc/aerial.nvim",
+    enabled = false,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",

@@ -21,8 +21,20 @@ return {
       local cmp = require("cmp")
 
       opts.mapping = vim.tbl_extend("force", opts.mapping, {
+        -- don't suddenly add completion when I'm just typing
         ["<CR>"] = cmp.config.disable,
-        ["<S-CR>"] = cmp.config.disable,
+
+        -- just add the completion at point
+        ["<S-CR>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert })
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+
+        -- replace what's after the cursor with the completion
+        -- or jump to next snippet location
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace })
@@ -30,21 +42,28 @@ return {
             -- this way you will only jump inside the snippet region
           elseif luasnip.expand_or_jumpable() then
             luasnip.expand_or_jump()
-          elseif has_words_before() then
-            cmp.complete()
+          -- elseif has_words_before() then
+          --   cmp.complete()
           else
             fallback()
           end
         end, { "i", "s" }),
+
+        -- go to previous snippet position
         ["<S-Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert })
-          elseif luasnip.jumpable(-1) then
+          if luasnip.jumpable(-1) then
             luasnip.jump(-1)
           else
             fallback()
           end
         end, { "i", "s" }),
+      })
+
+      opts.sources = cmp.config.sources({
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+        { name = "buffer" },
+        { name = "path" },
       })
     end,
   },

@@ -14,6 +14,8 @@ return {
           search_dirs = {
             "~/code/alcemy/",
             "~/code/lj/",
+            "~/code/ext/",
+            "~/Documents/Finanzen/Haushaltsbuch/",
           },
         },
         settings = {
