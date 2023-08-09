@@ -5,27 +5,22 @@
 add_newline = true
 
 format = """\
-$username\
-$hostname\
-$directory\
-${custom.git_host}\
-$git_branch\
-$git_commit\
-$git_state\
-$git_status\
-$all\
-$fill\
-$docker_context\
-$kubecontext\
-$cmd_duration\
 $time\
-$line_break\
+$all\
 $character"""
 
 [fill]
 symbol = " "
 
+[directory]
+format = "in [$path]($style)[$read_only]($read_only_style) "
+
+[package]
+disabled = true
+
 [character]
+success_symbol = "[  ](bold bright-green)"
+error_symbol = "[  ](bold red)"
 # success_symbol = "[󰜥](bold green)"
 
 # [python]
@@ -42,66 +37,33 @@ symbol = " "
 # format = '[$symbol$context ]($style)'
 
 [time]
-format = '[  $time ]($style)'
-style = "bright-black"
+style = "bold yellow"
+time_format = "%H:%M"
+format = "[$time]($style) "
 disabled = false
 
 [aws]
 disabled = true
 
 [git_branch]
-symbol = " "
+disabled = true
 
 [git_status]
-format = '([$ahead_behind](yellow) -- [$all_status]($style) )'
-ahead = ' ${count}'
-diverged = ' ${ahead_count} ${behind_count}'
-behind = ' ${count}'
-untracked = "[${count} ](bright-black)"
-staged = "[ ${count} ](bright-green)"
-modified = "[ ${count} ](bright-yellow)"
-deleted = "[ ${count} ](bright-red)"
-renamed = "[ ${count} ](bright-cyan)"
-stashed = "[${count} ](red)"
+disabled = true
+
+[git_commit]
+disabled = true
+
+[git_state]
+disabled = true
+
+[git_metrics]
+disabled = true
+
 
 [custom]
-
-[custom.git_host]
-command = """
-URL=$(command git ls-remote --get-url 2> /dev/null)
-if [[ "$URL" =~ "github" ]]; then
-    ICON=" "
-elif [[ "$URL" =~ "gitlab" ]]; then
-    ICON=" "
-elif [[ "$URL" =~ "bitbucket" ]];then
-    ICON=" "
-elif [[ "$URL" =~ "kernel" ]];then
-    ICON=" "
-elif [[ "$URL" =~ "archlinux" ]];then
-    ICON=" "
-elif [[ "$URL" =~ "gnu" ]];then
-    ICON=" "
-elif [[ "$URL" =~ "git" ]];then
-    ICON=" "
-else
-    ICON=" "
-    URL="localhost"
-fi
-for PATTERN in "https" "http" "git" "://" "@"; do
-    [[ "$URL" == "$PATTERN"* ]] && URL="${URL##$PATTERN}"
-done
-for PATTERN in "/" ".git"; do
-    [[ "$URL" == *"$PATTERN" ]] && URL="${URL%%$PATTERN}"
-done
-echo -n "${ICON}${URL}"
-"""
-directories = [".git"]
-when = 'git rev-parse --is-inside-work-tree 2> /dev/null'
-shell = ["bash", "--norc", "--noprofile"]
-style = "bright-yellow bold"
-format = "at [$output ]($style)"
-
 [custom.env_slug]
+disabled = true
 description = "Display ENVIRONMENT_SLUG if set and notify if "
 when = """[[ $(git ls-remote --get-url) =~ ^gitlab.com:alcemy ]] && [[ -f $(git rev-parse --show-toplevel)/.env ]]"""
 format = "(in [$symbol($output )]($style))"
