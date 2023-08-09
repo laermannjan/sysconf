@@ -42,6 +42,7 @@ brew frei0r
 brew fribidi
 brew fzf
 brew fzy
+brew gawk
 brew gcc
 brew gd
 brew gdbm
@@ -151,6 +152,7 @@ brew libxml2
 brew libxrender
 brew libyaml
 brew little-cms2
+brew llvm
 brew lua
 brew luajit
 brew luajit-openresty
@@ -181,6 +183,7 @@ brew oniguruma
 brew opencore-amr
 brew openexr
 brew openjpeg
+brew openldap
 brew openssl@1.1
 brew openssl@3
 brew opus
@@ -206,6 +209,7 @@ brew qt@5
 brew ranger
 brew rav1e
 brew readline
+brew reattach-to-user-namespace
 brew ripgrep
 brew rubberband
 brew rust-analyzer
@@ -247,6 +251,7 @@ brew xvid
 brew xxhash
 brew xz
 brew youtube-dl
+brew z3
 brew zellij
 brew zeromq
 brew zimg
@@ -260,6 +265,7 @@ cask 1password
 cask 1password-cli
 cask adobe-creative-cloud
 cask alt-tab
+cask amethyst
 cask brave-browser
 cask caffeine
 cask docker
@@ -291,11 +297,16 @@ cask visual-studio-code
 cask vlc
 cask wezterm
 
+tap homebrew/bundle
+
 tap homebrew/cask-drivers
 
 tap homebrew/cask-fonts
 
 tap homebrew/services
+
+tap arl/arl
+brew gitmux
 
 tap borgbackup/tap
 brew borgbackup-fuse
@@ -322,15 +333,15 @@ tap tnk-studio/tools
 brew lazykube
 
 # App Store applications
-appstore 1287445660 Agenda (17.0.2)
-appstore 1444383602 GoodNotes (5.9.118)
-appstore 1136220934 Infuse (7.5.6)
+appstore 1287445660 Agenda (18.0.1)
+appstore 1444383602 GoodNotes (5.9.127)
+appstore 1136220934 Infuse (7.5.8)
 appstore 409183694 Keynote (13.1)
-appstore 360593530 Notability (12.1.9)
+appstore 360593530 Notability (12.1.15)
 appstore 409203825 Numbers (13.1)
 appstore 409201541 Pages (13.1)
-appstore 1569600264 Pandan (1.14.1)
-appstore 1596283165 rcmd (2.3.7)
+appstore 1569600264 Pandan (1.14.2)
+appstore 1596283165 rcmd (2.4.0)
 appstore 425424353 The Unarchiver (4.3.5)
 appstore 904280696 Things3 (3.17.7)
-appstore 1607635845 Velja (1.15.2)
+appstore 1607635845 Velja (1.15.3)
