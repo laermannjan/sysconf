@@ -1,31 +1,38 @@
 {
-  description = "Darwin configuration";
+  description = "My Darwin configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Where we get most of our software. Giant mono repo with recipes
+    # called derivations that say how to build software.
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable"; # nixos-22.11
+
+    # Manages configs links things into your home directory
+    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Controls system level software and settings including fonts
     darwin.url = "github:lnl7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, darwin, ... }: {
-    darwinConfigurations = {
-      hostname = darwin.lib.darwinSystem {
+  outputs = inputs: {
+    darwinConfigurations.Jans-MacBook-Pro =
+      inputs.darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        modules = [
-          ./configuration.nix
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.jdoe = import ./home.nix;
-
-            # Optionally, use home-manager.extraSpecialArgs to pass
-            # arguments to home.nix
-          }
-        ];
+        pkgs = inputs.nixpkgs { system = "aarch64-darwin"; };
       };
-    };
+
+      modules = [
+        ({ pkgs, ...}: {
+          # darwin preferences and config
+          programs.zsh.enable = true;
+          programs.fish.enable = true;
+          environment.shells = [ pkgs.bash pkgs.zsh pkgs.fish ];
+          environment.loginShell = pkgs.fish;
+          nix.extraOptions = ''
+            experimental-features = nix-command flakes
+          '';
+         })
+      ];
   };
 }
