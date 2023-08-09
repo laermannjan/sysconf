@@ -3,7 +3,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "beancount" })
+        vim.list_extend(opts.ensure_installed, { "nix" })
       end
     end,
   },
@@ -12,7 +12,7 @@ return {
     "williamboman/mason.nvim",
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "beancount-language-server" })
+        vim.list_extend(opts.ensure_installed, { "nil" })
       end
     end,
   },
@@ -23,7 +23,10 @@ return {
       local nls = require("null-ls")
       opts.sources = opts.sources or {}
       vim.list_extend(opts.sources, {
-        nls.builtins.formatting.bean_format.with({ prefer_local = ".venv" }),
+        -- nls.builtins.formatting.alejandra,
+        -- nls.builtins.diagnostics.statix,
+        -- nls.builtins.code_actions.statix,
+        -- nls.builtins.diagnostics.deadnix,
       })
     end,
   },
@@ -32,12 +35,7 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        beancount = {
-          init_options = {
-            -- journal_file = "/Users/jan/Documents/Finanzen/Haushaltsbuch/new_beans/test.beancount",
-            journal_file = "/Users/jan/Documents/Finanzen/Haushaltsbuch/new_beans/ledger/main.beancount",
-          },
-        },
+        nil_ls = {},
       },
     },
   },
