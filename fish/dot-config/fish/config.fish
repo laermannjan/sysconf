@@ -25,6 +25,8 @@ set -gx STARSHIP_CONFIG "$HOME/.config/starship/starship.toml"
 
 set -gx PIPENV_VENV_IN_PROJECT 1
 
+bind \cf tsm
+
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
