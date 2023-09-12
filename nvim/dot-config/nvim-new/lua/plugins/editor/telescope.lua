@@ -39,6 +39,12 @@ return {
                 })
             end,
             "Search Symbols"
+        },
+        {
+            "<leader>/",
+            function()
+                require("telescope.builtin").live_grep()
+            end
         }
     }
 }
