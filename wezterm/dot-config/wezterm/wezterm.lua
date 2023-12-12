@@ -212,12 +212,14 @@ config.keys = {
 		action = wezterm.action_callback(function(window, pane)
 			-- Here you can dynamically construct a longer list if needed
 
-			local fd = "/opt/homebrew/bin/fd"
-			local cmd = fd .. " " .. "--type directory --exact-depth 1 . ~/code/{alcemy,lj}"
-			local _, dirs_output, _ = wezterm.run_child_process({ "bash", "-c", cmd })
+			local cmd = [[{
+			/opt/homebrew/bin/fd --type directory --exact-depth 1 . ~/code/{alcemy,lj}
+			/opt/homebrew/bin/fd --type directory --exact-depth 3 . ~/code/lj/dotfiles
+			}]]
+			local _, code_dirs, _ = wezterm.run_child_process({ "bash", "-c", cmd })
 
-			local workspaces = { { id = wezterm.home_dir .. "/.config/", label = wezterm.home_dir .. "/.config/" } }
-			for dir in dirs_output:gmatch("[^\r\n]+") do
+			local workspaces = { { id = wezterm.home_dir .. "/Downloads/", label = wezterm.home_dir .. "/Downloads/" } }
+			for dir in code_dirs:gmatch("[^\r\n]+") do
 				table.insert(workspaces, { id = dir, label = dir:match('.*/(.*/.*)/$') })
 			end
 
