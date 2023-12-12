@@ -124,6 +124,8 @@ fi</string>
 				<string>[{"title":"Toggle","subtitle":"Switch between Dark &amp; Light Themes"},{"imagefile":"839a804b7bca096d0be56899ce59de137448dc33.png","title":"Blue","arg":"Blue","subtitle":"Blue Accent Color"},{"imagefile":"ea165466c081c7b637b86f84ea08c8190d5c3299.png","title":"Purple","arg":"Purple","subtitle":"Purple Accent Color"},{"imagefile":"532c51e69231ad0ee6e770010c0f82408fcfa892.png","title":"Pink","arg":"Pink","subtitle":"Pink Accent Color"},{"imagefile":"c62a583b90701277a41eed47d082ae0857fa07bc.png","title":"Red","arg":"Red","subtitle":"Red Accent Color"},{"imagefile":"1eff2688356bdef7f4dc7464f99d25b802cb635e.png","title":"Orange","arg":"Orange","subtitle":"Orange Accent Color"},{"imagefile":"0f26da0c006cbf62629472d8afb62de58ccc326a.png","title":"Yellow","arg":"Yellow","subtitle":"Yellow Accent Color"},{"imagefile":"53d02c40ef9e6679f9c7edc8d4fb28421179f40a.png","title":"Green","arg":"Green","subtitle":"Green Accent Color"},{"imagefile":"138d099d7d2f8c9dcb58042f82bda469766786cd.png","title":"Gray","arg":"Gray","subtitle":"Gray Accent Color"},{"title":"Install","arg":"Install","subtitle":"Download the lastest versions of the 16 themes variants. Let's save you some time!"}]</string>
 				<key>keyword</key>
 				<string>theme</string>
+				<key>matchmode</key>
+				<integer>0</integer>
 				<key>runningsubtext</key>
 				<string></string>
 				<key>subtext</key>
@@ -261,9 +263,9 @@ function run(args) {
 - theme gray
 	Switch your actual theme to the selected accent color.</string>
 			<key>xpos</key>
-			<integer>180</integer>
+			<real>180</real>
 			<key>ypos</key>
-			<integer>300</integer>
+			<real>300</real>
 		</dict>
 		<key>30A7E9EA-CA07-4DF8-901A-5C408F9C76E5</key>
 		<dict>
@@ -273,18 +275,20 @@ If you don't use the "Mojave Alfred Accented Themes" collection, you can still e
 
 I basically used the hue in the window's background color as an identifier for your actual Accent Color.</string>
 			<key>xpos</key>
-			<integer>440</integer>
+			<real>440</real>
 			<key>ypos</key>
-			<integer>300</integer>
+			<real>300</real>
 		</dict>
 		<key>FA88BD53-F537-41B1-BD4B-3AAD9E80620E</key>
 		<dict>
 			<key>xpos</key>
-			<integer>440</integer>
+			<real>440</real>
 			<key>ypos</key>
-			<integer>155</integer>
+			<real>155</real>
 		</dict>
 	</dict>
+	<key>userconfigurationconfig</key>
+	<array/>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
