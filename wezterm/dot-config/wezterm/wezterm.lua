@@ -1,7 +1,18 @@
 local wezterm = require("wezterm")
-
 local mux = wezterm.mux
 local act = wezterm.action
+
+local set_environemnt_variables = function()
+	local paths = {
+		wezterm.home_dir .. '/.cargo/bin',
+		'/opt/homebrew/bin'
+	}
+
+
+	return {
+		PATH = table.concat(paths, ':') .. ':' .. os.getenv('PATH')
+	}
+end
 
 -- events
 wezterm.on("gui-startup", function()
@@ -9,11 +20,23 @@ wezterm.on("gui-startup", function()
 	window:gui_window():maximize()
 end)
 
+wezterm.on('update-status', function(window, pane)
+	window:set_left_status(wezterm.format {
+		{ Attribute = { Intensity = "Bold" } },
+		{ Foreground = { AnsiColor = "Blue" } },
+		{ Text = " " .. window:active_workspace() .. " " }
+	})
+end)
+
 local config = {}
 
 if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
+
+config.set_environment_variables = set_environemnt_variables()
+
+config.leader = { key = 'Space', mods = 'CTRL|SHIFT' }
 
 config.inactive_pane_hsb = {
 	saturation = 0.9,
@@ -27,6 +50,8 @@ config.max_fps = 240
 -- config.color_scheme = "Gotham (Gogh)"
 -- config.color_scheme = "SeaShells"
 config.font = wezterm.font("ComicCode Nerd Font")
+config.font = wezterm.font("JetBrains Mono Light")
+-- config.font = wezterm.font("Monaspace Argon Var")
 
 config.font_size = 16.0
 config.line_height = 1.0
@@ -34,7 +59,7 @@ config.line_height = 1.0
 config.use_dead_keys = false
 config.scrollback_lines = 10000
 
-config.enable_tab_bar = false
+config.enable_tab_bar = true
 config.use_fancy_tab_bar = false
 
 config.colors = {
@@ -65,7 +90,7 @@ config.colors = {
 	},
 }
 
-config.window_decorations = "RESIZE"
+-- config.window_decorations = "RESIZE"
 -- config.window_background_opacity = 0.95
 -- config.macos_window_background_blur = 20
 config.window_padding = {
@@ -80,110 +105,152 @@ config.window_frame = {
 }
 
 config.keys = {
+	{
+		key = 'w',
+		mods = 'CMD',
+		action = act.CloseCurrentPane { confirm = true },
+	},
+	{
+		key = 'w',
+		mods = 'CMD|SHIFT',
+		action = act.CloseCurrentTab { confirm = true },
+	},
+	{
+		key = 'h',
+		mods = 'CMD',
+		action = act.ActivatePaneDirection "Left"
+	},
+	{
+		key = 'h',
+		mods = 'CMD|SHIFT',
+		action = act.SplitPane {
+			direction = "Left",
+			size = { Percent = 50 },
+		}
+	},
+	{
+		key = 'h',
+		mods = 'ALT|SHIFT',
+		action = act.AdjustPaneSize { 'Left', 1 }
+	},
+	{
+		key = 'j',
+		mods = 'CMD',
+		action = act.ActivatePaneDirection "Down"
+	},
+	{
+		key = 'j',
+		mods = 'ALT|SHIFT',
+		action = act.AdjustPaneSize { 'Down', 1 }
+	},
+	{
+		key = 'j',
+		mods = 'CMD|SHIFT',
+		action = act.SplitPane {
+			direction = "Down",
+			size = { Percent = 50 },
+		}
+	},
+	{
+		key = 'k',
+		mods = 'CMD',
+		action = act.ActivatePaneDirection "Up"
+	},
+	{
+		key = 'k',
+		mods = 'CMD|SHIFT',
+		action = act.SplitPane {
+			direction = "Up",
+			size = { Percent = 50 },
+		}
+	},
+	{
+		key = 'k',
+		mods = 'ALT|SHIFT',
+		action = act.AdjustPaneSize { 'Up', 1 }
+	},
+	{
+		key = 'l',
+		mods = 'CMD',
+		action = act.ActivatePaneDirection "Right"
+	},
+	{
+		key = 'l',
+		mods = 'CMD|SHIFT',
+		action = act.SplitPane {
+			direction = "Right",
+			size = { Percent = 50 },
+		}
+	},
+	{
+		key = 'l',
+		mods = 'ALT|SHIFT',
+		action = act.AdjustPaneSize { 'Right', 1 }
+	},
+	{
+		key = 'z',
+		mods = 'CMD|SHIFT',
+		action = act.TogglePaneZoomState
+	},
+	{
+		key = 'g',
+		mods = 'CMD',
+		action = wezterm.action.SpawnCommandInNewTab {
+			args = { '/opt/homebrew/bin/lazygit' },
+		},
+	},
+	{
+		key = 'b',
+		mods = 'CMD',
+		action = wezterm.action.SpawnCommandInNewTab {
+			args = { 'btop' },
+		},
+	},
+	{
+		key = 'f',
+		mods = 'CMD|SHIFT',
+		action = wezterm.action_callback(function(window, pane)
+			-- Here you can dynamically construct a longer list if needed
 
-	{
-		key = "G",
-		mods = "CTRL|SHIFT",
-		action = act.InputSelector({
-			action = wezterm.action_callback(function(window, pane, id, label)
-				if not id and not label then
-					wezterm.log_info("cancelled")
-				else
-					wezterm.log_info("you selected ", id, label)
-					pane:send_text(id)
-				end
-			end),
-			title = "I am title",
-			choices = {
-				-- This is the first entry
-				{
-					-- Here we're using wezterm.format to color the text.
-					-- You can just use a string directly if you don't want
-					-- to control the colors
-					label = wezterm.format({
-						{ Foreground = { AnsiColor = "Red" } },
-						{ Text = "No" },
-						{ Foreground = { AnsiColor = "Green" } },
-						{ Text = " thanks" },
-					}),
-					-- This is the text that we'll send to the terminal when
-					-- this entry is selected
-					id = "Regretfully, I decline this offer.",
-				},
-				-- This is the second entry
-				{
-					label = "WTF?",
-					id = "An interesting idea, but I have some questions about it.",
-				},
-				-- This is the third entry
-				{
-					label = "LGTM",
-					id = "This sounds like the right choice",
-				},
-			},
-		}),
-	},
+			local fd = "/opt/homebrew/bin/fd"
+			local cmd = fd .. " " .. "--type directory --exact-depth 1 . ~/code/{alcemy,lj}"
+			local _, dirs_output, _ = wezterm.run_child_process({ "bash", "-c", cmd })
 
-	{
-		key = "E",
-		mods = "CMD",
-		action = wezterm.action.PromptInputLine({
-			description = "Enter new name for tab",
-			action = wezterm.action_callback(function(window, pane, line)
-				-- line will be `nil` if they hit escape without entering anything
-				-- An empty string if they just hit enter
-				-- Or the actual line of text they wrote
-				if line then
-					window:active_tab():set_title(line)
-				end
-			end),
-		}),
-	},
-	{
-		key = "Enter",
-		mods = "CMD|SHIFT",
-		action = wezterm.action.ShowLauncherArgs({
-			flags = "FUZZY|WORKSPACES",
-		}),
-	},
-	{
-		key = "N",
-		mods = "CMD|SHIFT",
-		action = wezterm.action.PromptInputLine({
-			description = wezterm.format({
-				{ Attribute = { Intensity = "Bold" } },
-				{ Foreground = { AnsiColor = "Fuchsia" } },
-				{ Text = "Enter name for new workspace" },
-			}),
-			action = wezterm.action_callback(function(window, pane, line)
-				-- line will be `nil` if they hit escape without entering anything
-				-- An empty string if they just hit enter
-				-- Or the actual line of text they wrote
-				if line then
-					window:perform_action(
-						wezterm.action.SwitchToWorkspace({
-							name = line,
-						}),
-						pane
-					)
-				end
-			end),
-		}),
-	},
-	{
-		key = "E",
-		mods = "CMD|SHIFT",
-		action = wezterm.action.PromptInputLine({
-			description = "Enter new name for workspace",
-			action = wezterm.action_callback(function(window, pane, line)
-				-- line will be `nil` if they hit escape without entering anything
-				-- An empty string if they just hit enter
-				-- Or the actual line of text they wrote
-				if line then
-					wezterm.mux.rename_workspace(wezterm.mux.get_active_workspace(), line)
-				end
-			end),
-		}),
+			local workspaces = { { id = wezterm.home_dir .. "/.config/", label = wezterm.home_dir .. "/.config/" } }
+			for dir in dirs_output:gmatch("[^\r\n]+") do
+				table.insert(workspaces, { id = dir, label = dir:match('.*/(.*/.*)/$') })
+			end
+
+			window:perform_action(
+				act.InputSelector {
+					action = wezterm.action_callback(
+						function(inner_window, inner_pane, id, label)
+							if not id and not label then
+								wezterm.log_info 'cancelled'
+							else
+								wezterm.log_info('id = ' .. id)
+								wezterm.log_info('label = ' .. label)
+								inner_window:perform_action(
+									act.SwitchToWorkspace {
+										name = label,
+										spawn = {
+											label = 'Workspace: ' .. label,
+											cwd = id,
+										},
+									},
+									inner_pane
+								)
+							end
+						end
+					),
+					title = 'Choose Workspace',
+					choices = workspaces,
+					fuzzy = true,
+					fuzzy_description = '>',
+				},
+				pane
+			)
+		end),
 	},
 }
 
