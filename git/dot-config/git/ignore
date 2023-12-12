@@ -1,4 +1,5 @@
 .dotfiles
+my_notebooks/
 
 ### CMake ###
 CMakeLists.txt.user
