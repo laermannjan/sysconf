@@ -82,3 +82,9 @@ commands:
       - bastion
     command: ssh-keygen -R alhambra-dev.alcemy.tech && ssh-keygen -R alhambra-prod.alcemy.tech
     description: Reset the known-hosts keys for alcemy bastion hosts. This often happens when we change or add new ssh keys for team members.
+  - name: fuzzy_find_aws_secret
+    namespace: aws
+    tags:
+      - ""
+    command: "aws secretsmanager get-secret-value --secret-id (aws secretsmanager list-secrets | jq -r '.[][] | .Name' | fzy) | jq -r .SecretString | tr -d '\\n' | pbcopy"
+    description: "Let's you fuzzy find an aws secret and puts it into your clipboard."

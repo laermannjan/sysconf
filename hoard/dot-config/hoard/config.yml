@@ -21,4 +21,8 @@ command_color:
   - 118
   - 20
 parameter_token: "#"
+parameter_ending_token: "!"
 read_from_current_directory: true
+sync_server_url: "https://troveserver.herokuapp.com/"
+api_token: ~
+gpt_api_key: ~
