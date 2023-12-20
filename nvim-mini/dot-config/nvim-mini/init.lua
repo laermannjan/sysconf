@@ -26,7 +26,7 @@ vim.keymap.set({ 'n', 'v' }, '<ESC>', '<cmd>noh<cr><ESC>', { silent = true })
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+-- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -187,6 +187,21 @@ require('lazy').setup({
   { 'echasnovski/mini.extra', version = false, opts = {} },
   { 'onsails/lspkind.nvim' },
 
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    },
+    keys = {
+      { "<leader>e", mode = { "n" }, "<cmd>Neotree toggle<CR>", desc = "Neotree" }
+    },
+
+  },
+
   -- Fuzzy Finder (files, lsp, etc)
   {
     'nvim-telescope/telescope.nvim',
@@ -222,7 +237,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- [[ Configure Navigation ]]
-vim.keymap.set('n', '<leader>e', ':lua MiniFiles.open()<cr>', { desc = 'MiniFiles' })
+-- vim.keymap.set('n', '<leader>e', ':lua MiniFiles.open()<cr>', { desc = 'MiniFiles' })
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
