@@ -196,7 +196,7 @@ config.keys = {
 		key = 'g',
 		mods = 'CMD',
 		action = wezterm.action.SpawnCommandInNewTab {
-			args = { '/opt/homebrew/bin/lazygit' },
+			args = { '/opt/homebrew/bin/fish', '-c', '/opt/homebrew/bin/lazygit' },
 		},
 	},
 	{
