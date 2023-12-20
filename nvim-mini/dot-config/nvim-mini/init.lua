@@ -88,6 +88,18 @@ require('lazy').setup({
     },
   },
   {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    keys = {
+      { "<leader>xx", "<cmd>TroubleToggle<cr>", desc = "toggle trouble" },
+    },
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+  },
+  {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -105,20 +117,50 @@ require('lazy').setup({
       "crispgm/cmp-beancount",
     },
   },
+  -- {
+  --   "nvimtools/none-ls.nvim",
+  --   config = function()
+  --     local null_ls = require("null-ls")
+  --
+  --     null_ls.setup({
+  --       sources = {
+  --         null_ls.builtins.formatting.stylua,
+  --         null_ls.builtins.formatting.gofumpt,
+  --         null_ls.builtins.formatting.goimports,
+  --         null_ls.builtins.code_actions.gomodifytags,
+  --         null_ls.builtins.code_actions.impl,
+  --         -- null_ls.builtins.diagnostics.ruff,
+  --         -- null_ls.builtins.formatting.ruff,
+  --         -- null_ls.builtins.formatting.ruff_format,
+  --         null_ls.builtins.completion.spell,
+  --       },
+  --     })
+  --   end,
+  -- },
+
   {
     'stevearc/conform.nvim',
     opts = {
       formatters_by_ft = {
-        go = { "gofmt" },
-        shfmt = {
-          prepend_args = { "-i", "2", "-ci" },
-        },
+        fish = { "fish_indent" },
+        sh = { "shfmt" },
+        go = { "goimports", "gofumpt" },
         lua = { "stylua" },
         -- Conform will run multiple formatters sequentially
-        python = { "ruff_fix", "ruff_format" },
+        python = { "ruff_format", "ruff_fix" },
         -- Use a sub-list to run only the first available formatter
         javascript = { { "prettierd", "prettier" } },
         ["_"] = { "trim_whitespace" },
+      },
+
+      formatters = {
+        ruff_fix = {
+          prepend_args = { "--select", "I" },
+        },
+        shfmt = {
+          prepend_args = { "-i", "2", "-ci" },
+        },
+
       },
       format_on_save = {
         -- I recommend these options. See :help conform.format for details.
@@ -399,13 +441,19 @@ end, 0)
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
   --
   -- In this case, we create a function that lets us more easily define mappings specific
   -- for LSP related items. It sets the mode, buffer and description for us each time.
+
+
+  if client.name == "ruff_lsp" then
+    -- Disable hover in favor of Pyright
+    client.server_capabilities.hoverProvider = false
+  end
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -478,7 +526,14 @@ require('mason-lspconfig').setup()
 local servers = {
   -- clangd = {},
   gopls = {},
-  ruff_lsp = {},
+  ruff_lsp = {
+    init_options = {
+      settings = {
+        -- Any extra CLI arguments for `ruff` go here.
+        args = {},
+      }
+    }
+  },
   pyright = {
     python = {
       analysis = {
