@@ -51,7 +51,10 @@ config.max_fps = 240
 -- config.color_scheme = "SeaShells"
 config.font = wezterm.font("ComicCode Nerd Font")
 config.font = wezterm.font("JetBrains Mono Light")
--- config.font = wezterm.font("Monaspace Argon Var")
+config.font = wezterm.font("Monaspace Argon Var")
+config.font = wezterm.font("Monaspace Xenon Var")
+config.font = wezterm.font("Monaspace Radon")
+-- config.font = wezterm.font("Monaspace Krypton")
 
 config.font_size = 16.0
 config.line_height = 1.0
