@@ -19,15 +19,15 @@ vim.opt.tabstop = 4
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
-
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<ESC>', '<cmd>noh<cr><ESC>', { silent = true })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
--- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'goto previous diagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'goto next diagnostic message' })
+vim.keymap.set('n', 'gl', vim.diagnostic.open_float, { desc = 'open floating diagnostic message' })
+vim.keymap.set('n', '<leader>l', "<cmd>Lazy<cr>", { desc = 'open floating diagnostic message' })
+
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -43,8 +43,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  'tpope/vim-sleuth',
-  { 'numToStr/Comment.nvim',  opts = {} },
+  { 'tpope/vim-sleuth' },
+  { 'numToStr/Comment.nvim', opts = {} },
   {
     -- theme
     'rose-pine/neovim',
@@ -89,14 +89,39 @@ require('lazy').setup({
   },
   {
     "folke/trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = { "TroubleToggle", "Trouble" },
+    opts = { use_diagnostic_signs = true },
     keys = {
-      { "<leader>xx", "<cmd>TroubleToggle<cr>", desc = "toggle trouble" },
-    },
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
+      { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Document Diagnostics (Trouble)" },
+      { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
+      {
+        "[q",
+        function()
+          if require("trouble").is_open() then
+            require("trouble").previous({ skip_groups = true, jump = true })
+          else
+            local ok, err = pcall(vim.cmd.cprev)
+            if not ok then
+              vim.notify(err, vim.log.levels.ERROR)
+            end
+          end
+        end,
+        desc = "Previous trouble/quickfix item",
+      },
+      {
+        "]q",
+        function()
+          if require("trouble").is_open() then
+            require("trouble").next({ skip_groups = true, jump = true })
+          else
+            local ok, err = pcall(vim.cmd.cnext)
+            if not ok then
+              vim.notify(err, vim.log.levels.ERROR)
+            end
+          end
+        end,
+        desc = "Next trouble/quickfix item",
+      },
     },
   },
   {
@@ -138,6 +163,7 @@ require('lazy').setup({
   --   end,
   -- },
 
+  { "github/copilot.vim" },
   {
     'stevearc/conform.nvim',
     opts = {
@@ -168,6 +194,44 @@ require('lazy').setup({
         timeout_ms = 500,
       },
     }
+  },
+
+  {
+    "mfussenegger/nvim-lint",
+    opts = {
+      -- Event to trigger linters
+      events = { "BufWritePost", "BufReadPost", "InsertLeave" },
+      linters_by_ft = {
+        fish = { "fish", },
+        zsh = { "zsh", },
+        python = { "mypy", },
+      },
+      linters = {
+        fish = {
+          cmd = "/opt/homebrew/bin/fish",
+        }
+      },
+
+    },
+    config = function(_, opts)
+      local lint = require("lint")
+
+      lint.linters_by_ft = opts.linters_by_ft or {}
+      for name, linter in pairs(opts.linters) do
+        if type(linter) == "table" and type(lint.linters[name]) == "table" then
+          lint.linters[name] = vim.tbl_deep_extend("force", lint.linters[name], linter)
+        else
+          lint.linters[name] = linter
+        end
+      end
+
+
+      vim.api.nvim_create_autocmd(opts.events, {
+        callback = function()
+          require("lint").try_lint()
+        end,
+      })
+    end
   },
 
 
@@ -244,25 +308,96 @@ require('lazy').setup({
 
   },
 
+  {
+    "lewis6991/gitsigns.nvim",
+    opts = {
+      signs = {
+        add = { text = "▎" },
+        change = { text = "▎" },
+        delete = { text = "" },
+        topdelete = { text = "" },
+        changedelete = { text = "▎" },
+        untracked = { text = "▎" },
+      },
+    },
+    keys = {
+      { "<leader>gb",  "<cmd>Gitsigns blame_line<cr>",                desc = "blame line" },
+      { "<leader>gd",  "<cmd>Gitsigns diffthis<cr>",                  desc = "git diff against base" },
+      { "<leader>ugb", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "toggle current blame line" },
+      { "<leader>ugd", "<cmd>Gitsigns toggle_deleted<cr>",            desc = "toggle current blame line" },
+    }
+  },
+
+  {
+    "folke/todo-comments.nvim",
+    cmd = { "TodoTrouble", "TodoTelescope" },
+    config = true,
+    -- stylua: ignore
+    keys = {
+      { "]t",         function() require("todo-comments").jump_next() end, desc = "next todo comment" },
+      { "[t",         function() require("todo-comments").jump_prev() end, desc = "previous todo comment" },
+      { "<leader>ft", "<cmd>TodoTelescope<cr>",                            desc = "find todo commends" },
+    }
+  },
   -- Fuzzy Finder (files, lsp, etc)
   {
     'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
+    cmd = "Telescope",
+    version = false,
     dependencies = {
       'nvim-lua/plenary.nvim',
-      -- Fuzzy Finder Algorithm which requires local dependencies to be built.
-      -- Only load if `make` is available. Make sure you have the system
-      -- requirements installed.
       {
         'nvim-telescope/telescope-fzf-native.nvim',
-        -- NOTE: If you are having trouble with this installation,
-        --       refer to the README for telescope-fzf-native for more instructions.
         build = 'make',
-        cond = function()
-          return vim.fn.executable 'make' == 1
-        end,
+        enabled = vim.fn.executable('make') == 1,
+        config = function()
+          require("telescope").load_extension("fzf")
+        end
       },
     },
+    keys = {
+      { "<leader>ff",       function() require("telescope.builtin").git_files({ show_untracked = true }) end,                                desc = "find git files" },
+      { "<leader>fF",       function() require('telescope.builtin').find_files() end,                                                        desc = "find files" },
+      { "<leader>fc",       function() require('telescope.builtin').find_files({ cwd = vim.fn.stdpath("config") }) end,                      desc = "find in nvim config" },
+      { "<leader>fC",       function() require('telescope.builtin').find_files({ cwd = vim.fn.expand("$HOME/.config"), follow = true }) end, desc = "find in XDG_CONFIG" },
+      { "<leader>fr",       function() require('telescope.builtin').oldfiles() end,                                                          desc = "recent files" },
+      { "<leader>fw",       function() require('telescope.builtin').grep_string() end,                                                       desc = "find word in files" },
+      { "<leader>fw",       function() require('telescope.builtin').grep_string() end,                                                       mode = "v",                     desc = "find selection in files" },
+      { "<leader>fh",       function() require('telescope.builtin').help_tags() end,                                                         desc = "find help tag" },
+      { "<leader>fk",       function() require('telescope.builtin').keymaps() end,                                                           desc = "find keymaps" },
+      { "<leader>uc",       function() require('telescope.builtin').colorscheme({ enable_preview = true }) end,                              desc = "preview colorschemes" },
+      { "<leader>\\",       function() require('telescope.builtin').builtin() end,                                                           desc = "find telescope command" },
+      { "<leader><leader>", function() require('telescope.builtin').resume() end,                                                            desc = "resume last search" },
+    },
+    opts = function()
+      local trouble = require("trouble.providers.telescope")
+
+      local open_with_trouble = function(...)
+        return require("trouble.providers.telescope").open_with_trouble(...)
+      end
+      local find_files_no_ignore = function()
+        local action_state = require("telescope.actions.state")
+        local line = action_state.get_current_line()
+        require("telescope.builtin").find_files({ no_ignore = true, no_ignore_parents = true, default_text = line })
+      end
+      local find_files_with_hidden = function()
+        local action_state = require("telescope.actions.state")
+        local line = action_state.get_current_line()
+        require("telescope.builtin").find_files({ hidden = true, default_text = line })
+      end
+      return {
+        defaults = {
+          mappings = {
+            i = {
+              ["<c-t>"] = open_with_trouble,
+              ["<a-i>"] = find_files_no_ignore,
+              ["<a-h>"] = find_files_with_hidden,
+            },
+            n = { ["<c-t>"] = trouble.open_with_trouble },
+          },
+        },
+      }
+    end
   },
 })
 
@@ -277,96 +412,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
-
--- [[ Configure Navigation ]]
--- vim.keymap.set('n', '<leader>e', ':lua MiniFiles.open()<cr>', { desc = 'MiniFiles' })
--- [[ Configure Telescope ]]
--- See `:help telescope` and `:help telescope.setup()`
-require('telescope').setup {
-  defaults = {
-    mappings = {
-      i = {
-        ['<C-u>'] = false,
-        ['<C-d>'] = false,
-      },
-    },
-  },
-}
-
--- Enable telescope fzf native, if installed
-pcall(require('telescope').load_extension, 'fzf')
-
--- Telescope live_grep in git root
--- Function to find the git root directory based on the current buffer's path
-local function find_git_root()
-  -- Use the current buffer's path as the starting point for the git search
-  local current_file = vim.api.nvim_buf_get_name(0)
-  local current_dir
-  local cwd = vim.fn.getcwd()
-  -- If the buffer is not associated with a file, return nil
-  if current_file == '' then
-    current_dir = cwd
-  else
-    -- Extract the directory from the current file's path
-    current_dir = vim.fn.fnamemodify(current_file, ':h')
-  end
-
-  -- Find the Git root directory from the current file's path
-  local git_root = vim.fn.systemlist('git -C ' .. vim.fn.escape(current_dir, ' ') .. ' rev-parse --show-toplevel')[1]
-  if vim.v.shell_error ~= 0 then
-    print 'Not a git repository. Searching on current working directory'
-    return cwd
-  end
-  return git_root
-end
-
--- Custom live_grep function to search in git root
-local function live_grep_git_root()
-  local git_root = find_git_root()
-  if git_root then
-    require('telescope.builtin').live_grep {
-      search_dirs = { git_root },
-    }
-  end
-end
-
-vim.api.nvim_create_user_command('LiveGrepGitRoot', live_grep_git_root, {})
-
-local function telescope_live_grep_open_files()
-  require('telescope.builtin').live_grep {
-    grep_open_files = true,
-    prompt_title = 'Live Grep in Open Files',
-  }
-end
-
--- See `:help telescope.builtin`
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').builtin, { desc = '[S]earch Telescope' })
-vim.keymap.set('n', '<leader>\\', require('telescope.builtin').oldfiles, { desc = 'Find recently opened files' })
-vim.keymap.set('n', '<leader><tab>', require('telescope.builtin').buffers, { desc = 'Search existing buffers' })
-vim.keymap.set('n', '<leader>/', function()
-  -- You can pass additional configuration to telescope to change theme, layout, etc.
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
-  })
-end, { desc = '[/] Fuzzily search in current buffer' })
-vim.keymap.set('n', '<leader>s/', telescope_live_grep_open_files, { desc = '[S]earch [/] in Open Files' })
-vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '' })
-vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
-
-vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
-vim.keymap.set('n', '<leader>sR', require('telescope.builtin').search_history, { desc = 'Search search history' })
-
-vim.keymap.set('n', '<leader>dd', require('telescope.builtin').diagnostics, { desc = 'Document Diagnostics' })
-
-vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = 'Search help tags' })
-vim.keymap.set('n', '<leader>sm', require('telescope.builtin').man_pages, { desc = 'Search man pages' })
-vim.keymap.set('n', '<leader>sk', require('telescope.builtin').keymaps, { desc = 'Search keymaps' })
-vim.keymap.set('n', '<leader>sc', require('telescope.builtin').commands, { desc = 'Search commands' })
-vim.keymap.set('n', '<leader>so', require('telescope.builtin').vim_options, { desc = 'Search vim options' })
 
 
 
@@ -439,76 +484,36 @@ vim.defer_fn(function()
 end, 0)
 
 
+
+
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(client, bufnr)
-  -- NOTE: Remember that lua is a real programming language, and as such it is possible
-  -- to define small helper and utility functions so you don't have to repeat yourself
-  -- many times.
-  --
-  -- In this case, we create a function that lets us more easily define mappings specific
-  -- for LSP related items. It sets the mode, buffer and description for us each time.
+  local lsp_keymaps = {
+    { 'gd',         function() require('telescope.builtin').lsp_definitions() end,               'goto definition' },
+    { 'gr',         function() require('telescope.builtin').lsp_references() end,                'goto references' },
+    { 'gI',         function() require('telescope.builtin').lsp_implementations() end,           'goto implementations' },
+    { 'gy',         function() require('telescope.builtin').lsp_type_definitions() end,          'goto type definitions' },
+    { '<leader>cs', function() require('telescope.builtin').lsp_document_symbols() end,          'document symbols' },
+    { '<leader>cS', function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end, 'workspace symbols' },
+    { '<leader>cr', vim.lsp.buf.rename,                                                          'rename symbols' },
+    { '<leader>ca', vim.lsp.buf.code_action,                                                     'code actions' },
+    { 'K',          vim.lsp.buf.hover,                                                           'hover information' },
+    { '<C-k>',      vim.lsp.buf.signature_help,                                                  mode = { 'n', 'i' },    'signature help' },
+
+  }
 
 
   if client.name == "ruff_lsp" then
     -- Disable hover in favor of Pyright
     client.server_capabilities.hoverProvider = false
   end
-  local nmap = function(keys, func, desc)
-    if desc then
-      desc = 'LSP: ' .. desc
-    end
 
-    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+  local Keys = require("lazy.core.handler.keys")
+  for _, key in pairs(Keys.resolve(lsp_keymaps)) do
+    vim.keymap.set(key.mode or "n", key.lhs, key.rhs, Keys.opts(key))
   end
-
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-
-  nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-  nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-  nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-
-  -- nmap('gd', function() require('mini.extra').pickers.lsp({ scope = 'definition' }) end, '[G]oto [D]efinition')
-  -- nmap('gr', function() require('mini.extra').pickers.lsp({ scope = 'references' }) end, '[G]oto [R]eferences')
-  -- nmap('gI', function() require('mini.extra').pickers.lsp({ scope = 'implementation' }) end, '[G]oto [I]mplementation')
-  -- nmap('<leader>D', function() require('mini.extra').pickers.lsp({ scope = 'type_definition' }) end, 'Type [D]efinition')
-  -- nmap('<leader>ds', function() require('mini.extra').pickers.lsp({ scope = 'document_symbol' }) end,
-  --   '[D]ocument [S]ymbols')
-  -- nmap('<leader>ws', function() require('mini.extra').pickers.lsp({ scope = 'workspace_symbol' }) end,
-  --   '[W]orkspace [S]ymbols')
-
-  -- See `:help K` for why this keymap
-  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
-
-  -- Lesser used LSP functionality
-  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-  nmap('<leader>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, '[W]orkspace [L]ist Folders')
-
-  -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
 end
-
--- -- document existing key chains
--- require('which-key').register {
---   ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
---   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
---   ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
---   ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
---   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
---   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
---   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
--- }
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
