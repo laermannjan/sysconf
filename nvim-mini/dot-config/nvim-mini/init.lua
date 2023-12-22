@@ -73,6 +73,26 @@ vim.o.completeopt = 'menuone,noselect'
 
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<ESC>', '<cmd>noh<cr><ESC>', { silent = true })
+vim.keymap.set('n', 'n', 'nzzzv') -- center next search result
+vim.keymap.set('n', 'N', 'Nzzzv') -- center prev search result
+
+-- indent and be able to indent again
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
+
+-- Add undo break-points
+vim.keymap.set('i', ',', ',<c-g>u')
+vim.keymap.set('i', '.', '.<c-g>u')
+vim.keymap.set('i', ';', ';<c-g>u')
+vim.keymap.set('i', ' ', ' <c-g>u')
+vim.keymap.set('i', '"', '"<c-g>u')
+vim.keymap.set('i', "'", "'<c-g>u")
+vim.keymap.set('i', '{', '{<c-g>u')
+vim.keymap.set('i', '(', '(<c-g>u')
+vim.keymap.set('i', '[', '[<c-g>u')
+vim.keymap.set('i', '<', '<<c-g>u')
+
+vim.keymap.set('v', 'p', '"_dp') -- paste over without copy
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'goto previous diagnostic message' })
@@ -80,7 +100,10 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'goto next diagnost
 vim.keymap.set('n', 'gl', vim.diagnostic.open_float, { desc = 'open floating diagnostic message' })
 vim.keymap.set('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'open floating diagnostic message' })
 
+--
 -- [[ Autocmds ]]
+--
+
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -839,9 +862,17 @@ require('lazy').setup({
         disable_background = false,
         disable_italics = true,
       })
-      vim.cmd.colorscheme('rose-pine')
+      -- vim.cmd.colorscheme('rose-pine')
     end,
   },
+  {
+    'folke/tokyonight.nvim',
+    config = function()
+      require('tokyonight').setup()
+      vim.cmd.colorscheme('tokyonight-night')
+    end,
+  },
+  { 'rebelot/kanagawa.nvim', opts = {} },
   { 'onsails/lspkind.nvim' },
   {
     'lewis6991/gitsigns.nvim',
