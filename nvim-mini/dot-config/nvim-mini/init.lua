@@ -81,16 +81,9 @@ vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
 
 -- Add undo break-points
-vim.keymap.set('i', ',', ',<c-g>u')
-vim.keymap.set('i', '.', '.<c-g>u')
-vim.keymap.set('i', ';', ';<c-g>u')
-vim.keymap.set('i', ' ', ' <c-g>u')
-vim.keymap.set('i', '"', '"<c-g>u')
-vim.keymap.set('i', "'", "'<c-g>u")
-vim.keymap.set('i', '{', '{<c-g>u')
-vim.keymap.set('i', '(', '(<c-g>u')
-vim.keymap.set('i', '[', '[<c-g>u')
-vim.keymap.set('i', '<', '<<c-g>u')
+vim.keymap.set('i', ',', '<c-g>u,')
+vim.keymap.set('i', '.', '<c-g>u.')
+vim.keymap.set('i', ';', '<c-g>u;')
 
 vim.keymap.set('v', 'p', '"_dp') -- paste over without copy
 
@@ -745,51 +738,51 @@ require('lazy').setup({
       local harpoon = require('harpoon')
       harpoon:setup({})
     end,
-    keys = {
-      {
-        '<C-h>',
-        function()
-          local harpoon = require('harpoon')
-          if harpoon.ui.win_id == nil then
-            harpoon:list():append()
-          end
-          harpoon.ui:toggle_quick_menu(harpoon:list())
-        end,
-        'Harpoon Quick Menu',
-      },
-      {
-        '<tab>j',
-        function()
-          local harpoon = require('harpoon')
-          harpoon:list():select(1)
-        end,
-        'Harpoon Select 1',
-      },
-      {
-        '<tab>k',
-        function()
-          local harpoon = require('harpoon')
-          harpoon:list():select(2)
-        end,
-        'Harpoon Select 2',
-      },
-      {
-        '<tab>l',
-        function()
-          local harpoon = require('harpoon')
-          harpoon:list():select(3)
-        end,
-        'Harpoon Select 3',
-      },
-      {
-        '<tab>;',
-        function()
-          local harpoon = require('harpoon')
-          harpoon:list():select(4)
-        end,
-        'Harpoon Select 4',
-      },
-    },
+    -- keys = {
+    --   {
+    --     '<C-h>',
+    --     function()
+    --       local harpoon = require('harpoon')
+    --       if harpoon.ui.win_id == nil then
+    --         harpoon:list():append()
+    --       end
+    --       harpoon.ui:toggle_quick_menu(harpoon:list())
+    --     end,
+    --     'Harpoon Quick Menu',
+    --   },
+    --   {
+    --     '<tab>j',
+    --     function()
+    --       local harpoon = require('harpoon')
+    --       harpoon:list():select(1)
+    --     end,
+    --     'Harpoon Select 1',
+    --   },
+    --   {
+    --     '<tab>k',
+    --     function()
+    --       local harpoon = require('harpoon')
+    --       harpoon:list():select(2)
+    --     end,
+    --     'Harpoon Select 2',
+    --   },
+    --   {
+    --     '<tab>l',
+    --     function()
+    --       local harpoon = require('harpoon')
+    --       harpoon:list():select(3)
+    --     end,
+    --     'Harpoon Select 3',
+    --   },
+    --   {
+    --     '<tab>;',
+    --     function()
+    --       local harpoon = require('harpoon')
+    --       harpoon:list():select(4)
+    --     end,
+    --     'Harpoon Select 4',
+    --   },
+    -- },
   },
 
   {
@@ -916,4 +909,25 @@ require('lazy').setup({
       { '<leader>ft', '<cmd>TodoTelescope<cr>', desc = 'find todo commends' },
     },
   },
+
+  --
+  -- [[ QOL ]]
+  --
+
+  {
+    -- if infornt of a pair and in insert mode, use <tab> to jump to the end of the pair
+    -- if within a pair and in insert mode, use <tab> to jump to the end of the pair
+    -- shift-tab reverses the above
+    'abecodes/tabout.nvim',
+    opts = {
+      ignore_beginning = false,
+    },
+  },
+
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    opts = {},
+  },
+  { 'echasnovski/mini.surround', opts = {} },
 })
