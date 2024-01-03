@@ -5,12 +5,15 @@ tap homebrew/core
 brew aom
 brew argo
 brew aribb24
+brew asdf
+brew assimp
 brew autoconf
 brew automake
 brew awk
 brew awscli
 brew bash
 brew bat
+brew bat-extras
 brew bdw-gc
 brew boost
 brew borgmatic
@@ -26,10 +29,12 @@ brew cmocka
 brew commitizen
 brew coreutils
 brew dav1d
+brew dbus
 brew direnv
 brew docbook
 brew docbook-xsl
 brew docutils
+brew double-conversion
 brew exa
 brew fastfetch
 brew fd
@@ -56,6 +61,7 @@ brew git
 brew git-delta
 brew glab
 brew glib
+brew glow
 brew gmp
 brew gnu-getopt
 brew gnu-sed
@@ -77,6 +83,8 @@ brew helix
 brew helm
 brew highway
 brew hledger
+brew httpie
+brew hunspell
 brew hyperfine
 brew icu4c
 brew imagemagick
@@ -90,6 +98,7 @@ brew jpeg-turbo
 brew jpeg-xl
 brew jq
 brew just
+brew k9s
 brew lame
 brew lazydocker
 brew lazygit
@@ -116,6 +125,8 @@ brew libidn2
 brew libksba
 brew liblqr
 brew libmagic
+brew libmicrohttpd
+brew libmng
 brew libmpc
 brew libnghttp2
 brew libogg
@@ -153,6 +164,7 @@ brew libxrender
 brew libyaml
 brew little-cms2
 brew llvm
+brew lpeg
 brew lua
 brew luajit
 brew luajit-openresty
@@ -165,6 +177,7 @@ brew mailutils
 brew make
 brew mas
 brew mbedtls
+brew md4c
 brew mpdecimal
 brew mpfr
 brew mpg123
@@ -173,10 +186,9 @@ brew msgpack
 brew ncurses
 brew neofetch
 brew neovide
-brew neovim
+brew neovim --HEAD
 brew netpbm
 brew nettle
-brew node
 brew npth
 brew nushell
 brew oniguruma
@@ -193,6 +205,7 @@ brew pango
 brew pcre
 brew pcre2
 brew pinentry
+brew pipx
 brew pixman
 brew pkg-config
 brew pngpaste
@@ -200,11 +213,22 @@ brew pre-commit
 brew proselint
 brew pycparser
 brew pygments
+brew python-argcomplete
+brew python-certifi
+brew python-distlib
+brew python-filelock
+brew python-markdown
+brew python-markupsafe
+brew python-packaging
+brew python-platformdirs
+brew python-setuptools
 brew python-typing-extensions
 brew python@3.10
 brew python@3.11
+brew python@3.12
 brew python@3.9
 brew pyyaml
+brew qt
 brew qt@5
 brew ranger
 brew rav1e
@@ -227,11 +251,13 @@ brew srt
 brew starship
 brew stow
 brew svt-av1
+brew task
 brew tcl-tk
 brew tealdeer
 brew tesseract
 brew texinfo
 brew theora
+brew timewarrior
 brew tmux
 brew tree-sitter
 brew unbound
@@ -251,6 +277,7 @@ brew xvid
 brew xxhash
 brew xz
 brew youtube-dl
+brew yq
 brew z3
 brew zellij
 brew zeromq
@@ -287,21 +314,27 @@ cask postman
 cask pycharm
 cask raycast
 cask rectangle
+cask rectangle-pro
 cask signal
 cask slack
+cask spotify
 cask stats
 cask steam
 cask synology-drive
 cask unnaturalscrollwheels
+cask utm
 cask visual-studio-code
 cask vlc
-cask wezterm
 
 tap homebrew/bundle
 
 tap homebrew/cask-drivers
 
 tap homebrew/cask-fonts
+cask font-monaspace
+
+tap homebrew/cask-versions
+cask wezterm-nightly
 
 tap homebrew/services
 
@@ -312,7 +345,9 @@ tap borgbackup/tap
 brew borgbackup-fuse
 
 tap d12frosted/emacs-plus
-brew emacs-plus@28 --with-imagemagick --with-mailutils --with-modern-doom3-icon
+brew emacs-plus@29 --with-native-comp --with-imagemagick
+
+tap derailed/k9s
 
 tap hyde46/hoard
 
@@ -329,19 +364,25 @@ tap railwaycat/emacsmacport
 tap rcmdnk/file
 brew brew-file
 
+tap tako8ki/tap
+brew gobang
+
 tap tnk-studio/tools
 brew lazykube
 
+tap withgraphite/tap
+brew graphite
+
 # App Store applications
-appstore 1287445660 Agenda (18.0.1)
-appstore 1444383602 GoodNotes (5.9.127)
-appstore 1136220934 Infuse (7.5.8)
-appstore 409183694 Keynote (13.1)
-appstore 360593530 Notability (12.1.15)
-appstore 409203825 Numbers (13.1)
-appstore 409201541 Pages (13.1)
-appstore 1569600264 Pandan (1.14.2)
+appstore 1287445660 Agenda (18.3.1)
+appstore 1444383602 Goodnotes (6.2.21)
+appstore 1136220934 Infuse (7.6.5)
+appstore 409183694 Keynote (13.2)
+appstore 360593530 Notability (14.5.1)
+appstore 409203825 Numbers (13.2)
+appstore 409201541 Pages (13.2)
+appstore 1569600264 Pandan (1.15.0)
 appstore 1596283165 rcmd (2.4.0)
-appstore 425424353 The Unarchiver (4.3.5)
-appstore 904280696 Things3 (3.17.7)
-appstore 1607635845 Velja (1.15.3)
+appstore 425424353 The Unarchiver (4.3.6)
+appstore 904280696 Things3 (3.19.5)
+appstore 1607635845 Velja (1.16.4)
