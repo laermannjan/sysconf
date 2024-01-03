@@ -106,32 +106,25 @@ config.window_frame = {
 	font = wezterm.font({ family = "Menlo", weight = "Bold" }),
 }
 
-local function toggle_zoom_or_split(window, pane)
-	local panes = window:active_tab():panes()
-
-	if #panes == 1 then
-		window:perform_action(wezterm.action({ SplitPane = { direction = "Down", size = { Percent = 25 } } }), pane)
-	else
-		window:perform_action(act.ActivatePaneByIndex(panes[1]:pane_id()), pane)
-		window:perform_action("TogglePaneZoomState", pane)
-	end
-	-- wezterm:perform_action(wezterm.action.SplitPane({ size = { Percent = 20 }, direction = "Down" }), pane)
-	-- -- Check if the current pane is the only pane in the window
-	-- if #window:panes() == 1 then
-	-- 	-- Split the current pane horizontally if it's the only one
-	-- 	window:perform_action(wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }), pane)
-	-- else
-	-- 	-- Otherwise, toggle the zoom state of the pane
-	-- 	window:perform_action("TogglePaneZoomState", pane)
-	-- end
-end
-wezterm.on("toggle_zoom_or_split", toggle_zoom_or_split)
-
 config.keys = {
 	{
 		key = "\\",
 		mods = "CTRL",
-		action = act.EmitEvent("toggle_zoom_or_split"),
+		action = wezterm.action_callback(function(window, pane)
+			local panes = window:active_tab():panes()
+
+			if #panes == 1 then
+				window:perform_action(
+					wezterm.action({ SplitPane = { direction = "Down", size = { Percent = 25 } } }),
+					pane
+				)
+				-- window:perform_action(act.ActivatePaneDirection({ "Down", 1 }))
+			else
+				wezterm.log_info("zoomed?", pane:is_zoomed())
+				window:perform_action(act.ActivatePaneByIndex(panes[1]:pane_id()), pane)
+				window:perform_action("TogglePaneZoomState", pane)
+			end
+		end),
 	},
 	{
 		key = "w",
