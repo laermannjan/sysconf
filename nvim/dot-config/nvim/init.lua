@@ -1,3 +1,17 @@
-require("flabber.config")
--- FIX: nvim-cmp and omnifunc seem to compete since nvim-cmp is not require-setuped within the lsp-zero config. Sometimes
--- nvim-cmp works fine. Sometimes <tab> crashes, sometimes when <C-p> or <C-n> cmp window gets replaced by omnifunc
+require "user.launch"
+require "user.options"
+require "user.keymaps"
+require "user.autocmds"
+
+spec "user.tokyonight"
+spec "user.devicons"
+spec "user.treesitter"
+spec "user.lsp"
+spec "user.none-ls"
+spec "user.cmp"
+spec "user.which-key"
+-- spec "user.snap"
+spec "user.telescope"
+spec "user.trouble"
+
+require "user.lazy"
