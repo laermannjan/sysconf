@@ -67,6 +67,12 @@ vim.opt.pumblend = 18 -- transparency value for that menu (0 opaque, 100 transpa
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
+vim.diagnostic.config({
+  virtual_text = {
+    source = 'always',
+  },
+})
+
 --
 -- [[ General Keymaps ]]
 --
@@ -85,7 +91,7 @@ vim.keymap.set('i', ',', '<c-g>u,')
 vim.keymap.set('i', '.', '<c-g>u.')
 vim.keymap.set('i', ';', '<c-g>u;')
 
-vim.keymap.set('v', 'p', '"_dp') -- paste over without copy
+vim.keymap.set('v', 'p', '"_dP') -- paste over without copy
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'goto previous diagnostic message' })
@@ -106,6 +112,47 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+--
+-- [[ Utils ]]
+--
+
+local function get_clients(opts)
+  local ret = {} ---@type lsp.Client[]
+  if vim.lsp.get_clients then
+    ret = vim.lsp.get_clients(opts)
+  else
+    ---@diagnostic disable-next-line: deprecated
+    ret = vim.lsp.get_active_clients(opts)
+    if opts and opts.method then
+      ---@param client lsp.Client
+      ret = vim.tbl_filter(function(client)
+        return client.supports_method(opts.method, { bufnr = opts.bufnr })
+      end, ret)
+    end
+  end
+  return opts and opts.filter and vim.tbl_filter(opts.filter, ret) or ret
+end
+
+local function on_rename(from, to)
+  local clients = get_clients()
+  for _, client in ipairs(clients) do
+    if client.supports_method('workspace/willRenameFiles') then
+      ---@diagnostic disable-next-line: invisible
+      local resp = client.request_sync('workspace/willRenameFiles', {
+        files = {
+          {
+            oldUri = vim.uri_from_fname(from),
+            newUri = vim.uri_from_fname(to),
+          },
+        },
+      }, 1000, 0)
+      if resp and resp.result ~= nil then
+        vim.lsp.util.apply_workspace_edit(resp.result, client.offset_encoding)
+      end
+    end
+  end
+end
 
 --
 -- [[ lazy.nvim]]
@@ -536,6 +583,7 @@ require('lazy').setup({
         lsp_fallback = true,
         timeout_ms = 500,
       },
+      notify_on_error = true,
     },
   },
 
@@ -717,15 +765,46 @@ require('lazy').setup({
   {
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v3.x',
+    cmd = 'Neotree',
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
       'MunifTanjim/nui.nvim',
       -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
     },
+    init = function()
+      if vim.fn.argc(-1) == 1 then
+        local stat = vim.loop.fs_stat(vim.fn.argv(0))
+        if stat and stat.type == 'directory' then
+          require('neo-tree')
+        end
+      end
+    end,
+    opts = {
+      open_files_do_not_replace_types = { 'terminal', 'Trouble', 'trouble', 'qf', 'Outline' },
+      filesystem = {
+        hijack_netrw_behavior = 'open_current',
+        bind_to_cwd = false,
+        follow_current_file = { enabled = true },
+        use_libuv_file_watcher = true,
+      },
+    },
     keys = {
       { '<leader>e', mode = { 'n' }, '<cmd>Neotree toggle<CR>', desc = 'Neotree' },
     },
+    config = function(_, opts)
+      local function on_move(data)
+        on_rename(data.source, data.destination)
+      end
+
+      local events = require('neo-tree.events')
+      opts.event_handlers = opts.event_handlers or {}
+      vim.list_extend(opts.event_handlers, {
+        { event = events.FILE_MOVED, handler = on_move },
+        { event = events.FILE_RENAMED, handler = on_move },
+      })
+      require('neo-tree').setup(opts)
+    end,
   },
 
   { 'tpope/vim-sleuth' },
@@ -738,51 +817,51 @@ require('lazy').setup({
       local harpoon = require('harpoon')
       harpoon:setup({})
     end,
-    -- keys = {
-    --   {
-    --     '<C-h>',
-    --     function()
-    --       local harpoon = require('harpoon')
-    --       if harpoon.ui.win_id == nil then
-    --         harpoon:list():append()
-    --       end
-    --       harpoon.ui:toggle_quick_menu(harpoon:list())
-    --     end,
-    --     'Harpoon Quick Menu',
-    --   },
-    --   {
-    --     '<tab>j',
-    --     function()
-    --       local harpoon = require('harpoon')
-    --       harpoon:list():select(1)
-    --     end,
-    --     'Harpoon Select 1',
-    --   },
-    --   {
-    --     '<tab>k',
-    --     function()
-    --       local harpoon = require('harpoon')
-    --       harpoon:list():select(2)
-    --     end,
-    --     'Harpoon Select 2',
-    --   },
-    --   {
-    --     '<tab>l',
-    --     function()
-    --       local harpoon = require('harpoon')
-    --       harpoon:list():select(3)
-    --     end,
-    --     'Harpoon Select 3',
-    --   },
-    --   {
-    --     '<tab>;',
-    --     function()
-    --       local harpoon = require('harpoon')
-    --       harpoon:list():select(4)
-    --     end,
-    --     'Harpoon Select 4',
-    --   },
-    -- },
+    keys = {
+      {
+        '<leader><tab>',
+        function()
+          local harpoon = require('harpoon')
+          if harpoon.ui.win_id == nil then
+            harpoon:list():append()
+          end
+          harpoon.ui:toggle_quick_menu(harpoon:list())
+        end,
+        'Harpoon Quick Menu',
+      },
+      {
+        '<M-1>',
+        function()
+          local harpoon = require('harpoon')
+          harpoon:list():select(1)
+        end,
+        'Harpoon Select 1',
+      },
+      {
+        '<M-2>',
+        function()
+          local harpoon = require('harpoon')
+          harpoon:list():select(2)
+        end,
+        'Harpoon Select 2',
+      },
+      {
+        '<M-3>',
+        function()
+          local harpoon = require('harpoon')
+          harpoon:list():select(3)
+        end,
+        'Harpoon Select 3',
+      },
+      {
+        '<M-4>;',
+        function()
+          local harpoon = require('harpoon')
+          harpoon:list():select(4)
+        end,
+        'Harpoon Select 4',
+      },
+    },
   },
 
   {
@@ -930,4 +1009,15 @@ require('lazy').setup({
     opts = {},
   },
   { 'echasnovski/mini.surround', opts = {} },
+  {
+    'rcarriga/nvim-notify',
+    opts = {
+      render = 'wrapped-compact',
+      stages = 'static',
+    },
+    config = function(_, opts)
+      require('notify').setup(opts)
+      vim.notify = require('notify')
+    end,
+  },
 })
