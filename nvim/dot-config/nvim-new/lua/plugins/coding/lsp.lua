@@ -108,6 +108,7 @@ return {
 
 					-- python
 					"pyright",
+					-- "pylsp",
 					"ruff_lsp",
 
 					-- rust
@@ -128,16 +129,17 @@ return {
 				sources = {
 					-- python
 					null_ls.builtins.formatting.black.with({ filetypes = { "python" }, prefer_local = ".venv/bin" }),
+					null_ls.builtins.formatting.ruff.with({ filetypes = { "python" }, prefer_local = ".venv/bin" }),
 					null_ls.builtins.diagnostics.mypy.with({ filetypes = { "python" }, prefer_local = ".venv/bin" }),
 					-- lua
 					null_ls.builtins.formatting.stylua,
 				},
 			})
 
-			require("mason-null-ls").setup({
-				ensure_installed = nil,
-				automatic_installation = true,
-			})
+			-- require("mason-null-ls").setup({
+			-- 	ensure_installed = nil,
+			-- 	automatic_installation = true,
+			-- })
 		end,
 	},
 }
