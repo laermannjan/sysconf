@@ -1,0 +1,1 @@
+complete --command aoc.py --no-files --arguments "(env _AOC.PY_COMPLETE=complete_fish _TYPER_COMPLETE_FISH_ACTION=get-args _TYPER_COMPLETE_ARGS=(commandline -cp) aoc.py)" --condition "env _AOC.PY_COMPLETE=complete_fish _TYPER_COMPLETE_FISH_ACTION=is-args _TYPER_COMPLETE_ARGS=(commandline -cp) aoc.py"
