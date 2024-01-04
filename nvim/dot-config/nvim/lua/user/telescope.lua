@@ -26,10 +26,11 @@ local M = {
 		{ "<leader>fm", "<cmd>Telescope man_pages<CR>", desc = "find man pages" },
 		{ "<leader>uc", "<cmd>Telescope colorscheme enable_preview=true<CR>", desc = "preview colorschemes" },
 		{ "<leader>\\", "<cmd>Telescope<CR>", desc = "find telescope command" },
+		{ "<leader>/", "<cmd>Telescope live_grep<CR>", desc = "live grep" },
 
 		{ "<leader><leader>", "<cmd>Telescope resume<CR>", desc = "resume last search" },
 
-		{ "<leader>gb", "<cmd>Telescope git_branches<CR>", desc = "checkout git branch" },
+		{ "<leader>gB", "<cmd>Telescope git_branches<CR>", desc = "checkout git branch" },
 		{ "<leader>go", "<cmd>Telescope git_status<CR>", desc = "open changed file" },
 		{ "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "checkout git commit" },
 		{ "<leader>gC", "<cmd>Telescope git_bcommits<CR>", desc = "checkout git commit for current file" },
@@ -92,6 +93,7 @@ M.config = function()
 		},
 		pickers = {
 			find_files = {
+				theme = "ivy",
 				path_display = filenameFirst,
 			},
 		},

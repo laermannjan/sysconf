@@ -46,6 +46,7 @@ function M.common_capabilities()
 			"additionalTextEdits",
 		},
 	}
+	-- lsp based folds, important for nvim-ufo
 	capabilities.textDocument.foldingRange = {
 		dynamicRegistration = false,
 		lineFoldingOnly = true,
