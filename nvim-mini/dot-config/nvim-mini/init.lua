@@ -81,6 +81,10 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<ESC>', '<cmd>noh<cr><ESC>', { silent = true })
 vim.keymap.set('n', 'n', 'nzzzv') -- center next search result
 vim.keymap.set('n', 'N', 'Nzzzv') -- center prev search result
+vim.keymap.set('n', '*', '*zzzv') -- center next search result
+vim.keymap.set('n', '#', '#zzzv') -- center prev search result
+vim.keymap.set('n', 'g*', 'g*zzzv') -- center next search result
+vim.keymap.set('n', 'g#', 'g#zzzv') -- center prev search result
 
 -- indent and be able to indent again
 vim.keymap.set('v', '<', '<gv')
@@ -98,6 +102,9 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'goto previous diag
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'goto next diagnostic message' })
 vim.keymap.set('n', 'gl', vim.diagnostic.open_float, { desc = 'open floating diagnostic message' })
 vim.keymap.set('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'open floating diagnostic message' })
+
+vim.keymap.set({ 'n', 'o', 'x' }, '<s-h>', '^')
+vim.keymap.set({ 'n', 'o', 'x' }, '<s-l>', 'g_')
 
 --
 -- [[ Autocmds ]]
