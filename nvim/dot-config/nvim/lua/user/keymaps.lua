@@ -32,3 +32,9 @@ vim.keymap.set({ "n", "x" }, "k", "gk")
 vim.keymap.set("n", "<leader>uw", ":lua vim.wo.wrap = not vim.wo.wrap<CR>", { desc = "toggle line wrap" })
 
 vim.keymap.set("t", "<C-;>", "<C-\\><C-n>")
+
+-- Better window navigation
+vim.keymap.set("n", "<m-h>", "<C-w>h", { noremap = true, silent = true })
+vim.keymap.set("n", "<m-j>", "<C-w>j", { noremap = true, silent = true })
+vim.keymap.set("n", "<m-k>", "<C-w>k", { noremap = true, silent = true })
+vim.keymap.set("n", "<m-l>", "<C-w>l", { noremap = true, silent = true })

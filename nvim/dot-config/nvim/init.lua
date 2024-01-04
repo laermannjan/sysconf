@@ -21,18 +21,18 @@ spec "user.todo-comments"
 
 -- todo
 -- spec "user.harpooon"
--- spec "user.ufo"
+-- spec "user.ufo" -- TODO: see launch.nvim config
 --
--- spec "user.copilot"
+spec "user.copilot"
 spec "user.neogit"
 -- spec "user.gitlinker"
 spec "user.gitsigns"
--- spec "user.toggleterm"
 -- spec "user.diffview"
--- spec "user.autopairs"
+spec "user.autopairs"
 --
--- spec "user.lualine"
+spec "user.lualine"
 -- spec "user.project"
--- spec "user.project"
+spec "user.toggleterm"
+
 spec "user.various-textobjects"
 require "user.lazy"

@@ -43,33 +43,33 @@ local M = {
 }
 
 function M.config()
-	require("tailwindcss-colorizer-cmp").setup({
+	require("tailwindcss-colorizer-cmp").setup {
 		color_square_width = 2,
-	})
+	}
 
 	vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 	vim.api.nvim_set_hl(0, "CmpItemKindCrate", { fg = "#F64D00" })
 	vim.api.nvim_set_hl(0, "CmpItemKindEmoji", { fg = "#FDE030" })
 
-	local cmp = require("cmp")
-	local luasnip = require("luasnip")
+	local cmp = require "cmp"
+	local luasnip = require "luasnip"
 	require("luasnip/loaders/from_vscode").lazy_load()
 	require("luasnip").filetype_extend("typescriptreact", { "html" })
 
 	local check_backspace = function()
-		local col = vim.fn.col(".") - 1
-		return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
+		local col = vim.fn.col "." - 1
+		return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
 	end
 
-	local icons = require("user.icons")
+	local icons = require "user.icons"
 
-	cmp.setup({
+	cmp.setup {
 		snippet = {
 			expand = function(args)
 				luasnip.lsp_expand(args.body) -- For `luasnip` users.
 			end,
 		},
-		mapping = cmp.mapping.preset.insert({
+		mapping = cmp.mapping.preset.insert {
 			["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
 			["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
 			["<C-h>"] = function()
@@ -81,16 +81,24 @@ function M.config()
 			end,
 			["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
 			["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-			["<C-e>"] = cmp.mapping({
-				i = cmp.mapping.abort(),
-				c = cmp.mapping.close(),
-			}),
+			["<C-e>"] = cmp.mapping(function(fallback)
+				if require("copilot.suggestion").is_visible() then
+					require("copilot.suggestion").dismiss()
+				elseif cmp.visible() then
+					cmp.abort()
+					cmp.close()
+				else
+					fallback()
+				end
+			end, { "i", "c" }),
 			-- Accept currently selected item. If none selected, `select` first item.
 			-- Set `select` to `false` to only confirm explicitly selected items.
-			["<CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
+			["<CR>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
 			["<Tab>"] = cmp.mapping(function(fallback)
-				if cmp.visible() then
-					cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace })
+				if require("copilot.suggestion").is_visible() then
+					require("copilot.suggestion").accept_line()
+				elseif cmp.visible() then
+					cmp.confirm { select = true, behavior = cmp.ConfirmBehavior.Replace }
 				elseif luasnip.expandable() then
 					luasnip.expand()
 				elseif luasnip.expand_or_jumpable() then
@@ -109,6 +117,8 @@ function M.config()
 			["<S-Tab>"] = cmp.mapping(function(fallback)
 				if luasnip.jumpable(-1) then
 					luasnip.jump(-1)
+				elseif require("copilot.suggestion").is_visible() then
+					require("copilot.suggestion").accept()
 				else
 					fallback()
 				end
@@ -116,7 +126,7 @@ function M.config()
 				"i",
 				"s",
 			}),
-		}),
+		},
 		formatting = {
 			fields = { "kind", "abbr", "menu" },
 			format = function(entry, vim_item)
@@ -296,9 +306,9 @@ function M.config()
 			},
 		},
 		experimental = {
-			ghost_text = true,
+			ghost_text = false,
 		},
-	})
+	}
 
 	pcall(function()
 		-- local function on_confirm_done(...)
