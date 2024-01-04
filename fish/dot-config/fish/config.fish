@@ -24,7 +24,7 @@ fish_add_path -g ~/.emacs.d/bin
 # general env
 set -gx EDITOR nvim
 set -gx XDG_CONFIG_HOME "$HOME/.config"
-set -gx NVIM_APPNAME nvim-mini
+# set -gx NVIM_APPNAME nvim-mini
 
 set -gx LAZYGIT_NEW_DIR_FILE "$HOME/.lazygit/newdir"
 
