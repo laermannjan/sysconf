@@ -107,25 +107,25 @@ config.window_frame = {
 }
 
 config.keys = {
-	{
-		key = "\\",
-		mods = "CTRL",
-		action = wezterm.action_callback(function(window, pane)
-			local panes = window:active_tab():panes()
-
-			if #panes == 1 then
-				window:perform_action(
-					wezterm.action({ SplitPane = { direction = "Down", size = { Percent = 25 } } }),
-					pane
-				)
-				-- window:perform_action(act.ActivatePaneDirection({ "Down", 1 }))
-			else
-				wezterm.log_info("zoomed?", pane:is_zoomed())
-				window:perform_action(act.ActivatePaneByIndex(panes[1]:pane_id()), pane)
-				window:perform_action("TogglePaneZoomState", pane)
-			end
-		end),
-	},
+	-- {
+	-- 	key = "\\",
+	-- 	mods = "CTRL",
+	-- 	action = wezterm.action_callback(function(window, pane)
+	-- 		local panes = window:active_tab():panes()
+	--
+	-- 		if #panes == 1 then
+	-- 			window:perform_action(
+	-- 				wezterm.action({ SplitPane = { direction = "Down", size = { Percent = 25 } } }),
+	-- 				pane
+	-- 			)
+	-- 			-- window:perform_action(act.ActivatePaneDirection({ "Down", 1 }))
+	-- 		else
+	-- 			wezterm.log_info("zoomed?", pane:is_zoomed())
+	-- 			window:perform_action(act.ActivatePaneByIndex(panes[1]:pane_id()), pane)
+	-- 			window:perform_action("TogglePaneZoomState", pane)
+	-- 		end
+	-- 	end),
+	-- },
 	{
 		key = "w",
 		mods = "CMD",
