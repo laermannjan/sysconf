@@ -29,6 +29,11 @@ M.on_attach = function(client, bufnr)
 	if client.supports_method "textDocument/inlayHint" then
 		vim.lsp.inlay_hint.enable(bufnr, true)
 	end
+
+	if client.name == "ruff_lsp" then
+		-- Disable hover in favor of Pyright
+		client.server_capabilities.hoverProvider = false
+	end
 end
 
 M.toggle_inlay_hints = function()

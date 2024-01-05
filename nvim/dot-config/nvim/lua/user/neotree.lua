@@ -17,7 +17,7 @@ local M = {
 		end
 	end,
 	keys = {
-		{ "<leader>e", mode = { "n" }, "<cmd>Neotree toggle<CR>", desc = "Neotree" },
+		{ "<leader>e", mode = { "n" }, "<cmd>Neotree toggle reveal_force_cwd<CR>", desc = "Neotree" },
 	},
 }
 
@@ -47,7 +47,7 @@ M.config = function(_, opts)
 		open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
 		filesystem = {
 			hijack_netrw_behavior = "open_current",
-			bind_to_cwd = false,
+			bind_to_cwd = true,
 			follow_current_file = { enabled = true },
 			use_libuv_file_watcher = true,
 		},
