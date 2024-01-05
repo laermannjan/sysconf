@@ -1,4 +1,4 @@
-require "user.launch"
+require "user.spec"
 require "user.options"
 require "user.keymaps"
 require "user.autocmds"
