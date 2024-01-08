@@ -1,5 +1,5 @@
 [tools]
-# don't use pipenv here. instead use `mise use pipenv` in the project directory
+# don't use pipenv here. instead use `mise use [--path .] pipenv` in the project dir, attention: use --path when nesting .mise.toml files
 python = ["latest", "3.12", "3.11", "3.10", "3.9", "3.8"]
 go = "latest"
 rust = "latest"  # just for casual usage. use rustup for real projects
