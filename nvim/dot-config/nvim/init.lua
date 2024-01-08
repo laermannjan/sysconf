@@ -1,8 +1,12 @@
+S = {}
+S.colorscheme = "tokyodark"
+
 require "user.spec"
 require "user.options"
 require "user.keymaps"
 require "user.autocmds"
-spec "user.tokyonight"
+
+spec "user.colorschemes"
 spec "user.devicons"
 spec "user.treesitter"
 spec "user.lsp"
