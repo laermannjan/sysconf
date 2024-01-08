@@ -1,15 +1,8 @@
 [tools]
-python = "pipenv"
-pipenv = "latest"
+# don't use pipenv here. instead use `mise use pipenv` in the project directory
+python = ["latest", "3.12", "3.11", "3.10", "3.9", "3.8"]
+go = "latest"
+rust = "latest"  # just for casual usage. use rustup for real projects
 terraform = "latest"
-golang = "latest"
-lua = "latest"
-ruby = "latest"
-nodejs = "18"
-pdm = "latest"
-
-[settings]
-experimental = true
-
-[alias.python]
-pipenv = "3.9.5"
+node = "latest"
+bun = "latest"
