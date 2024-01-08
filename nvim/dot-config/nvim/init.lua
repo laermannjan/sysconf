@@ -43,5 +43,7 @@ spec "user.lualine"
 -- spec "user.project"
 spec "user.toggleterm"
 
+spec "user.neotest"
+
 spec "user.various-textobjects"
 require "user.lazy"
