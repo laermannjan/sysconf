@@ -9,7 +9,7 @@ M.config = function()
 		require("tokyonight").setup {
 			style = "night",
 		}
-		vim.cmd.colorscheme "tokyonight"
+		vim.cmd.colorscheme(S.colorscheme)
 	end
 end
 

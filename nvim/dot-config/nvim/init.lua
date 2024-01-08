@@ -1,5 +1,10 @@
 S = {}
+-- S.colorscheme = "tokyonight"
 S.colorscheme = "tokyodark"
+-- S.colorscheme = "nightfox"
+-- S.colorscheme = "duskfox"
+-- S.colorscheme = "terafox"
+-- S.colorscheme = "nordic"
 
 require "user.spec"
 require "user.options"
