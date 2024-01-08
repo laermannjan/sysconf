@@ -2,7 +2,11 @@ status --is-interactive || exit
 
 switch (uname)
     case Linux
-        eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+        if test -f /home/linuxbrew/.linuxbrew/bin/brew
+            eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+        else
+            exit
+        end 
     case Darwin
         eval (/opt/homebrew/bin/brew shellenv)
 end
