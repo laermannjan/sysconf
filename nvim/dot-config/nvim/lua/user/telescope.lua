@@ -5,6 +5,13 @@ local M = {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make", lazy = true },
+		{
+			"ahmedkhalf/project.nvim",
+			lazy = false,
+			config = function()
+				require("project_nvim").setup()
+			end,
+		},
 	},
 	keys = {
 		{ "<leader>fg", "<cmd>Telescope git_files show_untracked=true<CR>", desc = "find git files" },
@@ -23,6 +30,7 @@ local M = {
 		{ "<leader>fh", "<cmd>Telescope help_tags<CR>", desc = "find help" },
 		{ "<leader>fk", "<cmd>Telescope keymaps<CR>", desc = "find keymaps" },
 		{ "<leader>fC", "<cmd>Telescope commands<CR>", desc = "find commands" },
+		{ "<leader>fp", "<cmd>Telescope projects<CR>", desc = "find projects" },
 		{ "<leader>fm", "<cmd>Telescope man_pages<CR>", desc = "find man pages" },
 		{ "<leader>uc", "<cmd>Telescope colorscheme enable_preview=true<CR>", desc = "preview colorschemes" },
 		{ "<leader>\\", "<cmd>Telescope<CR>", desc = "find telescope command" },
@@ -98,6 +106,7 @@ M.config = function()
 			},
 		},
 		extensions = {
+			projects = {},
 			fzf = {
 				fuzzy = true, -- false will only do exact matching
 				override_generic_sorter = true, -- override the generic sorter
