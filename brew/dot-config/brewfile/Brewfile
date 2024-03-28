@@ -85,6 +85,7 @@ brew highway
 brew hledger
 brew httpie
 brew hunspell
+brew hwloc
 brew hyperfine
 brew icu4c
 brew imagemagick
@@ -99,6 +100,7 @@ brew jpeg-xl
 brew jq
 brew just
 brew k9s
+brew krb5
 brew lame
 brew lazydocker
 brew lazygit
@@ -132,6 +134,7 @@ brew libnghttp2
 brew libogg
 brew libomp
 brew libpng
+brew libpq
 brew libpthread-stubs
 brew libraw
 brew librist
@@ -191,14 +194,17 @@ brew neovim --HEAD
 brew netpbm
 brew nettle
 brew npth
+brew numpy
 brew nushell
 brew oniguruma
+brew openblas
 brew opencore-amr
 brew openexr
 brew openjpeg
 brew openldap
 brew openssl@1.1
 brew openssl@3
+brew openvino
 brew opus
 brew p11-kit
 brew pandoc
@@ -212,16 +218,18 @@ brew pkg-config
 brew pngpaste
 brew pre-commit
 brew proselint
+brew pspg
+brew pugixml
 brew pycparser
 brew pygments
 brew python-argcomplete
+brew python-brotli
 brew python-certifi
-brew python-distlib
 brew python-filelock
 brew python-markdown
 brew python-markupsafe
+brew python-mutagen
 brew python-packaging
-brew python-platformdirs
 brew python-setuptools
 brew python-typing-extensions
 brew python@3.10
@@ -253,6 +261,7 @@ brew starship
 brew stow
 brew svt-av1
 brew task
+brew tbb
 brew tcl-tk
 brew tealdeer
 brew tesseract
@@ -265,6 +274,7 @@ brew unbound
 brew unibilium
 brew unixodbc
 brew utf8proc
+brew uv
 brew vcsh
 brew virtualenv
 brew webp
@@ -279,6 +289,7 @@ brew xxhash
 brew xz
 brew youtube-dl
 brew yq
+brew yt-dlp
 brew z3
 brew zellij
 brew zeromq
@@ -326,6 +337,7 @@ cask unnaturalscrollwheels
 cask utm
 cask visual-studio-code
 cask vlc
+cask warp
 
 tap homebrew/bundle
 
@@ -347,6 +359,9 @@ brew borgbackup-fuse
 
 tap d12frosted/emacs-plus
 brew emacs-plus@29 --with-native-comp --with-imagemagick
+
+tap danvergara/tools
+brew dblab
 
 tap derailed/k9s
 
@@ -374,16 +389,22 @@ brew lazykube
 tap withgraphite/tap
 brew graphite
 
+# Other Homebrew packages
+brew python-distlib
+brew python-platformdirs
+
 # App Store applications
-appstore 1287445660 Agenda (18.3.1)
-appstore 1444383602 Goodnotes (6.2.21)
-appstore 1136220934 Infuse (7.6.5)
+appstore 1287445660 Agenda (18.3.2)
+appstore 1444383602 Goodnotes (6.3.6)
+appstore 1136220934 Infuse (7.7)
 appstore 409183694 Keynote (13.2)
-appstore 360593530 Notability (14.5.1)
+appstore 360593530 Notability (14.7.3)
 appstore 409203825 Numbers (13.2)
 appstore 409201541 Pages (13.2)
-appstore 1569600264 Pandan (1.15.0)
+appstore 1569600264 Pandan (1.16.0)
 appstore 1596283165 rcmd (2.4.0)
 appstore 425424353 The Unarchiver (4.3.6)
-appstore 904280696 Things3 (3.19.5)
+appstore 904280696 Things3 (3.20)
+appstore 966085870 TickTick (5.0.60)
+appstore 1449619230 Tim (8.9.0)
 appstore 1607635845 Velja (1.16.4)

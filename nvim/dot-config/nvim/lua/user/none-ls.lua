@@ -6,20 +6,10 @@ local M = {
 function M.config()
 	local null_ls = require "null-ls"
 
-	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 	null_ls.setup {
 		debug = false,
 		on_attach = function(client, bufnr)
-			if client.supports_method "textDocument/formatting" then
-				vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
-				vim.api.nvim_create_autocmd("BufWritePre", {
-					group = augroup,
-					buffer = bufnr,
-					callback = function()
-						vim.lsp.buf.format { async = false }
-					end,
-				})
-			end
+			require("user.utils").create_autoformat_autocmd(client, bufnr)
 		end,
 
 		sources = {
@@ -30,6 +20,7 @@ function M.config()
 			null_ls.builtins.code_actions.impl,
 			null_ls.builtins.formatting.goimports,
 			null_ls.builtins.formatting.gofumpt,
+			-- null_ls.builtins.formatting.ruff_format,
 
 			-- formatting.prettier.with {
 			--   extra_filetypes = { "toml" },

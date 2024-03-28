@@ -25,6 +25,7 @@ end
 
 M.on_attach = function(client, bufnr)
 	add_lsp_keymaps(bufnr)
+	require("user.utils").create_autoformat_autocmd(client, bufnr)
 
 	if client.supports_method "textDocument/inlayHint" then
 		vim.lsp.inlay_hint.enable(bufnr, true)

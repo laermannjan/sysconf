@@ -54,9 +54,11 @@ nnoremap * *zzzv
 nnoremap # #zzzv
 
 " add undo breakpoints on certain keys
-inoremap . .<c-g>u
-inoremap , ,<c-g>u
-inoremap ; ;<c-g>u
+"inoremap . .<c-g>u
+"inoremap , ,<c-g>u
+"inoremap ; ;<c-g>u
+
+
 
 " move to beginning/end of line with text (instead of 0/$, which include whitespace)
 nnoremap <s-h> ^
