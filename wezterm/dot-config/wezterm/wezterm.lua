@@ -2,17 +2,6 @@ local wezterm = require("wezterm")
 local mux = wezterm.mux
 local act = wezterm.action
 
-local set_environemnt_variables = function()
-	local paths = {
-		wezterm.home_dir .. "/.cargo/bin",
-		"/opt/homebrew/bin",
-	}
-
-	return {
-		PATH = table.concat(paths, ":") .. ":" .. os.getenv("PATH"),
-	}
-end
-
 -- events
 wezterm.on("gui-startup", function()
 	local tab, pane, window = mux.spawn_window({})
@@ -33,8 +22,6 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.set_environment_variables = set_environemnt_variables()
-
 config.leader = { key = "Space", mods = "CTRL|SHIFT" }
 
 config.inactive_pane_hsb = {
@@ -49,10 +36,10 @@ config.max_fps = 240
 -- config.color_scheme = "Gotham (Gogh)"
 -- config.color_scheme = "SeaShells"
 config.font = wezterm.font("ComicCode Nerd Font")
-config.font = wezterm.font("JetBrains Mono Light")
-config.font = wezterm.font("Monaspace Argon Var")
-config.font = wezterm.font("Monaspace Xenon Var")
-config.font = wezterm.font("Monaspace Radon")
+-- config.font = wezterm.font("JetBrains Mono Light")
+-- config.font = wezterm.font("Monaspace Argon Var")
+-- config.font = wezterm.font("Monaspace Xenon Var")
+-- config.font = wezterm.font("Monaspace Radon")
 -- config.font = wezterm.font("Monaspace Krypton")
 
 config.font_size = 16.0
@@ -107,25 +94,25 @@ config.window_frame = {
 }
 
 config.keys = {
-	-- {
-	-- 	key = "\\",
-	-- 	mods = "CTRL",
-	-- 	action = wezterm.action_callback(function(window, pane)
-	-- 		local panes = window:active_tab():panes()
-	--
-	-- 		if #panes == 1 then
-	-- 			window:perform_action(
-	-- 				wezterm.action({ SplitPane = { direction = "Down", size = { Percent = 25 } } }),
-	-- 				pane
-	-- 			)
-	-- 			-- window:perform_action(act.ActivatePaneDirection({ "Down", 1 }))
-	-- 		else
-	-- 			wezterm.log_info("zoomed?", pane:is_zoomed())
-	-- 			window:perform_action(act.ActivatePaneByIndex(panes[1]:pane_id()), pane)
-	-- 			window:perform_action("TogglePaneZoomState", pane)
-	-- 		end
-	-- 	end),
-	-- },
+	{
+		key = "\\",
+		mods = "CTRL",
+		action = wezterm.action_callback(function(window, pane)
+			local panes = window:active_tab():panes()
+
+			if #panes == 1 then
+				window:perform_action(
+					wezterm.action({ SplitPane = { direction = "Down", size = { Percent = 25 } } }),
+					pane
+				)
+				-- window:perform_action(act.ActivatePaneDirection({ "Down", 1 }))
+			else
+				wezterm.log_info("zoomed?", pane:is_zoomed())
+				window:perform_action(act.ActivatePaneByIndex(panes[1]:pane_id()), pane)
+				window:perform_action("TogglePaneZoomState", pane)
+			end
+		end),
+	},
 	{
 		key = "w",
 		mods = "CMD",

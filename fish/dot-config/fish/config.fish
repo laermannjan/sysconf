@@ -35,7 +35,4 @@ complete --command aws --no-files --arguments '(begin; set --local --export COMP
 
 # source /Users/jan/.config/op/plugins.sh
 
-mise activate fish | source
-# set -gx MISE_ENV_FILE .env  # always load .env file
-
 hoard shell-config --shell fish | source # hoard completions, adds shortcut to <C-h>

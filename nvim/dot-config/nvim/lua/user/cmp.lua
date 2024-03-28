@@ -95,8 +95,9 @@ function M.config()
 			-- Set `select` to `false` to only confirm explicitly selected items.
 			["<CR>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
 			["<Tab>"] = cmp.mapping(function(fallback)
-				if require("copilot.suggestion").is_visible() then
-					require("copilot.suggestion").accept_line()
+				local _, ok = pcall(require, "copilot.suggestion")
+				if ok and require("copilot.suggestion").is_visible() then
+					require("copilot.suggestion").accept_word()
 				elseif cmp.visible() then
 					cmp.confirm { select = true, behavior = cmp.ConfirmBehavior.Replace }
 				elseif luasnip.expandable() then
@@ -115,10 +116,11 @@ function M.config()
 				"s",
 			}),
 			["<S-Tab>"] = cmp.mapping(function(fallback)
-				if luasnip.jumpable(-1) then
+				local _, ok = pcall(require, "copilot.suggestion")
+				if ok and luasnip.jumpable(-1) then
 					luasnip.jump(-1)
 				elseif require("copilot.suggestion").is_visible() then
-					require("copilot.suggestion").accept()
+					require("copilot.suggestion").accept_word()
 				else
 					fallback()
 				end

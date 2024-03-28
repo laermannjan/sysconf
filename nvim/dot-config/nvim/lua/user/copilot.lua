@@ -1,5 +1,6 @@
 local M = {
 	"zbirenbaum/copilot.lua",
+	enabled = true,
 	cmd = "Copilot",
 	event = "InsertEnter",
 	-- dependencies = {
@@ -8,6 +9,9 @@ local M = {
 }
 
 function M.config()
+	do
+		return
+	end -- WARN: remove if owning a subscription again
 	require("copilot").setup {
 		panel = {
 			keymap = {
