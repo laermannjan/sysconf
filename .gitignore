@@ -1,0 +1,7 @@
+.DS_Store
+*.bak
+**/.direnv/**
+result
+private/**
+templates/**/flake.lock
+!private/**.age
