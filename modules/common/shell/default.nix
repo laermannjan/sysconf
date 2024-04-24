@@ -7,6 +7,8 @@
     ./fish.nix
     # ./fzf.nix
     ./git.nix
+    ./neovim
+    ./ssh.nix
     # ./github.nix
     # ./jujutsu.nix
     ./nixpkgs.nix
