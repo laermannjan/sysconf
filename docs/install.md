@@ -19,7 +19,7 @@ nix \
     --extra-experimental-features flakes \
     --extra-experimental-features nix-command \
     run nix-darwin -- switch \
-    --flake github:laermannjan/dotfiles#<name of darwinConfiguration; e.g. `work`>
+    --flake github:laermannjan/sysconf#<name of darwinConfiguration; e.g. `work`>
 ```
 
 > [!TIP]

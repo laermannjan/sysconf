@@ -12,5 +12,5 @@ Click [here](docs/install.md) for detailed installation instructions.
 ## Flake Templates
 Use the [templates](./templates/) as flakes to start new projects.
 ```bash
-nix flake init --template github:laermannjan/dotfiles#rust
+nix flake init --template github:laermannjan/sysconf#rust
 ```
