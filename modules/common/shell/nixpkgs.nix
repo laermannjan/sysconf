@@ -93,9 +93,14 @@
       path = builtins.toString pkgs.path;
     };
 
-    # For security, only allow specific users
-    settings.allowed-users = [
-      "@wheel"
+    # # For security, only allow specific users
+    # settings.allowed-users = [
+    #   "@wheel"
+    #   config.user
+    # ];
+
+    settings.trusted-users = [
+      "root"
       config.user
     ];
 
