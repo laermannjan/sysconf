@@ -9,7 +9,7 @@
 
   home-manager.users.${config.user} = {
     # Packages used in abbreviations and aliases
-    home.packages = with pkgs; [curl eza];
+    home.packages = with pkgs; [curl];
 
     programs.fish = {
       enable = true;
