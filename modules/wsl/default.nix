@@ -20,7 +20,7 @@
     # every launch
     system.activationScripts.configDir.text = ''
       rm -rf /etc/nixos
-      ln --symbolic --no-dereference --force ${config.dotfilesPath} /etc/nixos
+      ln --symbolic --no-dereference --force ${config.sysconfPath} /etc/nixos
     '';
   };
 }
