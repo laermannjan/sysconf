@@ -10,8 +10,8 @@
     # ./github.nix
     # ./jujutsu.nix
     ./nixpkgs.nix
-    # ./starship.nix
-    # ./utilities.nix
+    ./starship
+    ./utilities.nix
     # ./work.nix
   ];
 }
