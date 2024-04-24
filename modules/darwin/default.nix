@@ -13,4 +13,6 @@
     ./user.nix
     # ./utilities.nix
   ];
+
+  programs.zsh.enable = true;
 }
