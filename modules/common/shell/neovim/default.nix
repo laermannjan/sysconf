@@ -1,21 +1,39 @@
-{pkgs, ...}: {
-  programs = {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
+  options = {
     neovim = {
-      enable = true;
+      enable = lib.mkEnableOption {
+        description = "Enable my neovim config.";
+        default = false;
+      };
     };
   };
 
-  home.file.".config/nvim/" = {
-    source = ./nvim-config;
-    recursive = true;
-  };
+  config = {
+    home-manager.users.${config.user} = {
+      programs = {
+        neovim = {
+          enable = true;
+        };
+      };
 
-  home.packages = with pkgs; [
-    jq
-    ripgrep
-    fzf
-    alejandra
-    deadnix
-    statix
-  ];
+      home.file.".config/nvim/" = {
+        source = ./nvim-config;
+        recursive = true;
+      };
+
+      home.packages = with pkgs; [
+        jq
+        ripgrep
+        fzf
+        alejandra
+        deadnix
+        statix
+      ];
+    };
+  };
 }
