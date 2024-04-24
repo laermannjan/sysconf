@@ -1,5 +1,5 @@
 {...}: {
   imports = [
-    ./dotfiles.nix
+    ./sysconf.nix
   ];
 }
