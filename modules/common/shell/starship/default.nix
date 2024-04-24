@@ -1,10 +1,15 @@
-{ config, pkgs, lib, ... }:
-
 {
-  programs = {
-    starship = {
-      enable = true;
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
+  home-manager.users.${config.user} = {
+    programs = {
+      starship = {
+        enable = true;
+      };
     };
+    xdg.configFile."starship.toml".source = ./starship.toml;
   };
-  xdg.configFile."starship.toml".source = ./starship.toml;
 }
