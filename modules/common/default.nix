@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./applications
+    ./repositories
     ./shell
   ];
 
