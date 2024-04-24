@@ -70,7 +70,7 @@
     # home-manager switch --flake .#work
     homeConfigurations = {
       # foo = nixosConfigurations.tempest.config.home-manager.users.${globals.user}.home;
-      lookingglass = darwinConfigurations.lookingglass.config.home-manager.users.${globals.user}.home;
+      work = darwinConfigurations.work.config.home-manager.users.${globals.user}.home;
     };
 
     # Programs that can be run by calling this flake
