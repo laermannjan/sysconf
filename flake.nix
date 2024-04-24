@@ -32,6 +32,7 @@
       fullName = "Jan Laermann";
       gitName = fullName;
       gitEmail = "git@flabber.mozmail.com";
+      sysconfRepo = "https://github.com/laermannjan/sysconf";
     };
 
     overlays = [];
