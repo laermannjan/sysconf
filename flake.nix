@@ -66,6 +66,24 @@
       lookingglass = darwinConfigurations.lookingglass.config.home-manager.users.${globals.user}.home;
     };
 
+    # Development environments
+    devShells = forAllSystems (
+      system: let
+        pkgs = import nixpkgs {inherit system overlays;};
+      in {
+        # Used to run commands and edit files in this repo
+        default = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            git
+            stylua
+            nixfmt-rfc-style
+            shfmt
+            shellcheck
+          ];
+        };
+      }
+    );
+
     formatter = forAllSystems (
       system: let
         pkgs = import nixpkgs {inherit system overlays;};
