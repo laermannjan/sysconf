@@ -14,14 +14,16 @@
   };
 
   config = lib.mkIf (config.wezterm.enable) {
-    programs = {
-      wezterm = {
-        enable = true;
+    home-manager.users.${config.user} = {
+      programs = {
+        wezterm = {
+          enable = true;
+        };
       };
-    };
-    xdg.configFile."wezterm" = {
-      source = ./../../../dotfiles/wezterm;
-      recursive = true;
+      xdg.configFile."wezterm" = {
+        source = ./../../../dotfiles/wezterm;
+        recursive = true;
+      };
     };
   };
 }
