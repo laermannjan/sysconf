@@ -21,20 +21,6 @@ disabled = true
 [character]
 success_symbol = "[  ](bold bright-green)"
 error_symbol = "[  ](bold red)"
-# success_symbol = "[󰜥](bold green)"
-
-# [python]
-# format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
-#
-# [rust]
-# format = '[$symbol($version )]($style)'
-
-# [golang]
-# symbol = " "
-# format = '[$symbol($version )]($style)'
-
-# [docker_context]
-# format = '[$symbol$context ]($style)'
 
 [time]
 style = "bold yellow"
@@ -44,22 +30,6 @@ disabled = false
 
 [aws]
 disabled = true
-
-[git_branch]
-disabled = false
-
-[git_status]
-disabled = false
-
-[git_commit]
-disabled = false
-
-[git_state]
-disabled = false
-
-[git_metrics]
-disabled = false
-
 
 [custom]
 [custom.env_slug]
