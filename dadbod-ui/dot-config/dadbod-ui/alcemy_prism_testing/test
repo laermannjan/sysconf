@@ -1,1 +1,0 @@
-select measurements from "cement_sample" LIMIT 200
