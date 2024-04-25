@@ -30,6 +30,7 @@
         jq
         ripgrep
         fzf
+        nodejs # for installing language servers via mason
         alejandra
         deadnix
         statix
