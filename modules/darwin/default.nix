@@ -4,7 +4,7 @@
     ./fish.nix
     ./fonts.nix
     # ./hammerspoon.nix
-    # ./homebrew.nix
+    ./homebrew.nix
     # ./kitty.nix
     ./networking.nix
     ./nixpkgs.nix
