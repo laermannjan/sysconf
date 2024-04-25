@@ -31,6 +31,8 @@
         ripgrep
         fzf
         nodejs # for installing language servers via mason
+        go # for installing language servers via mason
+        cargo # for installing language servers via mason
         alejandra
         deadnix
         statix
