@@ -32,9 +32,9 @@ inputs.darwin.lib.darwinSystem {
       golang.enable = true;
       lua.enable = true;
       media.enable = true;
-      neovim.enable = false;
+      # neovim.enable = true;
       nixlang.enable = true;
-      mynixvim.enable = true;
+      nixvim.enable = true;
       obsidian.enable = true;
       pycharm.enable = true;
       python.enable = true;
