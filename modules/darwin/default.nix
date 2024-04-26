@@ -6,7 +6,6 @@
 }: {
   imports = [
     ./fish.nix
-    ./fonts.nix
     ./homebrew.nix
     ./linearmouse
     ./networking.nix

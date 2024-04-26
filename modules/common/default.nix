@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./applications
+    ./fonts.nix
     ./repositories
     ./shell
   ];
