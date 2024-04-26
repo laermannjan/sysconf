@@ -28,19 +28,19 @@ inputs.darwin.lib.darwinSystem {
       discord.enable = true;
       docker.enable = true;
       firefox.enable = true;
-      # kubernetes.enable = true;
-      # lua.enable = true;
+      golang.enable = true;
+      lua.enable = true;
       media.enable = true;
       neovim.enable = true;
-      # nixlang.enable = true;
+      nixlang.enable = true;
       obsidian.enable = true;
       pycharm.enable = true;
-      # python.enable = true;
-      # rust.enable = true;
+      python.enable = true;
+      rust.enable = true;
       slack.enable = true;
       sysconf.enable = true;
       tailscale.enable = true;
-      # terraform.enable = true;
+      terraform.enable = true;
       wezterm.enable = true;
       yt-dlp.enable = true;
     }
