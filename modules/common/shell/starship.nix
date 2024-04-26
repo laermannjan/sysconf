@@ -19,8 +19,8 @@
       ];
       right_format = "$nix_shell";
       character = {
-        success_symbol = "[](bold bright-green)";
-        error_symbol = "[](bold red)";
+        success_symbol = "[ ](bold bright-green)";
+        error_symbol = "[ ](bold red)";
         vicmd_symbol = "[❮](bold green)";
       };
       cmd_duration = {
