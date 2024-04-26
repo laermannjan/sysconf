@@ -1,19 +1,12 @@
 {...}: {
   imports = [
-    # ./atuin.nix
-    # ./bash
-    # ./charm.nix
-    ./direnv
+    ./direnv.nix
     ./fish.nix
-    # ./fzf.nix
     ./git.nix
-    ./neovim
-    ./ssh.nix
-    # ./github.nix
-    # ./jujutsu.nix
+    ./neovim.nix
     ./nixpkgs.nix
-    ./starship
+    ./ssh.nix
+    ./starship.nix
     ./utilities.nix
-    # ./work.nix
   ];
 }
