@@ -20,10 +20,13 @@
       "1password-cli"
     ];
     home-manager.users.${config.user} = {
-      home.packages = with pkgs; [
-        _1password-gui
-        _1password
-      ];
+      home.packages = let
+        packages = with pkgs;
+          if pkgs.stdenv.isDarwin
+          then [_1password]
+          else [_1password-gui _1password];
+      in
+        packages;
 
       xdg.configFile."op/plugins.sh".text = ''
         export OP_PLUGIN_ALIASES_SOURCED=1

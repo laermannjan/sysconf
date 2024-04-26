@@ -23,24 +23,25 @@ inputs.darwin.lib.darwinSystem {
       # mail.enable = true;
       # mail.aerc.enable = true;
       # mail.himalaya.enable = false;
-      wezterm.enable = true;
+      _1password.enable = true;
+      argo.enable = true;
+      discord.enable = true;
       docker.enable = true;
-      tailscale.enable = true;
-
-      # discord.enable = true;
       firefox.enable = true;
-      sysconf.enable = true;
-      neovim.enable = true;
+      # kubernetes.enable = true;
+      # lua.enable = true;
       media.enable = true;
+      neovim.enable = true;
       # nixlang.enable = true;
-      # terraform.enable = true;
+      obsidian.enable = true;
+      pycharm.enable = true;
       # python.enable = true;
       # rust.enable = true;
-      # lua.enable = true;
-      obsidian.enable = true;
-      # kubernetes.enable = true;
-      _1password.enable = true;
       slack.enable = true;
+      sysconf.enable = true;
+      tailscale.enable = true;
+      # terraform.enable = true;
+      wezterm.enable = true;
       yt-dlp.enable = true;
     }
   ];
