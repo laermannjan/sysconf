@@ -59,7 +59,14 @@ in {
 
       xdg.configFile."fd/ignore".text = ignorePatterns;
 
-      programs.awscli.enable = true; # creds managed with 1password-cli plugin
+      programs.awscli = {
+        enable = true; # creds managed with 1password-cli plugin
+        settings = {
+          "default" = {
+            region = "eu-central-1";
+          };
+        };
+      };
 
       programs.bat = {
         enable = true; # cat replacement

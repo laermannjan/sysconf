@@ -1,5 +1,6 @@
 {...}: {
   imports = [
+    ./argo.nix
     ./direnv.nix
     ./fish.nix
     ./git.nix

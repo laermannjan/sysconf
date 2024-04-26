@@ -93,12 +93,13 @@
           show-process-indicators = true;
 
           persistent-apps = [
-            "/Applications/1Password.app"
+            "${pkgs.firefox-devedition-bin}/Applications/Firefox.app"
+            "${pkgs.wezterm}/Applications/WezTerm.app"
             "${pkgs.slack}/Applications/Slack.app"
             "/System/Applications/Calendar.app"
-            "${pkgs.firefox-devedition-bin}/Applications/Firefox.app"
+            "${pkgs.discord}/Applications/Discord.app"
             "${pkgs.obsidian}/Applications/Obsidian.app"
-            "${pkgs.wezterm}/Applications/WezTerm.app"
+            "/Applications/1Password.app"
             "/System/Applications/System Settings.app"
           ];
         };
