@@ -24,6 +24,12 @@
         _1password-gui
         _1password
       ];
+
+      xdg.configFile."op/plugins.sh".text = ''
+        export OP_PLUGIN_ALIASES_SOURCED=1
+        alias aws="op plugin run -- aws"
+        alias glab="op plugin run -- glab"
+      '';
     };
 
     # # https://1password.community/discussion/135462/firefox-extension-does-not-connect-to-linux-app
