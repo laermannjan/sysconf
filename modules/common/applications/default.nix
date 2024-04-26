@@ -5,10 +5,10 @@
     # ./discord.nix
     # ./firefox.nix
     ./wezterm.nix
-    # ./media.nix
-    # ./obsidian.nix
+    ./media.nix
+    ./obsidian.nix
     # ./qbittorrent.nix
-    # ./slack.nix
-    # ./yt-dlp.nix
+    ./slack.nix
+    ./yt-dlp.nix
   ];
 }
