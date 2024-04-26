@@ -96,9 +96,9 @@
             "/Applications/1Password.app"
             "${pkgs.slack}/Applications/Slack.app"
             "/System/Applications/Calendar.app"
-            "${pkgs.firefox-bin}/Applications/Firefox.app"
+            "${pkgs.firefox-devedition-bin}/Applications/Firefox.app"
             "${pkgs.obsidian}/Applications/Obsidian.app"
-            "${pkgs.kitty}/Applications/WezTerm.app"
+            "${pkgs.wezterm}/Applications/WezTerm.app"
             "/System/Applications/System Settings.app"
           ];
         };
