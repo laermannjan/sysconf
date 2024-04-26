@@ -1,11 +1,8 @@
 {
   config,
-  pkgs,
   lib,
   ...
-}: let
-  home-packages = config.home-manager.users.${config.user}.home.packages;
-in {
+}: {
   options = {
     gitName = lib.mkOption {
       type = lib.types.str;
@@ -28,6 +25,79 @@ in {
         enable = true;
         userName = config.gitName;
         userEmail = config.gitEmail;
+        extraConfig = {
+          init.defaultBranch = "main";
+          safe = {
+            directory = config.sysconfPath;
+          };
+          color.ui = true;
+          pull.ff = "only";
+          push = {
+            default = "current";
+            autoSetupRemote = true;
+            useForceIfIncludes = true;
+            followtags = true;
+          };
+          gpg = {
+            format = "ssh";
+            ssh.allowedSignersFile = "~/.config/git/allowed-signers";
+          };
+          help.autocorrect = "1";
+          log.date = "iso";
+        };
+        delta = {
+          enable = true;
+          options = {
+            navigate = true;
+          };
+        };
+        ignores = [
+          # IntelliJ
+          ".idea/"
+
+          # Vim/Emacs
+          "*~"
+          ".*.swp"
+
+          # Mac
+          ".DS_Store"
+          ".fseventsd"
+          ".Spotlight-V100"
+          ".TemporaryItems"
+          ".Trashes"
+
+          # Helix
+          ".helix/"
+
+          # VSCode Workspace Folder
+          ".vscode/"
+
+          # Rust
+          "debug/"
+          "target/"
+
+          # Python
+          "*.pyc"
+          "*.egg"
+          "*.out"
+          "venv/"
+          ".venv/"
+          "**/**/__pycache__/"
+          ".mypy_cache/"
+
+          # Nix
+          "result"
+          "result-*"
+
+          # direnv
+          ".direnv"
+          ".envrc"
+
+          # NodeJS/Web dev
+          ".env/"
+          "node_modules"
+          ".sass-cache"
+        ];
       };
     };
   };
