@@ -13,7 +13,7 @@
     };
   };
 
-  config = lib.mkIf (config.gui.enable && config.firefox.enable) {
+  config = lib.mkIf (config.firefox.enable) {
     unfreePackages = [
       (lib.mkIf config._1password.enable "onepassword-password-manager")
     ];
