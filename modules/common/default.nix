@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -11,6 +12,7 @@
     ./programming
     ./repositories
     ./shell
+    inputs.nixvim.homeManagerModules.nixvim
   ];
 
   options = {

@@ -7,13 +7,13 @@
 }:
 inputs.darwin.lib.darwinSystem {
   system = "aarch64-darwin";
-  specialArgs = { };
+  specialArgs = { inherit inputs; };
   modules = [
     ../../modules/common
     ../../modules/darwin
     globals
     inputs.home-manager.darwinModules.home-manager
-    inputs.nixvim.nixDarwinModules.nixvim
+    # inputs.nixvim.nixDarwinModules.nixvim
     {
       nixpkgs.overlays = [ inputs.firefox-darwin.overlay ] ++ overlays;
       networking.hostName = "smidr";

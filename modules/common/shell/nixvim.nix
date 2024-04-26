@@ -10,14 +10,15 @@
   };
 
   config = lib.mkIf config.nixvim.enable {
-    programs.neovim.enable = true;
-    programs.nixvim = {
-      enable = true;
-      viAlias = true;
-      vimAlias = true;
-      colorschemes.tokyonight = {
+    home-manager.users.${config.user} = {
+      programs.neovim.enable = true;
+      programs.nixvim = {
         enable = true;
-        style = "night";
+        viAlias = true;
+        vimAlias = true;
+        colorschemes.gruvbox = {
+          enable = true;
+        };
       };
     };
   };
