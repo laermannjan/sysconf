@@ -12,7 +12,6 @@
     ./programming
     ./repositories
     ./shell
-    inputs.nixvim.homeManagerModules.nixvim
   ];
 
   options = {
@@ -78,6 +77,8 @@
       # Install packages to /etc/profiles instead of ~/.nix-profile, useful when
       # using multiple profiles for one user
       home-manager.useUserPackages = true;
+
+      # home-manager.extraSpecialArgs = {inherit inputs;};
 
       # Allow specified unfree packages (identified elsewhere)
       # Retrieves package object based on string name

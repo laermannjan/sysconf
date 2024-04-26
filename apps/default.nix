@@ -28,6 +28,6 @@ rec {
   # netdata = import ./netdata-cloud.nix { inherit pkgs; };
 
   # Run neovim as an app
-  neovim = import ./neovim.nix { inherit pkgs; };
-  nvim = neovim;
+  # neovim = import ./neovim.nix { inherit pkgs; };
+  # nvim = neovim;
 }
