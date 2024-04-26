@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   config = {
     home-manager.users.${config.user} = {
       programs.ssh = {
@@ -16,7 +17,9 @@
             identityFile = "~/.ssh/id_ed25519";
             user = "jan";
             identitiesOnly = true;
-            extraOptions = {preferredAuthentications = "publickey";};
+            extraOptions = {
+              preferredAuthentications = "publickey";
+            };
           };
           "github.com" = {
             hostname = "github.com";
@@ -26,17 +29,24 @@
             forwardAgent = false;
             forwardX11 = false;
             forwardX11Trusted = false;
-            extraOptions = {preferredAuthentications = "publickey";};
+            extraOptions = {
+              preferredAuthentications = "publickey";
+            };
           };
           "gitlab.com" = {
             hostname = "gitlab.com";
-            identityFile = ["~/.ssh/id_alcemy" "~/.ssh/id_ed25519"];
+            identityFile = [
+              "~/.ssh/id_alcemy"
+              "~/.ssh/id_ed25519"
+            ];
             identitiesOnly = true;
             user = "git";
             forwardAgent = false;
             forwardX11 = false;
             forwardX11Trusted = false;
-            extraOptions = {preferredAuthentications = "publickey";};
+            extraOptions = {
+              preferredAuthentications = "publickey";
+            };
           };
         };
       };

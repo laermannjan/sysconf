@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./golang.nix
     ./lua.nix

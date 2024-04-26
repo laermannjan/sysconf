@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     ./1password.nix
     ./applauncher.nix
@@ -24,8 +25,8 @@
     programs.zsh.enable = true;
     home-manager.users.${config.user}.home.packages = with pkgs; [
       monitorcontrol
-      stats  # menu bar system inidactors
-      utm  # VM software that's able to create macOS vms
+      stats # menu bar system inidactors
+      utm # VM software that's able to create macOS vms
     ];
   };
 }

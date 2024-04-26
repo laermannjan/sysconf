@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   options.lua.enable = lib.mkEnableOption "Lua programming language.";
 
   config = lib.mkIf config.lua.enable {

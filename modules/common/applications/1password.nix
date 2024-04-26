@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   options = {
     _1password = {
       enable = lib.mkEnableOption {
@@ -20,12 +21,18 @@
       "1password-cli"
     ];
     home-manager.users.${config.user} = {
-      home.packages = let
-        packages = with pkgs;
-          if pkgs.stdenv.isDarwin
-          then [_1password]
-          else [_1password-gui _1password];
-      in
+      home.packages =
+        let
+          packages =
+            with pkgs;
+            if pkgs.stdenv.isDarwin then
+              [ _1password ]
+            else
+              [
+                _1password-gui
+                _1password
+              ];
+        in
         packages;
 
       xdg.configFile."op/plugins.sh".text = ''

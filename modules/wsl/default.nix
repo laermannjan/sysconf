@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   config = lib.mkIf (pkgs.stdenv.isLinux && config.wsl.enable) {
     # Systemd doesn't work in WSL so these must be disabled
     services.geoclue2.enable = lib.mkForce false;

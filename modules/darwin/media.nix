@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   config = lib.mkIf (pkgs.stdenv.isDarwin && config.media.enable) {
     home-manager.users.${config.user} = {
       programs.mpv.enable = lib.mkForce false;

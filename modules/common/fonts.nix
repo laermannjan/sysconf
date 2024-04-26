@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   fonts = with pkgs; [
     (nerdfonts.override {
       fonts = [
@@ -13,15 +14,17 @@
       ];
     })
   ];
-in {
+in
+{
   fonts =
-    if pkgs.stdenv.isDarwin
-    then {
-      fontDir.enable = true;
-      fonts = fonts;
-    }
-    else {
-      fontDir.enable = true;
-      packages = fonts;
-    };
+    if pkgs.stdenv.isDarwin then
+      {
+        fontDir.enable = true;
+        fonts = fonts;
+      }
+    else
+      {
+        fontDir.enable = true;
+        packages = fonts;
+      };
 }

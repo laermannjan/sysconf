@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   options = {
     wezterm = {
       enable = lib.mkEnableOption {

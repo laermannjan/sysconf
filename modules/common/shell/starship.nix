@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   home-manager.users.${config.user}.programs.starship = {
     enable = true;
     settings = {
@@ -23,10 +24,7 @@
       };
       cmd_duration = {
         min_time = 5000;
-        show_notifications =
-          if pkgs.stdenv.isLinux
-          then false
-          else true;
+        show_notifications = if pkgs.stdenv.isLinux then false else true;
         min_time_to_notify = 30000;
       };
       directory = {

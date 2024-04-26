@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   home-manager.users.${config.user} = {
     programs.fish = {
       shellAbbrs = {
@@ -65,11 +66,12 @@
     };
 
     # Create nix-index if doesn't exist
-    home.activation.createNixIndex = let
-      cacheDir = "${config.homePath}/.cache/nix-index";
-    in
+    home.activation.createNixIndex =
+      let
+        cacheDir = "${config.homePath}/.cache/nix-index";
+      in
       lib.mkIf config.home-manager.users.${config.user}.programs.nix-index.enable (
-        config.home-manager.users.${config.user}.lib.dag.entryAfter ["writeBoundary"] ''
+        config.home-manager.users.${config.user}.lib.dag.entryAfter [ "writeBoundary" ] ''
           if [ ! -d ${cacheDir} ]; then
               $DRY_RUN_CMD ${pkgs.nix-index}/bin/nix-index -f ${pkgs.path}
           fi
@@ -85,7 +87,7 @@
 
   nix = {
     # Set channel to flake packages, used for nix-shell commands
-    nixPath = ["nixpkgs=${pkgs.path}"];
+    nixPath = [ "nixpkgs=${pkgs.path}" ];
 
     # Set registry to this flake's packages, used for nix X commands
     registry.nixpkgs.to = {
@@ -120,8 +122,8 @@
       builders-use-substitutes = true;
       # # Don't use with macOS because blocked by corporate firewall
       # substituters = lib.mkIf (!pkgs.stdenv.isDarwin) ["https://nix-community.cachix.org"];
-      substituters = ["https://nix-community.cachix.org"];
-      trusted-public-keys = ["nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="];
+      substituters = [ "https://nix-community.cachix.org" ];
+      trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
 
       # Scans and hard links identical files in the store
       # Not working with macOS: https://github.com/NixOS/nix/issues/7273

@@ -3,7 +3,8 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   options = {
     applauncher = {
       enable = lib.mkEnableOption {

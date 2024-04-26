@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   options = {
     obsidian = {
       enable = lib.mkEnableOption {
@@ -14,9 +15,9 @@
   };
 
   config = lib.mkIf (config.obsidian.enable) {
-    unfreePackages = ["obsidian"];
+    unfreePackages = [ "obsidian" ];
     home-manager.users.${config.user} = {
-      home.packages = with pkgs; [obsidian];
+      home.packages = with pkgs; [ obsidian ];
     };
   };
 }

@@ -3,7 +3,8 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   options = {
     neovim = {
       enable = lib.mkEnableOption {
@@ -14,7 +15,7 @@
   };
 
   config = {
-    environment.systemPackages = [pkgs.neovim]; # everbody should have this!
+    environment.systemPackages = [ pkgs.neovim ]; # everbody should have this!
 
     environment.variables = {
       EDITOR = "nvim";

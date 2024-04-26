@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   config = lib.mkIf pkgs.stdenv.isDarwin {
     services.nix-daemon.enable = true;
 
@@ -14,7 +15,10 @@
       Day = 1;
     };
 
-    environment.shells = [pkgs.zsh pkgs.fish];
+    environment.shells = [
+      pkgs.zsh
+      pkgs.fish
+    ];
 
     security.pam.enableSudoTouchIdAuth = true;
 
@@ -184,8 +188,7 @@
           };
         };
 
-        CustomSystemPreferences = {
-        };
+        CustomSystemPreferences = { };
       };
 
       # Settings that don't have an option in nix-darwin
