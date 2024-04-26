@@ -10,7 +10,10 @@
         };
       };
     };
-    xdg.configFile."direnv/lib/1password.sh".source = ./1password.sh;
+    xdg.configFile."direnv/lib" = {
+      source = ./direnv;
+      recursive = true;
+    };
   };
 
   # Prevent garbage collection

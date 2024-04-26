@@ -22,7 +22,7 @@
       };
 
       home.file.".config/nvim/" = {
-        source = ./nvim-config;
+        source = ./neovim;
         recursive = true;
       };
 
