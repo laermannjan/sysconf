@@ -13,9 +13,9 @@
 
     home-manager.users.${config.user} = {
       # Default shell setting doesn't work
-      home.sessionVariables = {
-        SHELL = "${pkgs.fish}/bin/fish";
-      };
+      # home.sessionVariables = {
+      #   SHELL = "${pkgs.fish}/bin/fish";
+      # };
 
       # Used for aerc
       xdg.enable = true;
