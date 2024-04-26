@@ -9,6 +9,7 @@
     # ./kitty.nix
     ./networking.nix
     ./nixpkgs.nix
+    ./media.nix
     ./system.nix
     # ./tmux.nix
     ./user.nix

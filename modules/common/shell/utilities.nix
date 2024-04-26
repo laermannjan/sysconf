@@ -51,6 +51,8 @@ in {
 
       xdg.configFile."fd/ignore".text = ignorePatterns;
 
+      programs.awscli.enable = true; # creds managed with 1password-cli plugin
+
       programs.bat = {
         enable = true; # cat replacement
         config = {

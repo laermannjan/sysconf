@@ -50,6 +50,11 @@
           src = pkgs.fishPlugins.done.src;
         }
       ];
+
+      functions = {
+        config_kube_alcemy_dev = "aws eks update-kubeconfig --region eu-central-1 --name dev";
+        config_kube_alcemy_prod = "aws eks update-kubeconfig --region eu-central-1 --name prod";
+      };
     };
   };
 }
