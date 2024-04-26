@@ -41,23 +41,11 @@
         "homebrew/cask-versions"
       ];
 
-      # brews = [
-      #   "pinentry-mac"
-      #   {
-      #     name = "tor";
-      #     restart_service = true;
-      #   }
-      #   "torsocks"
-      # ];
-
       casks = [
-        "1password" # 1Password will not launch from Nix on macOS
         "mullvadvpn"
         "mullvad-browser"
         "rectangle"
         "signal"
-        "tailscale"
-        "docker"
         "tor-browser"
         "brave-browser"
       ];

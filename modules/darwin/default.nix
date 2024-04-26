@@ -5,6 +5,9 @@
   ...
 }: {
   imports = [
+    ./1password.nix
+    ./applauncher.nix
+    ./docker.nix
     ./fish.nix
     ./homebrew.nix
     ./linearmouse
@@ -18,14 +21,11 @@
 
   # Homebrew - Mac-specific packages that aren't in Nix
   config = lib.mkIf pkgs.stdenv.isDarwin {
-    unfreePackages = ["raycast"];
     programs.zsh.enable = true;
     home-manager.users.${config.user}.home.packages = with pkgs; [
       monitorcontrol
-      raycast
-      stats
-      iina
-      utm
+      stats  # menu bar system inidactors
+      utm  # VM software that's able to create macOS vms
     ];
   };
 }

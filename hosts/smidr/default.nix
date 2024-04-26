@@ -24,6 +24,9 @@ inputs.darwin.lib.darwinSystem {
       # mail.aerc.enable = true;
       # mail.himalaya.enable = false;
       wezterm.enable = true;
+      docker.enable = true;
+      tailscale.enable = true;
+
       # discord.enable = true;
       firefox.enable = true;
       sysconf.enable = true;
