@@ -14,7 +14,7 @@
   };
 
   config = {
-    programs.neovim.enable = true; # everbody should have this!
+    environment.systemPackages = [pkgs.neovim]; # everbody should have this!
 
     environment.variables = {
       EDITOR = "nvim";
