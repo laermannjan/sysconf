@@ -17,30 +17,38 @@ in {
       home.packages = with pkgs; [
         age # Encryption
         bc # Calculator
+        curl
         delta # Fancy diffs
         difftastic # Other fancy diffs
         dig # DNS lookup
+        dogdns # DNS lookup but written in rust
+        du-dust # Disk usage tree (ncdu)
+        dua # File sizes (du)
+        duf # Basic disk information (df)
         fd # find
+        ffmpeg # the OG
         htop # Show system processes
-        killall # Force quit
         inetutils # Includes telnet, whois
         jless # JSON viewer
         jo # JSON output
         jq # JSON manipulation
+        killall # Force quit
         lf # File viewer
+        lz4 # archive lib
+        openssh
+        p7zip
+        pandoc # document conversion
         qrencode # Generate qr codes
-        rsync # Copy folders
-        # ren # Rename files
-        # rep # Replace text in files
         ripgrep # grep
+        rsync # Copy folders
         sd # sed
+        ssh-copy-id
         tealdeer # Cheatsheets
         tree # View directory hierarchy
-        vimv-rs # Batch rename files
         unzip # Extract zips
-        dua # File sizes (du)
-        du-dust # Disk usage tree (ncdu)
-        duf # Basic disk information (df)
+        vimv-rs # Batch rename files
+        xz # archive lib -- almost wrecked the world! (xz backdoor 2024; https://www.nytimes.com/2024/04/03/technology/prevent-cyberattack-linux.html)
+        zstd # archive
       ];
 
       programs.zoxide.enable = true; # Shortcut jump command

@@ -67,6 +67,10 @@
       curl
     ];
 
+    environment.variables = {
+      LANG = "en_US.UTF-8";
+    };
+
     # Use the system-level nixpkgs instead of Home Manager's
     home-manager.useGlobalPkgs = true;
 
