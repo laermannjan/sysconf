@@ -76,14 +76,14 @@
     # Contains my full Mac system builds, including home-manager
     # darwin-rebuild switch --flake .#work
     darwinConfigurations = {
-      work = import ./hosts/work {inherit inputs globals overlays;};
+      smidr = import ./hosts/smidr {inherit inputs globals overlays;};
     };
 
     # For quickly applying home-manager settings with:
-    # home-manager switch --flake .#work
+    # home-manager switch --flake .#smidr
     homeConfigurations = {
       # foo = nixosConfigurations.tempest.config.home-manager.users.${globals.user}.home;
-      work = darwinConfigurations.work.config.home-manager.users.${globals.user}.home;
+      smidr = darwinConfigurations.smidr.config.home-manager.users.${globals.user}.home;
     };
 
     # Programs that can be run by calling this flake
