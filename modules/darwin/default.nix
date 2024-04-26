@@ -5,6 +5,7 @@
     ./fonts.nix
     # ./hammerspoon.nix
     ./homebrew.nix
+    ./linearmouse
     # ./kitty.nix
     ./networking.nix
     ./nixpkgs.nix
