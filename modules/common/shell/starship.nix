@@ -7,14 +7,12 @@
   home-manager.users.${config.user}.programs.starship = {
     enable = true;
     settings = {
+      "$schema" = "https://starship.rs/config-schema.json";
       add_newline = false; # Don't print new line at the start of the prompt
+      fill = " ";
       format = lib.concatStrings [
-        "$directory"
-        "$git_branch"
-        "$git_commit"
-        "$git_status"
-        "$hostname"
-        "$cmd_duration"
+        "$time"
+        "$all"
         "$character"
       ];
       right_format = "$nix_shell";
@@ -30,7 +28,6 @@
           then false
           else true;
         min_time_to_notify = 30000;
-        # format = "[$duration]($style) ";
       };
       directory = {
         truncate_to_repo = true;
@@ -48,14 +45,34 @@
         format = "[$symbol $name]($style)";
         symbol = "❄️";
       };
-      python = {
-        format = "[\${version}\\(\${virtualenv}\\)]($style)";
-      };
       time = {
         style = "bold yellow";
-        time_format = "%M:%M";
-        format = "[$time]($style)";
+        time_format = "%H:%M";
+        format = "[$time]($style) ";
         disabled = false;
+      };
+      custom.env_slug = {
+        disabled = false;
+        description = "Display ENVIRONMENT_SLUG if set and notify if ";
+        when = "[[ $(git ls-remote --get-url) =~ gitlab.com:alcemy ]] && [[ -f $(git rev-parse --show-toplevel)/.env ]]";
+        format = "(in [$symbol($output )]($style))";
+        style = "bold red";
+        command = ''
+          SYMBOL=""
+          DYN_ENV=$(git branch --show-current | cut -s -d '+' -f 2)
+
+          [[ -z $DYN_ENV ]] && [[ $ENVIRONMENT_SLUG == "testing" ]] && exit
+
+          [[ -z $DYN_ENV ]] && [[ $ENVIRONMENT_SLUG =~ ^dyn_ ]] && SYMBOL="🚧 mismatch "
+          [[ -n $DYN_ENV ]] && [[ "dyn_$DYN_ENV" != $ENVIRONMENT_SLUG ]] && SYMBOL="🚧 mismatch "
+
+          [[ -z $ENVIRONMENT_SLUG ]] && ENVIRONMENT_SLUG="<undefined env slug>"
+
+          [[ $ENVIRONMENT_SLUG =~ ^prod ]] && SYMBOL="🛑 $SYMBOL" && ENVIRONMENT_SLUG=$ENVIRONMENT_SLUG
+
+          echo "$SYMBOL$ENVIRONMENT_SLUG"
+        '';
+        shell = ''["bash", "--noprofile", "--norc"]'';
       };
     };
   };
