@@ -52,14 +52,12 @@
 
       casks = [
         "1password" # 1Password will not launch from Nix on macOS
-        "karabiner-elements"
         "mullvadvpn"
         "rectangle"
         "signal"
         "tailscale"
-        # "thunderbird"
         "docker"
-        # "firefox-developer-edition"
+        "firefox-developer-edition"
       ];
     };
   };
