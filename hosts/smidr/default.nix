@@ -13,7 +13,7 @@ inputs.darwin.lib.darwinSystem {
     ../../modules/darwin
     globals
     inputs.home-manager.darwinModules.home-manager
-    inputs.nixvim.homeManagerModules.nixvim
+    inputs.nixvim.nixDarwinModules.nixvim
     {
       nixpkgs.overlays = [ inputs.firefox-darwin.overlay ] ++ overlays;
       networking.hostName = "smidr";
@@ -32,7 +32,7 @@ inputs.darwin.lib.darwinSystem {
       golang.enable = true;
       lua.enable = true;
       media.enable = true;
-      # neovim.enable = true;
+      neovim.enable = false;
       nixlang.enable = true;
       mynixvim.enable = true;
       obsidian.enable = true;
