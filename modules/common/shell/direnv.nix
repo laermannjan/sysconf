@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   # Enables quickly entering Nix shells when changing directories
   home-manager.users.${config.user} = {
     programs.direnv = {
@@ -6,7 +7,7 @@
       nix-direnv.enable = true;
       config = {
         whitelist = {
-          prefix = [config.sysconfPath];
+          prefix = [ config.sysconfPath ];
         };
       };
     };

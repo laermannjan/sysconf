@@ -3,7 +3,8 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   options = {
     tailscale = {
       enable = lib.mkEnableOption {
@@ -14,7 +15,7 @@
   };
   config = lib.mkIf (config.tailscale.enable) {
     home-manager.users.${config.user} = {
-      home.packages = [pkgs.tailscale];
+      home.packages = [ pkgs.tailscale ];
     };
   };
 }

@@ -3,13 +3,14 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   users.users.${config.user}.shell = pkgs.fish;
   programs.fish.enable = true; # Needed for LightDM to remember username
 
   home-manager.users.${config.user} = {
     # Packages used in abbreviations and aliases
-    home.packages = with pkgs; [curl];
+    home.packages = with pkgs; [ curl ];
 
     programs.fish = {
       enable = true;
@@ -17,18 +18,22 @@
         # Version of bash which works much better on the terminal
         bash = "${pkgs.bashInteractive}/bin/bash";
       };
-      loginShellInit = let
-        # This naive quoting is good enough in this case. There shouldn't be any
-        # double quotes in the input string, and it needs to be double quoted in case
-        # it contains a space (which is unlikely!)
-        dquote = str: "\"" + str + "\"";
+      loginShellInit =
+        let
+          # This naive quoting is good enough in this case. There shouldn't be any
+          # double quotes in the input string, and it needs to be double quoted in case
+          # it contains a space (which is unlikely!)
+          dquote = str: "\"" + str + "\"";
 
-        makeBinPathList = map (path: path + "/bin");
+          makeBinPathList = map (path: path + "/bin");
+        in
         # due to fish's weird sourcing order the nix paths won't be in front of the /usr/bin etc. paths, this fixes this
-      in ''
-        fish_add_path --move --prepend --path ${lib.concatMapStringsSep " " dquote (makeBinPathList config.environment.profiles)}
-        set fish_user_paths $fish_user_paths
-      '';
+        ''
+          fish_add_path --move --prepend --path ${
+            lib.concatMapStringsSep " " dquote (makeBinPathList config.environment.profiles)
+          }
+          set fish_user_paths $fish_user_paths
+        '';
       interactiveShellInit = ''
         # Disable greeting
         set fish_greeting

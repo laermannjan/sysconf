@@ -1,8 +1,5 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{ config, pkgs, ... }:
+let
   ignorePatterns = ''
     !.env*
     !.github/
@@ -11,7 +8,8 @@
     .terraform/
     .target/
     /Library/'';
-in {
+in
+{
   config = {
     home-manager.users.${config.user} = {
       home.packages = with pkgs; [
@@ -80,7 +78,12 @@ in {
       programs.eza = {
         # used to be exa
         enable = true;
-        extraOptions = ["--group-directories-first" "--header" "--group" "--git"];
+        extraOptions = [
+          "--group-directories-first"
+          "--header"
+          "--group"
+          "--git"
+        ];
       };
 
       programs = {
@@ -102,16 +105,19 @@ in {
         settings = {
           # cattpuccin_mocha blue accent
           gui.theme = {
-            activeBorderColor = ["#89b4fa" "bold"];
-            inactiveBorderColor = ["#a6adc8"];
-            optionsTextColor = ["#89b4fa"];
-            selectedLineBgColor = ["#313244"];
-            selectedRangeBgColor = ["#313244"];
-            cherryPiCommitBgColor = ["#45475a"];
-            cherryPickedCommitFgColor = ["#89b4fa"];
-            unstagedChansColor = ["#f38ba8"];
-            defaultFgColor = ["#cdd6f4"];
-            searchingActiveBorderColor = ["#f9e2af"];
+            activeBorderColor = [
+              "#89b4fa"
+              "bold"
+            ];
+            inactiveBorderColor = [ "#a6adc8" ];
+            optionsTextColor = [ "#89b4fa" ];
+            selectedLineBgColor = [ "#313244" ];
+            selectedRangeBgColor = [ "#313244" ];
+            cherryPiCommitBgColor = [ "#45475a" ];
+            cherryPickedCommitFgColor = [ "#89b4fa" ];
+            unstagedChansColor = [ "#f38ba8" ];
+            defaultFgColor = [ "#cdd6f4" ];
+            searchingActiveBorderColor = [ "#f9e2af" ];
           };
           git.autoFetch = true;
         };

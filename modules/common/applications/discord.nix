@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   options = {
     discord = {
       enable = lib.mkEnableOption {
@@ -14,11 +15,9 @@
   };
 
   config = lib.mkIf (config.discord.enable) {
-unfreePackages = [ "discord" ];
+    unfreePackages = [ "discord" ];
     home-manager.users.${config.user} = {
-    home.packages = with pkgs; [
-      discord
-    ];
+      home.packages = with pkgs; [ discord ];
     };
   };
 }

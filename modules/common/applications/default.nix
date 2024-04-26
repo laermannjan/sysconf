@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./1password.nix
     ./discord.nix

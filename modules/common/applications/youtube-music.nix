@@ -17,7 +17,7 @@
 
   config = lib.mkIf (config.youtube-music.enable) {
     home-manager.users.${config.user} = {
-        home.packages = [pkgs.youtube-music];
+      home.packages = [ pkgs.youtube-music ];
     };
   };
 }

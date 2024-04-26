@@ -7,14 +7,14 @@
 }:
 inputs.darwin.lib.darwinSystem {
   system = "aarch64-darwin";
-  specialArgs = {};
+  specialArgs = { };
   modules = [
     ../../modules/common
     ../../modules/darwin
     globals
     inputs.home-manager.darwinModules.home-manager
     {
-      nixpkgs.overlays = [inputs.firefox-darwin.overlay] ++ overlays;
+      nixpkgs.overlays = [ inputs.firefox-darwin.overlay ] ++ overlays;
       networking.hostName = "smidr";
       # identityFile = "/Users/${globals.user}/.ssh/id_ed25519";
       # mail.user = globals.user;

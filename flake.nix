@@ -41,91 +41,98 @@
     };
   };
 
-  outputs = {nixpkgs, ...} @ inputs: let
-    # Global configuration for my system
-    globals = rec {
-      user = "jan";
-      fullName = "Jan Laermann";
-      gitName = fullName;
-      gitEmail = "git@flabber.mozmail.com";
-      sysconfRepo = "https://github.com/laermannjan/sysconf";
-    };
+  outputs =
+    { nixpkgs, ... }@inputs:
+    let
+      # Global configuration for my system
+      globals = rec {
+        user = "jan";
+        fullName = "Jan Laermann";
+        gitName = fullName;
+        gitEmail = "git@flabber.mozmail.com";
+        sysconfRepo = "https://github.com/laermannjan/sysconf";
+      };
 
-    overlays = [
-      inputs.nur.overlay
-      (import ./overlays/bypass-paywalls-clean.nix inputs)
-    ];
+      overlays = [
+        inputs.nur.overlay
+        (import ./overlays/bypass-paywalls-clean.nix inputs)
+      ];
 
-    # System types to support.
-    supportedSystems = [
-      "x86_64-linux"
-      "x86_64-darwin"
-      "aarch64-linux"
-      "aarch64-darwin"
-    ];
+      # System types to support.
+      supportedSystems = [
+        "x86_64-linux"
+        "x86_64-darwin"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
 
-    # Helper function to generate an attrset '{ x86_64-linux = f "x86_64-linux"; ... }'.
-    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-  in rec {
-    # Contains my full system builds, including home-manager
-    # nixos-rebuild switch --flake .#foo
-    nixosConfigurations = {
-      # foo = import ./hosts/foo {inherit inputs globals overlays;};
-    };
+      # Helper function to generate an attrset '{ x86_64-linux = f "x86_64-linux"; ... }'.
+      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+    in
+    rec {
+      # Contains my full system builds, including home-manager
+      # nixos-rebuild switch --flake .#foo
+      nixosConfigurations = {
+        # foo = import ./hosts/foo {inherit inputs globals overlays;};
+      };
 
-    # Contains my full Mac system builds, including home-manager
-    # darwin-rebuild switch --flake .#work
-    darwinConfigurations = {
-      smidr = import ./hosts/smidr {inherit inputs globals overlays;};
-    };
+      # Contains my full Mac system builds, including home-manager
+      # darwin-rebuild switch --flake .#work
+      darwinConfigurations = {
+        smidr = import ./hosts/smidr { inherit inputs globals overlays; };
+      };
 
-    # For quickly applying home-manager settings with:
-    # home-manager switch --flake .#smidr
-    homeConfigurations = {
-      # foo = nixosConfigurations.tempest.config.home-manager.users.${globals.user}.home;
-      smidr = darwinConfigurations.smidr.config.home-manager.users.${globals.user}.home;
-    };
+      # For quickly applying home-manager settings with:
+      # home-manager switch --flake .#smidr
+      homeConfigurations = {
+        # foo = nixosConfigurations.tempest.config.home-manager.users.${globals.user}.home;
+        smidr = darwinConfigurations.smidr.config.home-manager.users.${globals.user}.home;
+      };
 
-    # Programs that can be run by calling this flake
-    apps = forAllSystems (
-      system: let
-        pkgs = import nixpkgs {inherit system overlays;};
-      in
-        import ./apps {inherit pkgs;}
-    );
+      # Programs that can be run by calling this flake
+      apps = forAllSystems (
+        system:
+        let
+          pkgs = import nixpkgs { inherit system overlays; };
+        in
+        import ./apps { inherit pkgs; }
+      );
 
-    # Development environments
-    devShells = forAllSystems (
-      system: let
-        pkgs = import nixpkgs {inherit system overlays;};
-      in {
-        # Used to run commands and edit files in this repo
-        default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            git
-            stylua
-            nixfmt-rfc-style
-            shfmt
-            shellcheck
-          ];
-        };
-      }
-    );
+      # Development environments
+      devShells = forAllSystems (
+        system:
+        let
+          pkgs = import nixpkgs { inherit system overlays; };
+        in
+        {
+          # Used to run commands and edit files in this repo
+          default = pkgs.mkShell {
+            buildInputs = with pkgs; [
+              git
+              stylua
+              nixfmt-rfc-style
+              shfmt
+              shellcheck
+            ];
+          };
+        }
+      );
 
-    formatter = forAllSystems (
-      system: let
-        pkgs = import nixpkgs {inherit system overlays;};
-      in
+      formatter = forAllSystems (
+        system:
+        let
+          pkgs = import nixpkgs { inherit system overlays; };
+        in
         pkgs.nixfmt-rfc-style
-    );
+      );
 
-    # Templates for starting other projects quickly
-    templates = rec {
-      default = basic;
-      basic = {
-        path = ./templates/basic;
-        description = "Basic program template";
+      # Templates for starting other projects quickly
+      templates = rec {
+        default = basic;
+        basic = {
+          path = ./templates/basic;
+          description = "Basic program template";
+        };
       };
     };
-  };
 }

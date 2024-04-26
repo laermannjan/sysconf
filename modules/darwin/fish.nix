@@ -1,4 +1,5 @@
-{pkgs, lib, ...}: {
+{ pkgs, lib, ... }:
+{
   config = lib.mkIf pkgs.stdenv.isDarwin {
     # MacOS-specific settings for Fish
     programs.fish.useBabelfish = true;

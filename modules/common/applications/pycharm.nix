@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   options = {
     pycharm = {
       enable = lib.mkEnableOption {
@@ -14,11 +15,9 @@
   };
 
   config = lib.mkIf (config.pycharm.enable) {
-unfreePackages = [ "pycharm-professional" ];
+    unfreePackages = [ "pycharm-professional" ];
     home-manager.users.${config.user} = {
-    home.packages = with pkgs;[
-        jetbrains.pycharm-professional
-    ];
+      home.packages = with pkgs; [ jetbrains.pycharm-professional ];
     };
   };
 }

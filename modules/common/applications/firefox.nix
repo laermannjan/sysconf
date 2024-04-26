@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   options = {
     firefox = {
       enable = lib.mkEnableOption {
@@ -14,17 +15,12 @@
   };
 
   config = lib.mkIf (config.firefox.enable) {
-    unfreePackages = [
-      (lib.mkIf config._1password.enable "onepassword-password-manager")
-    ];
+    unfreePackages = [ (lib.mkIf config._1password.enable "onepassword-password-manager") ];
 
     home-manager.users.${config.user} = {
       programs.firefox = {
         enable = true;
-        package =
-          if pkgs.stdenv.isDarwin
-          then pkgs.firefox-devedition-bin
-          else pkgs.firefox-devedition;
+        package = if pkgs.stdenv.isDarwin then pkgs.firefox-devedition-bin else pkgs.firefox-devedition;
         profiles.default = {
           id = 0;
           name = "default";
@@ -49,10 +45,7 @@
             "app.update.auto" = false;
             "browser.aboutConfig.showWarning" = false;
             "browser.warnOnQuit" = false;
-            "browser.quitShortcut.disabled" =
-              if pkgs.stdenv.isLinux
-              then true
-              else false;
+            "browser.quitShortcut.disabled" = if pkgs.stdenv.isLinux then true else false;
             "browser.theme.dark-private-windows" = true;
             "browser.toolbars.bookmarks.visibility" = false;
             "browser.startup.page" = 3; # Restore previous session
@@ -162,10 +155,10 @@
 
       xdg.mimeApps = {
         associations.added = {
-          "text.html" = ["firefox.desktop"];
+          "text.html" = [ "firefox.desktop" ];
         };
         defaultApplications = {
-          "text.html" = ["firefox.desktop"];
+          "text.html" = [ "firefox.desktop" ];
         };
       };
     };

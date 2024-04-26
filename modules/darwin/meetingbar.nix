@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
 
   options = {
     meetingbar = {
@@ -15,8 +16,7 @@
   };
   config = lib.mkIf pkgs.stdenv.isDarwin {
     homebrew = {
-      casks = ["meetingbar"];
+      casks = [ "meetingbar" ];
     };
   };
 }
-

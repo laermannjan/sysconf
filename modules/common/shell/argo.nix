@@ -3,7 +3,8 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   options = {
     argo = {
       enable = lib.mkEnableOption {
@@ -14,7 +15,7 @@
   };
   config = {
     home-manager.users.${config.user} = {
-      home.packages = [pkgs.argo];
+      home.packages = [ pkgs.argo ];
     };
   };
 }

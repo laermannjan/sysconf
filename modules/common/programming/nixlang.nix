@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   options.nixlang.enable = lib.mkEnableOption "Nix programming language.";
 
   config = lib.mkIf config.nixlang.enable {

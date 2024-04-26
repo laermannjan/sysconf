@@ -3,7 +3,8 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   options = {
     docker = {
       enable = lib.mkEnableOption {
@@ -13,13 +14,9 @@
     };
   };
   config = lib.mkIf (pkgs.stdenv.isDarwin && config.docker.enable) {
-    homebrew.casks = [
-      "docker"
-    ];
+    homebrew.casks = [ "docker" ];
     home-manager.users.${config.user} = {
-      home.packages = with pkgs; [
-        lazydocker
-      ];
+      home.packages = with pkgs; [ lazydocker ];
     };
   };
 }

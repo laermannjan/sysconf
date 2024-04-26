@@ -2,9 +2,10 @@ inputs: _final: prev: {
   # Based on:
   # https://git.sr.ht/~rycee/nur-expressions/tree/master/item/pkgs/firefox-addons/default.nix#L34
 
-  bypass-paywalls-clean = let
-    addonId = "magnolia@12.34";
-  in
+  bypass-paywalls-clean =
+    let
+      addonId = "magnolia@12.34";
+    in
     prev.stdenv.mkDerivation rec {
       pname = "bypass-paywalls-clean";
       version = "3.4.9.0";

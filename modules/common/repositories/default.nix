@@ -1,5 +1,4 @@
-{...}: {
-  imports = [
-    ./sysconf.nix
-  ];
+{ ... }:
+{
+  imports = [ ./sysconf.nix ];
 }
