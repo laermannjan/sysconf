@@ -39,10 +39,19 @@
       url = "https://github.com/bpc-clone/bpc_updates/releases/download/latest/bypass_paywalls_clean-latest.xpi";
       flake = false;
     };
+
+    # nixvim = {
+    #   url = "github:nix-community/nixvim";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    { nixpkgs, ... }@inputs:
+    { nixpkgs, pre-commit-hooks, ... }@inputs:
     let
       # Global configuration for my system
       globals = rec {
@@ -114,6 +123,22 @@
               shfmt
               shellcheck
             ];
+          };
+        }
+      );
+
+      pre-commit-check = forAllSystems (
+        system:
+        let
+          hooks = pre-commit-hooks.lib.${system};
+        in
+        hooks.run {
+          nixfmt.package = nixpkgs.nixfmt-rfc-style;
+          src = ./.;
+          hooks = {
+            statix.enable = true;
+            deadnix.enable = true;
+            nixfmt.enable = true;
           };
         }
       );
