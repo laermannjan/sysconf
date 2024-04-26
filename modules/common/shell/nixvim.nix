@@ -10,7 +10,7 @@
   };
 
   config = lib.mkIf config.nixvim.enable {
-    # programs.neovim.enable = true;
+    programs.neovim.enable = true;
     programs.nixvim = {
       enable = true;
       viAlias = true;
