@@ -57,7 +57,6 @@
         "signal"
         "tailscale"
         "docker"
-        "firefox-developer-edition"
       ];
     };
   };

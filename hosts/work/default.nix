@@ -18,7 +18,6 @@ inputs.darwin.lib.darwinSystem {
       networking.hostName = "smidr";
       # identityFile = "/Users/${globals.user}/.ssh/id_ed25519";
       # mail.user = globals.user;
-      # atuin.enable = true;
       # charm.enable = true;
       # neovim.enable = true;
       # mail.enable = true;
@@ -26,18 +25,20 @@ inputs.darwin.lib.darwinSystem {
       # mail.himalaya.enable = false;
       wezterm.enable = true;
       # discord.enable = true;
-      # firefox.enable = true;
+      firefox.enable = true;
       sysconf.enable = true;
       neovim.enable = true;
+      media.enable = true;
       # nixlang.enable = true;
       # terraform.enable = true;
       # python.enable = true;
       # rust.enable = true;
       # lua.enable = true;
-      # obsidian.enable = true;
+      obsidian.enable = true;
       # kubernetes.enable = true;
       _1password.enable = true;
-      # slack.enable = true;
+      slack.enable = true;
+      yt-dlp.enable = true;
     }
   ];
 }
