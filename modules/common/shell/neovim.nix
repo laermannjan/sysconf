@@ -14,7 +14,7 @@
     };
   };
 
-  config = {
+  config = lib.mkIf config.neovim.enable {
     environment.systemPackages = [ pkgs.neovim ]; # everbody should have this!
 
     environment.variables = {

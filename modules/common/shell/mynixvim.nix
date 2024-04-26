@@ -10,10 +10,9 @@
   };
 
   config = lib.mkIf config.mynixvim.enable {
-    home-manager.users.${config.user} = {
-      programs.nixvim = {
-        enable = true;
-      };
+    # programs.neovim.enable = true;
+    programs.nixvim = {
+      enable = true;
     };
   };
 }
