@@ -14,6 +14,13 @@
   };
 
   config = {
+    programs.neovim.enable = true; # everbody should have this!
+
+    environment.variables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+    };
+
     home-manager.users.${config.user} = {
       programs = {
         neovim = {
