@@ -53,10 +53,13 @@
       casks = [
         "1password" # 1Password will not launch from Nix on macOS
         "mullvadvpn"
+        "mullvad-browser"
         "rectangle"
         "signal"
         "tailscale"
         "docker"
+        "tor-browser"
+        "brave-browser"
       ];
     };
   };
