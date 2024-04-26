@@ -219,6 +219,9 @@
         defaults write com.apple.finder NewWindowTarget -string "PfLo"
         defaults write com.apple.finder NewWindowTargetPath -string "file://${config.homePath}/"
 
+        # Avoid a logout/login cycle
+        /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+
       '';
     };
   };
