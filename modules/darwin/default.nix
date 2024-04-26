@@ -10,7 +10,7 @@
     ./docker.nix
     ./fish.nix
     ./homebrew.nix
-    ./linearmouse
+    ./linearmouse.nix
     ./networking.nix
     ./nixpkgs.nix
     ./meetingbar.nix

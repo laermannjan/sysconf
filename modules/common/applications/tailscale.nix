@@ -5,7 +5,7 @@
   ...
 }: {
   options = {
-    applauncher = {
+    tailscale = {
       enable = lib.mkEnableOption {
         description = "Enable Tailscale.";
         default = false;
@@ -13,6 +13,8 @@
     };
   };
   config = lib.mkIf (config.tailscale.enable) {
-    home.packages = [pkgs.tailscale];
+    home-manager.users.${config.user} = {
+      home.packages = [pkgs.tailscale];
+    };
   };
 }
