@@ -11,7 +11,7 @@
     };
 
     home-manager.users.${config.user} = {
-      xdg.configFile."linearmouse/linearmouse.json".source = ./linearmouse.json;
+      xdg.configFile."linearmouse/linearmouse.json".source = ./linearmouse/linearmouse.json;
     };
   };
 }
