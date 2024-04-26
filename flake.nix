@@ -32,6 +32,13 @@
       url = "github:bandithedoge/nixpkgs-firefox-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Firefox addon from outside the extension store
+    bypass-paywalls-clean = {
+      # https://gitlab.com/magnolia1234/bpc-uploads/-/commits/master/?ref_type=HEADS
+      url = "https://github.com/bpc-clone/bpc_updates/releases/download/latest/bypass_paywalls_clean-latest.xpi";
+      flake = false;
+    };
   };
 
   outputs = {nixpkgs, ...} @ inputs: let
@@ -44,7 +51,10 @@
       sysconfRepo = "https://github.com/laermannjan/sysconf";
     };
 
-    overlays = [];
+    overlays = [
+      inputs.nur.overlay
+      (import ./overlays/bypass-paywalls-clean.nix inputs)
+    ];
 
     # System types to support.
     supportedSystems = [
