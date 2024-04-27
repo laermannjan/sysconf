@@ -8,7 +8,6 @@
 
       folding = true;
       indent = true;
-      highlight = true;
 
       incrementalSelection = {
         enable = true;
