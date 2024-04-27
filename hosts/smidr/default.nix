@@ -7,7 +7,9 @@
 }:
 inputs.darwin.lib.darwinSystem {
   system = "aarch64-darwin";
-  specialArgs = { inherit inputs; };
+  specialArgs = {
+    inherit inputs;
+  };
   modules = [
     ../../modules/common
     ../../modules/darwin
@@ -33,7 +35,7 @@ inputs.darwin.lib.darwinSystem {
       media.enable = true;
       # neovim.enable = true;
       nixlang.enable = true;
-      # nixvim.enable = true;
+      nixvim.enable = true;
       obsidian.enable = true;
       pycharm.enable = true;
       python.enable = true;
