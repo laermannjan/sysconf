@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   config,
   lib,
   ...
@@ -17,14 +18,16 @@
   # config = lib.mkIf config.nixvim.enable {
   #
   #   environment.systemPackages = [ pkgs.neovim ];
-  programs.nixvim = {
-    package = pkgs.neovim;
-    enable = true;
-    viAlias = true;
-    vimAlias = true;
-    colorschemes.gruvbox = {
+  home-manager.users.${config.user} = {
+    imports = [ inputs.nixvim.homeManagerModules.nixvim ];
+    programs.nixvim = {
+      # package = pkgs.neovim;
       enable = true;
+      viAlias = true;
+      vimAlias = true;
+      colorschemes.gruvbox = {
+        enable = true;
+      };
     };
   };
-  # };
 }

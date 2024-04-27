@@ -78,7 +78,9 @@
       # using multiple profiles for one user
       home-manager.useUserPackages = true;
 
-      # home-manager.extraSpecialArgs = {inherit inputs;};
+      home-manager.extraSpecialArgs = {
+        inherit inputs;
+      };
 
       # Allow specified unfree packages (identified elsewhere)
       # Retrieves package object based on string name
