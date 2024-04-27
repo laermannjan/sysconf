@@ -18,14 +18,14 @@
   config = lib.mkIf config.nixvim.enable {
 
     home-manager.users.${config.user} = {
-      imports = [ inputs.nixvim.homeManagerModules.nixvim ];
+      imports = [
+      inputs.nixvim.homeManagerModules.nixvim
+        ./nixvim/colorscheme.nix
+        ./nixvim/treesitter.nix
+      ];
       programs.nixvim = {
         enable = true;
-        viAlias = true;
-        vimAlias = true;
-        colorschemes.gruvbox = {
-          enable = true;
-        };
+        colorscheme = lib.mkForce "tokyonight";
       };
     };
   };
