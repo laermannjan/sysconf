@@ -21,6 +21,7 @@
       imports = [
       inputs.nixvim.homeManagerModules.nixvim
         ./nixvim/colorscheme.nix
+        ./nixvim/options.nix
         ./nixvim/treesitter.nix
       ];
       programs.nixvim = {
