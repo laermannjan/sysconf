@@ -26,22 +26,22 @@
         ./nixvim/treesitter.nix
         ./nixvim/lsp.nix
         # ./nixvim/cmp.nix
-        ./nixvim/telescope.nix
-        ./nixvim/none-ls.nix
-        ./nixvim/smart-splits.nix
-        ./nixvim/neotest.nix
-        ./nixvim/dap.nix
-        ./nixvim/comment.nix
-        ./nixvim/neotree.nix
-        ./nixvim/todo-comments.nix
-        ./nixvim/lualine.nix
-        ./nixvim/indent-blankline.nix
-        ./nixvim/nvim-autopair.nix
-        ./nixvim/diffview.nix
-        ./nixvim/direnv.nix
-        ./nixvim/git.nix
-        ./nixvim/headlines.nix
-        ./nixvim/hmts.nix
+        # ./nixvim/telescope.nix
+        # ./nixvim/none-ls.nix
+        # ./nixvim/smart-splits.nix
+        # ./nixvim/neotest.nix
+        # ./nixvim/dap.nix
+        # ./nixvim/comment.nix
+        # ./nixvim/neotree.nix
+        # ./nixvim/todo-comments.nix
+        # ./nixvim/lualine.nix
+        # ./nixvim/indent-blankline.nix
+        # ./nixvim/nvim-autopair.nix
+        # ./nixvim/diffview.nix
+        # ./nixvim/direnv.nix
+        # ./nixvim/git.nix
+        # ./nixvim/headlines.nix
+        # ./nixvim/hmts.nix
       ];
 
       programs.nixvim = {
