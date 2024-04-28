@@ -27,6 +27,7 @@
         ./nixvim/lsp.nix
         ./nixvim/cmp.nix
         ./nixvim/telescope.nix
+        ./nixvim/none-ls.nix
       ];
       programs.nixvim = {
         enable = true;
