@@ -4,9 +4,9 @@
     telescope = {
       enable = true;
       extensions = {
-        # ui-select.enable = true;
-        # fzf-native.enable = true;
-        # undo.enable = true;
+        ui-select.enable = true;
+        fzf-native.enable = true;
+        undo.enable = true;
       };
       keymaps = {
         # "<leader>fg" = {
