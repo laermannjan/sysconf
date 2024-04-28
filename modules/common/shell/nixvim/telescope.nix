@@ -42,10 +42,10 @@
         #   action = "colorscheme enable_preview=true";
         #   options.desc = "preview colorscheme";
         # };
-        # "<leader>\\" = {
-        #   action = "";
-        #   options.desc = "find telescope command";
-        # };
+        "<leader>\\" = {
+          action = "builtin";
+          options.desc = "find telescope command";
+        };
         "<leader>/" = {
           action = "live_grep";
           options.desc = "live grep";
