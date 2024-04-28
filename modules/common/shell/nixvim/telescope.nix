@@ -9,10 +9,10 @@
         undo.enable = true;
       };
       keymaps = {
-        # "<leader>fg" = {
-        #   action = "git_files show_untracked=true";
-        #   options.desc = "find git files";
-        # };
+        "<leader>fg" = {
+          action = "git_files show_untracked=true";
+          options.desc = "find git files";
+        };
         "<leader>ff" = {
           action = "find_files";
           options.desc = "find files";
