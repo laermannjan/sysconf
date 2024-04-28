@@ -28,6 +28,7 @@
         ./nixvim/cmp.nix
         ./nixvim/telescope.nix
         ./nixvim/none-ls.nix
+        ./nixvim/smart-splits.nix
       ];
       programs.nixvim = {
         enable = true;
