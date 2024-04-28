@@ -3,7 +3,7 @@
   programs.nixvim.plugins.none-ls = {
     enable = true;
     sources = {
-      code_action = {
+      code_actions = {
         gomodifytags.enable = true;
         impl.enable = true;
         statix.enable = true;
