@@ -6,16 +6,11 @@
 }:
 {
   imports = [
-    ./1password.nix
-    ./applauncher.nix
-    ./docker.nix
-    ./fish.nix
+    ./applications
+    ./shell
     ./homebrew.nix
-    ./linearmouse.nix
     ./networking.nix
     ./nixpkgs.nix
-    ./meetingbar.nix
-    ./media.nix
     ./system.nix
     ./user.nix
   ];
