@@ -1,6 +1,10 @@
 { ... }:
 {
   programs.nixvim.plugins = {
+    keymaps = [
+        {key = "<leader>fg"; action = ":Telescope git_files show_untracked=true"; mode="n"; options.silent = true; options.desc = "find git files"; }
+        {key = "<leader>uc"; action = ":Telescope colorscheme enable_preview=true"; mode="n"; options.silent = true; options.desc = "preview colorscheme"; }
+    ];
     telescope = {
       enable = true;
       extensions = {
@@ -9,10 +13,10 @@
         undo.enable = true;
       };
       keymaps = {
-        "<leader>fg" = {
-          action = ''git_files { show_untracked = true }'';
-          options.desc = "find git files";
-        };
+        # "<leader>fg" = {
+        #   action = ''git_files { show_untracked = true }'';
+        #   options.desc = "find git files";
+        # };
         "<leader>ff" = {
           action = "find_files";
           options.desc = "find files";
