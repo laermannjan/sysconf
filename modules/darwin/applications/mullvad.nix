@@ -16,7 +16,7 @@
   };
   config = lib.mkIf (pkgs.stdenv.isDarwin && config.mullvad.enable) {
     homebrew = {
-      casks = [ "mullvad" ];
+      casks = [ "mullvadvpn" ];
     };
   };
 }
