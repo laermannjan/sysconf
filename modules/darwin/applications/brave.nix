@@ -16,7 +16,7 @@
   };
   config = lib.mkIf (pkgs.stdenv.isDarwin && config.brave.enable) {
     homebrew = {
-      casks = [ "brave" ];
+      casks = [ "brave-browser" ];
     };
   };
 }
