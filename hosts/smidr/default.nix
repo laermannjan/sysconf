@@ -38,6 +38,7 @@ inputs.darwin.lib.darwinSystem {
       nixlang.enable = true;
       nixvim.enable = true;
       obsidian.enable = true;
+      postgres.enable = true;
       pycharm.enable = true;
       python.enable = true;
       rust.enable = true;
