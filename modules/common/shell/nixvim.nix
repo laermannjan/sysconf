@@ -42,6 +42,7 @@
         ./nixvim/git.nix
         ./nixvim/headlines.nix
         ./nixvim/hmts.nix
+        ./nixvim/trouble.nix
         ./nixvim/which-key.nix
       ];
 
