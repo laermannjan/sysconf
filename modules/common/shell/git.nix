@@ -37,7 +37,6 @@
           };
           gpg = {
             format = "ssh";
-            ssh.allowedSignersFile = "~/.config/git/allowed-signers";
           };
           help.autocorrect = "1";
           log.date = "iso";
@@ -95,7 +94,28 @@
           "node_modules"
           ".sass-cache"
         ];
+        includes = [
+          {
+            path = "~/.config/git/personal";
+            condition = "gitdir:~/dev/personal/";
+          }
+        ];
       };
+
+      # Personal git config
+      # TODO: fix with variables
+      xdg.configFile."git/personal".text = ''
+        [user]
+            name = "${config.fullName}"
+            email = "hello@mikgard.dev"
+            signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBRJ5wXLsdiCk3rJybC6f3ztg/OYxZ305KeL3qoYI+12
+        [gpg "ssh"]
+            program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+        [commit]
+            gpgsign = true
+        [tag]
+            gpgsign = true
+      '';
     };
   };
 }
