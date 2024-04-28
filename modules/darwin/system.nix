@@ -97,7 +97,7 @@
           show-process-indicators = true;
 
           persistent-apps = [
-            "${pkgs.firefox-devedition-bin}/Applications/Firefox.app"
+            "${pkgs.firefox-devedition-bin}/Applications/Firefox Developer Edition.app"
             "${pkgs.wezterm}/Applications/WezTerm.app"
             "${pkgs.slack}/Applications/Slack.app"
             "/System/Applications/Calendar.app"
