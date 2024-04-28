@@ -70,6 +70,8 @@
 
       pumheight = 15; # number of items to show in a popup menu (autocompletion)
       pumblend = 18; # transparency value for that menu (0 opaque, 100 transparent)
+
+      foldenable = false;
     };
   };
 }
