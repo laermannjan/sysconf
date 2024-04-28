@@ -11,9 +11,9 @@
         keymaps = {
           silent = true;
           diagnostic = {
-            # Navigate in diagnostics
-            "<leader>k" = "goto_prev";
-            "<leader>j" = "goto_next";
+            # # Navigate in diagnostics
+            # "<leader>k" = "goto_prev";
+            # "<leader>j" = "goto_next";
           };
 
           lspBuf = {
