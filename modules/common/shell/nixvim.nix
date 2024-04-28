@@ -37,7 +37,13 @@
         ./nixvim/lualine.nix
         ./nixvim/indent-blankline.nix
         ./nixvim/nvim-autopair.nix
+        ./nixvim/diffview.nix
+        ./nixvim/direnv.nix
+        ./nixvim/git.nix
+        ./nixvim/headlines.nix
+        ./nixvim/hmts.nix
       ];
+
       programs.nixvim = {
         enable = true;
         colorscheme = lib.mkForce "tokyonight";
