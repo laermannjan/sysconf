@@ -19,11 +19,12 @@
 
     home-manager.users.${config.user} = {
       imports = [
-      inputs.nixvim.homeManagerModules.nixvim
+        inputs.nixvim.homeManagerModules.nixvim
         ./nixvim/colorscheme.nix
         ./nixvim/options.nix
         ./nixvim/keymaps.nix
         ./nixvim/treesitter.nix
+        ./nixvim/lsp.nix
       ];
       programs.nixvim = {
         enable = true;
