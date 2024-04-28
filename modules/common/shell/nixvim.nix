@@ -31,6 +31,12 @@
         ./nixvim/smart-splits.nix
         ./nixvim/neotest.nix
         ./nixvim/dap.nix
+        ./nixvim/comment.nix
+        ./nixvim/neotree.nix
+        ./nixvim/todo-comments.nix
+        ./nixvim/lualine.nix
+        ./nixvim/indent-blankline.nix
+        ./nixvim/nvim-autopair.nix
       ];
       programs.nixvim = {
         enable = true;
