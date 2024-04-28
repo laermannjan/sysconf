@@ -11,53 +11,53 @@
       keymaps = {
         "<leader>fg" = {
           action = "git_files show_untracked=true";
-          optionts.desc = "find git files";
+          options.desc = "find git files";
         };
         "<leader>ff" = {
           action = "find_files";
-          optionts.desc = "find files";
+          options.desc = "find files";
         };
         "<leader>fw" = {
           action = "grep_string";
-          optionts = {
+          options = {
             desc = "find word/selection";
-            mode = [
-              "n"
-              "v"
-            ];
           };
+          mode = [
+            "n"
+            "v"
+          ];
         };
         "<leader>fh" = {
           action = "help_tags";
-          optionts.desc = "find help";
+          options.desc = "find help";
         };
         "<leader>fk" = {
           action = "keymaps";
-          optionts.desc = "find help";
+          options.desc = "find help";
         };
         "<leader>fc" = {
           action = "commands";
-          optionts.desc = "find command";
+          options.desc = "find command";
         };
         "<leader>fm" = {
           action = "man_pages";
-          optionts.desc = "find man page";
+          options.desc = "find man page";
         };
         "<leader>uc" = {
           action = "colorscheme enable_preview=true";
-          optionts.desc = "preview colorscheme";
+          options.desc = "preview colorscheme";
         };
         "<leader>\\" = {
           action = "";
-          optionts.desc = "find telescope command";
+          options.desc = "find telescope command";
         };
         "<leader>/" = {
           action = "live_grep";
-          optionts.desc = "live grep";
+          options.desc = "live grep";
         };
         "<leader><leader>" = {
           action = "resume";
-          optionts.desc = "resume last search";
+          options.desc = "resume last search";
         };
       };
     };
