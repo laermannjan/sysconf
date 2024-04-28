@@ -4,14 +4,14 @@
     keymaps = [
       {
         key = "<leader>fg";
-        action = ":Telescope git_files show_untracked=true";
+        action = ":Telescope git_files show_untracked=true<cr>";
         mode = "n";
         options.silent = true;
         options.desc = "find git files";
       }
       {
         key = "<leader>uc";
-        action = ":Telescope colorscheme enable_preview=true";
+        action = ":Telescope colorscheme enable_preview=true<cr>";
         mode = "n";
         options.silent = true;
         options.desc = "preview colorscheme";
