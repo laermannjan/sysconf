@@ -26,6 +26,7 @@
         ./nixvim/treesitter.nix
         ./nixvim/lsp.nix
         ./nixvim/cmp.nix
+        ./nixvim/telescope.nix
       ];
       programs.nixvim = {
         enable = true;
