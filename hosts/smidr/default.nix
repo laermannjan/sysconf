@@ -13,6 +13,7 @@ inputs.darwin.lib.darwinSystem {
   modules = [
     ../../modules/common
     ../../modules/darwin
+    ./git.nix
     globals
     inputs.home-manager.darwinModules.home-manager
     {
