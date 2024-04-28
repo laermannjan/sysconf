@@ -7,16 +7,16 @@
 {
 
   options = {
-    meetingbar = {
+    brave = {
       enable = lib.mkEnableOption {
-        description = "Enable MeetingBar.";
+        description = "Enable brave.";
         default = false;
       };
     };
   };
-  config = lib.mkIf pkgs.stdenv.isDarwin {
+  config = lib.mkIf (pkgs.stdenv.isDarwin && config.brave.enable) {
     homebrew = {
-      casks = [ "meetingbar" ];
+      casks = [ "brave" ];
     };
   };
 }

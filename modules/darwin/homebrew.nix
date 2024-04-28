@@ -41,15 +41,6 @@
         "homebrew/services"
         "homebrew/cask-versions"
       ];
-
-      casks = [
-        "mullvadvpn"
-        "mullvad-browser"
-        "rectangle"
-        "signal"
-        "tor-browser"
-        "brave-browser"
-      ];
     };
   };
 }
