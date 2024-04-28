@@ -25,8 +25,8 @@
         ./nixvim/keymaps.nix
         ./nixvim/treesitter.nix
         ./nixvim/lsp.nix
-        # ./nixvim/cmp.nix
-        # ./nixvim/telescope.nix
+        ./nixvim/cmp.nix
+        ./nixvim/telescope.nix
         # ./nixvim/none-ls.nix
         # ./nixvim/smart-splits.nix
         # ./nixvim/neotest.nix
