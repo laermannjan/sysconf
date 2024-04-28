@@ -27,6 +27,7 @@ inputs.darwin.lib.darwinSystem {
       # mail.himalaya.enable = false;
       _1password.enable = true;
       argo.enable = true;
+      applauncher.enable = true;
       discord.enable = true;
       docker.enable = true;
       firefox.enable = true;
