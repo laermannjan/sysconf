@@ -25,6 +25,7 @@
         ./nixvim/keymaps.nix
         ./nixvim/treesitter.nix
         ./nixvim/lsp.nix
+        ./nixvim/cmp.nix
       ];
       programs.nixvim = {
         enable = true;
