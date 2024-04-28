@@ -10,7 +10,7 @@
       };
       keymaps = {
         "<leader>fg" = {
-          action = "git_files";# show_untracked=true";
+          action = ''git_files show_untracked=true'';
           options.desc = "find git files";
         };
         "<leader>ff" = {
