@@ -1,7 +1,7 @@
 { ... }:
 {
   programs.nixvim = {
-    opts.completopt = [
+    opts.completeopt = [
       "menu"
       "menuone"
       "noselect"
