@@ -14,17 +14,13 @@
         matchBlocks = {
           "nas" = {
             hostname = "192.168.178.20";
-            identityFile = "~/.ssh/id_ed25519";
             user = "jan";
-            identitiesOnly = true;
             extraOptions = {
               preferredAuthentications = "publickey";
             };
           };
           "github.com" = {
             hostname = "github.com";
-            identityFile = "~/.ssh/id_ed25519";
-            identitiesOnly = true;
             user = "git";
             forwardAgent = false;
             forwardX11 = false;
@@ -35,11 +31,6 @@
           };
           "gitlab.com" = {
             hostname = "gitlab.com";
-            identityFile = [
-              "~/.ssh/id_alcemy"
-              "~/.ssh/id_ed25519"
-            ];
-            identitiesOnly = true;
             user = "git";
             forwardAgent = false;
             forwardX11 = false;
