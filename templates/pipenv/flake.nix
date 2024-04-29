@@ -1,26 +1,29 @@
 {
   description = "Python pipenv flake";
 
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  };
 
   outputs =
-    { nixpkgs }:
+    { self, nixpkgs }:
     let
-      forAllSystems = nixpkgs.lib.genAttrs [
+      systems = [
         "x86_64-linux"
         "x86_64-darwin"
         "aarch64-linux"
         "aarch64-darwin"
       ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
 
-      pythonVersion =
+      getPythonVersion =
+        content:
         let
-          content = builtins.readFile ./Pipfile;
           version = builtins.head (builtins.match ".*python_version = \"([^\"]+)\".*" content);
-          versionWithoutDot = builtins.replaceStrings [ "." ] [ "" ] version;
-          pythonPkgName = "python${versionWithoutDot}";
         in
-        pythonPkgName;
+        if version == null then "python3" else "python${builtins.replaceStrings [ "." ] [ "" ] version}";
+
+      pythonVersion = getPythonVersion (builtins.readFile ./Pipfile);
     in
     {
       devShells = forAllSystems (
@@ -30,9 +33,9 @@
         in
         {
           default = pkgs.mkShell {
-            buildInputs = with pkgs; [
-              pipenv
-              pkgs.${pythonVersion}
+            buildInputs = [
+              pkgs.pipenv
+              (pkgs.${pythonVersion})
             ];
           };
         }
