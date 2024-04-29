@@ -1,1 +1,0 @@
-select slug, jsonb_pretty(measurements) from "cement_sample" LIMIT 200
