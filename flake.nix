@@ -158,6 +158,14 @@
           path = ./templates/basic;
           description = "Basic program template";
         };
+        pipenv = {
+          path = ./templates/pipenv;
+          description = "Pipenv project template reading python version from Pipfile";
+        };
+        rust = {
+          path = ./templates/rust;
+          description = "Rust project template";
+        };
       };
     };
 }
