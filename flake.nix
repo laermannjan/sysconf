@@ -162,6 +162,10 @@
           path = ./templates/pipenv;
           description = "Pipenv project template reading python version from Pipfile";
         };
+        devshell = {
+          path = ./templates/devshell;
+          description = "Pipenv project template reading python version from Pipfile";
+        };
         rust = {
           path = ./templates/rust;
           description = "Rust project template";
