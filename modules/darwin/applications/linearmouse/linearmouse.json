@@ -1,37 +1,66 @@
 {
-    "schemes": [
-        {
-            "pointer": {
-                "disableAcceleration": true,
-                "acceleration": 0.67
-            },
-            "scrolling": {
-                "acceleration": {
-                    "vertical": 1
-                },
-                "reverse": {
-                    "vertical": true
-                },
-                "modifiers": {
-                    "vertical": {
-                        "command": {
-                            "type": "zoom"
-                        }
-                    }
-                }
-            },
-            "buttons": {
-                "universalBackForward": true
-            },
-            "if": {
-                "device": {
-                    "productName": "USB Receiver",
-                    "vendorID": "0x46d",
-                    "productID": "0xc547",
-                    "category": "mouse"
-                }
-            }
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.9.5",
+  "schemes" : [
+    {
+      "if" : {
+        "device" : {
+          "vendorID" : "0x46d",
+          "category" : "mouse",
+          "productName" : "USB Receiver",
+          "productID" : "0xc547"
         }
-    ],
-    "$schema": "https://schema.linearmouse.app/0.9.5"
+      },
+      "buttons" : {
+        "universalBackForward" : true
+      },
+      "scrolling" : {
+        "reverse" : {
+          "vertical" : true
+        },
+        "acceleration" : {
+          "vertical" : 1
+        },
+        "modifiers" : {
+          "vertical" : {
+            "command" : {
+              "type" : "zoom"
+            }
+          }
+        }
+      },
+      "pointer" : {
+        "acceleration" : 0.67,
+        "disableAcceleration" : true
+      }
+    },
+    {
+      "scrolling" : {
+        "acceleration" : {
+          "vertical" : 1
+        },
+        "reverse" : {
+          "vertical" : true
+        },
+        "distance" : {
+          "vertical" : "auto"
+        },
+        "speed" : {
+          "vertical" : 13.37
+        }
+      },
+      "pointer" : {
+        "disableAcceleration" : true,
+        "acceleration" : 0.67
+      },
+      "if" : {
+        "device" : {
+          "serialNumber" : "973931A1",
+          "productName" : "PRO X Wireless",
+          "vendorID" : "0x46d",
+          "category" : "mouse",
+          "productID" : "0xc094"
+        }
+      }
+    }
+  ]
 }
