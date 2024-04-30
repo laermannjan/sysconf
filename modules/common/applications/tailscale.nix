@@ -13,7 +13,8 @@
       };
     };
   };
-  config = lib.mkIf (config.tailscale.enable) {
+  config = lib.mkIf (config.tailscale.enable && !pkgs.stdenv.isDarwin) {
+    # darwin has a nicer gui-client on homebrew
     home-manager.users.${config.user} = {
       home.packages = [ pkgs.tailscale ];
     };

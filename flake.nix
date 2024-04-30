@@ -5,17 +5,23 @@
   inputs = {
     # Used for system packages
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
 
     # Used for MacOS system config
-    darwin = {
+    nix-darwin = {
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flake-utils.url = "github:numtide/flake-utils";
+
     # Used for Windows Subsystem for Linux compatibility
     wsl = {
       url = "github:nix-community/NixOS-WSL";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
     };
 
     # Used for user packages and dotfiles
@@ -42,16 +48,30 @@
 
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+        nix-darwin.follows = "nix-darwin";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+      };
     };
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs-stable";
+        flake-utils.follows = "flake-utils";
+      };
     };
   };
 
   outputs =
-    { nixpkgs, pre-commit-hooks, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      pre-commit-hooks,
+      ...
+    }@inputs:
     let
       # Global configuration for my system
       globals = rec {
@@ -116,13 +136,17 @@
         {
           # Used to run commands and edit files in this repo
           default = pkgs.mkShell {
-            buildInputs = with pkgs; [
-              git
-              stylua
-              nixfmt-rfc-style
-              shfmt
-              shellcheck
-            ];
+            inherit (self.pre-commit-check.${system}) shellHook;
+            buildInputs =
+              with pkgs;
+              [
+                git
+                stylua
+                nixfmt-rfc-style
+                shfmt
+                shellcheck
+              ]
+              ++ self.pre-commit-check.${system}.enabledPackages;
           };
         }
       );
@@ -130,15 +154,15 @@
       pre-commit-check = forAllSystems (
         system:
         let
-          hooks = pre-commit-hooks.lib.${system};
+          git-hooks = pre-commit-hooks.lib.${system};
+          pkgs = import nixpkgs { inherit system overlays; };
         in
-        hooks.run {
-          nixfmt.package = nixpkgs.nixfmt-rfc-style;
+        git-hooks.run {
           src = ./.;
           hooks = {
-            statix.enable = true;
             deadnix.enable = true;
             nixfmt.enable = true;
+            nixfmt.package = pkgs.nixfmt-rfc-style;
           };
         }
       );

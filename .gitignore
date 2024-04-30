@@ -5,3 +5,4 @@ result
 private/**
 templates/**/flake.lock
 !private/**.age
+.pre-commit-config.yaml
