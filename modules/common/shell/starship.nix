@@ -43,6 +43,7 @@
         format = "[$symbol $name]($style)";
         symbol = "❄️";
       };
+      aws.disabled = true;
       time = {
         style = "bold yellow";
         time_format = "%H:%M";
