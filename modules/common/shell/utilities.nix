@@ -17,6 +17,7 @@ in
         bc # Calculator
         curl
         delta # Fancy diffs
+        devenv
         difftastic # Other fancy diffs
         dig # DNS lookup
         dogdns # DNS lookup but written in rust

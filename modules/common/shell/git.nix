@@ -93,6 +93,17 @@
           ".env/"
           "node_modules"
           ".sass-cache"
+
+          # Devenv
+          ".devenv*"
+          "devenv.local.nix"
+          ".devenv"
+
+          # direnv
+          ".direnv"
+
+          # pre-commit
+          ".pre-commit-config.yaml"
         ];
         includes = [
           {
