@@ -32,3 +32,10 @@ __from_op() {
         export "${var?}"
     done
 }
+
+load_op_dotenv() {
+    local env_file="${1:-.env}"
+    [[ -f "$env_file" ]] || (echo "did not find $env_file" && return 0)
+    direnv_load op run --env-file="$env_file" --no-masking -- direnv dump
+    watch_file "$env_file"
+}
