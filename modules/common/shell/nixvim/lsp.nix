@@ -104,7 +104,11 @@
           # could be alternatives to the pylsp plugin
           # ruff.enable = true;
           # ruff-lsp.enable = true;
-          rust-analyzer.enable = true;
+          rust-analyzer = {
+            enable = true;
+            installRustc = false;
+            installCargo = false;
+          };
           sqls.enable = true;
           taplo.enable = true;
           terraformls.enable = true;
