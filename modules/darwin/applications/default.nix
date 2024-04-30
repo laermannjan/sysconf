@@ -15,6 +15,7 @@
     ./rectangle.nix
     ./signal.nix
     ./stats.nix
+    ./tailscale.nix
     ./tor-browser.nix
     ./utm.nix
   ];
