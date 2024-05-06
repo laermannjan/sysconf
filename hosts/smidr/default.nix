@@ -27,6 +27,7 @@ inputs.nix-darwin.lib.darwinSystem {
       # mail.aerc.enable = true;
       # mail.himalaya.enable = false;
       _1password.enable = true;
+      aerospace.enable = true;
       argo.enable = true;
       applauncher.enable = true;
       brave.enable = true;
