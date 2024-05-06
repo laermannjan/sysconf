@@ -2,6 +2,7 @@
 {
   imports = [
     ./1password.nix
+    ./aerospace.nix
     ./applauncher.nix
     ./brave.nix
     ./linearmouse.nix
