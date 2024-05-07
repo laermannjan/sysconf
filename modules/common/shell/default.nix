@@ -6,7 +6,6 @@
     ./fish.nix
     ./git.nix
     ./neovim.nix
-    ./nixvim.nix
     ./nixpkgs.nix
     ./ssh.nix
     ./starship.nix
