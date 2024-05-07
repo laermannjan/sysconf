@@ -5,45 +5,6 @@
   inputs,
   ...
 }:
-let
-
-  configs = {
-    nixvim = {
-      imports = [
-        inputs.nixvim.homeManagerModules.nixvim
-        ./neovim/nixvim
-      ];
-      programs.nixvim = {
-        enable = true;
-        colorscheme = lib.mkForce "tokyonight";
-      };
-    };
-
-    astronvim = {
-
-    };
-
-    custom = {
-      programs.neovim.enable = true;
-      home.file.".config/nvim/" = {
-        source = ./neovim/custom;
-        recursive = true;
-      };
-
-      home.packages = with pkgs; [
-        jq
-        ripgrep
-        fzf
-        nodejs
-        go
-        cargo
-        nixfmt
-        deadnix
-        statix
-      ];
-    };
-  };
-in
 {
   options = {
     neovim = {
@@ -66,6 +27,45 @@ in
       VISUAL = "nvim";
     };
 
-    home-manager.users.${config.user} = configs.${config.neovim.config};
+    home-manager.users.${config.user} =
+      let
+        configs = {
+          nixvim = {
+            imports = [
+              inputs.nixvim.homeManagerModules.nixvim
+              ./neovim/nixvim
+            ];
+            programs.nixvim = {
+              enable = true;
+              colorscheme = lib.mkForce "tokyonight";
+            };
+          };
+
+          astronvim = {
+
+          };
+
+          custom = {
+            programs.neovim.enable = true;
+            home.file.".config/nvim/" = {
+              source = ./neovim/custom;
+              recursive = true;
+            };
+
+            home.packages = with pkgs; [
+              # jq
+              ripgrep
+              fzf
+              nodejs
+              go
+              cargo
+              nixfmt-rfc-style
+              deadnix
+              statix
+            ];
+          };
+        };
+      in
+      configs.${config.neovim.config};
   };
 }

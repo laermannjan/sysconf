@@ -1,6 +1,6 @@
 { ... }:
 {
-  import = [
+  imports = [
     ./cmp.nix
     ./colorscheme.nix
     ./comment.nix

@@ -38,7 +38,7 @@ inputs.nix-darwin.lib.darwinSystem {
       lua.enable = true;
       neovim = {
         enable = true;
-        config = "nixvim";
+        config = "custom";
       };
       media.enable = true;
       meetingbar.enable = true;
