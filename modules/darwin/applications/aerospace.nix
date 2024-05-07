@@ -16,6 +16,7 @@
   };
   config = lib.mkIf (pkgs.stdenv.isDarwin && config.aerospace.enable) {
     homebrew = {
+      taps = [ "nikitabobko/tap" ];
       casks = [ "nikitabobko/tap/aerospace" ];
     };
 
