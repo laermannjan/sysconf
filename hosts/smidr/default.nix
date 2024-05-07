@@ -36,14 +36,16 @@ inputs.nix-darwin.lib.darwinSystem {
       firefox.enable = true;
       golang.enable = true;
       lua.enable = true;
-      # neovim.enable = true;
+      neovim = {
+        enable = true;
+        config = "nixvim";
+      };
       media.enable = true;
       meetingbar.enable = true;
       monitorcontrol.enable = true;
       mullvad-browser.enable = true;
       mullvad.enable = true;
       nixlang.enable = true;
-      nixvim.enable = true;
       notion-calendar.enable = true;
       notion.enable = true;
       rectangle.enable = true;

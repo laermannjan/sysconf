@@ -2,35 +2,31 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }:
-{
-  options = {
-    neovim = {
-      enable = lib.mkEnableOption {
-        description = "Enable my neovim config.";
-        default = false;
+let
+
+  configs = {
+    nixvim = {
+      imports = [
+        inputs.nixvim.homeManagerModules.nixvim
+        ./neovim/nixvim
+      ];
+      programs.nixvim = {
+        enable = true;
+        colorscheme = lib.mkForce "tokyonight";
       };
     };
-  };
 
-  config = lib.mkIf config.neovim.enable {
-    environment.systemPackages = [ pkgs.neovim ]; # everbody should have this!
+    astronvim = {
 
-    environment.variables = {
-      EDITOR = "nvim";
-      VISUAL = "nvim";
     };
 
-    home-manager.users.${config.user} = {
-      programs = {
-        neovim = {
-          enable = true;
-        };
-      };
-
+    custom = {
+      programs.neovim.enable = true;
       home.file.".config/nvim/" = {
-        source = ./neovim;
+        source = ./neovim/custom;
         recursive = true;
       };
 
@@ -38,13 +34,38 @@
         jq
         ripgrep
         fzf
-        nodejs # for installing language servers via mason
-        go # for installing language servers via mason
-        cargo # for installing language servers via mason
+        nodejs
+        go
+        cargo
         nixfmt
         deadnix
         statix
       ];
     };
+  };
+in
+{
+  options = {
+    neovim = {
+      enable = lib.mkEnableOption {
+        description = "Enable my neovim config.";
+        default = false;
+      };
+      config = lib.mkOption {
+        description = "Which neovim config to use: nixvim, astronvim, custom";
+        default = "astronvim";
+      };
+    };
+  };
+
+  config = lib.mkIf config.neovim.enable {
+    environment.systemPackages = [ pkgs.neovim ]; # everybody should have this!
+
+    environment.variables = {
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+    };
+
+    home-manager.users.${config.user} = configs.${config.neovim.config};
   };
 }
