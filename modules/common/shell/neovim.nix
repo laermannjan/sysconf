@@ -14,6 +14,11 @@
       };
       config = lib.mkOption {
         description = "Which neovim config to use: nixvim, astronvim, custom";
+        type = lib.types.either (lib.types.enum [
+          "nixvim"
+          "astronvim"
+          "custom"
+        ]) lib.types.str;
         default = "astronvim";
       };
     };
@@ -42,12 +47,28 @@
           };
 
           astronvim = {
-
+            programs.neovim = {
+              enable = true;
+              withPython3 = true;
+              withNodeJs = true;
+            };
+            xdg.configFile."nvim" = {
+              source = ./neovim/astronvim;
+              recursive = true;
+            };
+            home.packages = with pkgs; [
+              ripgrep
+              fzf
+              jq
+              bat
+              gdu
+              lazygit
+            ];
           };
 
           custom = {
             programs.neovim.enable = true;
-            home.file.".config/nvim/" = {
+            xdg.configFile."nvim" = {
               source = ./neovim/custom;
               recursive = true;
             };
