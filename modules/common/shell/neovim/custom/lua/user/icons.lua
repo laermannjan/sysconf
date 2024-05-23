@@ -161,5 +161,6 @@ return {
 		Smiley = " ",
 		Package = " ",
 		CircuitBoard = " ",
+		Grapple = "󰛢",
 	},
 }
