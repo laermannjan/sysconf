@@ -9,7 +9,7 @@ local M = {
 
 M.config = function(_, opts)
 	if vim.tbl_contains({ "astrodark", "astromars", "astrolight" }, S.colorscheme) then
-		require("nightfox").setup(opts)
+		require("astrotheme").setup(opts)
 		vim.cmd.colorscheme(S.colorscheme)
 	end
 end
