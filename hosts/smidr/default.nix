@@ -27,7 +27,7 @@ inputs.nix-darwin.lib.darwinSystem {
       # mail.aerc.enable = true;
       # mail.himalaya.enable = false;
       _1password.enable = true;
-      aerospace.enable = true;
+      amethyst.enable = true;
       argo.enable = true;
       applauncher.enable = true;
       brave.enable = true;
@@ -41,7 +41,6 @@ inputs.nix-darwin.lib.darwinSystem {
         config = "custom";
       };
       media.enable = true;
-      meetingbar.enable = true;
       monitorcontrol.enable = true;
       mullvad-browser.enable = true;
       mullvad.enable = true;
