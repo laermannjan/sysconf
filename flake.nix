@@ -60,7 +60,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nixpkgs-stable.follows = "nixpkgs-stable";
-        flake-utils.follows = "flake-utils";
       };
     };
   };
