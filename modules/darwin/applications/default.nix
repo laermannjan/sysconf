@@ -3,6 +3,7 @@
   imports = [
     ./1password.nix
     ./aerospace.nix
+    ./amethyst.nix
     ./applauncher.nix
     ./brave.nix
     ./linearmouse.nix
