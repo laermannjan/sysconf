@@ -1,9 +1,11 @@
 return {
-          python = {
-            analysis = {
-              autoSearchPaths = true,
-              diagnosticMode = 'workspace',
-              useLibraryCodeForTypes = true,
-            },
-          },
+    pyright = {
+      -- Using Ruff's import organizer
+      disableOrganizeImports = true,
+    },
+    python = {
+        analysis = {
+            ignore = {"*"},
+        },
+    },
 }

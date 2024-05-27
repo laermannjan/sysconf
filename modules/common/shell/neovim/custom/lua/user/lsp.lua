@@ -20,7 +20,7 @@ local function add_lsp_keymaps(bufnr)
 	vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { buffer = bufnr, desc = "rename symbol" })
 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "code action" })
 	vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run, { buffer = bufnr, desc = "code lens action" })
-	vim.keymap.set("n", "<leader>uh", M.toggle_inlay_hints, { buffer = bufnr, desc = "toggle inlay hints" })
+	vim.keymap.set("n", "<leader>uh", M.buffer_inlay_ints, { buffer = bufnr, desc = "toggle inlay hints" })
 end
 
 M.on_attach = function(client, bufnr)
@@ -28,18 +28,21 @@ M.on_attach = function(client, bufnr)
 	require("user.utils").create_autoformat_autocmd(client, bufnr)
 
 	if client.supports_method "textDocument/inlayHint" then
-		vim.lsp.inlay_hint.enable(bufnr, true)
+		vim.lsp.inlay_hint.enable(true, {bufnr = bufnr})
 	end
 
-	if client.name == "ruff_lsp" then
+	if client.name == "ruff" then
 		-- Disable hover in favor of Pyright
 		client.server_capabilities.hoverProvider = false
 	end
 end
 
-M.toggle_inlay_hints = function()
-	local bufnr = vim.api.nvim_get_current_buf()
-	vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled(bufnr))
+function M.buffer_inlay_hints(bufnr, silent)
+	if vim.lsp.inlay_hint then
+		local filter = { bufnr = bufnr or 0 }
+		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(filter), filter)
+        require("user.utils").notify(silent,("Buffer inlay hints %s"):format(require("user.utils").bool2str(vim.lsp.inlay_hint.is_enabled(filter))))
+	end
 end
 
 function M.common_capabilities()
@@ -68,7 +71,6 @@ function M.common_capabilities()
 end
 
 M.servers = {
-	"astro",
 	"bashls",
 	"cssls",
 	"eslint",
@@ -79,7 +81,7 @@ M.servers = {
 	"marksman",
 	"nil_ls",
 	"pyright",
-	"ruff_lsp",
+	"ruff",
 	"rust_analyzer",
 	"tailwindcss",
 	"yamlls",
