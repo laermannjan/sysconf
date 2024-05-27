@@ -25,8 +25,8 @@
       enable = true;
 
       onActivation = {
-        autoUpdate = false; # Don't update during rebuild # TODO: does `flake update` do this?
-        cleanup = "zap"; # Uninstall all programs not declared
+        autoUpdate = true;
+        cleanup = "zap"; # Uninstall all programs not declared, and delete (zap) their associated (config) files
         upgrade = true;
       };
 
