@@ -29,6 +29,7 @@ spec "user.todo-comments"
 spec "user.hmts"
 spec "user.astroline"
 spec "user.grapple"
+spec "user.staline"
 -- spec "user.ufo" -- TODO: see launch.nvim config
 spec "user.copilot"
 -- spec "user.gitlinker"
