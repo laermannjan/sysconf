@@ -1,0 +1,66 @@
+layout:
+  - tall
+  - fullscreen
+  - wide
+
+mod1:
+  - option
+
+mod2:
+  - option
+  - control
+
+mod3:
+  - option
+  - shift
+
+shrink-main:
+  mod: mod1
+  key: '-'
+
+expand-main:
+  mod: mod1
+  key: '='
+
+
+focus-ccw:
+  mod: mod1
+  key: h
+
+focus-cw:
+  mod: mod1
+  key: l
+
+swap-main:
+  mod: mod1
+  key: enter
+
+select-fullscreen-layout:
+  mod: mod1
+  key: f
+
+toggle-float:
+  mod: mod3
+  key: f
+
+
+# Boolean flag for whether or not to set window margins if there is only one window on the screen, assuming window margins are enabled (default false).
+smart-window-margins: true
+
+# # Add 10px margin between windows
+window-margins: true
+window-margin-size: 5
+
+# true if windows smaller than a 500px square should be floating by default (default true)
+float-small-windows: true
+
+
+# true to display the name of the layout when a new layout is selected (default true).
+enables-layout-hud: true
+
+# true to display the name of the layout when moving to a new space (default true).
+enables-layout-hud-on-space-change: false
+
+# true to automatically move to a space when throwing a window to it (default true).
+follow-space-thrown-windows: true
+

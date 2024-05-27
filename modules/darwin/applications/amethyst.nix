@@ -18,5 +18,9 @@
     homebrew = {
       casks = [ "amethyst" ];
     };
+
+    home-manager.users.${config.user} = {
+      xdg.configFile."amethyst/amethyst.yml".source = ./amethyst/amethyst.yml;
+    };
   };
 }
