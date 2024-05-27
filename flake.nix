@@ -52,7 +52,6 @@
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
         nix-darwin.follows = "nix-darwin";
-        pre-commit-hooks.follows = "pre-commit-hooks";
       };
     };
     pre-commit-hooks = {
