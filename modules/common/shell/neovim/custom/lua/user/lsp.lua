@@ -20,7 +20,11 @@ local function add_lsp_keymaps(bufnr)
 	vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { buffer = bufnr, desc = "rename symbol" })
 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "code action" })
 	vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run, { buffer = bufnr, desc = "code lens action" })
-	vim.keymap.set("n", "<leader>uh", M.buffer_inlay_ints, { buffer = bufnr, desc = "toggle inlay hints" })
+	if vim.lsp.inlay_hint and "textDocument/inlayHint" or false then
+		vim.keymap.set("n", "<leader>uh", function()
+			M.buffer_inlay_hints(bufnr)
+		end, { buffer = bufnr, desc = "toggle inlay hints" })
+	end
 end
 
 M.on_attach = function(client, bufnr)
@@ -28,7 +32,7 @@ M.on_attach = function(client, bufnr)
 	require("user.utils").create_autoformat_autocmd(client, bufnr)
 
 	if client.supports_method "textDocument/inlayHint" then
-		vim.lsp.inlay_hint.enable(true, {bufnr = bufnr})
+		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 	end
 
 	if client.name == "ruff" then
@@ -41,7 +45,10 @@ function M.buffer_inlay_hints(bufnr, silent)
 	if vim.lsp.inlay_hint then
 		local filter = { bufnr = bufnr or 0 }
 		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(filter), filter)
-        require("user.utils").notify(silent,("Buffer inlay hints %s"):format(require("user.utils").bool2str(vim.lsp.inlay_hint.is_enabled(filter))))
+		require("user.utils").notify(
+			silent,
+			("Buffer inlay hints %s"):format(require("user.utils").bool2str(vim.lsp.inlay_hint.is_enabled(filter)))
+		)
 	end
 end
 
