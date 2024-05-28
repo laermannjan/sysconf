@@ -8,7 +8,7 @@ local M = {
 				hl = { fg = "fg", bg = "bg" },
 				lib.component.mode(),
 				lib.component.git_branch(),
-				lib.component.file_info { filename = { modify = ":p:~:." }, file_modified = {} },
+				lib.component.file_info { filename = { modify = ":p:~:." }, file_modified = {}, filetype = false },
 				lib.component.git_diff(),
 				lib.component.diagnostics(),
 				lib.component.fill(),
