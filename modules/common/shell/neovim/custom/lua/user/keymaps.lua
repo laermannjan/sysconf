@@ -39,3 +39,8 @@ vim.keymap.set("t", "<C-;>", "<C-\\><C-n>")
 -- vim.keymap.set("n", "<m-j>", "<C-w>j", { noremap = true, silent = true })
 -- vim.keymap.set("n", "<m-k>", "<C-w>k", { noremap = true, silent = true })
 -- vim.keymap.set("n", "<m-l>", "<C-w>l", { noremap = true, silent = true })
+--
+vim.cmd "cabbrev Wqa wqa"
+vim.cmd "cabbrev Wq wq"
+vim.cmd "cabbrev Wa wa"
+vim.cmd "cabbrev Q q"
