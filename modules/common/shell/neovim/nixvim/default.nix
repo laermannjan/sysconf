@@ -12,6 +12,7 @@
     ./hmts.nix
     ./indent-blankline.nix
     ./keymaps.nix
+    ./lazy.nix
     ./lazygit.nix
     ./lsp.nix
     ./lualine.nix
