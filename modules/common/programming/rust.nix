@@ -20,6 +20,7 @@
           clippy
           gcc
           rust-analyzer
+          pkg-config
           ICONV
         ];
     };
