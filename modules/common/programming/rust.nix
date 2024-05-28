@@ -8,21 +8,24 @@
   options.rust.enable = lib.mkEnableOption "Rust programming language.";
 
   config = lib.mkIf config.rust.enable {
-    home-manager.users.${config.user} = {
-      home.packages =
-        let
-          ICONV = if pkgs.stdenv.isDarwin then pkgs.darwin.libiconv else pkgs.libiconv;
-        in
-        with pkgs;
-        [
+    home-manager.users.${config.user} =
+      let
+        libPath = with pkgs; lib.makeLibraryPath [ libiconv ];
+      in
+      {
+        home.packages = with pkgs; [
           cargo
           rustc
+          rust-analyzer
           clippy
           gcc
-          rust-analyzer
-          pkg-config
-          ICONV
+          libiconv
+          llvmPackages.bintools
         ];
-    };
+
+        home.sessionVariables = {
+          LD_LIBRARY_PATH = libPath;
+        };
+      };
   };
 }
