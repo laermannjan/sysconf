@@ -77,9 +77,6 @@
               # jq
               ripgrep
               fzf
-              nodejs
-              go
-              cargo
               nixfmt-rfc-style
               deadnix
               statix
