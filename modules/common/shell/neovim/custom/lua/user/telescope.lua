@@ -102,7 +102,7 @@ M.config = function()
 		},
 		pickers = {
 			find_files = {
-				theme = "ivy",
+				-- 	theme = "ivy",
 				path_display = filenameFirst,
 			},
 		},
