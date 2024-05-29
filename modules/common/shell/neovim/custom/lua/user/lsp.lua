@@ -159,6 +159,10 @@ function M.config()
 			require("neodev").setup {}
 		end
 
+		if server == "ruff" then
+			opts.cmd = { "/etc/profiles/per-user/jan/bin/ruff", "server", "--preview" }
+		end
+
 		lspconfig[server].setup(opts)
 	end
 end
