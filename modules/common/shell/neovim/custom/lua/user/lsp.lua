@@ -6,6 +6,7 @@ local M = {
 		"nvim-lua/plenary.nvim",
 		{ "j-hui/fidget.nvim", opts = {} },
 		"folke/neodev.nvim",
+		"aznhe21/actions-preview.nvim",
 	},
 }
 
@@ -18,7 +19,7 @@ local function add_lsp_keymaps(bufnr)
 	vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "references" })
 	vim.keymap.set("n", "gl", vim.diagnostic.open_float, { buffer = bufnr, desc = "open diagnostic float" })
 	vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { buffer = bufnr, desc = "rename symbol" })
-	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "code action" })
+	vim.keymap.set("n", "<leader>ca", require("actions-preview").code_actions, { buffer = bufnr, desc = "code action" })
 	vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run, { buffer = bufnr, desc = "code lens action" })
 	if vim.lsp.inlay_hint and "textDocument/inlayHint" or false then
 		vim.keymap.set("n", "<leader>uh", function()
