@@ -42,7 +42,7 @@ vim.opt.inccommand = "split" -- show effects of command within the screen an par
 
 -- usability
 vim.opt.mouse = "a" -- full mouse support
--- opt.laststatus = 3
+vim.opt.laststatus = 3
 vim.opt.updatetime = 50 -- If this many milliseconds nothing is typed the swap file will be written to disk; Also used for the |CursorHold| autocommand event
 vim.opt.timeoutlen = 500 -- time in ms to wait before mapped sequence completes. e.g. if pressing <leader> before continuing to type normaly
 
