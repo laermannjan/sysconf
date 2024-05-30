@@ -16,7 +16,7 @@ return {
 				ruff = { enabled = false },
 				rope_rename = { enabled = false },
 				jedi_rename = { enabled = false },
-				pylsp_rope = { enabled = false, rename = true },
+				pylsp_rope = { enabled = true, rename = true },
 			},
 		},
 	},
