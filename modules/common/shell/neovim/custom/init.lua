@@ -1,16 +1,21 @@
-S = {}
--- S.colorscheme = "tokyonight"
--- S.colorscheme = "tokyodark"
-S.colorscheme = "astrodark"
--- S.colorscheme = "nightfox"
--- S.colorscheme = "duskfox"
--- S.colorscheme = "terafox"
--- S.colorscheme = "nordic"
+_G.lj = {}
+
+vim.loader.enable() -- enable byte-code compilation. also used by lazy
+
+require "base.options"
+require "base.lazy"
+require "base.keymaps"
+require "base.autocmds"
+
+lj.colorscheme = "astrodark"
+-- lj.colorscheme = "tokyonight"
+-- lj.colorscheme = "tokyodark"
+-- lj.colorscheme = "nightfox"
+-- lj.colorscheme = "duskfox"
+-- lj.colorscheme = "terafox"
+-- lj.colorscheme = "nordic"
 
 require "user.spec"
-require "user.options"
-require "user.keymaps"
-require "user.autocmds"
 
 spec "user.colorschemes"
 spec "user.devicons"
@@ -42,4 +47,3 @@ spec "user.toggleterm"
 spec "user.neotest"
 spec "user.various-textobjects"
 spec "user.smart-splits"
-require "user.lazy"

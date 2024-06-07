@@ -13,11 +13,11 @@ vim.opt.expandtab = true -- in insert mode convert a <Tab> press to spaces
 vim.opt.autoindent = true -- indent next line similarly to current line when pressing <CR> in insert or o/O in normal mode
 vim.opt.smartindent = true --  adjust indentation based on syntax
 -- vim.opt.showtabline = 4 -- show tab line? 0: never, 1: if #tabs >= 2, 2: always -- disable, for plugin
-vim.opt.textwidth = 128 -- max width of text that is being inserted (e.g. pasted), line break on next whitespace after reaching this width (might be overridden in ftplugins)
 
 -- line wrapping
 vim.opt.wrap = false -- disable line wrapping
 vim.opt.breakindent = true -- only matters if `wrap = true`; wrapped line will be equally indented if true
+-- vim.opt.copyindent = true -- copy indent (spaces, tabs, whatever) from the previous line instead of reconstructing with tabs/spaces
 
 vim.opt.cursorline = true -- highlight the current cursor line
 vim.opt.termguicolors = true -- enable 24bit colors when running in terminal
@@ -36,13 +36,14 @@ vim.opt.splitbelow = true -- split horizontal window to the bottom
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.opt.ignorecase = true -- ignore character case when searching with /, ? or using commands n, N, and some more
 vim.opt.smartcase = true -- actually DO care about case when I type UPPERCASE specifically, but ignore where i type lowercase
+vim.opt.infercase = true -- in completion: if lower case typed, and selected match has upper case, convert the letter to lower case
 vim.opt.hlsearch = true -- keep search result highlighted after pressing <CR>
 vim.opt.incsearch = true -- search and show results while typing query
 vim.opt.inccommand = "split" -- show effects of command within the screen an partially those that will happen off-screen in a preview window
 
 -- usability
 vim.opt.mouse = "a" -- full mouse support
-vim.opt.laststatus = 3
+vim.opt.laststatus = 3 -- global status line
 vim.opt.updatetime = 50 -- If this many milliseconds nothing is typed the swap file will be written to disk; Also used for the |CursorHold| autocommand event
 vim.opt.timeoutlen = 500 -- time in ms to wait before mapped sequence completes. e.g. if pressing <leader> before continuing to type normaly
 
@@ -60,5 +61,9 @@ vim.opt.confirm = true -- Confirm to save changes before exiting modified buffer
 vim.opt.pumheight = 15 -- number of items to show in a popup menu (autocompletion)
 vim.opt.pumblend = 18 -- transparency value for that menu (0 opaque, 100 transparent)
 
+vim.opt.foldenable = true -- Enable fold for nvim-ufo
+vim.opt.foldlevel = 99 -- set highest foldlevel for nvim-ufo
+vim.opt.foldlevelstart = 99 -- Start with everything unfolded
+vim.opt.foldcolumn = "1" -- always show fold column
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = "menuone,noselect"
+vim.o.completeopt = { "menu", "menuone", "noselect", "fuzzy" }
