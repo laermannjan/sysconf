@@ -20,7 +20,7 @@
             mypy
           ])
         ))
-        nodePackages.pyright
+        pyright
         ruff
       ];
     };
