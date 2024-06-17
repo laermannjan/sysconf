@@ -50,7 +50,7 @@ inputs.nix-darwin.lib.darwinSystem {
       rectangle.enable = true;
       obsidian.enable = true;
       postgres.enable = true;
-      pycharm.enable = true;
+      jetbrains-toolbox.enable = true;
       python.enable = true;
       rust.enable = true;
       slack.enable = true;

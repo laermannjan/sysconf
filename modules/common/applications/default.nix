@@ -6,7 +6,7 @@
     ./firefox.nix
     ./media.nix
     ./obsidian.nix
-    ./pycharm.nix
+    ./jetbrains-toolbox.nix
     ./slack.nix
     ./tailscale.nix
     ./wezterm.nix
