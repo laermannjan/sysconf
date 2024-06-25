@@ -23,6 +23,7 @@
         pyright
         ruff
         pipenv
+        pyenv
       ];
     };
   };
