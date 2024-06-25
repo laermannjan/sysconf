@@ -10,10 +10,7 @@
   config = lib.mkIf config.rust.enable {
     home-manager.users.${config.user} = {
       home.packages = with pkgs; [
-        cargo
-        rustc
-        rust-analyzer
-        clippy
+        rustup
         gcc
       ];
     };
