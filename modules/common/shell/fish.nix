@@ -34,6 +34,7 @@
           }
           set fish_user_paths $fish_user_paths
         '';
+
       interactiveShellInit = ''
         # Disable greeting
         set fish_greeting
@@ -54,6 +55,12 @@
 
         set -x GITLAB_ACCESS_TOKEN (op read "op://private/GitLab Personal Access Token/token")
 
+      '';
+
+      shellInitLast = ''
+        set -x PYENV_ROOT $HOME/.pyenv
+        fish_add_path $PYENV_ROOT/bin
+        pyenv init - | source
       '';
       plugins = [
         {
