@@ -48,18 +48,18 @@
 
         # allow 1password-cli ssh-agent to see which keys are available
         # `ssh-add -l` will now show all available ssh-keys from 1password
-        set -x SSH_AUTH_SOCK ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+        set -gx SSH_AUTH_SOCK ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 
         # set -x NVIM_APPNAME nvim-astro
-        set -x PIPENV_VENV_IN_PROJECT 1
+        set -gx PIPENV_VENV_IN_PROJECT 1
 
-        set -x GITLAB_ACCESS_TOKEN (op read "op://private/GitLab Personal Access Token/token")
+        set -gx GITLAB_ACCESS_TOKEN (op read "op://private/GitLab Personal Access Token/token")
 
       '';
 
       shellInitLast = ''
-        set -x PYENV_ROOT $HOME/.pyenv
-        fish_add_path $PYENV_ROOT/bin
+        set -gx PYENV_ROOT $HOME/.pyenv
+        fish_add_path --global $PYENV_ROOT/bin
         pyenv init - | source
       '';
       plugins = [
