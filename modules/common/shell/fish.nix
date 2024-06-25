@@ -52,6 +52,8 @@
         # set -x NVIM_APPNAME nvim-astro
         set -x PIPENV_VENV_IN_PROJECT 1
 
+        set -x GITLAB_ACCESS_TOKEN (op read "op://private/GitLab Personal Access Token/token")
+
       '';
       plugins = [
         {
