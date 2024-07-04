@@ -58,7 +58,7 @@
         else
             set -gx GITLAB_ACCESS_TOKEN (op read "op://private/GitLab Personal Access Token/token")
             echo $GITLAB_ACCESS_TOKEN > ~/.cache/GITLAB_ACCESS_TOKEN
-        fi
+        end
 
       '';
 
