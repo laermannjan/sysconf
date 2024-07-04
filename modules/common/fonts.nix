@@ -18,10 +18,7 @@ in
 {
   fonts =
     if pkgs.stdenv.isDarwin then
-      {
-        fontDir.enable = true;
-        fonts = fonts;
-      }
+      { packages = fonts; }
     else
       {
         fontDir.enable = true;
