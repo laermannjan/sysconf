@@ -53,7 +53,12 @@
         # set -x NVIM_APPNAME nvim-astro
         set -gx PIPENV_VENV_IN_PROJECT 1
 
-        set -gx GITLAB_ACCESS_TOKEN (op read "op://private/GitLab Personal Access Token/token")
+        if test -f ~/.cache/GITLAB_ACCESS_TOKEN
+            set -gx GITLAB_ACCESS_TOKEN (cat ~/.cache/GITLAB_ACCESS_TOKEN)
+        else
+            set -gx GITLAB_ACCESS_TOKEN (op read "op://private/GitLab Personal Access Token/token")
+            echo $GITLAB_ACCESS_TOKEN > ~/.cache/GITLAB_ACCESS_TOKEN
+        fi
 
       '';
 
