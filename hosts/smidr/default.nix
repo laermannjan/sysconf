@@ -45,6 +45,7 @@ inputs.nix-darwin.lib.darwinSystem {
       mullvad-browser.enable = true;
       mullvad.enable = true;
       nixlang.enable = true;
+      nodejs.enable = true;
       notion-calendar.enable = true;
       notion.enable = true;
       rectangle.enable = true;
