@@ -103,7 +103,7 @@ function M.config()
 		},
 	}
 	require("mason-lspconfig").setup {
-		-- ensure_installed = M.servers
+		ensure_installed = M.servers,
 	}
 
 	local lspconfig = require "lspconfig"
