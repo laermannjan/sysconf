@@ -87,7 +87,7 @@ M.servers = {
 	"jsonls",
 	"lua_ls",
 	"marksman",
-	"nil_ls",
+	"nixd",
 	"pyright",
 	-- "pylsp",
 	"ruff",
