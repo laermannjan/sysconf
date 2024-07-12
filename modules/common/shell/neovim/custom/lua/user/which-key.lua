@@ -1,17 +1,13 @@
 local M = {
 	"folke/which-key.nvim",
+	opts = {},
+	keys = {
+		{ "<leader>f", group = "file" },
+		{ "<leader>g", group = "git" },
+		{ "<leader>u", group = "(ui) toggles" },
+		{ "<leader>c", group = "code" },
+		{ "<leader>t", group = "test" },
+	},
 }
-
-M.config = function()
-	local wk = require "which-key"
-	wk.setup()
-	wk.register {
-		["<leader>f"] = { name = "file" },
-		["<leader>g"] = { name = "git" },
-		["<leader>u"] = { name = "(ui) toggles" },
-		["<leader>c"] = { name = "code" },
-		["<leader>t"] = { name = "test" },
-	}
-end
 
 return M
