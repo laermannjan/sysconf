@@ -49,9 +49,6 @@ local M = {
 M.config = function()
 	local trouble = require "trouble.providers.telescope"
 
-	local open_with_trouble = function(...)
-		return require("trouble.providers.telescope").open_with_trouble(...)
-	end
 	local find_files_no_ignore = function()
 		local action_state = require "telescope.actions.state"
 		local line = action_state.get_current_line()
@@ -79,6 +76,9 @@ M.config = function()
 
 	local icons = require "user.icons"
 	local actions = require "telescope.actions"
+	local open_with_trouble = require("trouble.sources.telescope").open
+	-- Use this to add more results without clearing the trouble list
+	local add_to_trouble = require("trouble.sources.telescope").add
 
 	local function filenameFirst(_, path)
 		local tail = vim.fs.basename(path)
@@ -97,7 +97,9 @@ M.config = function()
 					["<a-i>"] = find_files_no_ignore,
 					["<a-h>"] = find_files_with_hidden,
 				},
-				n = { ["<c-t>"] = trouble.open_with_trouble },
+				n = {
+					["<c-t>"] = open_with_trouble,
+				},
 			},
 		},
 		pickers = {
