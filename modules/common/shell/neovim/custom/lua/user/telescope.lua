@@ -37,7 +37,7 @@ local M = {
 		{ "<leader>\\", "<cmd>Telescope<CR>", desc = "find telescope command" },
 		{ "<leader>/", "<cmd>Telescope live_grep<CR>", desc = "live grep" },
 
-		{ "<leader><leader>", "<cmd>Telescope resume<CR>", desc = "resume last search" },
+		{ "<leader>.", "<cmd>Telescope resume<CR>", desc = "resume last search" },
 
 		{ "<leader>gB", "<cmd>Telescope git_branches<CR>", desc = "checkout git branch" },
 		{ "<leader>go", "<cmd>Telescope git_status<CR>", desc = "open changed file" },
