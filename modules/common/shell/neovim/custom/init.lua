@@ -1,7 +1,7 @@
 S = {}
--- S.colorscheme = "tokyonight"
+S.colorscheme = "tokyonight"
 -- S.colorscheme = "tokyodark"
-S.colorscheme = "astrodark"
+-- S.colorscheme = "astrodark"
 -- S.colorscheme = "nightfox"
 -- S.colorscheme = "duskfox"
 -- S.colorscheme = "terafox"
