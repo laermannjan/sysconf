@@ -11,13 +11,35 @@ local M = {
 }
 
 local function add_lsp_keymaps(bufnr)
-	vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "references" })
-	vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "definiton" })
-	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "declaration" })
+	vim.keymap.set(
+		"n",
+		"gr",
+		":Trouble lsp_references focus=true auto_jump=true<cr>",
+		{ buffer = bufnr, desc = "references" }
+	)
+	vim.keymap.set(
+		"n",
+		"gd",
+		":Trouble lsp_definitions focus=true auto_jump=true<cr>",
+		{ buffer = bufnr, desc = "definiton" }
+	)
+	vim.keymap.set(
+		"n",
+		"gD",
+		":Trouble lsp_declarations focus=true auto_jump=true<cr>",
+		{ buffer = bufnr, desc = "declaration" }
+	)
+	vim.keymap.set(
+		"n",
+		"gI",
+		":Trouble lsp_implementations focus=true auto_jump=true<cr>",
+		{ buffer = bufnr, desc = "implementation" }
+	)
+
 	vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "hover" })
 	vim.keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "signature help" })
-	vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { buffer = bufnr, desc = "implementation" })
 	vim.keymap.set("n", "gl", vim.diagnostic.open_float, { buffer = bufnr, desc = "open diagnostic float" })
+
 	vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { buffer = bufnr, desc = "rename symbol" })
 	vim.keymap.set("n", "<leader>ca", require("actions-preview").code_actions, { buffer = bufnr, desc = "code action" })
 	vim.keymap.set("n", "<leader>cc", vim.lsp.codelens.run, { buffer = bufnr, desc = "code lens action" })
