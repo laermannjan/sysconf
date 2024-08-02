@@ -35,6 +35,7 @@ inputs.nix-darwin.lib.darwinSystem {
       docker.enable = true;
       firefox.enable = true;
       golang.enable = true;
+      jdownloader.enable = true;
       lua.enable = true;
       neovim = {
         enable = true;
