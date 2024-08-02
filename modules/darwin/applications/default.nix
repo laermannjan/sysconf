@@ -6,6 +6,7 @@
     ./amethyst.nix
     ./applauncher.nix
     ./brave.nix
+    ./jdownloader.nix
     ./jetbrains-toolbox.nix
     ./linearmouse.nix
     ./media.nix
