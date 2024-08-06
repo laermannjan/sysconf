@@ -5,11 +5,11 @@ local M = {
 }
 
 M.config = function()
-	if S.colorscheme == "tokyonight" then
+	if vim.g.colorscheme == "tokyonight" then
 		require("tokyonight").setup {
 			style = "night",
 		}
-		vim.cmd.colorscheme(S.colorscheme)
+		vim.cmd.colorscheme(vim.g.colorscheme)
 	end
 end
 

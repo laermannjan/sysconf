@@ -8,9 +8,9 @@ local M = {
 }
 
 M.config = function(_, opts)
-	if vim.tbl_contains({ "newpaper" }, S.colorscheme) then
+	if vim.tbl_contains({ "newpaper" }, vim.g.colorscheme) then
 		require("newpaper").setup(opts)
-		vim.cmd.colorscheme(S.colorscheme)
+		vim.cmd.colorscheme(vim.g.colorscheme)
 	end
 end
 

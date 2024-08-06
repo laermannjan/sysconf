@@ -8,7 +8,7 @@ local M = {
 }
 
 M.config = function(_, opts)
-	if S.colorscheme == "nordic" then
+	if vim.g.colorscheme == "nordic" then
 		require("nordic").load(opts)
 	end
 end
