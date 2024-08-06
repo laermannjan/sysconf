@@ -1,4 +1,3 @@
-
 local M = {
 	"sainnhe/edge",
 	lazy = false,
@@ -9,9 +8,9 @@ local M = {
 }
 
 M.config = function(_, opts)
-	if vim.tbl_contains({ "edge" }, S.colorscheme) then
+	if vim.tbl_contains({ "edge" }, vim.g.colorscheme) then
 		require("edge").setup(opts)
-		vim.cmd.colorscheme(S.colorscheme)
+		vim.cmd.colorscheme(vim.g.colorscheme)
 	end
 end
 

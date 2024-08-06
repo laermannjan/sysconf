@@ -11,11 +11,11 @@ M.config = function(_, opts)
 	if
 		vim.tbl_contains(
 			{ "catppuccin", "catppuccin-latte", "catppuccin-frappe", "catppuccin-macchiato", "catppuccin-mocha" },
-			S.colorscheme
+			vim.g.colorscheme
 		)
 	then
 		require("catppuccin").setup(opts)
-		vim.cmd.colorscheme(S.colorscheme)
+		vim.cmd.colorscheme(vim.g.colorscheme)
 	end
 end
 

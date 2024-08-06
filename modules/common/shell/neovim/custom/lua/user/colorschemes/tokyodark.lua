@@ -6,9 +6,9 @@ local M = {
 		gamma = 1.2, -- adjust the brightness of the theme
 	},
 	config = function(_, opts)
-		if S.colorscheme == "tokyodark" then
+		if vim.g.colorscheme == "tokyodark" then
 			require("tokyodark").setup(opts) -- calling setup is optional
-			vim.cmd.colorscheme(S.colorscheme)
+			vim.cmd.colorscheme(vim.g.colorscheme)
 		end
 	end,
 }
