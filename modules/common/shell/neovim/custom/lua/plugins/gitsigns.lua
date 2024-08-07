@@ -1,4 +1,4 @@
-local icons = require "user.icons"
+local icons = require "config.icons"
 local M = {
 	"lewis6991/gitsigns.nvim",
 	lazy = false,

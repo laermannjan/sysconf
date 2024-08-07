@@ -6,7 +6,7 @@ local M = {
 }
 
 M.config = function()
-	local icons = require "user.icons"
+	local icons = require "config.icons"
 	local diff = {
 		"diff",
 		colored = false,

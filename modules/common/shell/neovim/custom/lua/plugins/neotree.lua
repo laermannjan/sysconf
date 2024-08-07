@@ -23,7 +23,7 @@ local M = {
 
 M.config = function(_, opts)
 	local function on_move(data)
-		require("user.utils").on_rename(data.source, data.destination)
+		require("utils").on_rename(data.source, data.destination)
 	end
 
 	local events = require "neo-tree.events"
@@ -33,7 +33,7 @@ M.config = function(_, opts)
 		{ event = events.FILE_RENAMED, handler = on_move },
 	})
 
-	local icons = require "user.icons"
+	local icons = require "config.icons"
 	-- vim.api.nvim_set_hl(0, "NeoTreeGitAdded", { fg = green }) --  File name when the git status is added. --
 	-- vim.api.nvim_set_hl(0, "NeoTreeGitConflict", { fg = red }) -- File name when the git status is conflict.
 	-- vim.api.nvim_set_hl(0, "NeoTreeGitDeleted", { fg = red }) -- File name when the git status is deleted.
