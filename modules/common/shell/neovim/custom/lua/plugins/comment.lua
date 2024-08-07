@@ -1,6 +1,6 @@
 local M = {
-    "numToStr/comment.nvim",
-    opts = {},
+   "numToStr/comment.nvim",
+   opts = {},
 }
 
 return M

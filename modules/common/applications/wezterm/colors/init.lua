@@ -1,1 +1,1 @@
-return { ["flabber"] = require("colors.flabber") }
+return { ["flabber"] = require "colors.flabber" }
