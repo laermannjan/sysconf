@@ -25,17 +25,6 @@ return {
    { "j-hui/fidget.nvim", opts = {} },
    { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
    {
-      "folke/lazydev.nvim",
-      -- ft = "lua", -- only load on lua files
-      opts = {
-         library = {
-            -- See the configuration section for more details
-            -- Load luvit types when the `vim.uv` word is found
-            { path = "luvit-meta/library", words = { "vim%.uv" } },
-         },
-      },
-   },
-   {
       "VonHeikemen/lsp-zero.nvim",
       branch = "v4.x",
 
@@ -201,5 +190,16 @@ return {
             formatting = lsp_zero.cmp_format { details = true },
          }
       end,
+   },
+   {
+      "folke/lazydev.nvim",
+      -- ft = "lua", -- only load on lua files
+      opts = {
+         library = {
+            -- See the configuration section for more details
+            -- Load luvit types when the `vim.uv` word is found
+            { path = "luvit-meta/library", words = { "vim%.uv" } },
+         },
+      },
    },
 }
