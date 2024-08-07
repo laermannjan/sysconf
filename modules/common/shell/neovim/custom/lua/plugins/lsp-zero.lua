@@ -86,17 +86,41 @@ return {
                 },
             })
 
+            local function disable_lsp()
+                return function(server_name)
+                    vim.notify("disabling " .. server_name, vim.log.levels.DEBUG)
+                end
+            end
+
             require("mason").setup({})
             require("mason-lspconfig").setup({
+                ensure_installed = {
+                    "lua_ls",
+                    "pyright",
+                    "ruff",
+                    "gopls",
+                    "rust_analyzer",
+                    "marksman",
+                    "bashls",
+                    "yamlls",
+                    "json_ls",
+                    "html",
+                },
                 handlers = {
                     function(server_name)
-                        require("lspconfig")[server_name].setup({})
+                        local opts = {}
+                        local ok, settings = pcall(require, "config.lsp-settings." .. server_name)
+                        if ok then
+                            opts = vim.tbl_deep_extend("force", settings, opts)
+                            vim.notify("applying custom lsp settings for " .. server_name)
+                        end
+                        require("lspconfig")[server_name].setup(opts)
                     end,
+                    basedpyright = disable_lsp(),
                 },
             })
 
             local cmp = require("cmp")
-            local cmp_action = lsp_zero.cmp_action()
             local luasnip = require("luasnip")
 
             -- this is the function that loads the extra snippets
