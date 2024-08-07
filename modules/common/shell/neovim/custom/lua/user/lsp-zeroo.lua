@@ -9,6 +9,18 @@ return {
 	{ "hrsh7th/cmp-path" },
 	{ "saadparwaiz1/cmp_luasnip" },
 	{ "rafamadriz/friendly-snippets" },
+    { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
+    {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "luvit-meta/library", words = { "vim%.uv" } },
+            },
+        },
+    },
 	{
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v4.x",
@@ -58,6 +70,7 @@ return {
 				sources = {
 					{ name = "path" },
 					{ name = "nvim_lsp" },
+                    { name = "lazydev" },
 					{ name = "luasnip", keyword_length = 2 },
 					{ name = "buffer", keyword_length = 3 },
 				},
