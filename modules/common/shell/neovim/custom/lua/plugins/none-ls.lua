@@ -21,6 +21,7 @@ return {
             null_ls.builtins.formatting.goimports,
             null_ls.builtins.formatting.gofumpt,
             -- null_ls.builtins.formatting.ruff_format,
+            null_ls.builtins.diagnostics.mypy,
 
             -- formatting.prettier.with {
             --   extra_filetypes = { "toml" },
