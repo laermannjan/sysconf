@@ -25,7 +25,7 @@ vim.keymap.set("v", "p", '"_dP') -- paste over without copy
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "goto previous diagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "goto next diagnostic message" })
 vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "open floating diagnostic message" })
-vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
+vim.keymap.set("n", "<leader>p", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 vim.keymap.set({ "n", "x" }, "j", "gj")
 vim.keymap.set({ "n", "x" }, "k", "gk")
