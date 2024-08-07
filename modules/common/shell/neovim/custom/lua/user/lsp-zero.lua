@@ -1,5 +1,14 @@
 return {
-	{ "williamboman/mason.nvim" },
+	{
+		"williamboman/mason.nvim",
+		keys = { {
+			"<leader>pm",
+			function()
+				require("mason.ui").open()
+			end,
+			desc = "Mason Installer",
+		} },
+	},
 	{ "williamboman/mason-lspconfig.nvim" },
 	{ "neovim/nvim-lspconfig" },
 	{ "L3MON4D3/LuaSnip" },
@@ -30,7 +39,7 @@ return {
 
 		config = function()
 			local lsp_zero = require "lsp-zero"
-            local icons = require "user.icons"
+			local icons = require "user.icons"
 
 			local lsp_attach = function(client, bufnr)
 				local opts = { buffer = bufnr }
@@ -116,8 +125,9 @@ return {
 					["<C-u>"] = cmp.mapping.scroll_docs(-2),
 					["<C-d>"] = cmp.mapping.scroll_docs(2),
 					["<C-e>"] = cmp.mapping(function(fallback)
-						if require("copilot.suggestion").is_visible() then
-							require("copilot.suggestion").dismiss()
+						local ok, copilot = pcall(require, "copilot.suggestion")
+						if ok and copilot.is_visible() then
+							copilot.dismiss()
 						elseif cmp.visible() then
 							cmp.abort()
 							cmp.close()
@@ -127,9 +137,9 @@ return {
 					end, { "i", "c" }),
 					["<CR>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
 					["<Tab>"] = cmp.mapping(function(fallback)
-						local _, ok = pcall(require, "copilot.suggestion")
-						if ok and require("copilot.suggestion").is_visible() then
-							require("copilot.suggestion").accept_word()
+						local ok, copilot = pcall(require, "copilot.suggestion")
+						if ok and copilot.is_visible() then
+							copilot.accept_word()
 						elseif cmp.visible() then
 							cmp.confirm { select = true, behavior = cmp.ConfirmBehavior.Replace }
 						elseif luasnip.expandable() then
@@ -144,11 +154,11 @@ return {
 						"s",
 					}),
 					["<S-Tab>"] = cmp.mapping(function(fallback)
-						local _, ok = pcall(require, "copilot.suggestion")
-						if ok and luasnip.jumpable(-1) then
+						local ok, copilot = pcall(require, "copilot.suggestion")
+						if luasnip.jumpable(-1) then
 							luasnip.jump(-1)
-						elseif require("copilot.suggestion").is_visible() then
-							require("copilot.suggestion").accept_word()
+						elseif ok and copilot.is_visible() then
+							copilot.accept_word()
 						else
 							fallback()
 						end

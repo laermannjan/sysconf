@@ -22,10 +22,24 @@ vim.keymap.set("i", ";", "<c-g>u;")
 vim.keymap.set("v", "p", '"_dP') -- paste over without copy
 
 -- Diagnostic keymaps
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "goto previous diagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "goto next diagnostic message" })
-vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "open floating diagnostic message" })
-vim.keymap.set("n", "<leader>p", "<cmd>Lazy<cr>", { desc = "Lazy" })
+local function diagnostic_goto(dir, severity)
+	local go = vim.diagnostic["goto_" .. dir]
+	if type(severity) == "string" then
+		severity = vim.diagnostic.severity[severity]
+	end
+	return function()
+		go { severity = severity }
+	end
+end
+vim.keymap.set("n", "[d", diagnostic_goto "prev", { desc = "previous diagnostic" })
+vim.keymap.set("n", "]d", diagnostic_goto "next", { desc = "next diagnostic" })
+vim.keymap.set("n", "[w", diagnostic_goto("prev", "WARN"), { desc = "previous warning" })
+vim.keymap.set("n", "]w", diagnostic_goto("next", "WARN"), { desc = "next warning" })
+vim.keymap.set("n", "[e", diagnostic_goto("prev", "ERROR"), { desc = "previous error" })
+vim.keymap.set("n", "]e", diagnostic_goto("next", "ERROR"), { desc = "next error" })
+
+vim.keymap.set("n", "gl", vim.diagnostic.open_float, { desc = "hover diagnostic" })
+vim.keymap.set("n", "<leader>pl", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 vim.keymap.set({ "n", "x" }, "j", "gj")
 vim.keymap.set({ "n", "x" }, "k", "gk")
