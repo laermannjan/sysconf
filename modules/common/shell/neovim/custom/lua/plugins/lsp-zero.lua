@@ -98,7 +98,7 @@ return {
                "marksman",
                "bashls",
                "yamlls",
-               "json_ls",
+               "jsonls",
                "html",
             },
             handlers = {

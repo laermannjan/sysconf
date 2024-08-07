@@ -40,6 +40,7 @@ vim.g.plugin_specs = {
    { import = "plugins.smart-splits" },
    -- {import = "plugins.rest"},
    { import = "plugins.kulala" },
+   { import = "plugins.notify" },
 }
 
 require "config.options"
