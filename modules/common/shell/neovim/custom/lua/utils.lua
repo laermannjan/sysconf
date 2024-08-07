@@ -51,10 +51,6 @@ function M.create_autoformat_autocmd(client, bufnr)
    end
 end
 
-function M.notify(silent, ...)
-   return not silent and vim.notify(...)
-end
-
 function M.bool2str(bool)
    return bool and "on" or "off"
 end

@@ -87,6 +87,19 @@ return {
             end
          end
 
+         local function default_on_attach(opts)
+            return function(server_name)
+               local setup_opts = opts or {}
+               lsp_zero.buffer_autoformat()
+               local ok, settings = pcall(require, "config.lsp-settings." .. server_name)
+               if ok then
+                  setup_opts = vim.tbl_deep_extend("force", settings, setup_opts)
+                  vim.notify("applying custom lsp settings for " .. server_name)
+               end
+               require("lspconfig")[server_name].setup(setup_opts)
+            end
+         end
+
          require("mason").setup {}
          require("mason-lspconfig").setup {
             ensure_installed = {
@@ -102,15 +115,7 @@ return {
                "html",
             },
             handlers = {
-               function(server_name)
-                  local opts = {}
-                  local ok, settings = pcall(require, "config.lsp-settings." .. server_name)
-                  if ok then
-                     opts = vim.tbl_deep_extend("force", settings, opts)
-                     vim.notify("applying custom lsp settings for " .. server_name)
-                  end
-                  require("lspconfig")[server_name].setup(opts)
-               end,
+               default_on_attach(),
                basedpyright = disable_lsp(),
             },
          }
