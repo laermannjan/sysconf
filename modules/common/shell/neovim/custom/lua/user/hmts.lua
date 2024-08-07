@@ -2,6 +2,6 @@
 -- highlighting languages contained in strings in various places
 -- of a Home Manager configuration nix file.
 return {
-  "calops/hmts.nvim",
-  version = "*",
+	"calops/hmts.nvim",
+	version = "*",
 }
