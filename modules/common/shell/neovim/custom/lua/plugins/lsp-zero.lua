@@ -26,7 +26,7 @@ return {
    { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
    {
       "folke/lazydev.nvim",
-      ft = "lua", -- only load on lua files
+      -- ft = "lua", -- only load on lua files
       opts = {
          library = {
             -- See the configuration section for more details
@@ -69,7 +69,6 @@ return {
             -- formats using all attached LSPs (including null-ls) in random order
             -- don't forget to disable formatting on certain LSPs (like lua_ls if using stylua)
             lsp_zero.buffer_autoformat()
-
          end
 
          lsp_zero.extend_lspconfig {
@@ -112,10 +111,13 @@ return {
                -- and will be called for each installed server that doesn't have
                -- a dedicated handler.
                function(server_name) -- default handler
-                  local ok, settings = pcall(require, "config.lsp-settings." .. server_name)
-                  local opts = ok and settings or {}
-                  vim.notify("applying lsp settings for " .. server_name .. settings, vim.log.levels.DEBUG)
-                  require("lspconfig")[server_name].setup(opts or {})
+                  local ok, opts = pcall(require, "config.lsp-settings." .. server_name)
+                  if ok then
+                     vim.notify("applying lsp settings for " .. server_name, vim.log.levels.DEBUG)
+                  else
+                     opts = {}
+                  end
+                  require("lspconfig")[server_name].setup(opts)
                end,
                basedpyright = disable_lsp(),
             },
