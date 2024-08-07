@@ -23,16 +23,16 @@ vim.keymap.set("v", "p", '"_dP') -- paste over without copy
 
 -- Diagnostic keymaps
 local function diagnostic_goto(dir, severity)
-	local go = vim.diagnostic["goto_" .. dir]
-	if type(severity) == "string" then
-		severity = vim.diagnostic.severity[severity]
-	end
-	return function()
-		go { severity = severity }
-	end
+    local go = vim.diagnostic["goto_" .. dir]
+    if type(severity) == "string" then
+        severity = vim.diagnostic.severity[severity]
+    end
+    return function()
+        go({ severity = severity })
+    end
 end
-vim.keymap.set("n", "[d", diagnostic_goto "prev", { desc = "previous diagnostic" })
-vim.keymap.set("n", "]d", diagnostic_goto "next", { desc = "next diagnostic" })
+vim.keymap.set("n", "[d", diagnostic_goto("prev"), { desc = "previous diagnostic" })
+vim.keymap.set("n", "]d", diagnostic_goto("next"), { desc = "next diagnostic" })
 vim.keymap.set("n", "[w", diagnostic_goto("prev", "WARN"), { desc = "previous warning" })
 vim.keymap.set("n", "]w", diagnostic_goto("next", "WARN"), { desc = "next warning" })
 vim.keymap.set("n", "[e", diagnostic_goto("prev", "ERROR"), { desc = "previous error" })
@@ -54,7 +54,7 @@ vim.keymap.set("t", "<C-;>", "<C-\\><C-n>")
 -- vim.keymap.set("n", "<m-k>", "<C-w>k", { noremap = true, silent = true })
 -- vim.keymap.set("n", "<m-l>", "<C-w>l", { noremap = true, silent = true })
 --
-vim.cmd "cabbrev Wqa wqa"
-vim.cmd "cabbrev Wq wq"
-vim.cmd "cabbrev Wa wa"
-vim.cmd "cabbrev Q q"
+vim.cmd("cabbrev Wqa wqa")
+vim.cmd("cabbrev Wq wq")
+vim.cmd("cabbrev Wa wa")
+vim.cmd("cabbrev Q q")
