@@ -18,7 +18,7 @@ function M.get_clients(opts)
 end
 
 function M.on_rename(from, to)
-    local clients = get_clients()
+    local clients = M.get_clients()
     for _, client in ipairs(clients) do
         if client.supports_method("workspace/willRenameFiles") then
             ---@diagnostic disable-next-line: invisible
