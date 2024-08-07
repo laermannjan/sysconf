@@ -74,7 +74,7 @@ M.config = function()
 		end,
 	})
 
-	local icons = require "user.icons"
+	local icons = require "config.icons"
 	local actions = require "telescope.actions"
 	local open_with_trouble = require("trouble.sources.telescope").open
 	-- Use this to add more results without clearing the trouble list

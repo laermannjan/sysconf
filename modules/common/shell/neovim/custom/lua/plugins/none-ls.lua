@@ -9,7 +9,7 @@ function M.config()
 	null_ls.setup {
 		debug = false,
 		on_attach = function(client, bufnr)
-			require("user.utils").create_autoformat_autocmd(client, bufnr)
+			require("config.utils").create_autoformat_autocmd(client, bufnr)
 		end,
 
 		sources = {

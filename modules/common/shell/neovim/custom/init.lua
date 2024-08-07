@@ -7,42 +7,42 @@ vim.g.colorscheme = "tokyonight"
 -- vim.g.colorscheme = "nordic"
 
 vim.g.plugin_specs = {
-	{ import = "user.colorschemes" },
-	{ import = "user.devicons" },
-	{ import = "user.treesitter" },
-	-- {import = "user.lsp"},
-	-- {import = "user.none-ls"},
-	-- {import = "user.cmp"},
-	{ import = "user.lsp-zero" },
-	{ import = "user.which-key" },
-	{ import = "user.telescope" },
-	{ import = "user.trouble" },
-	{ import = "user.neotree" },
-	{ import = "user.comment" },
-	{ import = "user.fidget" },
-	{ import = "user.neotab" },
-	{ import = "user.todo-comments" },
-	{ import = "user.hmts" },
-	-- {import = "user.astroline"},
-	{ import = "user.heirline" },
-	{ import = "user.grapple" },
-	-- {import = "user.staline"},
-	-- {import = "user.ufo"}, -- TODO: see launch.nvim config
-	{ import = "user.copilot" },
-	-- {import = "user.gitlinker"},
-	{ import = "user.gitsigns" },
-	-- {import = "user.diffview"},
-	{ import = "user.autopairs" },
-	-- {import = "user.lualine"},
-	{ import = "user.toggleterm" },
-	{ import = "user.neotest" },
-	{ import = "user.various-textobjects" },
-	{ import = "user.smart-splits" },
-	-- {import = "user.rest"},
-	{ import = "user.kulala" },
+	{ import = "plugins.colorschemes" },
+	{ import = "plugins.devicons" },
+	{ import = "plugins.treesitter" },
+	-- {import = "plugins.lsp"},
+	-- {import = "plugins.none-ls"},
+	-- {import = "plugins.cmp"},
+	{ import = "plugins.lsp-zero" },
+	{ import = "plugins.which-key" },
+	{ import = "plugins.telescope" },
+	{ import = "plugins.trouble" },
+	{ import = "plugins.neotree" },
+	{ import = "plugins.comment" },
+	{ import = "plugins.fidget" },
+	{ import = "plugins.neotab" },
+	{ import = "plugins.todo-comments" },
+	{ import = "plugins.hmts" },
+	-- {import = "plugins.astroline"},
+	{ import = "plugins.heirline" },
+	{ import = "plugins.grapple" },
+	-- {import = "plugins.staline"},
+	-- {import = "plugins.ufo"}, -- TODO: see launch.nvim config
+	{ import = "plugins.copilot" },
+	-- {import = "plugins.gitlinker"},
+	{ import = "plugins.gitsigns" },
+	-- {import = "plugins.diffview"},
+	{ import = "plugins.autopairs" },
+	-- {import = "plugins.lualine"},
+	{ import = "plugins.toggleterm" },
+	{ import = "plugins.neotest" },
+	{ import = "plugins.various-textobjects" },
+	{ import = "plugins.smart-splits" },
+	-- {import = "plugins.rest"},
+	{ import = "plugins.kulala" },
 }
 
-require "user.options"
-require "user.keymaps"
-require "user.autocmds"
-require "user.lazy"
+require "config.options"
+require "config.keymaps"
+require "config.autocmds"
+require "config.lazy"

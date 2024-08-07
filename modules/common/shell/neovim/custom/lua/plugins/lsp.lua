@@ -53,7 +53,7 @@ end
 
 M.on_attach = function(client, bufnr)
 	add_lsp_keymaps(bufnr)
-	require("user.utils").create_autoformat_autocmd(client, bufnr)
+	require("utils").create_autoformat_autocmd(client, bufnr)
 
 	if client.supports_method "textDocument/inlayHint" then
 		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
@@ -69,9 +69,9 @@ function M.buffer_inlay_hints(bufnr, silent)
 	if vim.lsp.inlay_hint then
 		local filter = { bufnr = bufnr or 0 }
 		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(filter), filter)
-		require("user.utils").notify(
+		require("utils").notify(
 			silent,
-			("Buffer inlay hints %s"):format(require("user.utils").bool2str(vim.lsp.inlay_hint.is_enabled(filter)))
+			("Buffer inlay hints %s"):format(require("utils").bool2str(vim.lsp.inlay_hint.is_enabled(filter)))
 		)
 	end
 end
@@ -131,7 +131,7 @@ function M.config()
 	}
 
 	local lspconfig = require "lspconfig"
-	local icons = require "user.icons"
+	local icons = require "config.icons"
 
 	local default_diagnostic_config = {
 		signs = {
@@ -174,7 +174,7 @@ function M.config()
 			capabilities = M.common_capabilities(),
 		}
 
-		local require_ok, settings = pcall(require, "user.lspsettings." .. server)
+		local require_ok, settings = pcall(require, "config.lspsettings." .. server)
 		if require_ok then
 			opts = vim.tbl_deep_extend("force", settings, opts)
 		end

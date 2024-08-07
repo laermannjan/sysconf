@@ -9,7 +9,7 @@ local M = {
 	cmd = { "Grapple" },
 	keys = {
 
-		{ prefix, desc = "Grapple", icon = require("user.icons").misc.Grapple },
+		{ prefix, desc = "Grapple", icon = require("config.icons").misc.Grapple },
 		{ prefix .. "a", "<Cmd>Grapple tag<CR>", desc = "Add file" },
 		{ prefix .. "d", "<Cmd>Grapple untag<CR>", desc = "Remove file" },
 		{ prefix .. "t", "<Cmd>Grapple toggle_tags<CR>", desc = "Toggle a file" },
