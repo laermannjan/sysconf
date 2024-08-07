@@ -64,6 +64,12 @@ return {
 
             -- highlight symbol under cursor; depends on `vim.opt.updatetime`
             lsp_zero.highlight_symbol(client, bufnr)
+
+            -- format on save
+            -- formats using all attached LSPs (including null-ls) in random order
+            -- don't forget to disable formatting on certain LSPs (like lua_ls if using stylua)
+            lsp_zero.buffer_autoformat()
+
          end
 
          lsp_zero.extend_lspconfig {
@@ -87,19 +93,6 @@ return {
             end
          end
 
-         local function default_on_attach(opts)
-            return function(server_name)
-               local setup_opts = opts or {}
-               lsp_zero.buffer_autoformat()
-               local ok, settings = pcall(require, "config.lsp-settings." .. server_name)
-               if ok then
-                  setup_opts = vim.tbl_deep_extend("force", settings, setup_opts)
-                  vim.notify("applying custom lsp settings for " .. server_name)
-               end
-               require("lspconfig")[server_name].setup(setup_opts)
-            end
-         end
-
          require("mason").setup {}
          require("mason-lspconfig").setup {
             ensure_installed = {
@@ -115,7 +108,15 @@ return {
                "html",
             },
             handlers = {
-               default_on_attach(),
+               -- The first entry (without a key) will be the default handler
+               -- and will be called for each installed server that doesn't have
+               -- a dedicated handler.
+               function(server_name) -- default handler
+                  local ok, settings = pcall(require, "config.lsp-settings." .. server_name)
+                  local opts = ok and settings or {}
+                  vim.notify("applying lsp settings for " .. server_name .. settings, vim.log.levels.DEBUG)
+                  require("lspconfig")[server_name].setup(opts or {})
+               end,
                basedpyright = disable_lsp(),
             },
          }
