@@ -149,26 +149,52 @@ return {
             },
             mapping = cmp.mapping.preset.insert {
 
-               ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-               ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-               ["<C-u>"] = cmp.mapping.scroll_docs(-2),
-               ["<C-d>"] = cmp.mapping.scroll_docs(2),
-               ["<C-e>"] = cmp.mapping(function(fallback)
+               ["<C-p>"] = cmp.mapping(function(fallback)
                   local ok, copilot = pcall(require, "copilot.suggestion")
-                  if ok and copilot.is_visible() then
-                     copilot.dismiss()
-                  elseif cmp.visible() then
-                     cmp.abort()
-                     cmp.close()
+                  if cmp.visible() then
+                     cmp.select_prev_item()
+                  elseif ok and copilot.is_visible() then
+                     copilot.prev()
                   else
                      fallback()
                   end
                end, { "i", "c" }),
+               ["<C-n>"] = cmp.mapping(function(fallback)
+                  local ok, copilot = pcall(require, "copilot.suggestion")
+                  if cmp.visible() then
+                     cmp.select_next_item()
+                  elseif ok and copilot.is_visible() then
+                     copilot.next()
+                  else
+                     fallback()
+                  end
+               end, { "i", "c" }),
+               ["<C-u>"] = cmp.mapping.scroll_docs(-2),
+               ["<C-d>"] = cmp.mapping.scroll_docs(2),
+               ["<C-e>"] = cmp.mapping(function(fallback)
+                  local ok, copilot = pcall(require, "copilot.suggestion")
+                  if cmp.visible() then
+                     cmp.abort()
+                     cmp.close()
+                  elseif ok and copilot.is_visible() then
+                     copilot.dismiss()
+                  else
+                     fallback()
+                  end
+               end, { "i", "c" }),
+               ["<S-CR>"] = cmp.mapping(function(fallback)
+                  local ok, copilot = pcall(require, "copilot.suggestion")
+                  if ok and copilot.is_visible() then
+                     copilot.accept()
+                  else
+                     fallback()
+                  end
+               end, { "i", "s" }),
                ["<CR>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
                ["<Tab>"] = cmp.mapping(function(fallback)
                   local ok, copilot = pcall(require, "copilot.suggestion")
                   if ok and copilot.is_visible() then
-                     copilot.accept_word()
+                     copilot.accept_line()
                   elseif cmp.visible() then
                      cmp.confirm { select = true, behavior = cmp.ConfirmBehavior.Replace }
                   elseif luasnip.expandable() then
@@ -183,11 +209,8 @@ return {
                   "s",
                }),
                ["<S-Tab>"] = cmp.mapping(function(fallback)
-                  local ok, copilot = pcall(require, "copilot.suggestion")
                   if luasnip.jumpable(-1) then
                      luasnip.jump(-1)
-                  elseif ok and copilot.is_visible() then
-                     copilot.accept_word()
                   else
                      fallback()
                   end
