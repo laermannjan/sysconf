@@ -9,28 +9,25 @@ local M = {
 }
 
 function M.config()
-   do
-      return
-   end -- WARN: remove if owning a subscription again
    require("copilot").setup {
-      panel = {
-         keymap = {
-            jump_next = "<c-j>",
-            jump_prev = "<c-k>",
-            accept = "<c-l>",
-            refresh = "r",
-            open = "<M-CR>",
-         },
-      },
+      -- panel = {
+      --    keymap = {
+      --       jump_next = "<c-j>",
+      --       jump_prev = "<c-k>",
+      --       accept = "<c-l>",
+      --       refresh = "r",
+      --       open = "<M-CR>",
+      --    },
+      -- },
       suggestion = {
          enabled = true,
          auto_trigger = true,
          keymap = {
-            accept = false, -- INFO:  <S-Tab> This is handled by cmp
-            accept_word = "<M-Tab>",
+            accept = false, -- INFO:  <S-CR> This is handled by cmp
+            accept_word = false,
             accept_line = false, -- INFO: <Tab> This is handled by cmp
-            next = "<c-j>",
-            prev = "<c-k>",
+            next = false,
+            prev = false,
             dismiss = false, -- INFO: <C-e> This is handled by cmp
          },
       },
@@ -45,10 +42,14 @@ function M.config()
       copilot_node_command = "node",
    }
 
-   local opts = { noremap = true, silent = true }
-   vim.api.nvim_set_keymap("n", "<c-s>", ":lua require('copilot.suggestion').toggle_auto_trigger()<CR>", opts)
+   vim.keymap.set(
+      "n",
+      "<leader>uC",
+      ":lua require('copilot.suggestion').toggle_auto_trigger()<CR>",
+      { noremap = true, silent = true, desc = "toggle copilot auto suggestions" }
+   )
 
-   require("copilot_cmp").setup()
+   -- require("copilot_cmp").setup()
 end
 
 return M
