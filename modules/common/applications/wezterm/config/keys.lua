@@ -4,6 +4,11 @@ local workspace_switcher = wezterm.plugin.require "https://github.com/MLFlexer/s
 local act = wezterm.action
 local utils = require "utils"
 
+local function is_vim(pane)
+   -- this is set by the plugin, and unset on ExitPre in Neovim
+   return pane:get_user_vars().IS_NVIM == "true"
+end
+
 local keys = {
    -- {
    -- 	key = "\\",
@@ -27,7 +32,7 @@ local keys = {
    -- Toggle zoom for neovim
    {
       key = "\\",
-      mods = "CTRL",
+      mods = "CMD|CTRL",
       action = wezterm.action_callback(function(window, pane)
          local tab = window:active_tab()
 
@@ -57,11 +62,11 @@ local keys = {
       key = ",",
       mods = "CMD",
       action = act.SpawnCommandInNewTab {
-         cwd = wezterm.home_dir .. "/code/lj/system-config",
+         cwd = wezterm.home_dir .. "/dev/lj/system-config",
          args = {
             os.getenv "SHELL",
             "-c",
-            "nvim " .. wezterm.home_dir .. "/code/lj/system-config",
+            "nvim " .. wezterm.home_dir .. "/dev/lj/system-config",
          },
       },
    },
@@ -76,40 +81,8 @@ local keys = {
       action = act.CloseCurrentTab { confirm = true },
    },
    {
-      key = "h",
-      mods = "CMD",
-      action = act.SplitPane {
-         direction = "Left",
-         size = { Percent = 50 },
-      },
-   },
-   {
-      key = "j",
-      mods = "CMD",
-      action = act.SplitPane {
-         direction = "Down",
-         size = { Percent = 50 },
-      },
-   },
-   {
-      key = "k",
-      mods = "CMD",
-      action = act.SplitPane {
-         direction = "Up",
-         size = { Percent = 50 },
-      },
-   },
-   {
-      key = "l",
-      mods = "CMD",
-      action = act.SplitPane {
-         direction = "Right",
-         size = { Percent = 50 },
-      },
-   },
-   {
       key = "Enter",
-      mods = "CTRL",
+      mods = "CMD",
       action = act.TogglePaneZoomState,
    },
    {
@@ -128,8 +101,8 @@ local keys = {
       },
    },
    {
-      key = "s",
-      mods = "CTRL",
+      key = "f",
+      mods = "CMD|CTRL",
       action = workspace_switcher.switch_workspace(),
    },
    -- {
@@ -178,11 +151,38 @@ local keys = {
    -- 		)
    -- 	end),
    -- },
+
+   {
+      key = "s",
+      mods = "LEADER",
+      action = wezterm.action.SplitHorizontal { domain = "CurrentPaneDomain" },
+   },
+   {
+      key = "s",
+      mods = "LEADER|CTRL",
+      action = wezterm.action.SplitHorizontal { domain = "CurrentPaneDomain" },
+   },
+   {
+      key = "v",
+      mods = "LEADER",
+      action = wezterm.action.SplitVertical { domain = "CurrentPaneDomain" },
+   },
+   {
+      key = "v",
+      mods = "LEADER|CTRL",
+      action = wezterm.action.SplitVertical { domain = "CurrentPaneDomain" },
+   },
+   -- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
+   {
+      key = "a",
+      mods = "LEADER|CTRL",
+      action = wezterm.action.SendKey { key = "a", mods = "CTRL" },
+   },
 }
 
 local config = {
    disable_default_key_bindings = false,
-   leader = { key = "Space", mods = "CTRL|SHIFT" },
+   leader = { key = "a", mods = "CTRL" },
    keys = keys,
 }
 
