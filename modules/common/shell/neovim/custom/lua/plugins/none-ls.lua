@@ -37,10 +37,10 @@ return {
          },
       }
 
-      require("mason-null-ls").setup {
-         ---@diagnostic disable: assign-type-mismatch
-         ensure_installed = nil,
-         automatic_installation = true,
-      }
+      -- require("mason-null-ls").setup {
+      --    ---@diagnostic disable: assign-type-mismatch
+      --    ensure_installed = nil,
+      --    automatic_installation = true,
+      -- }
    end,
 }
