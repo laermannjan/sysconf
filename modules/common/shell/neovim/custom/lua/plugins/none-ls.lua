@@ -12,7 +12,7 @@ return {
 
          sources = {
             null_ls.builtins.formatting.stylua,
-            -- null_ls.builtins.diagnostics.selene,
+            -- null_ls.builtins.diagnostics.selene, -- NOTE: disabled; interferes with stylua
 
             null_ls.builtins.formatting.prettier,
 
@@ -20,8 +20,7 @@ return {
             null_ls.builtins.code_actions.impl,
             null_ls.builtins.formatting.goimports,
             null_ls.builtins.formatting.gofumpt,
-            -- null_ls.builtins.formatting.ruff_format,
-            null_ls.builtins.diagnostics.mypy,
+            null_ls.builtins.diagnostics.mypy.with { prefer_local = ".venv/bin" },
 
             -- formatting.prettier.with {
             --   extra_filetypes = { "toml" },
@@ -29,7 +28,6 @@ return {
             -- },
             -- formatting.eslint,
             -- null_ls.builtins.diagnostics.eslint,
-            null_ls.builtins.completion.spell,
 
             null_ls.builtins.code_actions.statix,
             null_ls.builtins.formatting.nixfmt,
@@ -37,10 +35,10 @@ return {
          },
       }
 
-      -- require("mason-null-ls").setup {
-      --    ---@diagnostic disable: assign-type-mismatch
-      --    ensure_installed = nil,
-      --    automatic_installation = true,
-      -- }
+      require("mason-null-ls").setup {
+         ---@diagnostic disable: assign-type-mismatch
+         ensure_installed = nil,
+         automatic_installation = true,
+      }
    end,
 }
