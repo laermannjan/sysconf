@@ -12,7 +12,7 @@ local umath = require "utils.math"
 local nf = wezterm.nerdfonts
 local M = {}
 
-local SEPARATOR_CHAR = nf.oct_dash .. " "
+local SEPARATOR_CHAR = utf8.char(0xe0b2)
 
 local discharging_icons = {
    nf.md_battery_10,
