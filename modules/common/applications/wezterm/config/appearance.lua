@@ -1,5 +1,7 @@
 local wezterm = require "wezterm"
 local colors = require "colors"
+local uappearance = require "utils.appearance"
+local platform = require "utils.platform"
 
 return {
    animation_fps = 120,
@@ -12,14 +14,15 @@ return {
    -- color_scheme = "tokyonight_night"
    -- color_scheme = "Gotham (Gogh)"
    -- color_scheme = "SeaShells"
-   color_scheme = "flabber",
+   -- color_scheme = "flabber",
+   color_scheme = uappearance.is_dark() and "Tokyo Night" or "Tokyo Night Day",
 
    -- scrollbar
    enable_scroll_bar = true,
 
    -- tab bar
    enable_tab_bar = true,
-   use_fancy_tab_bar = false,
+   use_fancy_tab_bar = true,
    hide_tab_bar_if_only_one_tab = false,
    tab_max_width = 25,
    show_tab_index_in_tab_bar = true,
@@ -36,6 +39,9 @@ return {
    window_close_confirmation = "NeverPrompt",
    window_frame = {
       active_titlebar_bg = "#090909",
+      font = wezterm.font { family = "Berkley Mono", weight = "Bold" },
+      font_size = platform().is_mac and 16.0 or 13.0,
+
       -- font = fonts.font,
       -- font_size = fonts.font_size,
    },
