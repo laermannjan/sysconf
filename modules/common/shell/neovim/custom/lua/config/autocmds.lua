@@ -69,7 +69,6 @@ vim.api.nvim_create_autocmd("FileType", {
       "netrw",
       "Jaq",
       "git",
-      "oil",
       "lir",
       "DressingSelect",
       "tsplayground",
