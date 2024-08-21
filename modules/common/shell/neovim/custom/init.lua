@@ -38,6 +38,7 @@ vim.g.plugin_specs = {
    { import = "plugins.various-textobjects" },
    { import = "plugins.smart-splits" },
    { import = "plugins.kulala" },
+   { import = "plugins.oil" },
 }
 
 require "config.options"
