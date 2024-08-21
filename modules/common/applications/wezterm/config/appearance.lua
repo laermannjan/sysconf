@@ -11,11 +11,10 @@ return {
 
    -- color scheme
    color_schemes = colors,
-   -- color_scheme = "tokyonight_night"
-   -- color_scheme = "Gotham (Gogh)"
-   -- color_scheme = "SeaShells"
-   -- color_scheme = "flabber",
-   color_scheme = uappearance.is_dark() and "Tokyo Night" or "Tokyo Night Day",
+   -- color_scheme = "tokyonight_night",
+   -- color_scheme = "Gotham (Gogh)",
+   -- color_scheme = "SeaShells",
+   color_scheme = "flabber",
 
    -- scrollbar
    enable_scroll_bar = true,
