@@ -26,7 +26,9 @@ in
         duf # Basic disk information (df)
         fd # find
         ffmpeg # the OG
+        httpie # HTTP client
         htop # Show system processes
+        hyperfine # Benchmarking
         inetutils # Includes telnet, whois
         jless # JSON viewer
         jo # JSON output
