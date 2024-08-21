@@ -1,4 +1,5 @@
-vim.g.colorscheme = "tokyonight"
+-- vim.g.colorscheme = "tokyonight"
+vim.g.colorscheme = "base16-classic-dark"
 -- vim.g.colorscheme = "tokyodark"
 -- vim.g.colorscheme = "astrodark"
 -- vim.g.colorscheme = "nightfox"
