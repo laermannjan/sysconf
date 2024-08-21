@@ -29,6 +29,9 @@
               preferredAuthentications = "publickey";
             };
           };
+          "*.alcemy.tech" = {
+            identityFile = "~/.ssh/id_alcemy";
+          };
           "gitlab.com" = {
             hostname = "gitlab.com";
             user = "git";
