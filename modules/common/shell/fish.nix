@@ -85,6 +85,7 @@
       functions = {
         config_kube_alcemy_dev = "aws eks update-kubeconfig --region eu-central-1 --name dev";
         config_kube_alcemy_prod = "aws eks update-kubeconfig --region eu-central-1 --name prod";
+        elevate = ''aws iam add-user-to-group --group-name Elevated --user-name $(aws iam get-user | grep UserName | cut -d'"' -f4)'';
       };
     };
   };
