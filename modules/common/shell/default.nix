@@ -2,6 +2,7 @@
 {
   imports = [
     ./argo.nix
+    ./borg.nix
     ./direnv.nix
     ./fish.nix
     ./git.nix

@@ -29,6 +29,7 @@ inputs.nix-darwin.lib.darwinSystem {
       _1password.enable = true;
       amethyst.enable = true;
       argo.enable = true;
+      borg.enable = true;
       applauncher.enable = true;
       brave.enable = true;
       discord.enable = true;
