@@ -11,5 +11,6 @@
     ./ssh.nix
     ./starship.nix
     ./utilities.nix
+    ./xsv.nix
   ];
 }
