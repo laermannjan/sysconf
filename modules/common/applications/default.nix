@@ -8,6 +8,7 @@
     ./obsidian.nix
     ./jetbrains-toolbox.nix
     ./slack.nix
+    ./spotify.nix
     ./tailscale.nix
     ./wezterm.nix
     ./youtube-music.nix

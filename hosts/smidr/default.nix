@@ -59,6 +59,7 @@ inputs.nix-darwin.lib.darwinSystem {
       slack.enable = true;
       signal.enable = true;
       stats.enable = true;
+      spotify.enable = true;
       sysconf.enable = true;
       tailscale.enable = true;
       terraform.enable = true;
