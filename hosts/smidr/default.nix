@@ -68,6 +68,7 @@ inputs.nix-darwin.lib.darwinSystem {
       wezterm.enable = true;
       youtube-music.enable = true;
       yt-dlp.enable = true;
+      xsv.enable = true;
     }
   ];
 }
