@@ -132,6 +132,7 @@ return {
 
          cmp.setup {
             sources = {
+               { name = "copilot", priority = 10000 },
                { name = "path" },
                { name = "nvim_lsp" },
                { name = "lazydev" },

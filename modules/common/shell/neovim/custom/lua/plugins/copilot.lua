@@ -1,15 +1,26 @@
+local C = {
+   "zbirenbaum/copilot-cmp",
+   enabled = true,
+   dependencies = {
+      {
+         "zbirenbaum/copilot.lua",
+         opts = { suggestion = { enabled = false }, panel = { enabled = false } },
+         keys = function()
+            return {}
+         end,
+      },
+   },
+   config = function()
+      require("copilot_cmp").setup()
+   end,
+}
 local M = {
    "zbirenbaum/copilot.lua",
    enabled = true,
    cmd = "Copilot",
+   build = ":Copilot auth",
    event = "InsertEnter",
-   -- dependencies = {
-   -- 	"zbirenbaum/copilot-cmp",
-   -- },
-}
-
-function M.config()
-   require("copilot").setup {
+   opts = {
       -- panel = {
       --    keymap = {
       --       jump_next = "<c-j>",
@@ -40,16 +51,14 @@ function M.config()
          ["."] = false,
       },
       copilot_node_command = "node",
-   }
+   },
+   keys = {
+      {
+         "<leader>uC",
+         ":lua require('copilot.suggestion').toggle_auto_trigger()<CR>",
+         { noremap = true, silent = true, desc = "toggle copilot auto suggestions" },
+      },
+   },
+}
 
-   vim.keymap.set(
-      "n",
-      "<leader>uC",
-      ":lua require('copilot.suggestion').toggle_auto_trigger()<CR>",
-      { noremap = true, silent = true, desc = "toggle copilot auto suggestions" }
-   )
-
-   -- require("copilot_cmp").setup()
-end
-
-return M
+return { M, C }
