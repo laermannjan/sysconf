@@ -6,38 +6,38 @@ return {
    allow_square_glyphs_to_overflow_width = "WhenFollowedBySpace",
    anti_alias_custom_block_glyphs = true,
 
-   font_rules = {
-      {
-         intensity = "Normal",
-         italic = true,
-         font = wezterm.font_with_fallback {
-            {
-               family = "MonaspiceRn Nerd Font",
-               style = "Normal",
-               weight = "Regular",
-               stretch = "Expanded",
-               harfbuzz_features = { "dlig", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss07", "ss08" },
-            },
-            { family = "Symbols Nerd Font" },
-         },
-      },
-      {
-         intensity = "Bold",
-         italic = true,
-         font = wezterm.font_with_fallback {
-            {
-               family = "MonaspiceKr Nerd Font",
-               style = "Italic",
-               weight = "Black",
-               harfbuzz_features = { "dlig", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss07", "ss08" },
-               scale = 1.1,
-            },
-            { family = "Symbols Nerd Font" },
-         },
-      },
-   },
+   -- font_rules = {
+   --    {
+   --       intensity = "Normal",
+   --       italic = true,
+   --       font = wezterm.font_with_fallback {
+   --          {
+   --             family = "MonaspiceRn Nerd Font",
+   --             style = "Normal",
+   --             weight = "Regular",
+   --             stretch = "Expanded",
+   --             harfbuzz_features = { "dlig", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss07", "ss08" },
+   --          },
+   --          { family = "Symbols Nerd Font" },
+   --       },
+   --    },
+   --    {
+   --       intensity = "Bold",
+   --       italic = true,
+   --       font = wezterm.font_with_fallback {
+   --          {
+   --             family = "MonaspiceKr Nerd Font",
+   --             style = "Italic",
+   --             weight = "Black",
+   --             harfbuzz_features = { "dlig", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss07", "ss08" },
+   --             scale = 1.1,
+   --          },
+   --          { family = "Symbols Nerd Font" },
+   --       },
+   --    },
+   -- },
 
-   -- font = wezterm.font("ComicCode Nerd Font"),
+   font = wezterm.font "ComicCode Nerd Font",
    -- font = wezterm.font("JetBrains Mono Light"),
    -- font = wezterm.font("Monaspace Argon Var"),
    -- font = wezterm.font("Monaspace Xenon Var"),
