@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-{
+{ config, pkgs, lib, ... }: {
   options.python.enable = lib.mkEnableOption "Python programming language.";
 
   config = lib.mkIf config.python.enable {
@@ -12,15 +6,11 @@
       "gcc"
       "readline"
       "openssl"
-      "pyenv"
+      # "pyenv"
       "uv"
     ];
     home-manager.users.${config.user} = {
-      home.packages = with pkgs; [
-        pyright
-        ruff
-        pipenv
-      ];
+      home.packages = with pkgs; [ pyright ruff pipenv ];
     };
   };
 }
