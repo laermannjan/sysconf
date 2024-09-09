@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-{
+{ config, pkgs, lib, ... }: {
   users.users.${config.user}.shell = pkgs.fish;
   programs.fish.enable = true; # Needed for LightDM to remember username
 
@@ -18,33 +12,45 @@
         # Version of bash which works much better on the terminal
         bash = "${pkgs.bashInteractive}/bin/bash";
       };
-      loginShellInit =
-        let
-          # This naive quoting is good enough in this case. There shouldn't be any
-          # double quotes in the input string, and it needs to be double quoted in case
-          # it contains a space (which is unlikely!)
-          dquote = str: "\"" + str + "\"";
+      shellAbbrs = {
+        e = "nvim";
+        elevate = ''
+          aws iam add-user-to-group --group-name Elevated --user-name $(aws iam get-user | grep UserName | cut -d'"' -f4)'';
+        secrets =
+          "aws secretsmanager get-secret-value --secret-id (aws secretsmanager list-secrets | jq -r '.[][] | .Name' | fzf) | jq -r .SecretString | tr -d '\\n' | pbcopy";
+        ssh-reset-alcemy =
+          "ssh-keygen -R alhambra-dev.alcemy.tech && ssh-keygen -R alhambra-prod.alcemy.tech";
+      };
+      loginShellInit = let
+        # This naive quoting is good enough in this case. There shouldn't be any
+        # double quotes in the input string, and it needs to be double quoted in case
+        # it contains a space (which is unlikely!)
+        dquote = str: ''"'' + str + ''"'';
 
-          makeBinPathList = map (path: path + "/bin");
-        in
+        makeBinPathList = map (path: path + "/bin");
         # due to fish's weird sourcing order the nix paths won't be in front of the /usr/bin etc. paths, this fixes this
-        ''
-          fish_add_path --move --prepend --path ${
-            lib.concatMapStringsSep " " dquote (makeBinPathList config.environment.profiles)
-          }
-          set fish_user_paths $fish_user_paths
-        '';
+      in ''
+        fish_add_path --move --prepend --path ${
+          lib.concatMapStringsSep " " dquote
+          (makeBinPathList config.environment.profiles)
+        }
+        set fish_user_paths $fish_user_paths
+      '';
 
       interactiveShellInit = ''
         # Disable greeting
         set fish_greeting
 
-         # Enable AWS CLI autocompletion: github.com/aws/aws-cli/issues/1079
-        complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
+        if command -q aws
+            # Enable AWS CLI autocompletion: github.com/aws/aws-cli/issues/1079
+            complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
+        end
 
         # 1password completions
-        op completion fish | source
-        source ~/.config/op/plugins.sh
+        if command -q op
+            op completion fish | source
+            source ~/.config/op/plugins.sh
+        end
 
         # allow 1password-cli ssh-agent to see which keys are available
         # `ssh-add -l` will now show all available ssh-keys from 1password
@@ -60,12 +66,20 @@
             echo $GITLAB_ACCESS_TOKEN > ~/.cache/GITLAB_ACCESS_TOKEN
         end
 
+        # test the program uv is available
+        if command -q uv
+            # if it is, then run the following commands
+            uv generate-shell-completion fish | source
+        end
+
       '';
 
       shellInitLast = ''
-        set -gx PYENV_ROOT $HOME/.pyenv
-        fish_add_path --global $PYENV_ROOT/bin
-        pyenv init - | source
+        if command -q pyenv
+            set -gx PYENV_ROOT $HOME/.pyenv
+            fish_add_path --global $PYENV_ROOT/bin
+            pyenv init - | source
+        end
       '';
       plugins = [
         {
@@ -83,9 +97,10 @@
       ];
 
       functions = {
-        config_kube_alcemy_dev = "aws eks update-kubeconfig --region eu-central-1 --name dev";
-        config_kube_alcemy_prod = "aws eks update-kubeconfig --region eu-central-1 --name prod";
-        elevate = ''aws iam add-user-to-group --group-name Elevated --user-name $(aws iam get-user | grep UserName | cut -d'"' -f4)'';
+        config_kube_alcemy_dev =
+          "aws eks update-kubeconfig --region eu-central-1 --name dev";
+        config_kube_alcemy_prod =
+          "aws eks update-kubeconfig --region eu-central-1 --name prod";
       };
     };
   };
