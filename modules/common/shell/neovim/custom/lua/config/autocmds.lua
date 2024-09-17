@@ -89,3 +89,17 @@ vim.api.nvim_create_autocmd("BufWritePost", {
    pattern = { "config.fish" },
    command = "execute 'silent !source <afile> --silent'",
 })
+
+-- Create parent directories when saving a file.
+vim.api.nvim_create_autocmd("BufWritePre", {
+  desc = "Automatically create parent directories if they don't exist when saving a file",
+  callback = function(args)
+    local buf_is_valid_and_listed = vim.api.nvim_buf_is_valid(args.buf)
+        and vim.bo[args.buf].buflisted
+
+    if buf_is_valid_and_listed then
+      vim.fn.mkdir(vim.fn.fnamemodify(
+        vim.loop.fs_realpath(args.match) or args.match, ":p:h"), "p")
+    end
+  end,
+})
