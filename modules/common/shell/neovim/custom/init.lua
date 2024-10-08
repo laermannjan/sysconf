@@ -39,6 +39,7 @@ vim.g.plugin_specs = {
 
    { import = "plugins.mini-ai" },
    { import = "plugins.mini-operators" },
+   { import = "plugins.mini-surround" },
 
    { import = "plugins.smart-splits" },
    { import = "plugins.kulala" },
