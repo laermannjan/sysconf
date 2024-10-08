@@ -36,7 +36,10 @@ vim.g.plugin_specs = {
    { import = "plugins.toggleterm" },
    { import = "plugins.neotest" },
    -- { import = "plugins.various-textobjects" },
+
    { import = "plugins.mini-ai" },
+   { import = "plugins.mini-operators" },
+
    { import = "plugins.smart-splits" },
    { import = "plugins.kulala" },
    { import = "plugins.oil" },

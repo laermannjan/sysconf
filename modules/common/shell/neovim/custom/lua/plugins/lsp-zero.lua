@@ -53,7 +53,7 @@ return {
             vim.keymap.set("n", "gD", ":Trouble lsp_declarations<cr>", opts)
             vim.keymap.set("n", "gi", ":Trouble lsp_implementations<cr>", opts)
             vim.keymap.set("n", "go", ":Trouble lsp_type_definitions<cr>", opts)
-            vim.keymap.set("n", "gr", ":Trouble lsp_references<cr>", opts)
+            vim.keymap.set("n", "gR", ":Trouble lsp_references<cr>", opts)
             vim.keymap.set({ "n", "x" }, "gq", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts)
             vim.keymap.set("n", "<leader>ld", ":Trouble diagnostics toggle filter.buf=0<cr>", opts)
             vim.keymap.set("n", "<leader>ls", ":Trouble symbols toggle<cr>", opts)
