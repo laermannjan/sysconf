@@ -1,6 +1,9 @@
 local M = {
    "folke/which-key.nvim",
-   opts = {},
+   opts = {
+        preset = "helix",
+        sort = {"alphanum"},
+    },
    keys = {
       { "<leader>f", group = "file" },
       { "<leader>g", group = "git" },
