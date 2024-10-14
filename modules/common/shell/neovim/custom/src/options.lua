@@ -48,6 +48,7 @@ vim.o.winblend       = 10        -- Make floating windows slightly transparent
 vim.o.scrolloff      = 8         -- Minimum number of lines above/below cursor before scrolling starts
 vim.o.conceallevel   = 2         -- Show concealable text (like markdown lists) as-is
 vim.o.completeopt = "menu,menuone,noselect,longest"
+vim.o.wildmode = "longest:full,full" -- in ex-mode (:) <tab> completes longest common string and show candidates, when candidates are shown another <tab> cycles through them
 
 vim.o.fillchars = table.concat(
   { 'eob: ', 'fold:╌', 'horiz:═', 'horizdown:╦', 'horizup:╩', 'vert:║', 'verthoriz:╬', 'vertleft:╣', 'vertright:╠' },
@@ -102,7 +103,7 @@ vim.o.spelloptions = 'camel'      -- Treat parts of camelCase words as seprate w
 
 -- Folds ======================================================================
 vim.o.foldmethod  = 'indent' -- Set 'indent' folding method
-vim.o.foldlevel   = 1        -- Display all folds except top ones
+vim.o.foldlevel   = 2        -- Display all folds except top two
 vim.o.foldnestmax = 10       -- Create folds only for some number of nested levels
 vim.g.markdown_folding = 1   -- Use folding by heading in markdown files
 
