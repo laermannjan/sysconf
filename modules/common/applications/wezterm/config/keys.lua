@@ -1,5 +1,6 @@
-local wezterm = require('wezterm')
+local wezterm = require('wezterm') --[[@as Wezterm]]
 local workspace_switcher = wezterm.plugin.require('https://github.com/MLFlexer/smart_workspace_switcher.wezterm')
+
 local act = wezterm.action
 local utils = require('utils')
 
@@ -33,7 +34,7 @@ local keys = {
     },
     {
         key = 'g',
-        mods = 'LEADER',
+        mods = 'CMD',
         action = wezterm.action.SpawnCommandInNewTab({
             args = { os.getenv('SHELL'), '-c', 'lazygit' },
             label = 'lazygit',
@@ -41,8 +42,8 @@ local keys = {
     },
     {
         key = 'b',
-        mods = 'LEADER',
-        action = wezterm.action.SpawnCommandInNewTab({
+        mods = 'CMD',
+        action = act.SpawnCommandInNewTab({
             args = { os.getenv('SHELL'), '-c', 'btop' },
         }),
     },
@@ -54,35 +55,68 @@ local keys = {
 
     {
         key = 's',
-        mods = 'LEADER',
-        action = wezterm.action.SplitHorizontal({ domain = 'CurrentPaneDomain' }),
-    },
-    {
-        key = 's',
-        mods = 'LEADER|CTRL',
-        action = wezterm.action.SplitHorizontal({ domain = 'CurrentPaneDomain' }),
+        mods = 'CTRL|SHIFT|CMD',
+        action = act.SplitVertical({ domain = 'CurrentPaneDomain' }),
     },
     {
         key = 'v',
-        mods = 'LEADER',
-        action = wezterm.action.SplitVertical({ domain = 'CurrentPaneDomain' }),
+        mods = 'CTRL|SHIFT|CMD',
+        action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }),
+    },
+
+    {
+        key = 'h',
+        mods = 'CTRL|SHIFT|CMD',
+        action = act.AdjustPaneSize({ 'Left', 1 }),
     },
     {
-        key = 'v',
-        mods = 'LEADER|CTRL',
-        action = wezterm.action.SplitVertical({ domain = 'CurrentPaneDomain' }),
+        key = 'j',
+        mods = 'CTRL|SHIFT|CMD',
+        action = act.AdjustPaneSize({ 'Down', 1 }),
     },
+    {
+        key = 'k',
+        mods = 'CTRL|SHIFT|CMD',
+        action = act.AdjustPaneSize({ 'Up', 1 }),
+    },
+    {
+        key = 'l',
+        mods = 'CTRL|SHIFT|CMD',
+        action = act.AdjustPaneSize({ 'Right', 1 }),
+    },
+
+    {
+        key = 'h',
+        mods = 'CTRL|CMD',
+        action = act.ActivatePaneDirection('Left'),
+    },
+    {
+        key = 'j',
+        mods = 'CTRL|CMD',
+        action = act.ActivatePaneDirection('Down'),
+    },
+    {
+        key = 'k',
+        mods = 'CTRL|CMD',
+        action = act.ActivatePaneDirection('Up'),
+    },
+    {
+        key = 'l',
+        mods = 'CTRL|CMD',
+        action = act.ActivatePaneDirection('Right'),
+    },
+
     -- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
-    {
-        key = 'a',
-        mods = 'LEADER|CTRL',
-        action = wezterm.action.SendKey({ key = 'a', mods = 'CTRL' }),
-    },
+    -- {
+    --     key = 'a',
+    --     mods = 'LEADER|CTRL',
+    --     action = act.SendKey({ key = 'a', mods = 'CTRL' }),
+    -- },
 }
 
 local config = {
     disable_default_key_bindings = false,
-    leader = { key = 'a', mods = 'CTRL' },
+    -- leader = { key = 'a', mods = 'CTRL' },
     keys = keys,
 }
 
