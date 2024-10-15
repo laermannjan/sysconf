@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-{
+{ config, pkgs, lib, ... }: {
   config = lib.mkIf pkgs.stdenv.isDarwin {
     services.nix-daemon.enable = true;
 
@@ -15,10 +9,7 @@
       Day = 1;
     };
 
-    environment.shells = [
-      pkgs.zsh
-      pkgs.fish
-    ];
+    environment.shells = [ pkgs.zsh pkgs.fish ];
 
     security.pam.enableSudoTouchIdAuth = true;
 
@@ -147,6 +138,12 @@
         screencapture.location = "~/Downloads";
 
         CustomUserPreferences = {
+          "com.apple.symbolichotkeys" = {
+            AppleSymbolicHotKeys = {
+              # Key 27 is for "Move Focus to Next Window (cmd+`)"
+              "27" = { enabled = false; };
+            };
+          };
           # Disable disk image verification
           "com.apple.frameworks.diskimages" = {
             skip-verify = true;
@@ -181,9 +178,12 @@
             eventTimeFormat = ''"show"'';
             eventTitleFormat = ''"none"'';
             eventTitleIconFormat = ''"iconCalendar"'';
-            slackBrowser = ''{"deletable":true,"arguments":"","name":"Slack","path":""}'';
-            zoomBrowser = ''{"deletable":true,"arguments":"","name":"Zoom","path":""}'';
-            KeyboardShortcuts_joinEventShortcut = ''{"carbonModifiers":6400,"carbonKeyCode":38}'';
+            slackBrowser =
+              ''{"deletable":true,"arguments":"","name":"Slack","path":""}'';
+            zoomBrowser =
+              ''{"deletable":true,"arguments":"","name":"Zoom","path":""}'';
+            KeyboardShortcuts_joinEventShortcut =
+              ''{"carbonModifiers":6400,"carbonKeyCode":38}'';
             timeFormat = ''"24-hour"'';
           };
         };
