@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   config = {
     home-manager.users.${config.user} = {
       programs.ssh = {
@@ -15,9 +14,7 @@
           "nas" = {
             hostname = "192.168.178.20";
             user = "jan";
-            extraOptions = {
-              preferredAuthentications = "publickey";
-            };
+            extraOptions = { preferredAuthentications = "publickey"; };
           };
           "github.com" = {
             hostname = "github.com";
@@ -25,22 +22,27 @@
             forwardAgent = false;
             forwardX11 = false;
             forwardX11Trusted = false;
-            extraOptions = {
-              preferredAuthentications = "publickey";
-            };
+            extraOptions = { preferredAuthentications = "publickey"; };
           };
-          "*.alcemy.tech" = {
-            identityFile = "~/.ssh/id_alcemy";
-          };
+          "*.alcemy.tech" = { identityFile = "~/.ssh/id_alcemy"; };
           "gitlab.com" = {
             hostname = "gitlab.com";
             user = "git";
             forwardAgent = false;
             forwardX11 = false;
             forwardX11Trusted = false;
-            extraOptions = {
-              preferredAuthentications = "publickey";
-            };
+            extraOptions = { preferredAuthentications = "publickey"; };
+          };
+          "*-db" = {
+            hostname = "alhambra-dev.alcemy.tech";
+            user = "ec2-user";
+            identityFile = "~/.ssh/id_alcemy";
+            localForwards = [{
+              bind.port = 5432;
+              host.address =
+                "%k-instance.cxwee7sgwz6s.eu-central-1.rds.amazonaws.com";
+              host.port = 5432;
+            }];
           };
         };
       };
