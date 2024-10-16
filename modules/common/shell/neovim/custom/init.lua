@@ -301,6 +301,35 @@ later(function()
     })
 end)
 
+later(function()
+    add({
+        source = 'kristijanhusak/vim-dadbod-ui',
+        depends = {
+            'tpope/vim-dadbod',
+            'kristijanhusak/vim-dadbod-completion',
+        },
+    })
+
+    local data_path = vim.fn.stdpath('data')
+
+    vim.g.db_ui_auto_execute_table_helpers = 1
+    vim.g.db_ui_save_location = data_path .. '/dadbod_ui'
+    vim.g.db_ui_show_database_icon = true
+    vim.g.db_ui_tmp_query_location = data_path .. '/dadbod_ui/tmp'
+    vim.g.db_ui_use_nerd_fonts = true
+    vim.g.db_ui_use_nvim_notify = true
+
+    local ok, cmp = pcall(require, 'cmp')
+    if ok then
+        cmp.setup.filetype({ 'sql', 'mysql', 'plsql' }, {
+            sources = {
+                { name = 'vim-dadbod-completion' },
+                { name = 'buffer' },
+            },
+        })
+    end
+end)
+
 -- TODO: grapple.nvim
 -- TODO: hmts.nvim
 -- TODO: kulala.nvim
