@@ -78,22 +78,29 @@ require('mason-lspconfig').setup({
     },
     handlers = {
         function(server) setup_server(server) end,
-        -- handled by lazydev.nvim
-        -- lua_ls = function ()
-        --     local opts = {
-        --         settings = {
-        --             Lua = {
-        --                 format = {
-        --                     enable = false,
-        --                 },
-        --                 telemetry = {
-        --                     enable = false,
-        --                 },
-        --             }
-        --         }
-        --     }
-        -- end,
-        pyright = function ()
+        lua_ls = function()
+            local opts = {
+                handlers = {
+                    -- Show only one definition to be usable with `a = function()` style.
+                    -- Because LuaLS treats both `a` and `function()` as definitions of `a`.
+                    ['textDocument/definition'] = function(err, result, ctx, config)
+                        if type(result) == 'table' then result = { result[1] } end
+                        vim.lsp.handlers['textDocument/definition'](err, result, ctx, config)
+                    end,
+                },
+                settings = {
+                    Lua = {
+                        format = {
+                            enable = false,
+                        },
+                        telemetry = {
+                            enable = false,
+                        },
+                    },
+                },
+            }
+            setup_server('lua_ls', opts)
+        end,
         pyright = function()
             local opts = {
                 settings = {
