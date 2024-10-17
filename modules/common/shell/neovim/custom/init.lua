@@ -365,8 +365,11 @@ later(function()
     require('kulala').setup()
 end)
 
+later(function()
+    add({ source = 'calops/hmts.nvim', checkout = 'v1.2.4', monitor = 'HEAD' }) --
+end)
+
 -- TODO: grapple.nvim
--- TODO: hmts.nvim
 -- TODO: heirline.nvim
 -- TODO: ufo.nvim
 -- TODO: smart-splits?
