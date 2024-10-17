@@ -72,6 +72,25 @@
             uv generate-shell-completion fish | source
         end
 
+
+        # type `rds.[identifier]` (followed by enter or space) to expand to alcemy rds tunnel
+        function ssh_rds_expand
+            set match (string match -g -r '^rds\.([a-z\-]*)(?::(\d+))?$' -- $argv[1])
+            set identifier $match[1]
+            set local_port (or $match[2] 5432)
+
+            if test -n "$identifier"
+                # If identifier starts with 'dyn-', prefix with 'prism-'
+                if string match -q -r '^dyn-.*' -- $identifier
+                    set identifier "prism-$identifier"
+                end
+                echo "ssh -i ~/.ssh/id_alcemy -N -L $local_port:$identifier%-db-instance.cxwee7sgwz6s.eu-central-1.rds.amazonaws.com:5432 ec2-user@alhambra-dev.alcemy.tech"
+            else
+                echo "ssh -i ~/.ssh/id_alcemy -N -L $local_port:%-db-instance.cxwee7sgwz6s.eu-central-1.rds.amazonaws.com:5432 ec2-user@alhambra-dev.alcemy.tech"
+            end
+        end
+        abbr --add --position command --regex '^rds\..*$' --function ssh_rds_expand --set-cursor 'rds.*'
+
       '';
 
       shellInitLast = ''
@@ -102,6 +121,7 @@
         config_kube_alcemy_prod =
           "aws eks update-kubeconfig --region eu-central-1 --name prod";
       };
+
     };
   };
 }
