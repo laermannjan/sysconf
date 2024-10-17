@@ -36,6 +36,11 @@ now(function() source('keymaps.lua') end)
 add({ name = 'mini.nvim' })
 
 -- now(function()  end)
+vim.filetype.add({
+    extension = {
+        ['http'] = 'http',
+    },
+})
 
 now(function()
     -- vim.cmd('colorscheme randomhue')
@@ -355,9 +360,13 @@ later(function()
     end
 end)
 
+later(function()
+    add('mistweaverco/kulala.nvim')
+    require('kulala').setup()
+end)
+
 -- TODO: grapple.nvim
 -- TODO: hmts.nvim
--- TODO: kulala.nvim
 -- TODO: heirline.nvim
 -- TODO: ufo.nvim
 -- TODO: smart-splits?
