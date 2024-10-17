@@ -369,7 +369,8 @@ later(function()
     add({ source = 'calops/hmts.nvim', checkout = 'v1.2.4', monitor = 'HEAD' }) --
 end)
 
--- TODO: grapple.nvim
+later(function() require('mini.visits').setup() end)
+
 -- TODO: heirline.nvim
 -- TODO: ufo.nvim
 -- TODO: smart-splits?
