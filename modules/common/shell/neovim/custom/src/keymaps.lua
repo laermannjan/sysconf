@@ -93,7 +93,7 @@ nmap_leader('fr', '<Cmd>Pick resume<CR>', 'Resume')
 nmap_leader('fR', '<Cmd>Pick lsp scope="references"<CR>', 'References (LSP)')
 nmap_leader('fs', '<Cmd>Pick lsp scope="document_symbol"<CR>', 'Symbols buffer (LSP)')
 nmap_leader('fS', '<Cmd>Pick lsp scope="workspace_symbol"<CR>', 'Symbols workspace (LSP)')
-nmap_leader('fv', '<Cmd>Pick visit_paths cwd=""<CR>', 'Visit paths (all)')
+nmap_leader('fv', '<Cmd>Pick visit_paths filter="tagged"<CR>', 'Visit paths (tagged)')
 nmap_leader('fV', '<Cmd>Pick visit_paths<CR>', 'Visit paths (cwd)')
 
 -- g is for git
@@ -126,6 +126,11 @@ nmap_leader('tr', function()
     local args = vim.split(input, '%s+', { trimempty = true })
     require('neotest').run.run({ vim.fn.getcwd(), extra_args = args })
 end, 'Run tests in project (with args)')
+
+nmap_leader('vv', '<cmd>lua MiniVisits.add_label("tagged")<cr>', 'Add "tagged" label')
+nmap_leader('vd', '<cmd>lua MiniVisits.remove_label("tagged")<cr>', 'Remove "tagged" label')
+nmap_leader('vV', '<cmd>lua MiniVisits.add_label()<cr>', 'Add label')
+nmap_leader('vD', '<cmd>lua MiniVisits.remove_label()<cr>', 'Remove label')
 
 -- o is for 'other'
 local trailspace_toggle_command = '<Cmd>lua vim.b.minitrailspace_disable = not vim.b.minitrailspace_disable<CR>'
