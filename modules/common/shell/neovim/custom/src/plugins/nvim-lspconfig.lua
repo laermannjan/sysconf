@@ -32,6 +32,8 @@ local diagnostic_opts = {
     -- Don't update diagnostics when typing
     update_in_insert = false,
     severity_sort = true,
+
+    source = true, -- always show diagnostics sources
 }
 
 vim.diagnostic.config(diagnostic_opts)
