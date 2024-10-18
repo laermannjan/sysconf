@@ -39,13 +39,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Firefox addon from outside the extension store
-    bypass-paywalls-clean = {
-      # https://gitlab.com/magnolia1234/bpc-uploads/-/commits/master/?ref_type=HEADS
-      url = "https://github.com/bpc-clone/bpc_updates/releases/download/latest/bypass_paywalls_clean-latest.xpi";
-      flake = false;
-    };
-
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs = {
@@ -80,10 +73,7 @@
         sysconfRepo = "https://github.com/laermannjan/sysconf";
       };
 
-      overlays = [
-        inputs.nur.overlay
-        (import ./overlays/bypass-paywalls-clean.nix inputs)
-      ];
+      overlays = [ inputs.nur.overlay ];
 
       # System types to support.
       supportedSystems = [

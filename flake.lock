@@ -1,17 +1,5 @@
 {
   "nodes": {
-    "bypass-paywalls-clean": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-f1J4o67c1UXkKi3aDgrnlszsPNLCUAUs8d+6peh/LC4=",
-        "type": "file",
-        "url": "https://github.com/bpc-clone/bpc_updates/releases/download/latest/bypass_paywalls_clean-latest.xpi"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/bpc-clone/bpc_updates/releases/download/latest/bypass_paywalls_clean-latest.xpi"
-      }
-    },
     "devshell": {
       "inputs": {
         "nixpkgs": [
@@ -399,7 +387,6 @@
     },
     "root": {
       "inputs": {
-        "bypass-paywalls-clean": "bypass-paywalls-clean",
         "firefox-darwin": "firefox-darwin",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
