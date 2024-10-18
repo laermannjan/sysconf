@@ -143,14 +143,12 @@
         system:
         let
           git-hooks = pre-commit-hooks.lib.${system};
-          pkgs = import nixpkgs { inherit system overlays; };
         in
         git-hooks.run {
           src = ./.;
           hooks = {
             deadnix.enable = true;
-            nixfmt.enable = true;
-            nixfmt.package = pkgs.nixfmt-rfc-style;
+            nixfmt-rfc-style.enable = true;
           };
         }
       );
