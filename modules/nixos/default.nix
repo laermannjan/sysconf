@@ -5,7 +5,7 @@
     # ./gaming
     # ./graphical
     # ./hardware
-    # ./services
+    ./services
     # ./system
   ];
 }

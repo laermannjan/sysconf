@@ -11,6 +11,7 @@
     ./homebrew.nix
     ./networking.nix
     ./nixpkgs.nix
+    ./services.nix
     ./system.nix
     ./user.nix
   ];
