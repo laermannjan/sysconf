@@ -100,7 +100,7 @@
       # Contains my full system builds, including home-manager
       # nixos-rebuild switch --flake .#foo
       nixosConfigurations = {
-        # foo = import ./hosts/foo {inherit inputs globals overlays;};
+        hydra = import ./hosts/hydra {inherit inputs globals overlays;};
       };
 
       # Contains my full Mac system builds, including home-manager
