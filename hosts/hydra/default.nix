@@ -18,7 +18,6 @@ inputs.nixpkgs.lib.nixosSystem {
     {
       networking.hostName = "hydra";
       nixpkgs.overlays = overlays;
-      identityFile = "/home/${globals.user}/.ssh/id_ed25519";
       wsl = {
         enable = true;
         wslConf.automount.root = "/mnt";
@@ -29,9 +28,13 @@ inputs.nixpkgs.lib.nixosSystem {
         interop.includePath = false; # Including Windows PATH will slow down Neovim command mode
       };
 
-      neovim.enable = true;
+      neovim = {
+        enable = true;
+	config = "custom";
+      };
       sysconf.enable = true;
       lua.enable = true;
+      python.enable = true;
     }
   ];
 }
