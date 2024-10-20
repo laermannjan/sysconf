@@ -80,6 +80,9 @@
               nixfmt-rfc-style
               deadnix
               statix
+              go
+              nodejs
+              gcc
             ];
           };
         };
