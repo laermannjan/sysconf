@@ -6,6 +6,7 @@
     ./direnv.nix
     ./fish.nix
     ./git.nix
+    ./keychain.nix
     ./neovim.nix
     ./nixpkgs.nix
     ./postgres.nix
