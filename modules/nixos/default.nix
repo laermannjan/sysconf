@@ -6,6 +6,6 @@
     # ./graphical
     # ./hardware
     ./services
-    # ./system
+    ./system
   ];
 }
