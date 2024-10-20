@@ -7,11 +7,12 @@
 {
   imports = [
     ./applications
-    ./shell
     ./homebrew.nix
     ./networking.nix
     ./nixpkgs.nix
-    ./services.nix
+    ./programming
+    ./services
+    ./shell
     ./system.nix
     ./user.nix
   ];
