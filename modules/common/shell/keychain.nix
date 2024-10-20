@@ -18,7 +18,7 @@
   config = lib.mkIf (config.keychain.enable) {
     home-manager.users.${config.user} = {
       programs.keychain = {
-        enable = if config._1password-ssh-agent.enable then false else true;
+        enable = if config._1password.enableSshAgent then false else true;
         enableFishIntegration = lib.mkDefault true;
         keys = config.keychain.keys;
       };
