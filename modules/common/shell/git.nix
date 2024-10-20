@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   options = {
     gitName = lib.mkOption {
@@ -115,18 +120,21 @@
 
       # Personal git config
       # TODO: fix with variables
-      xdg.configFile."git/personal".text = ''
-        [user]
-            name = "${config.fullName}"
-            email = "hello@mikgard.dev"
-            signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBRJ5wXLsdiCk3rJybC6f3ztg/OYxZ305KeL3qoYI+12
-        [gpg "ssh"]
-            program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-        [commit]
-            gpgsign = true
-        [tag]
-            gpgsign = true
-      '';
+      xdg.configFile."git/personal".text =
+        ''
+          [user]
+              name = "${config.fullName}"
+              email = "hello@mikgard.dev"
+        ''
+        + lib.optionalString (config._1password.enable && pkgs.stdenv.isDarwin) ''
+              signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBRJ5wXLsdiCk3rJybC6f3ztg/OYxZ305KeL3qoYI+12
+          [gpg "ssh"]
+              program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+          [commit]
+              gpgsign = true
+          [tag]
+              gpgsign = true
+        '';
     };
   };
 }
