@@ -45,7 +45,7 @@
                 set option "--option substitute false"
             end
             git -C ${config.sysconfPath} add --intent-to-add --all
-            commandline -r "doas nixos-rebuild switch $option --flake ${config.sysconfPath}#${config.networking.hostName}"
+            commandline -r "sudo nixos-rebuild switch $option --flake ${config.sysconfPath}#${config.networking.hostName}"
             commandline --function execute
           '';
         };
