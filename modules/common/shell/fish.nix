@@ -63,25 +63,8 @@
             complete --command aws --no-files --arguments '(begin; set --local --export COMP_SHELL fish; set --local --export COMP_LINE (commandline); aws_completer | sed \'s/ $//\'; end)'
         end
 
-        # 1password completions
-        if command -q op
-            op completion fish | source
-            source ~/.config/op/plugins.sh
-        end
-
-        # allow 1password-cli ssh-agent to see which keys are available
-        # `ssh-add -l` will now show all available ssh-keys from 1password
-        set -gx SSH_AUTH_SOCK ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
-
         # set -x NVIM_APPNAME nvim-astro
         set -gx PIPENV_VENV_IN_PROJECT 1
-
-        if test -f ~/.cache/GITLAB_ACCESS_TOKEN
-            set -gx GITLAB_ACCESS_TOKEN (cat ~/.cache/GITLAB_ACCESS_TOKEN)
-        else
-            set -gx GITLAB_ACCESS_TOKEN (op read "op://private/GitLab Personal Access Token/token")
-            echo $GITLAB_ACCESS_TOKEN > ~/.cache/GITLAB_ACCESS_TOKEN
-        end
 
         # test the program uv is available
         if command -q uv

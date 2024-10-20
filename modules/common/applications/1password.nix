@@ -4,12 +4,26 @@
   lib,
   ...
 }:
+
+let
+  cfg = config._1password;
+
+in
+
 {
   options = {
     _1password = {
       enable = lib.mkEnableOption {
         description = "Enable 1Password.";
         default = false;
+      };
+      enableSshAgent = lib.mkEnableOption {
+        description = "Enable 1Password ssh-agent";
+        default = false;
+      };
+      enableFishIntegration = lib.mkEnableOption {
+        description = "Fish integration";
+        default = true;
       };
     };
   };
@@ -42,6 +56,33 @@
       '';
     };
 
+    programs.fish.interactiveShellInit = lib.mkIf cfg.enableFishIntegration (
+      lib.mkMerge [
+        # First block for op completion
+        (lib.mkAfter ''
+          if command -q op
+              op completion fish | source
+              source ~/.config/op/plugins.sh
+          end
+
+          if test -f ~/.cache/GITLAB_ACCESS_TOKEN
+              set -gx GITLAB_ACCESS_TOKEN (cat ~/.cache/GITLAB_ACCESS_TOKEN)
+          else
+              set -gx GITLAB_ACCESS_TOKEN (op read "op://private/GitLab Personal Access Token/token")
+              echo $GITLAB_ACCESS_TOKEN > ~/.cache/GITLAB_ACCESS_TOKEN
+          end
+        '')
+
+        # Conditional block for 1password SSH agent
+        (lib.mkIf cfg.enableSshAgent.enable (
+          lib.mkAfter ''
+            # Allow 1password-cli ssh-agent to see which keys are available
+            # `ssh-add -l` will now show all available ssh-keys from 1password
+            set -gx SSH_AUTH_SOCK ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+          ''
+        ))
+      ]
+    );
     # # https://1password.community/discussion/135462/firefox-extension-does-not-connect-to-linux-app
     # # On Mac, does not apply: https://1password.community/discussion/142794/app-and-browser-integration
     # # However, the button doesn't work either:

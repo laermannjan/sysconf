@@ -26,7 +26,10 @@ inputs.nix-darwin.lib.darwinSystem {
       # mail.enable = true;
       # mail.aerc.enable = true;
       # mail.himalaya.enable = false;
-      _1password.enable = true;
+      _1password = {
+        enable = true;
+        enableSshAgent = true;
+      };
       amethyst.enable = true;
       argo.enable = true;
       borg.enable = true;
