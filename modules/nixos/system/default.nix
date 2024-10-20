@@ -8,7 +8,6 @@
 
   imports = [
     # ./auto-upgrade.nix
-    # ./doas.nix
     # ./journald.nix
     # ./user.nix
     # ./timezone.nix
