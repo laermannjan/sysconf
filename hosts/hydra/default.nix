@@ -35,7 +35,10 @@ inputs.nixpkgs.lib.nixosSystem {
       sysconf.enable = true;
       lua.enable = true;
       python.enable = true;
-      keychain.keys = [ "id_ed25519.personal" ];
+      keychain = {
+        enable = true;
+        keys = [ "id_ed25519.personal" ];
+      };
     }
   ];
 }
