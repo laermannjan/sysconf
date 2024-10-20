@@ -184,7 +184,17 @@ later(function()
 end)
 
 later(function()
-    require('mini.files').setup({ windows = { preview = true } })
+    require('mini.files').setup({
+        windows = { preview = true },
+        mappings = {
+            go_in = '',
+            go_in_plus = '<cr>',
+            go_out = '',
+            go_out_plus = '<bs>',
+            reset = '',
+            close = '<esc>',
+        },
+    })
     local minifiles_augroup = vim.api.nvim_create_augroup('ec-mini-files', {})
     vim.api.nvim_create_autocmd('User', {
         group = minifiles_augroup,
@@ -196,6 +206,7 @@ later(function()
         pattern = 'MiniFilesExplorerOpen',
         callback = function()
             MiniFiles.set_bookmark('c', vim.fn.stdpath('config'), { desc = 'Config' })
+            MiniFiles.set_bookmark('d', vim.fn.expand('~/dev'), { desc = '~/dev' })
             MiniFiles.set_bookmark('m', vim.fn.stdpath('data') .. '/site/pack/deps/start/mini.nvim', { desc = 'mini.nvim' })
             MiniFiles.set_bookmark('p', vim.fn.stdpath('data') .. '/site/pack/deps/opt', { desc = 'Plugins' })
             MiniFiles.set_bookmark('w', vim.fn.getcwd, { desc = 'Working directory' })
