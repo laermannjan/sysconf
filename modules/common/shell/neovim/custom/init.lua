@@ -382,6 +382,22 @@ end)
 
 later(function() require('mini.visits').setup() end)
 
+now(function()
+    add('MeanderingProgrammer/render-markdown.nvim')
+    require('render-markdown').setup()
+    vim.keymap.set('n', '\\m', '<cmd>RenderMarkdown toggle<cr>', { desc = 'Toggle markdown renderer' })
+end)
+
+later(function()
+    add({ source = 'epwalsh/obsidian.nvim', depends = { 'nvim-lua/plenary.nvim' } })
+    require('obsidian').setup({
+
+        workspaces = {
+            { name = 'vault', path = '~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Vault' },
+        },
+    })
+end)
+
 -- TODO: heirline.nvim
 -- TODO: ufo.nvim
 -- TODO: smart-splits?
