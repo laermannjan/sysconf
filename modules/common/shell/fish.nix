@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
   users.users.${config.user}.shell = pkgs.fish;
   programs.fish.enable = true; # Needed for LightDM to remember username
 
@@ -14,28 +20,26 @@
       };
       shellAbbrs = {
         e = "nvim";
-        elevate = ''
-          aws iam add-user-to-group --group-name Elevated --user-name $(aws iam get-user | grep UserName | cut -d'"' -f4)'';
-        secrets =
-          "aws secretsmanager get-secret-value --secret-id (aws secretsmanager list-secrets | jq -r '.[][] | .Name' | fzf) | jq -r .SecretString | tr -d '\\n' | pbcopy";
-        ssh-reset-alcemy =
-          "ssh-keygen -R alhambra-dev.alcemy.tech && ssh-keygen -R alhambra-prod.alcemy.tech";
+        elevate = ''aws iam add-user-to-group --group-name Elevated --user-name $(aws iam get-user | grep UserName | cut -d'"' -f4)'';
+        secrets = "aws secretsmanager get-secret-value --secret-id (aws secretsmanager list-secrets | jq -r '.[][] | .Name' | fzf) | jq -r .SecretString | tr -d '\\n' | pbcopy";
+        ssh-reset-alcemy = "ssh-keygen -R alhambra-dev.alcemy.tech && ssh-keygen -R alhambra-prod.alcemy.tech";
       };
-      loginShellInit = let
-        # This naive quoting is good enough in this case. There shouldn't be any
-        # double quotes in the input string, and it needs to be double quoted in case
-        # it contains a space (which is unlikely!)
-        dquote = str: ''"'' + str + ''"'';
+      loginShellInit =
+        let
+          # This naive quoting is good enough in this case. There shouldn't be any
+          # double quotes in the input string, and it needs to be double quoted in case
+          # it contains a space (which is unlikely!)
+          dquote = str: ''"'' + str + ''"'';
 
-        makeBinPathList = map (path: path + "/bin");
+          makeBinPathList = map (path: path + "/bin");
+        in
         # due to fish's weird sourcing order the nix paths won't be in front of the /usr/bin etc. paths, this fixes this
-      in ''
-        fish_add_path --move --prepend --path ${
-          lib.concatMapStringsSep " " dquote
-          (makeBinPathList config.environment.profiles)
-        }
-        set fish_user_paths $fish_user_paths
-      '';
+        ''
+          fish_add_path --move --prepend --path ${
+            lib.concatMapStringsSep " " dquote (makeBinPathList config.environment.profiles)
+          }
+          set fish_user_paths $fish_user_paths
+        '';
 
       interactiveShellInit = ''
         # Disable greeting
@@ -116,10 +120,8 @@
       ];
 
       functions = {
-        config_kube_alcemy_dev =
-          "aws eks update-kubeconfig --region eu-central-1 --name dev";
-        config_kube_alcemy_prod =
-          "aws eks update-kubeconfig --region eu-central-1 --name prod";
+        config_kube_alcemy_dev = "aws eks update-kubeconfig --region eu-central-1 --name dev";
+        config_kube_alcemy_prod = "aws eks update-kubeconfig --region eu-central-1 --name prod";
       };
 
     };

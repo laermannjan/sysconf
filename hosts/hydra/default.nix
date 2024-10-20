@@ -30,7 +30,7 @@ inputs.nixpkgs.lib.nixosSystem {
 
       neovim = {
         enable = true;
-	config = "custom";
+        config = "custom";
       };
       sysconf.enable = true;
       lua.enable = true;
