@@ -7,8 +7,8 @@
       nix-direnv.enable = true;
       config = {
         global = {
-            warn_timeout = 0;
-            hide_env_diff = true;
+          warn_timeout = 0;
+          hide_env_diff = true;
         };
         whitelist = {
           prefix = [ config.sysconfPath ];

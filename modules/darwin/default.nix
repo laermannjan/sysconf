@@ -18,6 +18,6 @@
 
   # Homebrew - Mac-specific packages that aren't in Nix
   config = lib.mkIf pkgs.stdenv.isDarwin {
-    programs.zsh.enable = true;  # make the macos default shell know about nix
+    programs.zsh.enable = true; # make the macos default shell know about nix
   };
 }

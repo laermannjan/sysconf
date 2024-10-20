@@ -8,7 +8,8 @@ let
     .terraform/
     .target/
     /Library/'';
-in {
+in
+{
   config = {
     home-manager.users.${config.user} = {
       home.packages = with pkgs; [
@@ -62,7 +63,11 @@ in {
 
       programs.awscli = {
         enable = true; # creds managed with 1password-cli plugin
-        settings = { "default" = { region = "eu-central-1"; }; };
+        settings = {
+          "default" = {
+            region = "eu-central-1";
+          };
+        };
       };
 
       programs.bat = {
@@ -77,11 +82,19 @@ in {
       programs.eza = {
         # used to be exa
         enable = true;
-        extraOptions =
-          [ "--group-directories-first" "--header" "--group" "--git" ];
+        extraOptions = [
+          "--group-directories-first"
+          "--header"
+          "--group"
+          "--git"
+        ];
       };
 
-      programs = { btop = { enable = true; }; };
+      programs = {
+        btop = {
+          enable = true;
+        };
+      };
 
       programs = {
         fzf = {
@@ -96,7 +109,10 @@ in {
         settings = {
           # cattpuccin_mocha blue accent
           gui.theme = {
-            activeBorderColor = [ "#89b4fa" "bold" ];
+            activeBorderColor = [
+              "#89b4fa"
+              "bold"
+            ];
             inactiveBorderColor = [ "#a6adc8" ];
             optionsTextColor = [ "#89b4fa" ];
             selectedLineBgColor = [ "#313244" ];
