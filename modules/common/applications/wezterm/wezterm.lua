@@ -13,11 +13,11 @@ config:add('config.general')
 domains.apply_to_config(config, {
     keys = {
         attach = { key = '`', mods = 'CMD|CTRL' },
-        vsplit = {},
-        hsplit = { key = '`', mods = 'CMD|CTRL|SHIFT' },
+        vsplit = { key = '`', mods = 'CMD|SHIFT|CTRL' },
+        hsplit = { key = '~', mods = 'CMD|CTRL|SHIFT' },
     },
     auto = {
-        ssh_ignore = false,
+        ssh_ignore = true,
         exec_ignore = {
             ssh = false,
             docker = false,
