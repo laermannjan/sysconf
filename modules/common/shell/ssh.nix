@@ -18,7 +18,7 @@
               AddKeysToAgent yes
               UseKeychain yes
             ''
-            + lib.optionalString (config._1password.enable && pkgs.stdenv.isDarwin) ''
+            + lib.optionalString (config._1password.enableSshAgent && pkgs.stdenv.isDarwin) ''
               IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
             '';
           matchBlocks = {
