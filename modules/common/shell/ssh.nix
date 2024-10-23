@@ -40,7 +40,7 @@
               };
             };
             "*.alcemy.tech" = {
-              identityFile = "~/.ssh/id_alcemy";
+              identityFile = "~/.ssh/id_ed25519.alcemy";
             };
             "gitlab.com" = {
               hostname = "gitlab.com";
