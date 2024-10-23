@@ -34,3 +34,5 @@ Once installed, you can continue to update the macOS configuration locally:
 ```bash
 darwin-rebuild switch --flake $NIXCONFDIR
 ```
+## Restore your ssh-keys
+Restore your ssh keys that you previously backed up with [melt](https://github.com/charmbracelet/melt) using the [loadkey app](../apps/loadkey.nix).

@@ -9,6 +9,9 @@ non-Nix managed systems. Dotfiles that I might tweak frequently, I do usually ke
 ## Installation
 Click [here](docs/install.md) for detailed installation instructions.
 
+## Apps
+I make use of apps (utilities deployed via nix), read more [here](./apps/README.md).
+
 ## Flake Templates
 Use the [templates](./templates/) as flakes to start new projects.
 ```bash
