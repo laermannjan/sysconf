@@ -28,7 +28,14 @@ inputs.nix-darwin.lib.darwinSystem {
       # mail.himalaya.enable = false;
       _1password = {
         enable = true;
-        enableSshAgent = true;
+        enableSshAgent = false;
+      };
+      keychain = {
+        enable = true;
+        keys = [
+          "id_ed25519.personal"
+          "id_ed25519.alcemy"
+        ];
       };
       amethyst.enable = true;
       argo.enable = true;
