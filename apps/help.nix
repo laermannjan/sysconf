@@ -11,6 +11,7 @@
       ${pkgs.gum}/bin/gum format --type=template -- \
           '  • {{ Color "15" "57" " readme " }} {{ Italic "Documentation for this repository." }}' \
           '  • {{ Color "15" "57" " rebuild " }} {{ Italic "Switch to this (on github) configuration." }}'
+          '  • {{ Color "15" "57" " loadkey " }} {{ Italic "Load an ssh key for this machine using melt." }}' \
       echo ""
       echo ""
     ''
