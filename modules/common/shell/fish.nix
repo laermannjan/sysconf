@@ -75,9 +75,13 @@
 
         # type `rds.[identifier]` (followed by enter or space) to expand to alcemy rds tunnel
         function ssh_rds_expand
-            set match (string match -g -r '^rds\.([a-z\-]*)(?::(\d+))?$' -- $argv[1])
+            set match (string match -g -r '^rds\.([a-z\-]*)(?::(\d*))?$' -- $argv[1])
             set identifier $match[1]
-            set local_port (or $match[2] 5432)
+            if test -n "$match[2]"
+                set local_port $match[2]
+            else
+                set local_port 5432
+            end
 
             if test -n "$identifier"
                 # If identifier starts with 'dyn-', prefix with 'prism-'
