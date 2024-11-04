@@ -114,12 +114,12 @@ nmap_leader('Ls', '<Cmd>lua Config.log_print()<CR>', 'Show log')
 nmap_leader('Lx', '<Cmd>lua Config.execute_lua_line()<CR>', 'Execute `lua` line')
 
 -- t is for test
-nmap_leader('tf', '<cmd>Neotest run vim.fn.expand("%")<cr>', 'Run file')
-nmap_leader('tt', '<cmd>Neotest run<cr>', 'Run nearest test')
-nmap_leader('ta', '<cmd>Neotest run suite=true<cr>', 'Run all tests')
+-- nmap_leader('tf', '<cmd>Neotest run vim.fn.expand("%")<cr>', 'Run file')
+-- nmap_leader('tt', '<cmd>Neotest run<cr>', 'Run nearest test')
+-- nmap_leader('ta', '<cmd>Neotest run suite=true<cr>', 'Run all tests')
 nmap_leader('tf', function() require('neotest').run.run(vim.fn.expand('%')) end, 'Run file')
-nmap_leader('tf', function() require('neotest').run.run() end, 'Run nearest')
-nmap_leader('tt', function() require('neotest').run.run({ suite = true }) end, 'Run all tests')
+nmap_leader('tt', function() require('neotest').run.run() end, 'Run nearest')
+nmap_leader('ta', function() require('neotest').run.run({ suite = true }) end, 'Run all tests')
 nmap_leader('tr', function()
     local prompt = 'test runner args (space separated, use `=`): '
     local input = vim.fn.input(prompt)
