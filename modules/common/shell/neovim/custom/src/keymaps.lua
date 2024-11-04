@@ -17,6 +17,17 @@ local xmap_leader = function(suffix, rhs, desc, opts)
     vim.keymap.set('x', '<Leader>' .. suffix, rhs, opts)
 end
 
+local nmap_localleader = function(suffix, rhs, desc, opts)
+    opts = opts or {}
+    opts.desc = desc
+    vim.keymap.set('n', '<LocalLeader>' .. suffix, rhs, opts)
+end
+local xmap_localleader = function(suffix, rhs, desc, opts)
+    opts = opts or {}
+    opts.desc = desc
+    vim.keymap.set('x', '<LocalLeader>' .. suffix, rhs, opts)
+end
+
 -- Remove search highlights on <esc>
 -- keymap({"n", "v"}, "<esc>", "<cmd>noh<cr><esc>", { silent = true })
 
@@ -140,3 +151,10 @@ nmap_leader('oh', '<cmd>normal gxiagxila<cr>', 'Move arg left') -- NOTE: depends
 nmap_leader('ol', '<cmd>normal gxiagxina<cr>', 'Move arg left') -- NOTE: depends on mini.operators to exchange text regions
 nmap_leader('ot', '<Cmd>lua MiniTrailspace.trim()<CR>', 'Trim trailspace')
 nmap_leader('oT', trailspace_toggle_command, 'Trailspace hl toggle')
+
+nmap_localleader('a', '<cmd>lua vim.lsp.buf.code_action()<cr>', 'Code Action')
+nmap_localleader('d', '<cmd>lua vim.lsp.buf.definition()<cr>', 'Symbol Definition')
+nmap_localleader(',', '<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename Symbol')
+nmap_localleader('r', '<cmd>lua vim.lsp.buf.references()<cr>', 'Symbol references')
+nmap_localleader('h', '<cmd>normal gxiagxila<cr>', 'Move arg left') -- NOTE: depends on mini.operators to exchange text regions
+nmap_localleader('l', '<cmd>normal gxiagxina<cr>', 'Move arg left') -- NOTE: depends on mini.operators to exchange text regions
