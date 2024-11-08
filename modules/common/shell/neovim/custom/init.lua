@@ -398,6 +398,8 @@ later(function()
     })
 end)
 
+later(function() add('folke/snacks.nvim') end)
+
 -- TODO: heirline.nvim
 -- TODO: ufo.nvim
 -- TODO: smart-splits?
