@@ -74,6 +74,8 @@ now(function()
         pattern = 'MiniFilesActionRename',
         callback = function(event) require('snacks').rename.on_rename_file(event.data.from, event.data.to) end,
     })
+
+    vim.keymap.set('n', '<c-\\>', function() require('snacks').terminal.toggle() end)
 end)
 
 now(function() require('mini.statusline').setup() end)
