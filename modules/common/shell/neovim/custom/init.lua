@@ -62,8 +62,13 @@ now(function()
 end)
 
 now(function()
-    require('mini.notify').setup({ config = { border = 'double' } })
-    vim.notify = require('mini.notify').make_notify()
+    --     require('mini.notify').setup({ config = { border = 'double' } })
+    --     vim.notify = require('mini.notify').make_notify()
+end)
+
+now(function()
+    add('folke/snacks.nvim')
+    require('snacks').setup()
 end)
 
 now(function() require('mini.statusline').setup() end)
@@ -397,8 +402,6 @@ later(function()
         },
     })
 end)
-
-later(function() add('folke/snacks.nvim') end)
 
 -- TODO: heirline.nvim
 -- TODO: ufo.nvim
