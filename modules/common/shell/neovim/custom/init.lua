@@ -71,17 +71,22 @@ now(function()
     local function term_nav(dir)
         ---@param self snacks.terminal
         return function(self)
-            return self:is_floating() and '<c-w>' .. dir or vim.schedule(function() vim.cmd.wincmd(dir) end)
+            if self:is_floating() then
+                return '<C-W>' .. dir
+            else
+                vim.schedule(function() vim.cmd.wincmd(dir) end)
+            end
         end
     end
     require('snacks').setup({
         terminal = {
             win = {
                 keys = {
-                    nav_h = { '<C-W>h', term_nav('h'), desc = 'Go to Left Window', expr = true, mode = 't' },
-                    nav_j = { '<C-W>j', term_nav('j'), desc = 'Go to Lower Window', expr = true, mode = 't' },
-                    nav_k = { '<C-W>k', term_nav('k'), desc = 'Go to Upper Window', expr = true, mode = 't' },
-                    nav_l = { '<C-W>l', term_nav('l'), desc = 'Go to Right Window', expr = true, mode = 't' },
+                    nav_h = { '<C-W>h', term_nav('h'), desc = 'Go to Left Window', mode = 't' },
+                    nav_j = { '<C-W>j', term_nav('j'), desc = 'Go to Lower Window', mode = 't' },
+                    nav_k = { '<C-W>k', term_nav('k'), desc = 'Go to Upper Window', mode = 't' },
+                    nav_l = { '<C-W>l', term_nav('l'), desc = 'Go to Right Window', mode = 't' },
+                    hide = { '<c-\\><c-\\>', function(self) self:hide() end, mode = 't' },
                 },
             },
         },
@@ -93,17 +98,6 @@ now(function()
     })
 
     vim.keymap.set('n', '<c-\\><c-\\>', function() require('snacks').terminal.toggle() end)
-    vim.keymap.set('n', '<c-\\><c-r>', function()
-        if vim.fn.executable('ipython') then
-            require('snacks').terminal.toggle('ipython')
-        else
-            vim.notify('ipython not in path. cannot start repl')
-        end
-    end)
-    vim.keymap.set('t', '<c-\\><c-\\>', function()
-        vim.cmd('stopinsert')
-        require('snacks').terminal.toggle()
-    end)
 end)
 
 now(function() require('mini.statusline').setup() end)
