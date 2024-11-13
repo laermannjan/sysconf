@@ -88,7 +88,7 @@
                 if string match -q -r '^dyn-.*' -- $identifier
                     set identifier "prism-$identifier"
                 end
-                echo "ssh -i ~/.ssh/id_alcemy -N -L $local_port:$identifier%-db-instance.cxwee7sgwz6s.eu-central-1.rds.amazonaws.com:5432 ec2-user@alhambra-dev.alcemy.tech"
+                echo "ssh -i ~/.ssh/id_ed25519.alcemy -N -L $local_port:$identifier%-db-instance.cxwee7sgwz6s.eu-central-1.rds.amazonaws.com:5432 ec2-user@alhambra-dev.alcemy.tech"
             else
                 echo "ssh -i ~/.ssh/id_ed25519.alcemy -N -L $local_port:%-db-instance.cxwee7sgwz6s.eu-central-1.rds.amazonaws.com:5432 ec2-user@alhambra-dev.alcemy.tech"
             end
