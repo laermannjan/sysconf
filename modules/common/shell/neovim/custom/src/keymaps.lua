@@ -16,6 +16,11 @@ local xmap_leader = function(suffix, rhs, desc, opts)
     opts.desc = desc
     vim.keymap.set('x', '<Leader>' .. suffix, rhs, opts)
 end
+local vmap_leader = function(suffix, rhs, desc, opts)
+    opts = opts or {}
+    opts.desc = desc
+    vim.keymap.set('v', '<Leader>' .. suffix, rhs, opts)
+end
 
 local nmap_localleader = function(suffix, rhs, desc, opts)
     opts = opts or {}
@@ -94,6 +99,9 @@ nmap_leader('dr', function() require('dap').repl.toggle() end, 'Toggle REPL')
 nmap_leader('ds', function() require('dap').session() end, 'Session')
 nmap_leader('dt', function() require('dap').terminate() end, 'Terminate')
 nmap_leader('dw', function() require('dap.ui.widgets').hover() end, 'Widgets')
+nmap_leader('du', function() require('dapui').toggle({}) end, 'Dap UI')
+nmap_leader('de', function() require('dapui').eval() end, 'Eval')
+vmap_leader('de', function() require('dapui').eval() end, 'Eval')
 
 -- e is for 'explore' and 'edit'
 nmap_leader('ec', '<Cmd>lua MiniFiles.open(vim.fn.stdpath("config"))<CR>', 'Config')
@@ -163,6 +171,7 @@ nmap_leader('Lx', '<Cmd>lua Config.execute_lua_line()<CR>', 'Execute `lua` line'
 nmap_leader('tf', function() require('neotest').run.run(vim.fn.expand('%')) end, 'Run File (Neotest)')
 nmap_leader('ta', function() require('neotest').run.run(vim.uv.cwd()) end, 'Run All Test Files (Neotest)')
 nmap_leader('tt', function() require('neotest').run.run() end, 'Run Nearest (Neotest)')
+nmap_leader('td', function() require('neotest').run.run({ strategy = 'dap' }) end, 'Debug Nearest (Neotest + DAP)')
 nmap_leader('tT', function() require('neotest').run.run({ vim.uv.cwd(), extra_args = get_args() }) end, 'Run with args (Neotest)')
 nmap_leader('tl', function() require('neotest').run.run_last() end, 'Run Last (Neotest)')
 nmap_leader('ts', function() require('neotest').summary.toggle() end, 'Toggle Summary (Neotest)')
