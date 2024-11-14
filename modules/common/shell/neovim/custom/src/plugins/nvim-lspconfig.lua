@@ -166,7 +166,7 @@ require('mason-lspconfig').setup({
                     },
                 },
             }
-            setup_server('pyright', opts)
+            -- setup_server('pyright', opts)
         end,
         basedpyright = function()
             local opts = {
@@ -194,7 +194,7 @@ require('mason-lspconfig').setup({
                     },
                 },
             }
-            -- setup_server('basedpyright', opts)  -- NOTE: disable in favor of pyright
+            setup_server('basedpyright', opts)
         end,
         gopls = function()
             local opts = {
