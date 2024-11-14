@@ -2,15 +2,20 @@
 
 local add = MiniDeps.add
 
--- LSP config ==============================================================
+add({
+    source = 'saghen/blink.cmp',
+    depends = {
+        'saghen/blink.compat',
+        'rafamadriz/friendly-snippets',
+        'crispgm/cmp-beancount',
+        'giuxtaposition/blink-cmp-copilot',
+        'zbirenbaum/copilot.lua',
+    },
+    checkout = 'v0.5.1',
+    monitor = 'main',
+})
 
 add({ source = 'folke/lazydev.nvim', depends = { 'Bilal2453/luvit-meta', 'justinsgithub/wezterm-types' } })
-require('lazydev').setup({
-    library = {
-        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
-        { path = 'wezterm-types', mods = { 'wezterm' } },
-    },
-})
 
 add({
     source = 'neovim/nvim-lspconfig',
@@ -20,6 +25,43 @@ add({
         'saghen/blink.cmp',
     },
 })
+
+-- LazyDev config ===========================================================
+
+require('lazydev').setup({
+    library = {
+        { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+        { path = 'wezterm-types', mods = { 'wezterm' } },
+    },
+})
+
+-- CMP config ===============================================================
+
+require('blink.cmp').setup({
+    keymap = {
+        preset = 'enter',
+        ['<Tab>'] = { 'select_and_accept', 'snippet_forward', 'fallback' },
+        ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
+        ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
+    },
+    trigger = { completion = { keyword_range = 'prefix' }, signature_help = { enabled = true } },
+    windows = { autocomplete = { selection = 'manual' }, documentation = { auto_show = true, auto_show_delay_ms = 500 }, ghost_text = { enabled = true } },
+    sources = {
+        -- add lazydev to your completion providers
+        completion = {
+            enabled_providers = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev', 'copilot' },
+        },
+        providers = {
+            -- dont show LuaLS require statements when lazydev has items
+            lsp = { fallback_for = { 'lazydev' } },
+            lazydev = { name = 'LazyDev', module = 'lazydev.integrations.blink' },
+            copilot = { name = 'copilot', module = 'blink-cmp-copilot' },
+            beancount = { name = 'beancount', module = 'blink.compat.source' },
+        },
+    },
+})
+
+-- LSP config ==============================================================
 
 local diagnostic_opts = {
     float = { focusable = true, border = 'double' },
@@ -205,39 +247,6 @@ require('mason-lspconfig').setup({
 })
 
 setup_server('kulala_ls') -- NOTE: remove once it's in mason
-
--- CMP config ===============================================================
-
-add({
-    source = 'saghen/blink.cmp',
-    depends = {
-        'saghen/blink.compat',
-        'rafamadriz/friendly-snippets',
-        'crispgm/cmp-beancount',
-        'giuxtaposition/blink-cmp-copilot',
-    },
-    checkout = 'v0.5.1',
-    monitor = 'main',
-})
-
-require('blink.cmp').setup({
-    keymap = { preset = 'enter' },
-    trigger = { completion = { keyword_range = 'prefix' }, signature_help = { enabled = true } },
-    windows = { autocomplete = { selection = 'manual' } },
-    sources = {
-        -- add lazydev to your completion providers
-        completion = {
-            enabled_providers = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev', 'copilot' },
-        },
-        providers = {
-            -- dont show LuaLS require statements when lazydev has items
-            lsp = { fallback_for = { 'lazydev' } },
-            lazydev = { name = 'LazyDev', module = 'lazydev.integrations.blink' },
-            copilot = { name = 'copilot', module = 'blink-cmp-copilot' },
-            beancount = { name = 'beancount', module = 'blink.compat.source' },
-        },
-    },
-})
 
 -- add({
 --     source = 'hrsh7th/nvim-cmp',
