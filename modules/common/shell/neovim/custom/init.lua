@@ -108,6 +108,8 @@ now(function()
     vim.keymap.set('n', '<c-\\>', function() require('snacks').terminal.toggle() end)
     vim.keymap.set('n', '<leader>ns', function() Snacks.notifier.show_history() end, { desc = 'Show All Notifications (history)' })
     vim.keymap.set('n', '<leader>nd', function() Snacks.notifier.hide() end, { desc = 'Dismiss All Notifications' })
+    vim.keymap.set({ 'n', 't' }, ']]', function() Snacks.words.jump(vim.v.count1) end, { desc = 'Next Reference' })
+    vim.keymap.set({ 'n', 't' }, '[[', function() Snacks.words.jump(-vim.v.count1) end, { desc = 'Prev Reference' })
 end)
 
 now(function() require('mini.statusline').setup() end)
