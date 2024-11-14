@@ -17,7 +17,7 @@ add({
     depends = {
         'williamboman/mason.nvim',
         'williamboman/mason-lspconfig.nvim',
-        'hrsh7th/cmp-nvim-lsp',
+        'saghen/blink.cmp',
     },
 })
 
@@ -65,7 +65,9 @@ local setup_server = function(server, opts)
     local common_opts = {
         -- cmp can handle more types of completion candidates than neovim's omnifunc
         -- these 'capabilities' must be advertised to the LSP
-        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        -- capabilities = require('cmp_nvim_lsp').default_capabilities(),
+
+        capabilities = vim.tbl_deep_extend('force', vim.lsp.protocol.make_client_capabilities(), require('blink.cmp').get_lsp_capabilities()),
     }
     opts = vim.tbl_deep_extend('error', common_opts, opts)
     require('lspconfig')[server].setup(opts)
@@ -207,117 +209,148 @@ setup_server('kulala_ls') -- NOTE: remove once it's in mason
 -- CMP config ===============================================================
 
 add({
-    source = 'hrsh7th/nvim-cmp',
+    source = 'saghen/blink.cmp',
     depends = {
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-path',
-        'hrsh7th/cmp-nvim-lsp-signature-help',
-        'aznhe21/actions-preview.nvim',
-        { source = 'L3MON4D3/LuaSnip', depends = { 'saadparwaiz1/cmp_luasnip' } },
-        { source = 'folke/lazydev.nvim', depends = { 'Bilal2453/luvit-meta' } },
+        'saghen/blink.compat',
+        'rafamadriz/friendly-snippets',
+        'crispgm/cmp-beancount',
+        'giuxtaposition/blink-cmp-copilot',
     },
+    checkout = 'v0.5.1',
+    monitor = 'main',
 })
 
-local cmp = require('cmp')
-local luasnip = require('luasnip')
-
--- this is the function that loads the extra snippets
--- from rafamadriz/friendly-snippets
-require('luasnip.loaders.from_vscode').lazy_load()
-
-cmp.setup({
+require('blink.cmp').setup({
+    keymap = { preset = 'enter' },
+    trigger = { completion = { keyword_range = 'prefix' }, signature_help = { enabled = true } },
+    windows = { autocomplete = { selection = 'manual' } },
     sources = {
-        -- { name = "copilot", priority = 10000 },
-        { name = 'path' },
-        { name = 'nvim_lsp' },
-        { name = 'lazydev', group_index = 0 },
-        { name = 'nvim_lsp_signature_help' },
-        { name = 'luasnip', keyword_length = 2 },
-        { name = 'buffer', keyword_length = 3 },
+        -- add lazydev to your completion providers
+        completion = {
+            enabled_providers = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev', 'copilot' },
+        },
+        providers = {
+            -- dont show LuaLS require statements when lazydev has items
+            lsp = { fallback_for = { 'lazydev' } },
+            lazydev = { name = 'LazyDev', module = 'lazydev.integrations.blink' },
+            copilot = { name = 'copilot', module = 'blink-cmp-copilot' },
+            beancount = { name = 'beancount', module = 'blink.compat.source' },
+        },
     },
-    window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
-    },
-    snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
-    mapping = cmp.mapping.preset.insert({
-
-        ['<C-p>'] = cmp.mapping(function(fallback)
-            local ok_copilot, copilot = pcall(require, 'copilot.suggestion')
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif ok_copilot and copilot.is_visible() then
-                copilot.prev()
-            else
-                fallback()
-            end
-        end, { 'i', 'c' }),
-        ['<C-n>'] = cmp.mapping(function(fallback)
-            local ok_copilot, copilot = pcall(require, 'copilot.suggestion')
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif ok_copilot and copilot.is_visible() then
-                copilot.next()
-            else
-                fallback()
-            end
-        end, { 'i', 'c' }),
-        ['<C-u>'] = cmp.mapping.scroll_docs(-2),
-        ['<C-d>'] = cmp.mapping.scroll_docs(2),
-        ['<C-e>'] = cmp.mapping(function(fallback)
-            local ok_copilot, copilot = pcall(require, 'copilot.suggestion')
-            if cmp.visible() then
-                cmp.abort()
-                cmp.close()
-            elseif ok_copilot and copilot.is_visible() then
-                copilot.dismiss()
-            else
-                fallback()
-            end
-        end, { 'i', 'c' }),
-        ['<S-CR>'] = cmp.mapping(function(fallback)
-            local ok_copilot, copilot = pcall(require, 'copilot.suggestion')
-            if ok_copilot and copilot.is_visible() then
-                copilot.accept()
-            else
-                fallback()
-            end
-        end, { 'i', 's' }),
-        ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
-        ['<Tab>'] = cmp.mapping(function(fallback)
-            local ok_copilot, copilot = pcall(require, 'copilot.suggestion')
-            local ok_neotab, neotab = pcall(require, 'neotab')
-
-            if ok_copilot and copilot.is_visible() then
-                copilot.accept_line()
-            elseif cmp.visible() then
-                cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace })
-            elseif luasnip.expandable() then
-                luasnip.expand()
-            elseif luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
-            elseif ok_neotab then
-                neotab.tabout()
-            else
-                fallback()
-            end
-        end, {
-            'i',
-            's',
-        }),
-        ['<S-Tab>'] = cmp.mapping(function(fallback)
-            if luasnip.jumpable(-1) then
-                luasnip.jump(-1)
-            else
-                fallback()
-            end
-        end, {
-            'i',
-            's',
-        }),
-    }),
-    -- note: if you are going to use lsp-kind (another plugin)
-    -- replace the line below with the function from lsp-kind
-    -- formatting = lsp_zero.cmp_format({ details = true }),
 })
+
+-- add({
+--     source = 'hrsh7th/nvim-cmp',
+--     depends = {
+--         'hrsh7th/cmp-nvim-lsp',
+--         'hrsh7th/cmp-buffer',
+--         'hrsh7th/cmp-path',
+--         'hrsh7th/cmp-nvim-lsp-signature-help',
+--         'aznhe21/actions-preview.nvim',
+--         { source = 'L3MON4D3/LuaSnip', depends = { 'saadparwaiz1/cmp_luasnip' } },
+--         { source = 'folke/lazydev.nvim', depends = { 'Bilal2453/luvit-meta' } },
+--     },
+-- })
+--
+-- local cmp = require('cmp')
+-- local luasnip = require('luasnip')
+--
+-- -- this is the function that loads the extra snippets
+-- -- from rafamadriz/friendly-snippets
+-- require('luasnip.loaders.from_vscode').lazy_load()
+--
+-- cmp.setup({
+--     sources = {
+--         -- { name = "copilot", priority = 10000 },
+--         { name = 'path' },
+--         { name = 'nvim_lsp' },
+--         { name = 'lazydev', group_index = 0 },
+--         { name = 'nvim_lsp_signature_help' },
+--         { name = 'luasnip', keyword_length = 2 },
+--         { name = 'buffer', keyword_length = 3 },
+--     },
+--     window = {
+--         completion = cmp.config.window.bordered(),
+--         documentation = cmp.config.window.bordered(),
+--     },
+--     snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
+--     mapping = cmp.mapping.preset.insert({
+--
+--         ['<C-p>'] = cmp.mapping(function(fallback)
+--             local ok_copilot, copilot = pcall(require, 'copilot.suggestion')
+--             if cmp.visible() then
+--                 cmp.select_prev_item()
+--             elseif ok_copilot and copilot.is_visible() then
+--                 copilot.prev()
+--             else
+--                 fallback()
+--             end
+--         end, { 'i', 'c' }),
+--         ['<C-n>'] = cmp.mapping(function(fallback)
+--             local ok_copilot, copilot = pcall(require, 'copilot.suggestion')
+--             if cmp.visible() then
+--                 cmp.select_next_item()
+--             elseif ok_copilot and copilot.is_visible() then
+--                 copilot.next()
+--             else
+--                 fallback()
+--             end
+--         end, { 'i', 'c' }),
+--         ['<C-u>'] = cmp.mapping.scroll_docs(-2),
+--         ['<C-d>'] = cmp.mapping.scroll_docs(2),
+--         ['<C-e>'] = cmp.mapping(function(fallback)
+--             local ok_copilot, copilot = pcall(require, 'copilot.suggestion')
+--             if cmp.visible() then
+--                 cmp.abort()
+--                 cmp.close()
+--             elseif ok_copilot and copilot.is_visible() then
+--                 copilot.dismiss()
+--             else
+--                 fallback()
+--             end
+--         end, { 'i', 'c' }),
+--         ['<S-CR>'] = cmp.mapping(function(fallback)
+--             local ok_copilot, copilot = pcall(require, 'copilot.suggestion')
+--             if ok_copilot and copilot.is_visible() then
+--                 copilot.accept()
+--             else
+--                 fallback()
+--             end
+--         end, { 'i', 's' }),
+--         ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
+--         ['<Tab>'] = cmp.mapping(function(fallback)
+--             local ok_copilot, copilot = pcall(require, 'copilot.suggestion')
+--             local ok_neotab, neotab = pcall(require, 'neotab')
+--
+--             if ok_copilot and copilot.is_visible() then
+--                 copilot.accept_line()
+--             elseif cmp.visible() then
+--                 cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace })
+--             elseif luasnip.expandable() then
+--                 luasnip.expand()
+--             elseif luasnip.expand_or_jumpable() then
+--                 luasnip.expand_or_jump()
+--             elseif ok_neotab then
+--                 neotab.tabout()
+--             else
+--                 fallback()
+--             end
+--         end, {
+--             'i',
+--             's',
+--         }),
+--         ['<S-Tab>'] = cmp.mapping(function(fallback)
+--             if luasnip.jumpable(-1) then
+--                 luasnip.jump(-1)
+--             else
+--                 fallback()
+--             end
+--         end, {
+--             'i',
+--             's',
+--         }),
+--     }),
+--     -- note: if you are going to use lsp-kind (another plugin)
+--     -- replace the line below with the function from lsp-kind
+--     -- formatting = lsp_zero.cmp_format({ details = true }),
+-- })
