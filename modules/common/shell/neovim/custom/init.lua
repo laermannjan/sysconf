@@ -86,7 +86,7 @@ now(function()
                     nav_j = { '<C-W>j', term_nav('j'), desc = 'Go to Lower Window', mode = 't' },
                     nav_k = { '<C-W>k', term_nav('k'), desc = 'Go to Upper Window', mode = 't' },
                     nav_l = { '<C-W>l', term_nav('l'), desc = 'Go to Right Window', mode = 't' },
-                    hide = { '<c-\\><c-\\>', function(self) self:hide() end, mode = 't' },
+                    hide = { '<c-\\>', function(self) self:hide() end, mode = 't' },
                 },
             },
         },
@@ -97,7 +97,7 @@ now(function()
         callback = function(event) require('snacks').rename.on_rename_file(event.data.from, event.data.to) end,
     })
 
-    vim.keymap.set('n', '<c-\\><c-\\>', function() require('snacks').terminal.toggle() end)
+    vim.keymap.set('n', '<c-\\>', function() require('snacks').terminal.toggle() end)
 end)
 
 now(function() require('mini.statusline').setup() end)
