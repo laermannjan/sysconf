@@ -79,6 +79,14 @@ now(function()
         end
     end
     require('snacks').setup({
+        notifier = {
+            timeout = 3000,
+        },
+        styles = {
+            notification = {
+                wo = { wrap = true }, -- Wrap notifications
+            },
+        },
         terminal = {
             win = {
                 keys = {
@@ -98,6 +106,8 @@ now(function()
     })
 
     vim.keymap.set('n', '<c-\\>', function() require('snacks').terminal.toggle() end)
+    vim.keymap.set('n', '<leader>ns', function() Snacks.notifier.show_history() end, { desc = 'Show All Notifications (history)' })
+    vim.keymap.set('n', '<leader>nd', function() Snacks.notifier.hide() end, { desc = 'Dismiss All Notifications' })
 end)
 
 now(function() require('mini.statusline').setup() end)
