@@ -10,6 +10,7 @@ add({
         'crispgm/cmp-beancount',
         'giuxtaposition/blink-cmp-copilot',
         'zbirenbaum/copilot.lua',
+        'kawre/neotab.nvim',
     },
     checkout = 'v0.5.1',
     monitor = 'main',
@@ -37,13 +38,15 @@ require('lazydev').setup({
 
 -- CMP config ===============================================================
 
+require('neotab').setup({})
 require('blink.cmp').setup({
     keymap = {
         preset = 'enter',
-        ['<Tab>'] = { 'select_and_accept', 'snippet_forward', 'fallback' },
+        ['<Tab>'] = { 'select_and_accept', 'snippet_forward', function(cmp) require('neotab').tabout() end, 'fallback' },
         ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
         ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
     },
+    accept = { auto_brackets = { enabled = true } },
     trigger = { completion = { keyword_range = 'prefix' }, signature_help = { enabled = true } },
     windows = { autocomplete = { selection = 'manual' }, documentation = { auto_show = true, auto_show_delay_ms = 500 }, ghost_text = { enabled = true } },
     sources = {
