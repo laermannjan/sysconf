@@ -122,7 +122,8 @@ require('mason').setup()
 require('mason-lspconfig').setup({
     ensure_installed = {
         'pyright',
-        -- 'ruff',
+        'basedpyright',
+        'ruff',
         'gopls',
     },
     handlers = {
@@ -239,6 +240,13 @@ require('mason-lspconfig').setup({
         end,
         ruff = function()
             local opts = {
+                init_options = {
+                    settings = {
+                        fixAll = true,
+                        organizeImports = true,
+                        showSyntaxErrors = true,
+                    },
+                },
                 on_attach = function(client, bufnr)
                     -- Disable hover in favor of Pyright
                     client.server_capabilities.hoverProvider = false
