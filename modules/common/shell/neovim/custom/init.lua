@@ -149,13 +149,6 @@ later(function() source('plugins/nvim-treesitter.lua') end)
 later(function()
     add('stevearc/conform.nvim')
     require('conform').setup({
-        formatters = {
-            kulala = {
-                command = 'kulala-fmt',
-                args = { '$FILENAME' },
-                stdin = false,
-            },
-        },
         -- Map of filetype to formatters
         formatters_by_ft = {
             python = { 'ruff_organize_imports', 'ruff_fix', 'ruff_format' },
@@ -164,7 +157,7 @@ later(function()
             json = { 'prettier' },
             go = { 'goimports', 'gofumpt' },
             nix = { 'nixfmt' },
-            http = { 'kulala' },
+            http = { 'kulala-fmt' },
         },
         format_on_save = {
             -- I recommend these options. See :help conform.format for details.
