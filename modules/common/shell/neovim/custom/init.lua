@@ -158,6 +158,9 @@ later(function()
             go = { 'goimports', 'gofumpt' },
             nix = { 'nixfmt' },
             http = { 'kulala-fmt' },
+            just = { 'just' },
+            sql = { 'sql_formatter' },
+            yaml = { 'yamlfmt' },
         },
         format_on_save = {
             -- I recommend these options. See :help conform.format for details.
