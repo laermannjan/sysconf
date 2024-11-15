@@ -158,6 +158,7 @@ later(function()
         },
         -- Map of filetype to formatters
         formatters_by_ft = {
+            python = { 'ruff_organize_imports', 'ruff_fix', 'ruff_format' },
             lua = { 'stylua' },
             javascript = { 'prettier' },
             json = { 'prettier' },
