@@ -198,6 +198,5 @@ nmap_localleader('a', '<cmd>lua vim.lsp.buf.code_action()<cr>', 'Code Action')
 nmap_localleader('d', '<cmd>lua vim.lsp.buf.definition()<cr>', 'Symbol Definition')
 nmap_localleader(',', '<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename Symbol')
 nmap_localleader('r', '<cmd>lua vim.lsp.buf.references()<cr>', 'Symbol references')
-nmap_localleader('R', function() require('snacks').rename() end, 'Symbol references')
 nmap_localleader('h', '<cmd>normal gxiagxila<cr>', 'Move arg left') -- NOTE: depends on mini.operators to exchange text regions
 nmap_localleader('l', '<cmd>normal gxiagxina<cr>', 'Move arg left') -- NOTE: depends on mini.operators to exchange text regions
