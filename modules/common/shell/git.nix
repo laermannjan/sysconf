@@ -40,6 +40,9 @@
             useForceIfIncludes = true;
             followtags = true;
           };
+          rebase = {
+            updateRefs = true;
+          };
           gpg = {
             format = "ssh";
           };
