@@ -1,6 +1,5 @@
-_G.Config = {
-    theme = 'tokyonight',
-}
+vim.g.colorscheme = 'tokyonight'
+-- vim.g.colorscheme = 'randomhue'
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.env.LAZY or vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
@@ -23,7 +22,10 @@ end
 require('options')
 
 require('lazy').setup({
-    spec = { import = 'plugins' },
+    spec = {
+        { import = 'plugins' },
+        { import = 'plugins/themes' },
+    },
     defaults = {
         -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
         -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
@@ -54,6 +56,8 @@ require('lazy').setup({
         },
     },
 })
+
+vim.cmd.colorscheme(vim.g.colorscheme)
 
 -- -- Initialization =============================================================
 -- pcall(function() vim.loader.enable() end)
