@@ -1,20 +1,18 @@
-local M = {
-    "echasnovski/mini.ai",
-    version = false,
+return {
+    'echasnovski/mini.ai',
     dependencies = {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        "nvim-treesitter/nvim-treesitter",
-    }
-}
+        'echasnovski/mini.extra',
+    },
+    opts = function(opts)
+        opts = opts or {}
 
-M.config = function()
-        local gen_spec = require('mini.ai').gen_spec
-        require('mini.ai').setup {
+        local ai = require('mini.ai')
+        return vim.tbl_deep_extend('force', opts, {
             custom_textobjects = {
-                F = gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
-                ["="] = gen_spec.treesitter({ a = '@assignment.outer', i = '@assignment.rhs' }),
-            }
-        }
-end
-
-return M
+                B = require('mini.extra').gen_ai_spec.buffer(),
+                F = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
+                ['='] = ai.gen_spec.treesitter({ a = '@assignment.outer', i = '@assignment.rhs' }),
+            },
+        })
+    end,
+}
