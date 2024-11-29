@@ -3,7 +3,7 @@ return {
     dependencies = {
         'echasnovski/mini.extra',
     },
-    opts = function(opts)
+    opts = function(_, opts)
         opts = opts or {}
 
         local ai = require('mini.ai')
