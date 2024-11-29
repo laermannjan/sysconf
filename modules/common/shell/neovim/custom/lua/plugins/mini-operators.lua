@@ -1,8 +1,4 @@
-local M = {
-    "echasnovski/mini.operators",
-    version = false,
-    opts = {},
+return {
+    'echasnovski/mini.operators',
+    opts = true,
 }
-
-return M
-
