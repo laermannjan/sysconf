@@ -8,7 +8,7 @@ return {
         { '<leader>fw', '<cmd>Pick grep pattern="<cword>"<cr>', 'Grep word under cursor' },
     },
     opts = true,
-    config = function(opts)
+    config = function(_, opts)
         require('mini.pick').setup(opts)
         vim.ui.select = MiniPick.ui_select
     end,

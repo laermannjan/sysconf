@@ -10,7 +10,7 @@ return {
         },
         saturation = 'mediumhigh',
     },
-    config = function()
+    config = function(_, opts)
         if Config.theme == 'randomhue' then vim.cmd.colorscheme('randomhue') end
     end,
 }
