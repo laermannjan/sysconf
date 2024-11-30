@@ -10,6 +10,7 @@ return {
         dependencies = {
             'mason.nvim',
             'neovim/nvim-lspconfig',
+            'blink.cmp',
         },
         opts = {
             servers = {
