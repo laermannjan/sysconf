@@ -1,7 +1,8 @@
 return {
     'echasnovski/mini.pick',
     dependencies = {
-        { 'echasnovski/mini.extra', opts = true },
+        'mini.icons',
+        'mini.extra',
     },
     keys = {
         { '<leader>/', '<cmd>Pick grep_live<cr>', desc = 'Grep' },

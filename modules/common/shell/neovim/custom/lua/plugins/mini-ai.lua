@@ -1,7 +1,7 @@
 return {
     'echasnovski/mini.ai',
     dependencies = {
-        { 'echasnovski/mini.extra', opts = true },
+        'mini.extra',
     },
     opts = function(_, opts)
         opts = opts or {}
