@@ -1,7 +1,7 @@
 --stylua: ignore start
 -- Leader key =================================================================
 vim.g.mapleader = ' '
-vim.g.maplocalleader = ','
+vim.g.maplocalleader = ' '
 
 -- General ====================================================================
 -- vim.o.backup       = false          -- Don't store backup
