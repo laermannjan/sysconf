@@ -1,7 +1,7 @@
 return {
     'echasnovski/mini.files',
     keys = {
-        { '<leader>fe', "<cmd>lua require('mini.files').open()", 'Explorer' },
+        { '<leader>fe', "<cmd>lua require('mini.files').open()<cr>", desc = 'Explorer' },
     },
     opts = {
         windows = { preview = true, width_preview = 80 },
