@@ -21,7 +21,7 @@ return {
     -- Add lazydev source to blink
     {
         'saghen/blink.cmp',
-        optional = true,
+        -- optional = true,
         opts = {
             sources = {
                 completion = {
