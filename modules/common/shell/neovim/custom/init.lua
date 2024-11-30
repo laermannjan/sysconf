@@ -1,6 +1,8 @@
 vim.g.colorscheme = 'tokyonight'
 -- vim.g.colorscheme = 'randomhue'
 
+vim.g.enable_gitsigns = true
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.env.LAZY or vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not (vim.env.LAZY or (vim.uv or vim.loop).fs_stat(lazypath)) then

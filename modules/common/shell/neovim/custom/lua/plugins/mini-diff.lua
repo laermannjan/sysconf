@@ -3,7 +3,7 @@ return {
     opts = {
         view = {
             style = 'sign',
-            signs = { add = '┃', change = '┃', delete = '_' },
+            -- signs = { add = '┃', change = '┃', delete = '_' },
         },
     },
 }
