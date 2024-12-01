@@ -17,6 +17,7 @@ return {
             -- output = { open_on_run = true },
         },
         config = function(_, opts)
+            require('nvim-treesitter')
             require('neotest').setup({
                 adapters = {
                     require('neotest-python')({}),
