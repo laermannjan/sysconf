@@ -1,2 +1,2 @@
 -- jump anywhere, hit <cr> to start
-return { 'mini.jump2d', opts = {} }
+return { 'echasnovski/mini.jump2d', opts = {} }
