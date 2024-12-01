@@ -4,9 +4,14 @@ return {
         opts = { ensure_installed = { 'go', 'gomod', 'gowork', 'gosum' } },
     },
     {
-        'williamboman/mason-lspconfig.nvim',
+        'williamboman/mason.nvim',
         opts = {
             ensure_installed = { 'goimports', 'gofumpt' },
+        },
+    },
+    {
+        'williamboman/mason-lspconfig.nvim',
+        opts = {
             servers = {
                 gopls = {
                     settings = {
