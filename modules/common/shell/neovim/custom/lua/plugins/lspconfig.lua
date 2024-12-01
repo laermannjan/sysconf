@@ -13,9 +13,25 @@ return {
     },
     {
         'williamboman/mason.nvim',
-        cmd = 'Mason',
+        -- cmd = 'Mason',
         build = ':MasonUpdate',
-        opts = true,
+        opts = {
+            ensure_installed = {
+                'stylua',
+                'shfmt',
+            },
+        },
+        opts_extend = { 'ensure_installed' },
+        config = function(_, opts)
+            require('mason').setup(opts)
+            local mr = require('mason-registry')
+            mr.refresh(function()
+                for _, tool in ipairs(opts.ensure_installed) do
+                    local p = mr.get_package(tool)
+                    if not p:is_installed() then p:install() end
+                end
+            end)
+        end,
     },
     {
         'williamboman/mason-lspconfig.nvim',
@@ -23,9 +39,7 @@ return {
             'mason.nvim',
             'neovim/nvim-lspconfig',
         },
-        opts_extend = { 'ensure_installed' },
         opts = {
-            ensure_installed = {},
             servers = {
                 lua_ls = {
                     handlers = {
@@ -72,7 +86,7 @@ return {
                 if server_opts.enabled ~= false then require('lspconfig')[server].setup(server_opts) end
             end
 
-            local ensure_installed = opts.ensure_installed or {}
+            local ensure_installed = {}
             local handlers = { function(server) setup(server) end }
             for server, settings in pairs(servers) do
                 if settings then
