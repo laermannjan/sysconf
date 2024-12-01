@@ -28,6 +28,7 @@ require('lazy').setup({
         { import = 'plugins' },
         { import = 'plugins/themes' },
         { import = 'plugins/tryout/blink' },
+        { import = 'plugins/lang/python' },
     },
     defaults = {
         -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
