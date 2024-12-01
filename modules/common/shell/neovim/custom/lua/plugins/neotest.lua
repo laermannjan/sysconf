@@ -5,6 +5,7 @@ return {
             'nvim-neotest/nvim-nio',
             'nvim-lua/plenary.nvim',
             'nvim-neotest/neotest-python',
+            'nvim-treesitter/nvim-treesitter',
         },
         opts = {
             -- adapters = {
