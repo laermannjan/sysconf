@@ -8,6 +8,7 @@
     ./brave.nix
     ./jdownloader.nix
     ./jetbrains-toolbox.nix
+    ./karabiner-elements.nix
     ./linearmouse.nix
     ./media.nix
     ./meetingbar.nix
