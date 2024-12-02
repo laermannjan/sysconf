@@ -37,7 +37,7 @@ inputs.nix-darwin.lib.darwinSystem {
           "id_ed25519.alcemy"
         ];
       };
-      amethyst.enable = true;
+      amethyst.enable = false;
       argo.enable = true;
       borg.enable = true;
       applauncher.enable = true;
@@ -47,6 +47,7 @@ inputs.nix-darwin.lib.darwinSystem {
       firefox.enable = true;
       golang.enable = true;
       jdownloader.enable = true;
+      karabiner-elements.enable = true;
       lua.enable = true;
       neovim = {
         enable = true;
