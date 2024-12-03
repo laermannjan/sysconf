@@ -5,6 +5,7 @@
     ./aerospace.nix
     ./amethyst.nix
     ./applauncher.nix
+    ./battle-net.nix
     ./brave.nix
     ./jdownloader.nix
     ./jetbrains-toolbox.nix
