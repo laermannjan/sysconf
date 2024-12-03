@@ -41,6 +41,7 @@ inputs.nix-darwin.lib.darwinSystem {
       argo.enable = true;
       borg.enable = true;
       applauncher.enable = true;
+      battle-net.enable = true;
       brave.enable = true;
       discord.enable = true;
       docker.enable = true;
