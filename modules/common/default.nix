@@ -82,7 +82,7 @@
         inherit inputs;
       };
 
-      home-manager.backupFileExtention = "bak";
+      home-manager.backupFileExtension = "bak";
 
       # Allow specified unfree packages (identified elsewhere)
       # Retrieves package object based on string name
