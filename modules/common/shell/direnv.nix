@@ -4,7 +4,7 @@
   home-manager.users.${config.user} = {
     programs.direnv = {
       enable = true;
-      nix-direnv.enable = true;
+      nix-direnv.enable = false;
       config = {
         global = {
           warn_timeout = 0;
@@ -23,7 +23,7 @@
 
   # Prevent garbage collection
   nix.extraOptions = ''
-    keep-outputs = true
-    keep-derivations = true
+    keep-outputs = false
+    keep-derivations = false
   '';
 }
