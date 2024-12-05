@@ -29,6 +29,7 @@
         userEmail = config.gitEmail;
         extraConfig = {
           init.defaultBranch = "main";
+          init.templateDir = "~/.git-template";
           safe = {
             directory = config.sysconfPath;
           };
