@@ -21,13 +21,13 @@ return {
                 ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
                 ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
             },
-            accept = { auto_brackets = { enabled = true } },
-            trigger = { completion = { keyword_range = 'prefix' }, signature_help = { enabled = true } },
-            windows = {
-                autocomplete = { selection = 'manual' },
-                documentation = { auto_show = true, auto_show_delay_ms = 500 },
+            completion = {
+		list = { selection = 'preselect' },
+		accept = { auto_brackets = { enabled = true } },
+		documentation = {auto_show = true},
                 ghost_text = { enabled = true },
-            },
+	   },
+	    signature = { enabled = true },
             sources = {
                 -- add lazydev to your completion providers
                 completion = {
