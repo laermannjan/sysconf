@@ -18,7 +18,7 @@ return {
         { '<leader>fo', '<cmd>Pick options<cr>', desc = 'Options' },
         { '<leader>fr', '<cmd>Pick oldfiles<cr>', desc = 'Recent files' },
         { '<leader>fw', '<cmd>Pick grep pattern="<cword>"<cr>', desc = 'Grep (word under cursor)' },
-        { 'gr', '<cmd>Pick lsp scope="references"<cr>', desc = 'References' },
+        -- { 'gr', '<cmd>Pick lsp scope="references"<cr>', desc = 'References' },
     },
     opts = true,
     config = function(_, opts)
