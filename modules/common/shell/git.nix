@@ -129,15 +129,15 @@
           [user]
               name = "${config.fullName}"
               email = "hello@mikgard.dev"
-        ''
-        + lib.optionalString (config._1password.enable && pkgs.stdenv.isDarwin) ''
-              signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBRJ5wXLsdiCk3rJybC6f3ztg/OYxZ305KeL3qoYI+12
-          [gpg "ssh"]
-              program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+              signingkey = ~/.ssh/id_ed25519.personal
           [commit]
               gpgsign = true
           [tag]
               gpgsign = true
+        ''
+        + lib.optionalString (config._1password.enableSshAgent && pkgs.stdenv.isDarwin) ''
+          [gpg "ssh"]
+              program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
         '';
     };
   };
