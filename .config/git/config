@@ -1,0 +1,49 @@
+[color]
+	ui = true
+
+[core]
+	pager = "delta"
+
+[delta]
+	navigate = true
+
+[gpg]
+	format = "ssh"
+
+[help]
+	autocorrect = "1"
+
+[init]
+	defaultBranch = "main"
+
+[interactive]
+	diffFilter = "delta --color-only"
+
+[log]
+	date = "iso"
+
+[pull]
+	ff = "only"
+
+[push]
+	autoSetupRemote = true
+	default = "current"
+	followtags = true
+	useForceIfIncludes = true
+
+[rebase]
+	updateRefs = true
+
+[safe]
+    directory = "~/dev/personal/sysconf"
+
+[user]
+	email = "git@flabber.mozmail.com"
+	name = "Jan Laermann"
+
+[includeIf "gitdir:~/dev/alcemy/"]
+	path = "~/.config/git/config.alcemy"
+
+[includeIf "gitdir:~/dev/personal/"]
+	path = "~/.config/git/config.personal"
+
