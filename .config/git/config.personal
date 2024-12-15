@@ -1,0 +1,8 @@
+[user]
+    name = "Jan Laermann"
+    email = "hello@mikgard.dev"
+    signingkey = ~/.ssh/id_ed25519.personal
+[commit]
+    gpgsign = true
+[tag]
+    gpgsign = true
