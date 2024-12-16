@@ -3,7 +3,7 @@
   register: brew_check
   ignore_errors: true
 - name: Install Homebrew if not present
-  shell: '/usr/bin/env NONINTERACTIVE=1 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+  shell: '/usr/bin/env CI=1 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
   args:
     executable: /bin/bash
   when: brew_check.rc != 0
