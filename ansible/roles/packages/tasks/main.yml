@@ -1,16 +1,12 @@
-- name: Check if Homebrew is installed
+- name: Check if Homebrew is already installed
   command: brew --version
-  register: brew_installed
-  ignore_errors: yes
-- name: Install Homebrew if not installed
-  shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  when: brew_installed.failed
+  register: brew_check
+  ignore_errors: true
+- name: Install Homebrew if not present
+  shell: '/usr/bin/env NONINTERACTIVE=1 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
   args:
     executable: /bin/bash
-  environment:
-    NONINTERACTIVE: "1"
-  register: brew_install
-  changed_when: brew_install.rc == 0
+  when: brew_check.rc != 0
 - name: Get Homebrew prefix
   command: brew --prefix
   register: brew_prefix
