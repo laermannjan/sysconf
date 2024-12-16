@@ -1,6 +1,6 @@
 - name: Check if Homebrew is installed
   command: brew --version
-  register: brew_check
+  register: brew_installed
   ignore_errors: true
 - block:
     - name: Ensure we can sudo
