@@ -7,7 +7,7 @@
   block:
     - name: Ensure sudo access works
       become: yes
-      command: /bin/true
+      command: /usr/bin/env true
       changed_when: false
     - name: Run Homebrew installer
       shell: |
