@@ -1,6 +1,6 @@
 - name: Check if Homebrew is installed
   command: brew --version
-  register: brew_installed
+  register: brew_check
   ignore_errors: true
 - block:
     - name: Ensure we can sudo
@@ -15,11 +15,6 @@
       args:
         executable: /bin/bash
   when: brew_check.rc != 0
-- name: Get Homebrew prefix
-  command: brew --prefix
-  register: brew_prefix
-  when: not brew_installed.failed or brew_install.changed
-  changed_when: false
 - name: Install homebrew formulae
   community.general.homebrew:
     name:
