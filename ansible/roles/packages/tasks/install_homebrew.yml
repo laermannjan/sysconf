@@ -7,9 +7,7 @@
   block:
     - name: Ensure sudo access works
       become: yes
-      command: true
-      register: sudo_check
-      failed_when: sudo_check.rc != 0
+      command: /bin/true
       changed_when: false
     - name: Run Homebrew installer
       shell: |
