@@ -3,6 +3,8 @@
   register: which_brew
   failed_when: false
   changed_when: false
+- debug: msg="{{ which_brew.stdout }}"
+- debug: msg="{{ which_brew.stderr }}"
 - name: Install Homebrew
   block:
     - name: Ensure sudo access works
@@ -21,4 +23,6 @@
         which brew
       register: which_brew
       changed_when: false
+    - debug: msg="{{ which_brew.stdout }}"
+    - debug: msg="{{ which_brew.stderr }}"
   when: which_brew.rc != 0
