@@ -7,12 +7,12 @@
 - name: Add Homebrew shellenv to zsh configuration
   lineinfile:
     path: ~/.zshrc
-    line: eval "$({{ lookup('env', 'HOMEBREW_PREFIX') }}/bin/brew shellenv)
+    line: eval "$({{ lookup('env', 'HOMEBREW_PREFIX') }}/bin/brew shellenv)"
     state: present
   when: ansible_env.SHELL == "/bin/zsh"
 - name: Add Homebrew shellenv to bash configuration
   lineinfile:
     path: ~/.bashrc
-    line: eval "$({{ lookup('env', 'HOMEBREW_PREFIX') }}/bin/brew shellenv)
+    line: eval "$({{ lookup('env', 'HOMEBREW_PREFIX') }}/bin/brew shellenv)"
     state: present
   when: ansible_env.SHELL == "/bin/bash"
