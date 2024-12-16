@@ -3,7 +3,7 @@
   register: brew_installed
   ignore_errors: yes
 - name: Install Homebrew if not installed
-  shell: /bin/bash -c "$(curl -fsSL {{ homebrew_installer_url }})"
+  shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   when: brew_installed.failed
   args:
     executable: /bin/bash
