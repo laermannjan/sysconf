@@ -4,7 +4,7 @@
     state: directory
 - name: Find .config files
   find:
-    paths: ~/dot/config/
+    paths: ~/dev/personal/sysconf/config/
     recurse: no
     file_type: any
     hidden: yes

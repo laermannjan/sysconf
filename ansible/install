@@ -21,4 +21,4 @@ case "$(uname -s)" in
 esac
 
 ansible-galaxy install -r requirements.yml
-ansible-playbook ansible/playbook.yml
+ansible-playbook -i hosts playbook.yml
