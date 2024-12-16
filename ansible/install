@@ -14,4 +14,4 @@ have uv || curl -LsSf https://astral.sh/uv/install.sh | sh
 have ansible || uv tool install ansible && find "$(uv tool dir)/ansible/bin" -depth 1 -type f -perm -u=x -exec ln -f -s {} ~/.local/bin/ \;
 
 ansible-galaxy install -r requirements.yml
-ansible-playbook -i hosts playbook.yml
+ansible-playbook -i hosts playbook.yml --ask-become-pass
