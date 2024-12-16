@@ -1,17 +1,21 @@
 - name: Apply Homebrew shellenv immediately
   shell: eval "$({{ which_brew.stdout }} shellenv)"
+  changed_when: false
 - name: Add Homebrew shellenv to fish configuration
   lineinfile:
     path: ~/.config/fish/config.fish
     line: '{{ which_brew.stdout }} shellenv | source'
     state: present
+  when: ansible_env.SHELL == "/opt/homebrew/bin/fish"
 - name: Add Homebrew shellenv to zsh configuration
   lineinfile:
     path: ~/.zshrc
     line: 'eval "$({{ which_brew.stdout }} shellenv)"'
     state: present
+  when: ansible_env.SHELL == "/bin/zsh"
 - name: Add Homebrew shellenv to bash configuration
   lineinfile:
     path: ~/.bashrc
     line: 'eval "$({{ which_brew.stdout }} shellenv)"'
     state: present
+  when: ansible_env.SHELL == "/bin/bash"
