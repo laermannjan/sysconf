@@ -1,0 +1,17 @@
+- name: Apply Homebrew shellenv immediately
+  shell: eval "$({{ which_brew.stdout }} shellenv)"
+- name: Add Homebrew shellenv to fish configuration
+  lineinfile:
+    path: ~/.config/fish/config.fish
+    line: '{{ which_brew.stdout }} shellenv | source'
+    state: present
+- name: Add Homebrew shellenv to zsh configuration
+  lineinfile:
+    path: ~/.zshrc
+    line: 'eval "$({{ which_brew.stdout }} shellenv)"'
+    state: present
+- name: Add Homebrew shellenv to bash configuration
+  lineinfile:
+    path: ~/.bashrc
+    line: 'eval "$({{ which_brew.stdout }} shellenv)"'
+    state: present

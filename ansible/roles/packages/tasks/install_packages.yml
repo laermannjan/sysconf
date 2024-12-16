@@ -1,0 +1,64 @@
+- name: Install homebrew formulae
+  community.general.homebrew:
+    name:
+      - awscli
+      - bat
+      - btop
+      - curl
+      - direnv # environment loading on entering a directory
+      - doggo # DNS like dig
+      - eza # nice ls
+      - fd # faster find
+      - ffmpeg
+      - fish
+      - fzf # fuzzy finder
+      - git
+      - git-delta # fancy diffs
+      - htop
+      - httpie # HTTP client
+      - hyperfine # benchmarking
+      - inetutils # telnet, whois, etc
+      - jless # JSON view
+      - jo # JSON output
+      - jq # JSON manipulator
+      - keychain
+      - lazydocker
+      - lazygit
+      - less
+      - lz4 # compression
+      - neovim
+      - openssh
+      - p7zip
+      - prettyping
+      - ripgrep
+      - starship
+      - stow
+      - tealdeer
+      - tree
+      - unzip
+      - uv
+      - yt-dlp
+      - zoxide
+    state: present
+- name: Install homebrew casks
+  community.general.homebrew_cask:
+    name:
+      - 1password
+      - brave-browser
+      - firefox
+      - jetbrains-toolbox
+      - karabiner-elements
+      - linearmouse
+      - monitorcontrol
+      - mullvadvpn
+      - notion
+      - notion-calendar
+      - postgres-unofficial
+      - raycast
+      - signal
+      - slack
+      - stats
+      - tailscale
+      - utm
+      - wezterm
+    state: present
