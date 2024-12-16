@@ -1,0 +1,20 @@
+- name: Check if Homebrew is in PATH
+  command: which brew
+  register: which_brew
+  failed_when: false
+  changed_when: false
+- name: Install Homebrew
+  block:
+    - name: Ensure sudo access works
+      become: yes
+      command: true
+      register: sudo_check
+      failed_when: sudo_check.rc != 0
+      changed_when: false
+    - name: Run Homebrew installer
+      shell: |
+        /usr/bin/env CI=1 NONINTERACTIVE=1 /bin/bash -c \
+        "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      args:
+        executable: /bin/bash
+  when: which_brew.rc != 0
