@@ -16,15 +16,14 @@
       shell: |
         /usr/bin/env CI=1 NONINTERACTIVE=1 /bin/bash -c \
         "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        eval "$(/opt/homebrew/bin/brew shellenv)"
       args:
         executable: /bin/bash
-        # - name: Apply Homebrew shellenv immediately
-        #   shell: |
-        #     eval "$(/opt/homebrew/bin/brew shellenv)"
-        #     which brew
-        #   register: which_brew
-        #   changed_when: false
-        # - debug: msg="{{ which_brew.stdout }}"
-        # - debug: msg="{{ which_brew.stderr }}"
-        # - debug: msg="{{ which_brew.rc }}"
+    - name: Re-check brew path
+      command: which brew
+      register: which_brew
+      changed_when: false
+    - debug: msg="{{ which_brew.stdout }}"
+    - debug: msg="{{ which_brew.stderr }}"
+    - debug: msg="{{ which_brew.rc }}"
   when: which_brew.rc != 0
