@@ -3,7 +3,10 @@
   register: brew_check
   ignore_errors: true
 - name: Install Homebrew if not present
-  shell: '/usr/bin/env CI=1 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+  shell: |
+    sudo ls &> /dev/null  # weird fix to actually get the script to notice I can sudo
+    /usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
   args:
     executable: /bin/bash
   when: brew_check.rc != 0
