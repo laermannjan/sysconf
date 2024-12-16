@@ -1,0 +1,19 @@
+- name: Create ~/.config
+  file:
+    path: ~/.config
+    state: directory
+- name: Find .config files
+  find:
+    paths: ~/dot/config/
+    recurse: no
+    file_type: any
+    hidden: yes
+  register: dot_config
+- name: link ~/.config/
+  file:
+    src: "{{item.path}}"
+    dest: "~/.config/{{item.path | basename}}"
+    state: link
+  loop: "{{ dot_config.files }}"
+  loop_control:
+    label: "~/.config/{{item.path | basename}}"
