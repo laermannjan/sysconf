@@ -5,7 +5,7 @@
 - block:
     - name: Ensure we can sudo
       become: yes
-      command: ls &> /dev/null
+      command: echo &> /dev/null
     - name: Install Homebrew
       become: no
       shell: |
