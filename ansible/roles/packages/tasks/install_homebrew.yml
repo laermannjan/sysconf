@@ -3,9 +3,6 @@
   register: which_brew
   failed_when: false
   changed_when: false
-- debug: msg="{{ which_brew.stdout }}"
-- debug: msg="{{ which_brew.stderr }}"
-- debug: msg="{{ which_brew.rc }}"
 - name: Install Homebrew
   block:
     - name: Ensure sudo access works
@@ -19,11 +16,4 @@
         eval "$(/opt/homebrew/bin/brew shellenv)"
       args:
         executable: /bin/bash
-    - name: Re-check brew path
-      command: which brew
-      register: which_brew
-      changed_when: false
-    - debug: msg="{{ which_brew.stdout }}"
-    - debug: msg="{{ which_brew.stderr }}"
-    - debug: msg="{{ which_brew.rc }}"
   when: which_brew.rc != 0
