@@ -1,14 +1,18 @@
-- name: Check if Homebrew is already installed
+- name: Check if Homebrew is installed
   command: brew --version
   register: brew_check
   ignore_errors: true
-- name: Install Homebrew if not present
-  shell: |
-    sudo ls &> /dev/null  # weird fix to actually get the script to notice I can sudo
-    /usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-  args:
-    executable: /bin/bash
+- block:
+    - name: Ensure we can sudo
+      become: yes
+      command: ls &> /dev/null
+    - name: Install Homebrew
+      become: no
+      shell: |
+        /usr/bin/env CI=1 NONINTERACTIVE=1 /bin/bash -c \
+        "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      args:
+        executable: /bin/bash
   when: brew_check.rc != 0
 - name: Get Homebrew prefix
   command: brew --prefix
