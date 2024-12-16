@@ -1,6 +1,3 @@
-- name: Apply Homebrew shellenv immediately
-  shell: eval "$({{ which_brew.stdout }} shellenv)"
-  changed_when: false
 - name: Add Homebrew shellenv to fish configuration
   lineinfile:
     path: ~/.config/fish/config.fish

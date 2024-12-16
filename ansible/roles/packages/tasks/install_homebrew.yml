@@ -15,4 +15,10 @@
         "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       args:
         executable: /bin/bash
+    - name: Apply Homebrew shellenv immediately
+      shell: |
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+        which brew
+      register: which_brew
+      changed_when: false
   when: which_brew.rc != 0
