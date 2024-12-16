@@ -1,4 +1,10 @@
-# /* vim: set filetype=sh : */
+#!/bin/bash
+
+set -e
+
+function have {
+  command -v "$1" &>/dev/null
+}
 
 
 case "$(uname -s)" in
@@ -6,15 +12,11 @@ case "$(uname -s)" in
         if ! xcode-select --version 2>/dev/null; then
             xcode-select --install
         fi
-        if ! command -v brew &> /dev/null; then
-            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        fi
-        if ! command -v ansible &> /dev/null; then
-            brew install ansible
-        fi
+        have brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        have ansible || brew install ansible
         ;;
     *)
-        pip3 install ansible
+        have ansible || pip3 install ansible
         ;;
 esac
 
