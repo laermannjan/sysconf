@@ -11,6 +11,7 @@
       shell: |
         /usr/bin/env CI=1 NONINTERACTIVE=1 /bin/bash -c \
         "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        eval $(/opt/homebrew/bin/brew shellenv)
       args:
         executable: /bin/bash
   when: brew_check.rc != 0
