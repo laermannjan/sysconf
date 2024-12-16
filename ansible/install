@@ -6,19 +6,12 @@ function have {
   command -v "$1" &>/dev/null
 }
 
+[ "$(uname -s)" = "Darwin" ] && ! xcode-select --version && xcode-select --install
 
-case "$(uname -s)" in
-    Darwin*)
-        if ! xcode-select --version 2>/dev/null; then
-            xcode-select --install
-        fi
-        have brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        have ansible || brew install ansible
-        ;;
-    *)
-        have ansible || pip3 install ansible
-        ;;
-esac
+have uv || curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# uv tool install doesn't put all the executables on the path, so I'm linking them myself https://github.com/astral-sh/uv/issues/6314#issuecomment-2510284936
+have ansible || uv tool install ansible && find "$(uv tool dir)/ansible/bin" -depth 1 -type f -perm -u=x -exec ln -s {} ~/.local/bin/ \;  
 
 ansible-galaxy install -r requirements.yml
 ansible-playbook -i hosts playbook.yml

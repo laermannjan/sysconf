@@ -1,6 +1,10 @@
 - name: Setup MacOS Workstation
   hosts: local
-  roles:
-    - system
-    - packages
-    - dotfiles
+  tasks:
+    - name: Ensure Homebrew is installed
+      homebrew:
+        state: present
+  # roles:
+  #   - system
+  #   - packages
+  #   - dotfiles
