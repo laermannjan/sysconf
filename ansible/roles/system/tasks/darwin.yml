@@ -4,6 +4,9 @@
 - name: Install Homebrew
   import_role:
     name: geerlingguy.mac.homebrew
+- name: Put brew on PATH
+  command: eval $(/opt/homebrew/bin/brew shellenv)
+  changed_when: false
 - name: Check if Rosetta 2 is installed
   command: arch -x86_64 true # checks if x86_64 code can be run on this machine
   register: rosetta_check
