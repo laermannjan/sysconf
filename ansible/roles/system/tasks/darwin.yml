@@ -100,23 +100,42 @@
   import_role:
     name: geerlingguy.mac.dock
   vars:
-    dockitems_remove: false # Remove all existing
-    dockitems_persist: true # Keep items after dock restart
-    dock_items:
+    dockitems_remove:
+      - Launchpad
+      - Safari
+      - Messages
+      - Maps
+      - Photos
+      - FaceTime
+      - Contacts
+      - Reminders
+      - Notes
+      - Calendar
+      - TV
+      - Podcasts
+      - 'App Store'
+    dockitems_persist:
       - name: "Finder"
         path: "/System/Applications/Finder.app"
+        pos: 1
       - name: "Arc"
         path: "/Applications/Arc.app"
+        pos: 2
       - name: "Firefox Developer Edition"
         path: "/Applications/Firefox Developer Edition.app"
+        pos: 3
       - name: "WezTerm"
         path: "/Applications/WezTerm.app"
+        pos: 4
       - name: "Slack"
         path: "/Applications/Slack.app"
-      - name: "Calendar"
+        pos: 5
+      - name: "Notion Calendar"
         path: "/Applications/Notion Calendar.app"
+        pos: 6
       - name: "Mail"
         path: "/System/Applications/Mail.app"
+        pos: 7
       - name: "1Password"
         path: "/Applications/1Password.app"
       - name: "System Settings"
