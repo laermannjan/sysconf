@@ -45,7 +45,7 @@
       - 1password
       - brave-browser
       - docker
-      - firefox
+      - firefox@developer-edition
       - jetbrains-toolbox
       - karabiner-elements
       - linearmouse
