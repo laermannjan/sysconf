@@ -1,15 +1,13 @@
-- name: Get fish shell path
-  command: which fish
-  register: fish_path
-  changed_when: false
-- name: Add fish to /etc/shells
-  become: true
-  lineinfile:
-    path: /etc/shells
-    line: "{{ fish_path.stdout }}"
-- name: Set fish as default shell
-  become: true
-  user:
-    name: "{{ ansible_user_id }}"
-    shell: "{{ fish_path.stdout }}"
-  notify: install fish plugins with `fisher update`
+- block:
+    - name: Add fish to /etc/shells
+      become: true
+      lineinfile:
+        path: /etc/shells
+        line: "/opt/homebrew/bin/fish"
+    - name: Set fish as default shell
+      become: true
+      user:
+        name: "{{ ansible_user_id }}"
+        shell: "/opt/homebrew/bin/fish"
+      notify: install fish plugins with `fisher update`
+  when: ansible_os_family == "Darwin"
