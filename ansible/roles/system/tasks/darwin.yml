@@ -116,7 +116,7 @@
       - 'App Store'
     dockitems_persist:
       - name: "Finder"
-        path: "/System/Applications/Finder.app"
+        path: "/System/Library/CoreServices/Finder.app"
         pos: 1
       - name: "Arc"
         path: "/Applications/Arc.app"
