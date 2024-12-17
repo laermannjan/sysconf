@@ -9,5 +9,4 @@
       user:
         name: "{{ ansible_user_id }}"
         shell: "/opt/homebrew/bin/fish"
-      notify: install fish plugins with `fisher update`
   when: ansible_os_family == "Darwin"
