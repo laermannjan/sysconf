@@ -53,8 +53,8 @@
     - {domain: com.apple.finder, key: NewWindowTargetPath, type: string, value: "file://{{ ansible_env.HOME }}/"} # New Finder window will open in home directory
     # Other settings
     - {domain: com.apple.LaunchServices, key: LSQuarantine, type: bool, value: false} # Disable "Are you sure you want to open" dialog
-    - {domain: com.apple.driver.AppleBluetoothMultitouch.trackpad, key: Clicking, type: bool, value: true} # Enable trackpad tap to click
-    - {domain: com.apple.driver.AppleBluetoothMultitouch.trackpad, key: TrackpadThreeFingerDrag, type: bool, value: true} # Enable item dragging with three finger swipe gestures
+    - {domain: com.apple.driver.AppleBluetoothMultitouch.trackpad, key: Clicking, type: int, value: 1} # Enable trackpad tap to click
+    - {domain: com.apple.driver.AppleBluetoothMultitouch.trackpad, key: TrackpadThreeFingerDrag, type: int, value: 1} # Enable item dragging with three finger swipe gestures
     - {domain: com.apple.screencapture, key: location, type: string, value: "~/Screenshots"} # Where to save screenshots
     - {domain: com.apple.desktopservices, key: DSDontWriteNetworkStores, type: bool, value: true} # Avoid creating .DS_Store files on network volumes
     - {domain: com.apple.desktopservices, key: DSDontWriteUSBStores, type: bool, value: true} # Avoid creating .DS_Store files on USB volumes
