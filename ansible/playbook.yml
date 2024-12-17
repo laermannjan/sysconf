@@ -1,7 +1,12 @@
-- name: Setup MacOS Workstation
-  hosts: local
-  tasks:
+- hosts: localhost
+  vars:
+    xdg_config_home: "~/.config"
+  pre_tasks:
+    - name: Get repo checkout directory
+      ansible.builtin.set_fact:
+        checkout_path: "{{ playbook_dir | dirname }}"
   roles:
-    - system
-    - packages
-    - dotfiles
+    - {role: system, tags: ['system']}
+    - {role: packages, tags: ['packages']}
+    - {role: ssh, tags: ['ssh']}
+    - {role: config, tags: ['config']}

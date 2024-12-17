@@ -6,7 +6,7 @@ function have {
   command -v "$1" &>/dev/null
 }
 
-[ "$(uname -s)" = "Darwin" ] && ! xcode-select --version && xcode-select --install
+# [ "$(uname -s)" = "Darwin" ] && ! xcode-select --version && xcode-select --install
 
 have uv || curl -LsSf https://astral.sh/uv/install.sh | sh
 

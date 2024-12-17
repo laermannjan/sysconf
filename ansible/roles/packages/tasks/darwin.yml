@@ -1,6 +1,8 @@
-- name: Install homebrew formulae
-  community.general.homebrew:
-    name:
+- name: Install Homebrew
+  import_role:
+    name: geerlingguy.mac.homebrew
+  vars:
+    homebrew_installed_packages:
       - awscli
       - bat
       - btop
@@ -39,12 +41,10 @@
       - uv
       - yt-dlp
       - zoxide
-    state: present
-- name: Install homebrew casks
-  community.general.homebrew_cask:
-    name:
+    homebrew_casks_apps:
       - 1password
       - brave-browser
+      - docker
       - firefox
       - jetbrains-toolbox
       - karabiner-elements
@@ -61,4 +61,3 @@
       - tailscale
       - utm
       - wezterm
-    state: present
