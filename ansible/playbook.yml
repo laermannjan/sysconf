@@ -11,3 +11,4 @@
     - {role: shell, tags: ['shell']}
     - {role: ssh, tags: ['ssh']}
     - {role: config, tags: ['config']}
+    - {role: repos, tags: ['repos']}
