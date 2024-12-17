@@ -1,0 +1,21 @@
+- name: Create XDG config directory
+  file:
+    path: "{{ xdg_config_home }}"
+    state: directory
+- name: Find config files
+  find:
+    paths: "{{ checkout_path }}/config/"
+    recurse: no
+    file_type: any
+    hidden: yes
+    excludes: ["ssh"]
+  register: dot_config
+- name: Link config files
+  file:
+    src: "{{ item.path }}"
+    dest: "{{ xdg_config_home }}/{{ item.path | basename }}"
+    state: link
+    force: yes
+  loop: "{{ dot_config.files }}"
+  loop_control:
+    label: "{{ xdg_config_home }}/{{ item.path | basename }}"
