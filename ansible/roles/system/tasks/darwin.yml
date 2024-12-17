@@ -1,6 +1,9 @@
 - name: Install Command Line Tools
   import_role:
     name: elliotweiser.osx-command-line-tools
+- name: Install Homebrew
+  import_role:
+    name: geerlingguy.mac.homebrew
 - name: Check if Rosetta 2 is installed
   command: arch -x86_64 true # checks if x86_64 code can be run on this machine
   register: rosetta_check

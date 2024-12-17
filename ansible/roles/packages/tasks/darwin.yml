@@ -1,6 +1,4 @@
-- name: Install Homebrew
-  import_role:
-    name: geerlingguy.mac.homebrew
+- name: Install Homebrew packages
   vars:
     homebrew_installed_packages:
       - awscli
