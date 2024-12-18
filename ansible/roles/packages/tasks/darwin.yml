@@ -43,6 +43,7 @@
       - zoxide
     homebrew_casks_apps:
       - 1password
+      - arc
       - brave-browser
       - docker
       - firefox@developer-edition
