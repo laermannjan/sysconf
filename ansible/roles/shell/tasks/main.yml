@@ -1,12 +1,2 @@
-- block:
-    - name: Add fish to /etc/shells
-      become: true
-      lineinfile:
-        path: /etc/shells
-        line: "/opt/homebrew/bin/fish"
-    - name: Set fish as default shell
-      become: true
-      user:
-        name: "{{ ansible_user_id }}"
-        shell: "/opt/homebrew/bin/fish"
-  when: ansible_os_family == "Darwin"
+- include_tasks: "{{ ansible_os_family | lower }}.yml"
+  when: ansible_os_family in ['Darwin']

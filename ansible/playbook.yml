@@ -8,7 +8,7 @@
   roles:
     - {role: system, tags: ['system']}
     - {role: packages, tags: ['packages']}
-    - {role: shell, tags: ['shell']}
     - {role: ssh, tags: ['ssh']}
     - {role: config, tags: ['config']}
+    - {role: shell, tags: ['shell']}
     - {role: repos, tags: ['repos']}

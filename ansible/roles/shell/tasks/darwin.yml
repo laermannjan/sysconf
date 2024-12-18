@@ -1,0 +1,37 @@
+- name: Add fish to /etc/shells
+  become: true
+  lineinfile:
+    path: /etc/shells
+    line: "{{ homebrew_prefix }}/bin/fish"
+- name: Set fish as default shell
+  become: true
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: "{{ homebrew_prefix }}/bin/fish"
+- name: Add Homebrew to fish config
+  blockinfile:
+    path: ~/.config/fish/conf.d/brew.fish
+    create: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - HOMEBREW"
+    block: |
+      if test -f {{ homebrew_prefix }}/bin/brew
+          {{ homebrew_prefix }}/bin/brew shellenv | source
+      end
+- name: Add Homebrew to zsh profile
+  blockinfile:
+    path: ~/.zprofile
+    create: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - HOMEBREW"
+    block: |
+      if [ -f {{ homebrew_prefix }}/bin/brew ]; then
+          eval "$({{ homebrew_prefix }}/bin/brew shellenv)"
+      fi
+- name: Add Homebrew to bash profile
+  blockinfile:
+    path: ~/.bash_profile
+    create: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - HOMEBREW"
+    block: |
+      if [ -f {{ homebrew_prefix }}/bin/brew ]; then
+          eval "$({{ homebrew_prefix }}/bin/brew shellenv)"
+      fi
