@@ -5,6 +5,14 @@
     - name: Get repo checkout directory
       ansible.builtin.set_fact:
         checkout_path: "{{ playbook_dir | dirname }}"
+  vars_prompt:
+    # we do this instead of -K/--ask-become-pass for geerlingguy.mac.homebrew
+    # that role can read `ansible_become_password` and pass it to `sudo_password`
+    # this is important to run cask post-installation scripts that would
+    # prompt for sudo otherwise
+    - name: ansible_become_password
+      prompt: sudo password
+      private: yes
   roles:
     - {role: packages, tags: ['packages']}
     - {role: system, tags: ['system']}
