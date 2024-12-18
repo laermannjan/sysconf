@@ -36,7 +36,7 @@ status is-interactive; and begin
     end
 
     if command -q keychain
-        SHELL=fish eval (keychain --eval --quite id_ed25519.personal id_ed25519.alcemy)
+        SHELL=fish eval (keychain --eval --quiet id_ed25519.personal id_ed25519.alcemy)
     end
 
     if command -q pipenv
