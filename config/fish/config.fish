@@ -1,3 +1,7 @@
+if test -f /opt/homebrew/bin/brew
+    /opt/homebrew/bin/brew shellenv | source
+end
+
 status is-interactive; and begin
     abbr --add -- e nvim
     abbr --add -- elevate 'aws iam add-user-to-group --group-name Elevated --user-name $(aws iam get-user | grep UserName | cut -d'\''"'\'' -f4)'
@@ -47,6 +51,7 @@ status is-interactive; and begin
 
     if command -q uv
         uv generate-shell-completion fish | source
+        uvx --generate-shell-completion fish | source
     end
 
     if command -q zoxide
