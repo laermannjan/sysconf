@@ -8,8 +8,9 @@ function have {
 
 # [ "$(uname -s)" = "Darwin" ] && ! xcode-select --version && xcode-select --install
 
-have uv || curl -LsSf https://astral.sh/uv/install.sh | sh
+have uv || curl -LsSf https://astral.sh/uv/install.sh | sh && echo "uv installer might have created shell config files that conflict with the dotfiles linking via ansible. Look if they have changed or delete the newly created files." 1>&2
 source "${HOME}/.local/bin/env"
+
 
 # uv tool install doesn't put all the executables on the path, so I'm linking them myself https://github.com/astral-sh/uv/issues/6314#issuecomment-2510284936
 have ansible || uv tool install ansible && find "$(uv tool dir)/ansible/bin" -depth 1 -type f -perm -u=x -exec ln -f -s {} ~/.local/bin/ \;
