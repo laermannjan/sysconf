@@ -6,8 +6,6 @@ function have {
   command -v "$1" &>/dev/null
 }
 
-# [ "$(uname -s)" = "Darwin" ] && ! xcode-select --version && xcode-select --install
-
 have uv || curl -LsSf https://astral.sh/uv/install.sh | sh && echo "uv installer might have created shell config files that conflict with the dotfiles linking via ansible. Look if they have changed or delete the newly created files." 1>&2
 source "${HOME}/.local/bin/env"
 
@@ -16,4 +14,10 @@ source "${HOME}/.local/bin/env"
 have ansible || uv tool install ansible && find "$(uv tool dir)/ansible/bin" -depth 1 -type f -perm -u=x -exec ln -f -s {} ~/.local/bin/ \;
 
 ansible-galaxy install -r requirements.yml
-ansible-playbook playbook.yml --ask-become-pass --ask-vault-pass
+
+
+if [ -n "${VAULT_PASSWORD_FILE+x}" ]; then
+    ansible-playbook playbook.yml --ask-become-pass --vault-password-file "$VAULT_PASSWORD_FILE"
+else
+    ansible-playbook playbook.yml --ask-become-pass --ask-vault-pass
+fi
