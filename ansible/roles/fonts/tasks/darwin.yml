@@ -22,7 +22,7 @@
       - font-recursive-mono-nerd-font
 - name: Install encrypted fonts
   copy:
-    src: "fonts/{{ item }}"
+    src: "{{ item }}"
     dest: "{{ ansible_env.HOME }}/Library/Fonts/{{ item | basename | regex_replace('.vault$', '') }}"
     decrypt: yes
     mode: '0644'
