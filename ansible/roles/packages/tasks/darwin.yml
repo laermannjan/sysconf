@@ -23,7 +23,6 @@
       - jless # JSON view
       - jo # JSON output
       - jq # JSON manipulator
-      - keychain
       - lazydocker
       - lazygit
       - less

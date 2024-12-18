@@ -35,10 +35,6 @@ status is-interactive; and begin
         fzf --fish | source
     end
 
-    if command -q keychain
-        SHELL=fish eval (keychain --eval --quiet id_ed25519.personal id_ed25519.alcemy)
-    end
-
     if command -q pipenv
         set -gx PIPENV_VENV_IN_PROJECT 1
     end
@@ -56,6 +52,24 @@ status is-interactive; and begin
 
     if command -q zoxide
         zoxide init fish | source
+    end
+
+    # Start ssh-agent if not running, connect to system agent otherwise
+    if not set -q SSH_AUTH_SOCK
+        eval (ssh-agent -c)
+    end
+
+    # add every ssh key to the agent; prompts for passwords
+    for key in ~/.ssh/id_*
+        if test -f $key; and not test (string match -r '\.pub$' $key); and not ssh-add -L | string match -q "* $key"
+            if test (uname) = "Darwin"
+                ssh-add --apple-use-keychain $key
+            else if command -v keychain
+                eval (keychain --eval --quiet $key)
+            else
+                ssh-add $key
+            end
+        end
     end
 
 
