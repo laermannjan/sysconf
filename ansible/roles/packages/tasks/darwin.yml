@@ -38,7 +38,7 @@
       - uv
       - yt-dlp
       - zoxide
-    homebrew_casks_apps:
+    homebrew_cask_apps:
       - 1password
       - arc
       - brave-browser

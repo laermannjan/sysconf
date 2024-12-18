@@ -2,7 +2,7 @@
   import_role:
     name: geerlingguy.mac.homebrew
   vars:
-    homebrew_casks_apps:
+    homebrew_cask_apps:
       - font-0xproto-nerd-font
       - font-anonymice-nerd-font
       - font-comic-shanns-mono-nerd-font
