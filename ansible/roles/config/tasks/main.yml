@@ -23,7 +23,9 @@
   file:
     src: "{{ checkout_path }}/bash/.bash_profile"
     dest: "{{ ansible_env.HOME }}/.bash_profile"
+    state: link
 - name: Link .zprofile
   file:
     src: "{{ checkout_path }}/zsh/.zprofile"
     dest: "{{ ansible_env.HOME }}/.zprofile"
+    state: link
