@@ -6,8 +6,8 @@
       ansible.builtin.set_fact:
         checkout_path: "{{ playbook_dir | dirname }}"
   roles:
-    - {role: system, tags: ['system']}
     - {role: packages, tags: ['packages']}
+    - {role: system, tags: ['system']}
     - {role: ssh, tags: ['ssh']}
     - {role: config, tags: ['config']}
     - {role: shell, tags: ['shell']}
