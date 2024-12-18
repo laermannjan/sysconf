@@ -63,7 +63,7 @@ status is-interactive; and begin
     for key in ~/.ssh/id_*
         if test -f $key; and not test (string match -r '\.pub$' $key); and not ssh-add -L | string match -q "* $key"
             if test (uname) = "Darwin"
-                ssh-add --apple-use-keychain $key
+                /usr/bin/ssh-add --apple-use-keychain $key  # ssh-add might be shadowed by openssh installed via homebrew
             else if command -v keychain
                 eval (keychain --eval --quiet $key)
             else
