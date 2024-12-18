@@ -1,19 +1,7 @@
-# Sytem Configurations & Dotfiles
+# System setup and configuration
 
-These are the system configurations for my NixOS, macOS, and WSL hosts.
-They also contain the user configurations for various customizable programs (dotfiles).
-
-They are organized and managed by [Nix](https://nixos.org), so some of the configuration may be difficult to translate to
-non-Nix managed systems. Dotfiles that I might tweak frequently, I do usually keep in their original format.
-
-## Installation
-Click [here](docs/install.md) for detailed installation instructions.
-
-## Apps
-I make use of apps (utilities deployed via nix), read more [here](./apps/README.md).
-
-## Flake Templates
-Use the [templates](./templates/) as flakes to start new projects.
-```bash
-nix flake init --template github:laermannjan/sysconf#rust
-```
+On macOS 
+1. install the command line tools `xcode-select --install` 
+1. clone this repo (you will be prompted via GUI to install the command line tools if you haven't executed 1.)
+1. run `./install` - you will be asked for the user password (`BECOME`) and the ansible vault password. You can create a file containing the vault password and run `VAULT_PASSWORD_FILE=<path to that file> ./install` to not be prompted (makes it easier to check for typos and you don't have to reenter after failed runs)
+1. some things might fail on first run - don't worry, read the error try again :)
