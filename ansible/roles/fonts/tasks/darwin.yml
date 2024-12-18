@@ -1,0 +1,30 @@
+- name: Install pre-built Nerd Fonts from homebrew
+  import_role:
+    name: geerlingguy.mac.homebrew
+  vars:
+    homebrew_casks_apps:
+      - font-0xproto-nerd-font
+      - font-anonymice-nerd-font
+      - font-comic-shanns-mono-nerd-font
+      - font-dejavu-sans-mono-nerd-font
+      - font-fira-code-nerd-font
+      - font-fira-mono-nerd-font
+      - font-go-mono-nerd-font
+      - font-inconsolata-nerd-font
+      - font-inconsolata-go-nerd-font
+      - font-iosevka-nerd-font
+      - font-iosevka-term-nerd-font
+      - font-iosevka-term-slab-nerd-font
+      - font-meslo-lg-nerd-font
+      - font-monaspace-nerd-font
+      - font-open-dyslexic-nerd-font
+      - font-sauce-code-pro-nerd-font
+      - font-recursive-mono-nerd-font
+- name: Install encrypted fonts
+  copy:
+    src: "fonts/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/Library/Fonts/{{ item | basename | regex_replace('.vault$', '') }}"
+    decrypt: yes
+    mode: '0644'
+  with_fileglob:
+    - "fonts/*.vault"

@@ -12,3 +12,4 @@
     - {role: config, tags: ['config']}
     - {role: shell, tags: ['shell']}
     - {role: repos, tags: ['repos']}
+    - {role: fonts, tags: ['fonts']}
