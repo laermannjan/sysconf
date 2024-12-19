@@ -9,8 +9,8 @@
     dest: "{{ item.dest }}"
     mode: "{{ item.mode }}"
   loop:
-    - {src: "{{ checkout_path }}/config/ssh/config.vault", dest: "~/.ssh/config", mode: "0600"}
-    - {src: "{{ checkout_path }}/config/ssh/id_ed25519.personal.vault", dest: "~/.ssh/id_ed25519.personal", mode: "0600"}
-    - {src: "{{ checkout_path }}/config/ssh/id_ed25519.personal.pub.vault", dest: "~/.ssh/id_ed25519.personal.pub", mode: "0644"}
-    - {src: "{{ checkout_path }}/config/ssh/id_ed25519.alcemy.vault", dest: "~/.ssh/id_ed25519.alcemy", mode: "0600"}
-    - {src: "{{ checkout_path }}/config/ssh/id_ed25519.alcemy.pub.vault", dest: "~/.ssh/id_ed25519.alcemy.pub", mode: "0644"}
+    - {src: "{{ dotfiles_source_dir }}/ssh/config.vault", dest: "~/.ssh/config", mode: "0600"}
+    - {src: "{{ dotfiles_source_dir }}/ssh/id_ed25519.personal.vault", dest: "~/.ssh/id_ed25519.personal", mode: "0600"}
+    - {src: "{{ dotfiles_source_dir }}/ssh/id_ed25519.personal.pub.vault", dest: "~/.ssh/id_ed25519.personal.pub", mode: "0644"}
+    - {src: "{{ dotfiles_source_dir }}/ssh/id_ed25519.alcemy.vault", dest: "~/.ssh/id_ed25519.alcemy", mode: "0600"}
+    - {src: "{{ dotfiles_source_dir }}/ssh/id_ed25519.alcemy.pub.vault", dest: "~/.ssh/id_ed25519.alcemy.pub", mode: "0644"}

@@ -8,8 +8,7 @@ function have {
 
 
 [ "$(uname -s)" = "Darwin" ] && ! xcode-select --version && xcode-select --install
-[ "$(uname -s)" = "Darwin" ] && ! /opt/homebrew/bin/brew --version && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-[ "$(uname -s)" = "Darwin" ] && ! which brew && eval $(/opt/homebrew/bin/brew shellenv) && brew update
+# [ "$(uname -s)" = "Darwin" ] && ! /opt/homebrew/bin/brew --version && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 have uv || curl -LsSf https://astral.sh/uv/install.sh | env INSTALLER_NO_MODIFY_PATH=1 sh && source "${HOME}/.local/bin/env"
 
@@ -17,7 +16,7 @@ have uv || curl -LsSf https://astral.sh/uv/install.sh | env INSTALLER_NO_MODIFY_
 have ansible || uv tool install ansible && find "$(uv tool dir)/ansible/bin" -depth 1 -type f -perm -u=x -exec ln -f -s {} ~/.local/bin/ \;
 
 
-[ ! -d "${HOME}/sysconf" ] && [ ! -d "${HOME}/sysconf/.git" ] && echo "cloning sysconf repo to ~/sysconf" && git clone https://github.com/laermannjan/sysconf.git ~/sysconf && pushd ~/sysconf && git remote set-url origin git@githubcom:laermannjan/sysconf.git && popd
+[ ! -d "${HOME}/sysconf" ] && [ ! -d "${HOME}/sysconf/.git" ] && echo "cloning sysconf repo to ~/sysconf" && git clone https://github.com/laermannjan/sysconf.git ~/sysconf && pushd ~/sysconf && git remote set-url origin git@github.com:laermannjan/sysconf.git && popd
 
 pushd ~/sysconf/ansible
 
@@ -26,3 +25,5 @@ ansible-galaxy install -r requirements.yml
 ansible-playbook playbook.yml --ask-vault-pass
 
 popd
+
+[ "$(uname -s)" = "Darwin" ] && ! which brew && eval $(/opt/homebrew/bin/brew shellenv) && brew update
