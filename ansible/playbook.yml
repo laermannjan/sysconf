@@ -1,6 +1,15 @@
 - hosts: localhost
   vars:
-    xdg_config_home: "~/.config"
+    dotfiles_target_dir: "{{ lookup('env','XDG_CONFIG_HOME') | default('~/.config', true) }}"
+    dotfiles_source_dir: "{{ playbook_dir | dirname }}/config/"
+    dotfiles_skip: ["ssh"]
+    dotfiles_overrides:
+      - name: bash/.bashrc
+        target: ~/.bashrc
+      - name: bash/.bash_profile
+        target: ~/.bash_profile
+      - name: zsh/.zprofile
+        target: ~/.zprofile
   pre_tasks:
     - name: Get repo checkout directory
       ansible.builtin.set_fact:

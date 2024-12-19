@@ -1,14 +1,26 @@
-- name: Create XDG config directory
+- name: Check if dotfiles_source_dir exists
+  stat:
+    path: "{{ dotfiles_source_dir }}"
+  register: source_stat
+- name: Check if dotfiles_target_dir exists
+  stat:
+    path: "{{ dotfiles_target_dir }}"
+  register: target_stat
+- name: Fail if dotfiles_source_dir does not exist
+  fail:
+    msg: "dotfiles_source_dir ({{ dotfiles_source_dir }}) does not exist."
+  when: not source_stat.stat.exists
+- name: Ensure dotfiles_target_dir exists
   file:
-    path: "{{ xdg_config_home }}"
+    path: "{{ dotfiles_target_dir }}"
     state: directory
-- name: Find config files
+- name: Find source dotfiles
   find:
-    paths: "{{ checkout_path }}/config/"
+    paths: "{{ dotfiles_source_dir }}"
     recurse: no
     file_type: any
     hidden: yes
-    excludes: ["ssh"]
+    excludes: "{{ dotfiles_skip }}"
   register: dot_config
 - name: Link config files
   file:
