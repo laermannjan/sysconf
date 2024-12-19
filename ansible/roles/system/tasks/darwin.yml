@@ -1,0 +1,155 @@
+- name: Install Command Line Tools
+  import_role:
+    name: elliotweiser.osx-command-line-tools
+- name: Install Homebrew
+  import_role:
+    name: geerlingguy.mac.homebrew
+- name: Check if Rosetta 2 is installed
+  command: arch -x86_64 true # checks if x86_64 code can be run on this machine
+  register: rosetta_check
+  ignore_errors: true
+  changed_when: false
+- name: Install Rosetta 2
+  when: rosetta_check.failed
+  command: /usr/sbin/softwareupdate --install-rosetta --agree-to-license
+  become: true
+  register: rosetta_install
+  changed_when: rosetta_install.rc == 0
+  failed_when:
+    - rosetta_install.rc != 0
+    - not 'Rosetta is already installed' in rosetta_install.stderr
+- name: Configure macOS settings
+  community.general.osx_defaults:
+    domain: "{{ item.domain }}"
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+  loop:
+    # NSGlobalDomain settings
+    - {domain: NSGlobalDomain, key: AppleKeyboardUIMode, type: int, value: 3} # Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
+    - {domain: NSGlobalDomain, key: _HIHideMenuBar, type: bool, value: false} # Only hide menu bar in fullscreen
+    - {domain: NSGlobalDomain, key: NSNavPanelExpandedStateForSaveMode, type: bool, value: true} # Expand save panel by default
+    - {domain: NSGlobalDomain, key: PMPrintingExpandedStateForPrint, type: bool, value: true} # Expand print panel by default
+    - {domain: NSGlobalDomain, key: ApplePressAndHoldEnabled, type: bool, value: false} # Replace press-and-hold with key repeat
+    - {domain: NSGlobalDomain, key: KeyRepeat, type: int, value: 1} # Set a fast key repeat rate
+    - {domain: NSGlobalDomain, key: InitialKeyRepeat, type: int, value: 15} # Shorten delay before key repeat begins
+    - {domain: NSGlobalDomain, key: NSDocumentSaveNewDocumentsToCloud, type: bool, value: false} # Save to local disk by default, not iCloud
+    - {domain: NSGlobalDomain, key: NSAutomaticCapitalizationEnabled, type: bool, value: false} # Disable autocorrect capitalization
+    - {domain: NSGlobalDomain, key: NSAutomaticDashSubstitutionEnabled, type: bool, value: false} # Disable autocorrect smart dashes
+    - {domain: NSGlobalDomain, key: NSAutomaticPeriodSubstitutionEnabled, type: bool, value: false} # Disable autocorrect adding periods
+    - {domain: NSGlobalDomain, key: NSAutomaticQuoteSubstitutionEnabled, type: bool, value: false} # Disable autocorrect smart quotation marks
+    - {domain: NSGlobalDomain, key: NSAutomaticSpellingCorrectionEnabled, type: bool, value: false} # Disable autocorrect spellcheck
+    - {domain: NSGlobalDomain, key: NSStatusItemSelectionPadding, type: int, value: 6} # Reduce Menu Bar padding
+    - {domain: NSGlobalDomain, key: NSStatusItemSpacing, type: int, value: 6} # Reduce Menu Bar padding
+    # Dock settings
+    - {domain: com.apple.dock, key: autohide, type: bool, value: true}
+    - {domain: com.apple.dock, key: showhidden, type: bool, value: true}
+    - {domain: com.apple.dock, key: enable-spring-load-actions-on-all-items, type: bool, value: true}
+    - {domain: com.apple.dock, key: mouse-over-hilite-stack, type: bool, value: true}
+    - {domain: com.apple.dock, key: mineffect, type: string, value: "genie"}
+    - {domain: com.apple.dock, key: orientation, type: string, value: "bottom"}
+    - {domain: com.apple.dock, key: show-recents, type: bool, value: false}
+    - {domain: com.apple.dock, key: tilesize, type: int, value: 44}
+    - {domain: com.apple.dock, key: show-process-indicators, type: bool, value: true}
+    - {domain: com.apple.dock, key: magnification, type: bool, value: true}
+    - {domain: com.apple.dock, key: largesize, type: int, value: 48}
+    # Finder settings
+    - {domain: com.apple.finder, key: FXPreferredViewStyle, type: string, value: "clmv"} # Default Finder window set to column view
+    - {domain: com.apple.finder, key: FXDefaultSearchScope, type: string, value: "SCcf"} # Finder search in current folder by default
+    - {domain: com.apple.finder, key: FXEnableExtensionChangeWarning, type: bool, value: false} # Disable warning when changing file extension
+    - {domain: com.apple.finder, key: QuitMenuItem, type: bool, value: true} # Allow quitting of Finder application
+    - {domain: com.apple.finder, key: ShowPathbar, type: bool, value: true} # Show the path breadcrumbs
+    - {domain: com.apple.finder, key: AppleShowAllExtensions, type: bool, value: true} # Show file extensions of all files
+    - {domain: com.apple.finder, key: ShowStatusBar, type: bool, value: true} # Show status bar at bottom of finder windows with item/disk space stats
+    - {domain: com.apple.finder, key: _FXShowPosixPathInTitle, type: bool, value: true} # show the full POSIX filepath in the window title
+    - {domain: com.apple.finder, key: WarnOnEmptyTrash, type: bool, value: false} # Disable the warning before emptying the Trash
+    - {domain: com.apple.finder, key: _FXSortFoldersFirst, type: bool, value: true} # Keep folders on top when sorting by name
+    - {domain: com.apple.finder, key: NewWindowTarget, type: string, value: "PfLo"} # New Finder window will open in home directory
+    - {domain: com.apple.finder, key: NewWindowTargetPath, type: string, value: "file://{{ ansible_env.HOME }}/"} # New Finder window will open in home directory
+    # Other settings
+    - {domain: com.apple.LaunchServices, key: LSQuarantine, type: bool, value: false} # Disable "Are you sure you want to open" dialog
+    - {domain: com.apple.driver.AppleBluetoothMultitouch.trackpad, key: Clicking, type: int, value: 1} # Enable trackpad tap to click
+    - {domain: com.apple.driver.AppleBluetoothMultitouch.trackpad, key: TrackpadThreeFingerDrag, type: int, value: 1} # Enable item dragging with three finger swipe gestures
+    - {domain: com.apple.screencapture, key: location, type: string, value: "~/Screenshots"} # Where to save screenshots
+    - {domain: com.apple.desktopservices, key: DSDontWriteNetworkStores, type: bool, value: true} # Avoid creating .DS_Store files on network volumes
+    - {domain: com.apple.desktopservices, key: DSDontWriteUSBStores, type: bool, value: true} # Avoid creating .DS_Store files on USB volumes
+    - {domain: com.apple.screensaver, key: askForPassword, type: int, value: 1} # Require password immediately after screen saver begins
+    - {domain: com.apple.screensaver, key: askForPasswordDelay, type: int, value: 0} # Require password immediately after screen saver begins
+- name: Enable TouchID for sudo
+  become: true
+  lineinfile:
+    path: /etc/pam.d/sudo
+    line: 'auth       sufficient     pam_tid.so'
+    insertbefore: BOF
+- name: Configure settings requiring shell commands
+  command: "{{ item }}"
+  loop:
+    - sudo spctl --master-disable
+    - chflags nohidden ~/Library
+    - sudo chflags nohidden /Volumes
+    - /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+  changed_when: false
+- name: Allow apps from anywhere
+  shell: |
+    if ! [ "$SPCTL" = "assessments disabled" ]; then
+      spctl --master-disable
+    fi
+  become: true
+  changed_when: false
+- name: Show the ~/Library folder
+  command: chflags nohidden ~/Library
+  changed_when: false
+- name: Show the /Volumes folder
+  command: chflags nohidden /Volumes
+  changed_when: false
+- name: Enable snap-to-grid for icons on the desktop and in other icon views
+  shell: |
+    /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+    /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+    /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+  changed_when: false
+- name: Configure Dock
+  import_role:
+    name: geerlingguy.mac.dock
+  vars:
+    dockutil_install: true
+    dockitems_remove:
+      - Launchpad
+      - Safari
+      - Messages
+      - Maps
+      - Photos
+      - FaceTime
+      - Contacts
+      - Reminders
+      - Notes
+      - Calendar
+      - TV
+      - Podcasts
+      - 'App Store'
+    dockitems_persist:
+      - name: "Finder"
+        path: "/System/Library/CoreServices/Finder.app"
+        pos: 1
+      - name: "Arc"
+        path: "/Applications/Arc.app"
+        pos: 2
+      - name: "Firefox Developer Edition"
+        path: "/Applications/Firefox Developer Edition.app"
+        pos: 3
+      - name: "WezTerm"
+        path: "/Applications/WezTerm.app"
+        pos: 4
+      - name: "Slack"
+        path: "/Applications/Slack.app"
+        pos: 5
+      - name: "Notion Calendar"
+        path: "/Applications/Notion Calendar.app"
+        pos: 6
+      - name: "Mail"
+        path: "/System/Applications/Mail.app"
+        pos: 7
+      - name: "1Password"
+        path: "/Applications/1Password.app"
+      - name: "System Settings"
+        path: "/System/Applications/System Settings.app"

@@ -1,0 +1,43 @@
+- name: Check if dotfiles_source_dir exists
+  stat:
+    path: "{{ dotfiles_source_dir }}"
+  register: source_stat
+- name: Check if dotfiles_target_dir exists
+  stat:
+    path: "{{ dotfiles_target_dir }}"
+  register: target_stat
+- name: Fail if dotfiles_source_dir does not exist
+  fail:
+    msg: "dotfiles_source_dir ({{ dotfiles_source_dir }}) does not exist."
+  when: not source_stat.stat.exists
+- name: Ensure dotfiles_target_dir exists
+  file:
+    path: "{{ dotfiles_target_dir }}"
+    state: directory
+- name: Find source dotfiles
+  find:
+    paths: "{{ dotfiles_source_dir }}"
+    recurse: no
+    file_type: any
+    hidden: yes
+    excludes: "{{ dotfiles_skip }}"
+  register: dot_config
+- name: Link config files
+  file:
+    src: "{{ item.path }}"
+    dest: "{{ xdg_config_home }}/{{ item.path | basename }}"
+    state: link
+    force: yes
+  loop: "{{ dot_config.files }}"
+  loop_control:
+    label: "{{ xdg_config_home }}/{{ item.path | basename }}"
+- name: Link .bash_profile
+  file:
+    src: "{{ checkout_path }}/config/bash/.bash_profile"
+    dest: "{{ ansible_env.HOME }}/.bash_profile"
+    state: link
+- name: Link .zprofile
+  file:
+    src: "{{ checkout_path }}/config/zsh/.zprofile"
+    dest: "{{ ansible_env.HOME }}/.zprofile"
+    state: link

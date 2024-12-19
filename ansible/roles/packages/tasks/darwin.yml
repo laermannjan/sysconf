@@ -1,0 +1,61 @@
+- name: Install Homebrew packages
+  import_role:
+    name: geerlingguy.mac.homebrew
+  vars:
+    homebrew_installed_packages:
+      - awscli
+      - bat
+      - btop
+      - curl
+      - direnv # environment loading on entering a directory
+      - doggo # DNS like dig
+      - eza # nice ls
+      - fd # faster find
+      - ffmpeg
+      - fish
+      - fzf # fuzzy finder
+      - git
+      - git-delta # fancy diffs
+      - htop
+      - httpie # HTTP client
+      - hyperfine # benchmarking
+      - inetutils # telnet, whois, etc
+      - jless # JSON view
+      - jo # JSON output
+      - jq # JSON manipulator
+      - lazydocker
+      - lazygit
+      - less
+      - lz4 # compression
+      - neovim
+      - p7zip
+      - prettyping
+      - ripgrep
+      - starship
+      - tealdeer
+      - tree
+      - unzip
+      - uv
+      - yt-dlp
+      - zoxide
+    homebrew_cask_apps:
+      - 1password
+      - arc
+      - brave-browser
+      - docker
+      - firefox@developer-edition
+      - jetbrains-toolbox
+      - karabiner-elements
+      - linearmouse
+      - monitorcontrol
+      - mullvadvpn
+      - notion
+      - notion-calendar
+      - postgres-unofficial
+      - raycast
+      - signal
+      - slack
+      - stats
+      - tailscale
+      - utm
+      - wezterm

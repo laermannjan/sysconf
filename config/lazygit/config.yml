@@ -1,0 +1,25 @@
+git:
+  autoFetch: true
+gui:
+  theme:
+    activeBorderColor:
+      - '#89b4fa'
+      - bold
+    cherryPiCommitBgColor:
+      - '#45475a'
+    cherryPickedCommitFgColor:
+      - '#89b4fa'
+    defaultFgColor:
+      - '#cdd6f4'
+    inactiveBorderColor:
+      - '#a6adc8'
+    optionsTextColor:
+      - '#89b4fa'
+    searchingActiveBorderColor:
+      - '#f9e2af'
+    selectedLineBgColor:
+      - '#313244'
+    selectedRangeBgColor:
+      - '#313244'
+    unstagedChansColor:
+      - '#f38ba8'
