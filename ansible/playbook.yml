@@ -1,19 +1,9 @@
 - hosts: localhost
   vars:
-    dotfiles_target_dir: "{{ lookup('env','XDG_CONFIG_HOME') | default('~/.config', true) }}"
+    checkout_dir: "{{ playbook_dir | dirname }}"
     dotfiles_source_dir: "{{ playbook_dir | dirname }}/config/"
+    dotfiles_target_dir: "{{ lookup('env','XDG_CONFIG_HOME') | default('~/.config', true) }}"
     dotfiles_skip: ["ssh"]
-    dotfiles_overrides:
-      - name: bash/.bashrc
-        target: ~/.bashrc
-      - name: bash/.bash_profile
-        target: ~/.bash_profile
-      - name: zsh/.zprofile
-        target: ~/.zprofile
-  pre_tasks:
-    - name: Get repo checkout directory
-      ansible.builtin.set_fact:
-        checkout_path: "{{ playbook_dir | dirname }}"
   vars_prompt:
     # we do this instead of -K/--ask-become-pass for geerlingguy.mac.homebrew
     # that role can read `ansible_become_password` and pass it to `sudo_password`

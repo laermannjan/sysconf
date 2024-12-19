@@ -2,10 +2,6 @@
   stat:
     path: "{{ dotfiles_source_dir }}"
   register: source_stat
-- name: Check if dotfiles_target_dir exists
-  stat:
-    path: "{{ dotfiles_target_dir }}"
-  register: target_stat
 - name: Fail if dotfiles_source_dir does not exist
   fail:
     msg: "dotfiles_source_dir ({{ dotfiles_source_dir }}) does not exist."
@@ -36,8 +32,18 @@
     src: "{{ checkout_path }}/config/bash/.bash_profile"
     dest: "{{ ansible_env.HOME }}/.bash_profile"
     state: link
+- name: Link .bashrc
+  file:
+    src: "{{ checkout_path }}/config/bash/.bashrc"
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    state: link
 - name: Link .zprofile
   file:
     src: "{{ checkout_path }}/config/zsh/.zprofile"
     dest: "{{ ansible_env.HOME }}/.zprofile"
+    state: link
+- name: Link .zshrc
+  file:
+    src: "{{ checkout_path }}/config/zsh/.zshrc"
+    dest: "{{ ansible_env.HOME }}/.zshrc"
     state: link

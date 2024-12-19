@@ -27,4 +27,4 @@
     decrypt: yes
     mode: '0644'
   with_fileglob:
-    - "fonts/*.vault"
+    - "{{ checkout_dir }}/fonts/*.vault"
