@@ -1,0 +1,10 @@
+- name: Add fish to /etc/shells
+  become: true
+  lineinfile:
+    path: /etc/shells
+    line: "{{ homebrew_prefix }}/bin/fish"
+- name: Set fish as default shell
+  become: true
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: "{{ homebrew_prefix }}/bin/fish"

@@ -1,0 +1,8 @@
+--concurrent-fragments 4
+--download-archive archive.log
+--embed-metadata
+--embed-subs
+--embed-thumbnail
+--no-continue
+--no-overwrites
+--sub-langs en.*,de.*

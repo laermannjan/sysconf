@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e
+
+function have {
+  command -v "$1" &>/dev/null
+}
+
+
+[ "$(uname -s)" = "Darwin" ] && ! xcode-select --version && xcode-select --install
+[ "$(uname -s)" = "Darwin" ] && ! /opt/homebrew/bin/brew --version && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+[ "$(uname -s)" = "Darwin" ] && ! which brew && eval $(/opt/homebrew/bin/brew shellenv) && brew update
+
+have uv || curl -LsSf https://astral.sh/uv/install.sh | env INSTALLER_NO_MODIFY_PATH=1 sh && source "${HOME}/.local/bin/env"
+
+# uv tool install doesn't put all the executables on the path, so I'm linking them myself https://github.com/astral-sh/uv/issues/6314#issuecomment-2510284936
+have ansible || uv tool install ansible && find "$(uv tool dir)/ansible/bin" -depth 1 -type f -perm -u=x -exec ln -f -s {} ~/.local/bin/ \;
+
+
+[ ! -d "${HOME}/sysconf" ] && [ ! -d "${HOME}/sysconf/.git" ] && echo "cloning sysconf repo to ~/sysconf" && git clone https://github.com/laermannjan/sysconf.git ~/sysconf && pushd ~/sysconf && git remote set-url origin git@githubcom:laermannjan/sysconf.git && popd
+
+pushd ~/sysconf/ansible
+
+ansible-galaxy install -r requirements.yml
+
+ansible-playbook playbook.yml --ask-vault-pass
+
+popd
