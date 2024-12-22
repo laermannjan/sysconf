@@ -33,7 +33,7 @@ return {
                 default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev', 'copilot' },
                 providers = {
                     -- dont show LuaLS require statements when lazydev has items
-                    lsp = { fallback_for = { 'lazydev' } },
+                    lsp = { fallbacks = { 'lazydev' } },
                     lazydev = { name = 'LazyDev', module = 'lazydev.integrations.blink' },
                     copilot = { name = 'copilot', module = 'blink-cmp-copilot' },
                     beancount = { name = 'beancount', module = 'blink.compat.source' },
