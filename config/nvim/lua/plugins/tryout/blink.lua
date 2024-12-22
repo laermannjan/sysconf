@@ -22,17 +22,15 @@ return {
                 ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
             },
             completion = {
-		list = { selection = 'preselect' },
-		accept = { auto_brackets = { enabled = true } },
-		documentation = {auto_show = true},
+                list = { selection = 'manual' },
+                accept = { auto_brackets = { enabled = true } },
+                documentation = { auto_show = true },
                 ghost_text = { enabled = true },
-	   },
-	    signature = { enabled = true },
+            },
+            signature = { enabled = true },
             sources = {
                 -- add lazydev to your completion providers
-                completion = {
-                    enabled_providers = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev', 'copilot' },
-                },
+                default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev', 'copilot' },
                 providers = {
                     -- dont show LuaLS require statements when lazydev has items
                     lsp = { fallback_for = { 'lazydev' } },
