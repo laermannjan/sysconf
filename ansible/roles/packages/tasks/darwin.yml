@@ -63,3 +63,5 @@
       - wezterm
 - name: Install rust via rustup
   command: rustup-init -y
+- name: install npm LTS
+  command: nvm install lts # based on nvm fish plugin
