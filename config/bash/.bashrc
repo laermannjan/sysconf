@@ -15,3 +15,5 @@ for key in ~/.ssh/id_*; do
         fi
     fi
 done
+
+. "$HOME/.local/bin/env"
