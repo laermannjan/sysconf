@@ -16,6 +16,7 @@
       - fzf # fuzzy finder
       - git
       - git-delta # fancy diffs
+      - go
       - htop
       - httpie # HTTP client
       - hyperfine # benchmarking
