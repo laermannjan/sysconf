@@ -31,6 +31,7 @@
       - p7zip
       - prettyping
       - ripgrep
+      - rustup  # run `rustup-init` after installing
       - starship
       - tealdeer
       - tree
@@ -59,3 +60,5 @@
       - tailscale
       - utm
       - wezterm
+- name: Install rust via rustup
+  command: rustup-init -y

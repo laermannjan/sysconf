@@ -5,3 +5,4 @@ if [ -f /opt/homebrew/bin/brew ]; then
 fi
 
 . "$HOME/.local/bin/env"
+. "$HOME/.cargo/env"

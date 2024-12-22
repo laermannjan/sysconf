@@ -17,3 +17,4 @@ for key in ~/.ssh/id_*; do
 done
 
 . "$HOME/.local/bin/env"
+. "$HOME/.cargo/env"
