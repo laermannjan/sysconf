@@ -29,21 +29,21 @@
     label: "{{ dotfiles_target_dir }}/{{ item.path | basename }}"
 - name: Link .bash_profile
   file:
-    src: "{{ checkout_path }}/config/bash/.bash_profile"
+    src: "{{ checkout_dir }}/config/bash/.bash_profile"
     dest: "{{ ansible_env.HOME }}/.bash_profile"
     state: link
 - name: Link .bashrc
   file:
-    src: "{{ checkout_path }}/config/bash/.bashrc"
+    src: "{{ checkout_dir }}/config/bash/.bashrc"
     dest: "{{ ansible_env.HOME }}/.bashrc"
     state: link
 - name: Link .zprofile
   file:
-    src: "{{ checkout_path }}/config/zsh/.zprofile"
+    src: "{{ checkout_dir }}/config/zsh/.zprofile"
     dest: "{{ ansible_env.HOME }}/.zprofile"
     state: link
 - name: Link .zshrc
   file:
-    src: "{{ checkout_path }}/config/zsh/.zshrc"
+    src: "{{ checkout_dir }}/config/zsh/.zshrc"
     dest: "{{ ansible_env.HOME }}/.zshrc"
     state: link
