@@ -11,9 +11,7 @@ function have {
 # [ "$(uname -s)" = "Darwin" ] && ! /opt/homebrew/bin/brew --version && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 [ "$(uname -s)" = "Darwin" ] && export PATH=/opt/homebrew/bin:$PATH
 
-have uv || curl -LsSf https://astral.sh/uv/install.sh | env INSTALLER_NO_MODIFY_PATH=1 sh
-
-export PATH="${HOME}/.local/bin":$PATH
+have uv || curl -LsSf https://astral.sh/uv/install.sh | sh && source "${HOME}/.local/bin/env"
 
 # uv tool install doesn't put all the executables on the path, so I'm linking them myself https://github.com/astral-sh/uv/issues/6314#issuecomment-2510284936
 have ansible || uv tool install ansible && find "$(uv tool dir)/ansible/bin" -depth 1 -type f -perm -u=x -exec ln -f -s {} ~/.local/bin/ \;

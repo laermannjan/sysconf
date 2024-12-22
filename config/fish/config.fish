@@ -2,6 +2,11 @@ if test -f /opt/homebrew/bin/brew
     /opt/homebrew/bin/brew shellenv | source
 end
 
+# if not contains "$HOME/.local/bin" $PATH
+#     # Prepending path in case a system-installed binary needs to be overridden
+#     set -x PATH "$HOME/.local/bin" $PATH
+# end
+
 status is-interactive; and begin
     abbr --add -- e nvim
     abbr --add -- elevate 'aws iam add-user-to-group --group-name Elevated --user-name $(aws iam get-user | grep UserName | cut -d'\''"'\'' -f4)'
