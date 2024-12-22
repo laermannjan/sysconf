@@ -6,3 +6,4 @@ private/**
 templates/**/flake.lock
 !private/**.age
 .pre-commit-config.yaml
+fish_variables
