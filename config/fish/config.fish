@@ -77,5 +77,9 @@ status is-interactive; and begin
         end
     end
 
+    set -gx XDG_CONFIG_HOME "$HOME/.config"  # needed for lazygit
+
+    # set -gx nvm_default_version "lts"  # this doesn't work, must be set via `set -U ...`
+
 
 end
