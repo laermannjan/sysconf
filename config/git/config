@@ -35,7 +35,7 @@
 	updateRefs = true
 
 [safe]
-    directory = "~/dev/personal/sysconf"
+    directory = "~/sysconf"
 
 [user]
 	email = "git@flabber.mozmail.com"
