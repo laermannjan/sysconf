@@ -18,6 +18,13 @@
     hidden: yes
     excludes: "{{ dotfiles_skip }}"
   register: dot_config
+- name: Remove existing config directories
+  file:
+    path: "{{ dotfiles_target_dir }}/{{ item.path | basename }}"
+    state: absent
+  loop: "{{ dot_config.files }}"
+  loop_control:
+    label: "{{ dotfiles_target_dir }}/{{ item.path | basename }}"
 - name: Link config files
   file:
     src: "{{ item.path }}"
@@ -32,18 +39,22 @@
     src: "{{ checkout_dir }}/config/bash/.bash_profile"
     dest: "{{ ansible_env.HOME }}/.bash_profile"
     state: link
+    force: yes
 - name: Link .bashrc
   file:
     src: "{{ checkout_dir }}/config/bash/.bashrc"
     dest: "{{ ansible_env.HOME }}/.bashrc"
     state: link
+    force: yes
 - name: Link .zprofile
   file:
     src: "{{ checkout_dir }}/config/zsh/.zprofile"
     dest: "{{ ansible_env.HOME }}/.zprofile"
     state: link
+    force: yes
 - name: Link .zshrc
   file:
     src: "{{ checkout_dir }}/config/zsh/.zshrc"
     dest: "{{ ansible_env.HOME }}/.zshrc"
     state: link
+    force: yes
