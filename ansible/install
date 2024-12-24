@@ -28,3 +28,7 @@ ansible-playbook playbook.yml --ask-vault-pass
 popd
 
 [ "$(uname -s)" = "Darwin" ] && ! which brew && eval $(/opt/homebrew/bin/brew shellenv) && brew update
+
+
+[ "$(uname -s)" = "Darwin" ] && fish -c "fisher update && nvm install lts"
+
