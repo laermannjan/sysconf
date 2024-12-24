@@ -1,7 +1,16 @@
 return {
     'echasnovski/mini.files',
     keys = {
-        { '<leader>e', "<cmd>lua require('mini.files').open()<cr>", desc = 'Explorer' },
+        {
+            '<leader>e',
+            function()
+                if not MiniFiles.close() then
+                    MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+                    MiniFiles.reveal_cwd()
+                end
+            end,
+            desc = 'Explorer',
+        },
     },
     opts = {
         windows = { preview = true, width_preview = 80 },
@@ -11,7 +20,6 @@ return {
             go_out = '',
             go_out_plus = '<bs>',
             reset = '',
-            close = '<esc>',
         },
     },
 }
