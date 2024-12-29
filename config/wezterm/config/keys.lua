@@ -9,11 +9,11 @@ local keys = {
         key = ',',
         mods = 'CMD',
         action = act.SpawnCommandInNewTab({
-            cwd = wezterm.home_dir .. '/dev/lj/system-config',
+            cwd = wezterm.home_dir .. '/.config/wezterm/',
             args = {
                 os.getenv('SHELL'),
                 '-c',
-                'nvim ' .. wezterm.home_dir .. '/dev/lj/system-config',
+                'nvim ' .. wezterm.home_dir .. '/.config/wezterm/wezterm.lua',
             },
         }),
     },
