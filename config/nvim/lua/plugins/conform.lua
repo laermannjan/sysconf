@@ -13,6 +13,7 @@ return {
             just = { 'just' },
             sql = { 'sql_formatter' },
             yaml = { 'yamlfmt' },
+            rust = { 'rustfmt' },
         },
         format_on_save = {
             -- I recommend these options. See :help conform.format for details.
