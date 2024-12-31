@@ -4,24 +4,6 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Right Command -> Hyper",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "right_command",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "right_command",
-                                        "modifiers": ["right_option", "right_control"]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "Disable Command+H (Hide Window)",
                         "manipulators": [
                             {
@@ -35,8 +17,28 @@
                         ]
                     },
                     {
+                        "description": "Rigth Command -> Hyper",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "rigth_command",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_command",
+                                        "modifiers": [
+                                            "right_control",
+                                            "right_option",
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Double tap left_command -> Hyper",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
