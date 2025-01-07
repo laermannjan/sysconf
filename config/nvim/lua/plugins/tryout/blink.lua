@@ -12,7 +12,7 @@ return {
             'crispgm/cmp-beancount',
             'giuxtaposition/blink-cmp-copilot',
             'zbirenbaum/copilot.lua',
-            { 'kawre/neotab.nvim', opts = true },
+            { 'kawre/neotab.nvim', opts = { tabkey = '', act_as_tab = false } },
         },
         opts = {
             keymap = {
