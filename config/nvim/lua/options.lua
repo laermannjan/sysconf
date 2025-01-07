@@ -32,7 +32,7 @@ vim.o.laststatus     = 3         -- Always show statusline, but only for current
 vim.o.linebreak      = true      -- Wrap long lines at 'breakat' (if 'wrap' is set)
 vim.o.list           = true      -- Show helpful character indicators
 vim.o.number         = true      -- Show line numbers
-vim.o.relativenumber = true      -- Show relative line numbers
+-- vim.o.relativenumber = true      -- Show relative line numbers
 vim.o.pumblend       = 10        -- Make builtin completion menus slightly transparent
 vim.o.pumheight      = 10        -- Make popup menu smaller
 vim.o.winblend       = 10	 -- Make floating windows slightly transparent
@@ -69,21 +69,23 @@ end
 if vim.fn.exists('syntax_on') ~= 1 then vim.cmd('syntax enable') end
 
 -- Editing ====================================================================
-vim.o.autoindent    = true     -- Use auto indent
--- vim.o.smartindent   = true     -- Make indenting smart
-vim.opt.cpoptions:append('I')  -- Don't delete indent from autoindent when not typing anything or moving away
--- vim.o.expandtab     = true     -- Convert tabs to spaces in insert mode
+-- vim.o.autoindent    = true     -- Use auto indent
+vim.o.smartindent   = true     -- Make indenting smart
+-- vim.opt.cpoptions:append('I')  -- Don't delete indent from autoindent when not typing anything or moving away
+
 vim.o.formatoptions = 'rqnl1j' -- Improve comment editing
 vim.o.ignorecase    = true     -- Ignore case when searching (use `\C` to force not doing that)
 vim.o.smartcase     = true     -- Don't ignore case when searching if pattern has upper case
 vim.o.incsearch     = true     -- Show search results while typing
 vim.o.hlsearch      = true     -- Show search results even after hitting <CR>
+vim.o.tabstop       = 4       -- Negative value to use the same value as shiftwidth
+vim.o.expandtab     = true     -- Convert tabs to spaces in insert mode
 vim.o.shiftwidth    = 4        -- Use this number of spaces for indentation
-vim.o.softtabstop   = -1       -- Negative value to use the same value as shiftwidth
 vim.o.shiftround    = true     -- Round indent to multiple of shiftwidth when using < and >
+
 vim.o.virtualedit   = 'block'  -- Allow going past the end of line in visual block mode
 
--- vim.opt.iskeyword:append('-')  -- Treat dash separated words as a word text object
+vim.opt.iskeyword:append('-')  -- Treat dash separated words as a word text object
 
 -- Define pattern for a start of 'numbered' list. This is responsible for
 -- correct formatting of lists when using `gw`. This basically reads as 'at
