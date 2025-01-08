@@ -11,7 +11,16 @@ status is-interactive; and begin
     abbr --add -- e nvim
     abbr --add -- elevate 'aws iam add-user-to-group --group-name Elevated --user-name $(aws iam get-user | grep UserName | cut -d'\''"'\'' -f4)'
     abbr --add -- secrets 'aws secretsmanager get-secret-value --secret-id (aws secretsmanager list-secrets | jq -r '\''.[][] | .Name'\'' | fzf) | jq -r .SecretString | tr -d '\''\n'\'' | pbcopy'
+    abbr --add -- params 'aws ssm get-parameter --name (aws ssm describe-parameters | jq -r '\''.[][] | .Name'\'' | fzf) | jq -r .Parameter.Value | tr -d '\''\n'\'' | pbcopy'
     abbr --add -- ssh-reset-alcemy 'ssh-keygen -R alhambra-dev.alcemy.tech && ssh-keygen -R alhambra-prod.alcemy.tech'
+
+    function dsn --description "retrieve the DSN for a alcemy prism database"
+        set --local host $(aws ssm get-parameter --name /alcemy/cement/$argv[1]/db-host/main | jq -r .Parameter.Value | tr -d '\n')
+        set --local user "$argv[1]_user"
+        set --local pw $(aws secretsmanager get-secret-value --secret-id alcemy/cement/$argv[1]/prism-db-user-password | jq -r .SecretString | tr -d '\n')
+        set --local db "alcemy_prism_$argv[1]"
+        echo "postgres://$user:$pw@$host/$db"
+    end
 
     alias eza 'eza --group-directories-first --header --group --git'
     alias la 'eza -a'
@@ -75,6 +84,11 @@ status is-interactive; and begin
                 ssh-add $key
             end
         end
+    end
+
+    # add psql on macos
+    if test -d /Applications/Postgres.app
+        fish_add_path --global /Applications/Postgres.app/Contents/Versions/latest/bin
     end
 
     set -gx XDG_CONFIG_HOME "$HOME/.config"  # needed for lazygit
