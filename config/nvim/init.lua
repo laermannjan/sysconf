@@ -28,6 +28,8 @@ require('lazy').setup({
         { import = 'plugins' },
         { import = 'plugins/themes' },
         { import = 'plugins/tryout/blink' },
+        { import = 'plugins/tryout/copilot' },
+        { import = 'plugins/tryout/copilot-chat' },
         { import = 'plugins/lang/python' },
         { import = 'plugins/lang/go' },
         { import = 'plugins/lang/rust' },
