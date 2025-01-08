@@ -21,7 +21,7 @@ end
 
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.
-require('options')
+vim.g.mapleader = ' '
 
 require('lazy').setup({
     spec = {

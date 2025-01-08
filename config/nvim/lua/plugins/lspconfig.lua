@@ -127,7 +127,6 @@ return {
                     -- these will be buffer-local keybindings
                     -- because they only work if you have an active language server
 
-                    vim.keymap.set({ 'n', 'i' }, '<c-s>', vim.lsp.buf.signature_help, opts)
                     vim.keymap.set('n', 'grr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
                     vim.keymap.set('n', 'grn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
                     vim.keymap.set('n', 'gra', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
