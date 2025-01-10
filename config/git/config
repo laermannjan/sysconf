@@ -47,3 +47,5 @@
 [includeIf "gitdir:~/dev/personal/"]
 	path = "~/.config/git/config.personal"
 
+[rerere]
+	enable = true  # remember how to solve a merge conflict and apply resolution automatically next time
