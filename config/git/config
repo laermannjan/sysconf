@@ -49,3 +49,5 @@
 
 [rerere]
 	enable = true  # remember how to solve a merge conflict and apply resolution automatically next time
+[alias]
+	diffw = diff --word-diff
