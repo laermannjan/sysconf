@@ -8,7 +8,6 @@
 .Trashes
 .helix/
 .vscode/
-debug/
 target/
 *.pyc
 *.egg
@@ -28,5 +27,4 @@ node_modules
 devenv.local.nix
 .devenv
 .direnv
-.pre-commit-config.yaml
 
