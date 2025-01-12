@@ -32,10 +32,11 @@
       - p7zip
       - prettyping
       - ripgrep
-      - rustup  # run `rustup-init` after installing
+      - rustup # run `rustup-init` after installing
       - starship
       - tealdeer
       - tree
+      - unar
       - unzip
       - uv
       - yt-dlp
@@ -59,6 +60,7 @@
       - slack
       - stats
       - tailscale
+      - the-unarchiver
       - utm
       - wezterm
 - name: Install rust via rustup
