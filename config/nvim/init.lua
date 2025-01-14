@@ -31,6 +31,7 @@ require('lazy').setup({
         { import = 'plugins/tryout/blink' },
         { import = 'plugins/tryout/copilot' },
         { import = 'plugins/tryout/copilot-chat' },
+        { import = 'plugins/tryout/heirline' },
     },
     defaults = {
         -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
