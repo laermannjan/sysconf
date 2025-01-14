@@ -16,7 +16,7 @@ return {
         { '<leader>u', '', desc = '+ui/toggles' },
         { '<leader>n', function() Snacks.notifier.show_history() end, desc = 'Show notifications' },
         { '<leader>g', function() Snacks.lazygit() end, desc = 'Lazygit' },
-        { 'gX', function() Snacks.gitbrowse() end, desc = 'Open Git Remote URL' },
+        { 'gF', function() Snacks.gitbrowse() end, desc = 'Open Git Remote URL' },
         { '<F2>', function() Snacks.rename.rename_file() end, desc = 'Rename file' },
         { [[<c-\>]], function() Snacks.terminal() end, desc = 'Toggle terminal', mode = { 'n', 't', 'i' } },
         { ']]', function() Snacks.words.jump(vim.v.count1) end, desc = 'Next reference', mode = { 'n', 't' } },
