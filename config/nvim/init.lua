@@ -26,13 +26,11 @@ vim.g.mapleader = ' '
 require('lazy').setup({
     spec = {
         { import = 'plugins' },
+        { import = 'plugins/lang' },
         { import = 'plugins/themes' },
         { import = 'plugins/tryout/blink' },
         { import = 'plugins/tryout/copilot' },
         { import = 'plugins/tryout/copilot-chat' },
-        { import = 'plugins/lang/python' },
-        { import = 'plugins/lang/go' },
-        { import = 'plugins/lang/rust' },
     },
     defaults = {
         -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
