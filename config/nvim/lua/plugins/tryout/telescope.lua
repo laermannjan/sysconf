@@ -1,3 +1,4 @@
+local actions = require('telescope.actions')
 return {
 
     {
@@ -10,6 +11,7 @@ return {
         dependencies = {
             'nvim-lua/plenary.nvim',
             { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+            'nvim-telescope/telescope-ui-select.nvim',
         },
         lazy = false,
         cmd = { 'Telescope' },
@@ -30,6 +32,7 @@ return {
         },
         opts = {
             defaults = {
+                mappings = { i = { ['<esc>'] = actions.close } },
                 path_display = { 'truncate' },
                 layout_config = { prompt_position = 'top' },
                 sorting_strategy = 'ascending',
@@ -46,6 +49,7 @@ return {
         config = function(_, opts)
             require('telescope').setup(opts)
             require('telescope').load_extension('fzf')
+            require('telescope').load_extension('ui-select')
         end,
     },
 }
