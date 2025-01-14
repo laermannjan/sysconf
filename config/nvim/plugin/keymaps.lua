@@ -17,3 +17,6 @@ vim.keymap.set('v', '>', '>gv')
 vim.keymap.set('i', ',', ',<c-g>u')
 vim.keymap.set('i', '.', '.<c-g>u')
 vim.keymap.set('i', ';', ';<c-g>u')
+
+vim.keymap.set('n', '<leader>c', ':norm gcc<CR>', { desc = 'Comment line' })
+vim.keymap.set('v', '<leader>c', 'gc', { remap = true, desc = 'Comment selection' })

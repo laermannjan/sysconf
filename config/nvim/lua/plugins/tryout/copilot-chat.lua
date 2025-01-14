@@ -16,26 +16,10 @@ return {
     end,
     keys = {
         { '<c-s>', '<CR>', ft = 'copilot-chat', desc = 'Submit Prompt', remap = true },
-        { '<leader>a', '', desc = '+ai', mode = { 'n', 'v' } },
         {
-            '<leader>aa',
+            '<leader>A',
             function() return require('CopilotChat').toggle() end,
-            desc = 'Toggle (CopilotChat)',
-            mode = { 'n', 'v' },
-        },
-        {
-            '<leader>ax',
-            function() return require('CopilotChat').reset() end,
-            desc = 'Clear (CopilotChat)',
-            mode = { 'n', 'v' },
-        },
-        {
-            '<leader>aq',
-            function()
-                local input = vim.fn.input('Quick Chat: ')
-                if input ~= '' then require('CopilotChat').ask(input) end
-            end,
-            desc = 'Quick Chat (CopilotChat)',
+            desc = 'Copilot Chat',
             mode = { 'n', 'v' },
         },
         -- Show prompts actions with telescope
