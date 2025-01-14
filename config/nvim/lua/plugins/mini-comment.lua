@@ -1,4 +1,13 @@
 return {
     'echasnovski/mini.comment',
-    opts = true,
+    enabled = false,
+    version = false,
+    opts = {
+        mappings = {
+            comment = 'gCc',
+            normal = 'gCc',
+            visual = 'gCc',
+            textobject = 'gCc',
+        },
+    },
 }

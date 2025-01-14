@@ -5,5 +5,6 @@ return {
     },
     opts = {
         preset = 'helix',
+        sort = { 'alphanum' },
     },
 }
