@@ -1,6 +1,7 @@
-local op_prefix = ','
+local op_prefix = 'm'
 return {
     'echasnovski/mini.operators',
+    version = false,
     opts = {
         evaluate = { prefix = op_prefix .. '=' },
         exchange = { prefix = op_prefix .. 'x' },

@@ -1,5 +1,6 @@
 return {
     'echasnovski/mini.pick',
+    version = false,
     dependencies = {
         'mini.icons',
         'mini.extra',

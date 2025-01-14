@@ -1,5 +1,6 @@
 return {
     'echasnovski/mini.ai',
+    version = false,
     dependencies = {
         'mini.extra',
     },
