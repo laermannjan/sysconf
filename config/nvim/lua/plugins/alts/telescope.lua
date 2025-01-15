@@ -26,7 +26,7 @@ return {
             { '<leader>F', '<cmd>Telescope fd hidden=true no_ignore=true<cr>', desc = 'Files (incl. ignored)' },
             { '<leader>s', '<cmd>Telescope document_symbol<cr>', desc = 'Symbols' },
             { '<leader>S', '<cmd>Telescope workspace_symbol<cr>', desc = 'Workspace symbols' },
-            { '<leader>w', '<cmd>Telescope grep_string<cr>', desc = 'Grep (word under cursor)' },
+            { '<leader>.', '<cmd>Telescope grep_string<cr>', desc = 'Grep (word under cursor)' },
             { "<leader>'", '<cmd>Telescope resume<cr>', desc = 'Resume last search' },
             { 'mS', '<cmd>Pick spellsuggest<cr>', desc = 'Spell suggestion (word under cursor)' },
         },
