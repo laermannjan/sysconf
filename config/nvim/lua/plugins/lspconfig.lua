@@ -107,6 +107,12 @@ return {
                 -- Show gutter sings
                 signs = {
                     severity = { min = 'HINT', max = 'ERROR' },
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = ' ',
+                        [vim.diagnostic.severity.WARN] = ' ',
+                        [vim.diagnostic.severity.HINT] = ' ',
+                        [vim.diagnostic.severity.INFO] = ' ',
+                    },
                 },
                 -- Show virtual text only for errors and warnings
                 virtual_text = { severity = { min = 'WARN', max = 'ERROR' } },
@@ -118,29 +124,6 @@ return {
             }
 
             vim.diagnostic.config(diagnostic_opts)
-
-            vim.api.nvim_create_autocmd('LspAttach', {
-                desc = 'LSP keymaps',
-                callback = function(event)
-                    local opts = function(local_opts)
-                        local default = { buffer = event.buf }
-                        local_opts = vim.tbl_extend('force', default, local_opts or {})
-                        return local_opts
-                    end
-
-                    -- these will be buffer-local keybindings
-                    -- because they only work if you have an active language server
-
-                    vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts({ desc = 'References' }))
-                    vim.keymap.set('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<cr>', opts({ desc = 'Rename symbol' }))
-                    vim.keymap.set('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts({ desc = 'Code action' }))
-                    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts({ desc = 'Definition' }))
-                    vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts({ desc = 'Declaration' }))
-                    vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts({ desc = 'Implementation' }))
-                    vim.keymap.set('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts({ desc = 'Type definition' }))
-                    vim.keymap.set({ 'n', 'x' }, '=', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts({ desc = 'Format' })) -- NOTE: use gq to sync format
-                end,
-            })
         end,
     },
 }
