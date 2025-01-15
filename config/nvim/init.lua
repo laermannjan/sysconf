@@ -33,7 +33,6 @@ require('lazy').setup({
         { import = 'plugins/themes' },
         { import = 'plugins/alts/blink' },
         { import = 'plugins/alts/heirline' },
-        { import = 'plugins/alts/telescope' },
     },
     defaults = {
         -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
