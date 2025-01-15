@@ -20,3 +20,11 @@ vim.keymap.set('i', ';', ';<c-g>u')
 
 vim.keymap.set('n', '<leader>c', ':norm gcc<CR>', { desc = 'Comment line' })
 vim.keymap.set('v', '<leader>c', 'gc', { remap = true, desc = 'Comment selection' })
+vim.keymap.set('n', '<leader>r', function() vim.lsp.buf.rename() end, { desc = 'Rename symbol' })
+vim.keymap.set('n', '<leader>a', function() vim.lsp.buf.code_action() end, { desc = 'Code action' })
+vim.keymap.set('n', 'gr', function() vim.lsp.buf.references() end, { desc = 'References' })
+vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, { desc = 'Definition' })
+vim.keymap.set('n', 'gD', function() vim.lsp.buf.declaration() end, { desc = 'Declaration' })
+vim.keymap.set('n', 'gi', function() vim.lsp.buf.implementation() end, { desc = 'Implementation' })
+vim.keymap.set('n', 'gy', function() vim.lsp.buf.type_definition() end, { desc = 'Type definition' })
+vim.keymap.set({ 'n', 'x' }, '=', function() vim.lsp.buf.format({ async = true }) end, { desc = 'Format' }) -- NOTE: use gq to sync format

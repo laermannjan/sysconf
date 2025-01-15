@@ -23,6 +23,9 @@ end
 -- loading lazy.nvim so that mappings are correct.
 vim.g.mapleader = ' '
 
+require('options')
+require('keymaps')
+
 require('lazy').setup({
     spec = {
         { import = 'plugins' },
