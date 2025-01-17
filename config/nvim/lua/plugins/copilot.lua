@@ -15,6 +15,7 @@ return {
         },
         panel = { enabled = false },
         filetypes = {
+            beancount = false,
             markdown = true,
             help = true,
         },
