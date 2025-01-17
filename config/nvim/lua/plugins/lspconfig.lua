@@ -126,4 +126,11 @@ return {
             vim.diagnostic.config(diagnostic_opts)
         end,
     },
+    {
+        -- stops LSPs when neovim loses focus for more than 15 min
+        'zeioth/garbage-day.nvim',
+        dependencies = 'neovim/nvim-lspconfig',
+        event = 'VeryLazy',
+        opts = {},
+    },
 }
