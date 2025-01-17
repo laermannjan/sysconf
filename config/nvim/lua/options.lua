@@ -99,10 +99,10 @@ vim.o.spelloptions = 'camel'      -- Treat parts of camelCase words as seprate w
 -- vim.o.dictionary = vim.fn.stdpath('config') .. '/misc/dict/english.txt' -- Use specific dictionaries
 
 -- Folds ======================================================================
-vim.o.foldmethod  = 'indent' -- Set 'indent' folding method
-vim.o.foldlevel   = 3        -- Display all folds except top two
-vim.o.foldnestmax = 10       -- Create folds only for some number of nested levels
-vim.g.markdown_folding = 1   -- Use folding by heading in markdown files
+-- vim.o.foldmethod  = 'indent' -- Set 'indent' folding method
+-- vim.o.foldlevel   = 3        -- Display all folds except top two
+-- vim.o.foldnestmax = 10       -- Create folds only for some number of nested levels
+-- vim.g.markdown_folding = 1   -- Use folding by heading in markdown files
 
 if vim.fn.has('nvim-0.10') == 1 then
   vim.o.foldtext = ''        -- Use underlying text with its highlighting
