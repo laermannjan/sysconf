@@ -7,3 +7,6 @@ templates/**/flake.lock
 !private/**.age
 .pre-commit-config.yaml
 fish_variables
+config/fish/conf.d/
+config/fish/functions/
+!config/fish/functions/fisher.fish
