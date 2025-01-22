@@ -1,42 +1,40 @@
-- name: Install Homebrew packages
-  community.general.homebrew:
+- name: Install apt packages
+  become: yes
+  ansible.builtin.apt:
     name:
       - awscli
       - bat
       - btop
       - curl
-      - direnv # environment loading on entering a directory
-      - doggo # DNS like dig
-      - eza # nice ls
-      - fd # faster find
+      - direnv
+      - fd-find
       - ffmpeg
-      - fish
-      - fzf # fuzzy finder
+      - fzf
       - git
-      - git-delta # fancy diffs
-      - go
-      - htop
-      - httpie # HTTP client
-      - hyperfine # benchmarking
-      - inetutils # telnet, whois, etc
-      - jless # JSON view
-      - jo # JSON output
-      - jq # JSON manipulator
-      - lazydocker
-      - lazygit
-      - less
+      - httpie
+      - inetutils-tools # telnet, whois, etc
+      - jq 
       - lz4 # compression
-      - neovim
-      - p7zip
-      - prettyping
       - ripgrep
-      - rustup # run `rustup-init` after installing
-      - starship
-      - tealdeer
-      - tree
-      - unar
+      - p7zip
       - unzip
-      - uv
       - yt-dlp
       - zoxide
-
+      - tealdeer
+      
+- name: Install Homebrew packages
+  import_role:
+    name: monolithprojects.homebrew
+  become: yes
+  vars:
+    brew_formulae:
+      - doggo
+      - eza
+      - fish
+      - git-delta
+      - go
+      - lazydocker
+      - lazygit
+      - neovim
+      - rustup # run `rustup-init` after installing
+      - starship

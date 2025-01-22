@@ -1,5 +1,6 @@
 roles:
   - name: elliotweiser.osx-command-line-tools
+  - name: monolithprojects.homebrew
 collections:
   - name: community.general
   - name: geerlingguy.mac
