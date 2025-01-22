@@ -1,5 +1,7 @@
 if test -f /opt/homebrew/bin/brew
     /opt/homebrew/bin/brew shellenv | source
+else if test -f /home/linuxbrew/.linuxbrew/bin/brew
+    /home/linuxbrew/.linuxbrew/bin/brew shellenv | source
 end
 
 # if not contains "$HOME/.local/bin" $PATH
