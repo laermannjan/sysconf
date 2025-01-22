@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -8,12 +8,12 @@ function have {
 
 # Darwin
 [ "$(uname -s)" = "Darwin" ] && ! xcode-select --version && xcode-select --install
-# [ "$(uname -s)" = "Darwin" ] && ! /opt/homebrew/bin/brew --version && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# [ "$(uname -s)" = "Darwin" ] && ! /opt/homebrew/bin/brew --version && /usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 [ "$(uname -s)" = "Darwin" ] && export PATH=/opt/homebrew/bin:$PATH
 
 # Linux
 [ "$(uname -s)" = "Linux" ] && ! (have git || have curl || have unzip) && have apt && sudo apt install -y git curl unzip
-[ "$(uname -s)" = "Linux" ] && ! /home/linuxbrew/.linuxbrew/bin/brew --version && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+[ "$(uname -s)" = "Linux" ] && ! /home/linuxbrew/.linuxbrew/bin/brew --version && /usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 [ "$(uname -s)" = "Linux" ] && export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 
 have uv || curl -LsSf https://astral.sh/uv/install.sh | sh && source "${HOME}/.local/bin/env"
