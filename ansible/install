@@ -12,9 +12,9 @@ function have {
 [ "$(uname -s)" = "Darwin" ] && export PATH=/opt/homebrew/bin:$PATH
 
 # Linux
-[ "$(uname -s)" = "Linux" ] && ! (have git || have curl || have unzip) && have apt && sudo apt install -y git unzip
-[ "$(uname -s)" = "Linux" ] && ! have brew && /usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-[ "$(uname -s)" = "Linux" ] && export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
+# [ "$(uname -s)" = "Linux" ] && ! (have git && have curl && have unzip) && have apt && sudo apt install -y git curl unzip
+# [ "$(uname -s)" = "Linux" ] && ! have brew && /usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# [ "$(uname -s)" = "Linux" ] && export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 
 have uv || curl -LsSf https://astral.sh/uv/install.sh | sh && source "${HOME}/.local/bin/env"
 
