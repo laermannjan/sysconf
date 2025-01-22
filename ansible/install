@@ -32,5 +32,7 @@ ansible-playbook playbook.yml --ask-vault-pass
 
 popd
 
-exec fish && brew update && fisher update && nvm install lts
+fish -c "fisher update && nvm install lts"
+have brew && brew update
+exec fish
 
