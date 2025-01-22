@@ -1,40 +1,59 @@
 - name: Install apt packages
   become: yes
   ansible.builtin.apt:
-    name:
-      - awscli
-      - bat
-      - btop
-      - curl
-      - direnv
-      - fd-find
-      - ffmpeg
-      - fzf
-      - git
-      - httpie
-      - inetutils-tools # telnet, whois, etc
-      - jq 
-      - lz4 # compression
-      - ripgrep
-      - p7zip
-      - unzip
-      - yt-dlp
-      - zoxide
-      - tealdeer
-      
-- name: Install Homebrew packages
-  import_role:
-    name: monolithprojects.homebrew
-  become: yes
-  vars:
-    brew_formulae:
-      - doggo
-      - eza
-      - fish
-      - git-delta
-      - go
-      - lazydocker
-      - lazygit
-      - neovim
-      - rustup # run `rustup-init` after installing
-      - starship
+    name: "{{ item.name }}"
+  loop:
+    - { name: awscli }
+    - { name: bat }
+    - { name: build-essential }
+    - { name: btop }
+    - { name: curl }
+    - { name: direnv }
+    - { name: fd-find }
+    - { name: ffmpeg }
+    - { name: file }
+    - { name: fzf }
+    - { name: git }
+    - { name: httpie }
+    - { name: inetutils-tools } # telnet, whois, etc
+    - { name: jq }
+    - { name: lz4 } # compression
+    - { name: ripgrep }
+    - { name: p7zip }
+    - { name: procps }
+    - { name: unzip }
+    - { name: yt-dlp }
+    - { name: zoxide }
+    - { name: tealdeer }
+
+- name: Download homebrew installer
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+    dest: /tmp/install.sh
+    mode: 0700
+  become: false
+
+- name: Install linuxbrew
+  ansible.builtin.command: bash -c "/tmp/install.sh"
+  register: install_result
+  changed_when: "install_result.rc == 0"
+  become: false
+
+- name: Install linuxbrew packages
+  community.general.homebrew:
+    name: "{{ item.name }}"
+    state: present
+    # path: "/home/{{ homebrew_user }}/.linuxbrew/bin"
+  # become_user: "{{ homebrew_user }}"
+  # become: yes
+  loop:
+    - { name: doggo }
+    - { name: eza }
+    - { name: fish }
+    - { name: git-delta }
+    - { name: go }
+    - { name: lazydocker }
+    - { name: lazygit }
+    - { name: neovim }
+    - { name: rustup } # run `rustup-init` after installing
+    - { name: starship }
