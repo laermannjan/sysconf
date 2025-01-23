@@ -1,5 +1,0 @@
----
-- name: Install tailscale
-  community.general.homebrew:
-    name: tailscale
-  when: ansible_os_family == 'Darwin'

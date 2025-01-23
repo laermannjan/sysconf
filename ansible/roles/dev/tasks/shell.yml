@@ -5,7 +5,7 @@
 
 - name: Link fish config
   file:
-    src: "fish"
+    src: "{{ checkout_dir }}/config/fish"
     dest: "{{ ansible_env.HOME }}/.config/fish"
     state: link
     force: yes
@@ -20,13 +20,13 @@
   become: true
   lineinfile:
     path: /etc/shells
-    line: "{{ fish_path }}"
+    line: "{{ fish_path.stdout }}"
 
 - name: Set fish as default shell
   become: true
   user:
     name: "{{ ansible_user_id }}"
-    shell: "{{ fish_path }}"
+    shell: "{{ fish_path.stdout }}"
 
 - name: Install fisher
   ansible.builtin.shell: |
@@ -34,7 +34,7 @@
     fisher install jorgebucaran/fisher
     fisher update
   args:
-    executable: "{{ fish_path }}"
+    executable: "{{ fish_path.stdout }}"
     creates: "{{ ansible_env.HOME }}/.config/fish/functions/fisher.fish"
 
 - name: Install zoxide
@@ -81,7 +81,8 @@
 
 - name: Link direnv config
   file:
-    src: "direnv"
+    src: "{{ checkout_dir }}/config/direnv"
     dest: "{{ ansible_env.HOME }}/.config/direnv"
     state: link
     force: yes
+

@@ -11,7 +11,7 @@
 
 - name: Link git config
   file:
-    src: "git"
+    src: "{{ checkout_dir }}/config/git"
     dest: "{{ ansible_env.HOME }}/.config/git"
     state: link
     force: yes
@@ -22,7 +22,7 @@
 
 - name: Link lazygit config
   file:
-    src: "lazygit"
+    src: "{{ checkout_dir }}/config/lazygit"
     dest: "{{ ansible_env.HOME }}/.config/lazygit"
     state: link
     force: yes

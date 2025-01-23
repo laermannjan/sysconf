@@ -6,7 +6,7 @@
 
 - name: Link karabiner config
   file:
-    src: "linearmouse"
+    src: "{{ checkout_dir }}/config/linearmouse"
     dest: "{{ ansible_env.HOME }}/.config/linearmouse"
     state: link
     force: yes

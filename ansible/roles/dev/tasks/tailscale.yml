@@ -22,6 +22,6 @@
   when: ansible_os_family == 'Debian'
 
 - name: Install tailscale
-  community.general.homebrew:
+  community.general.homebrew_cask:
     name: tailscale
   when: ansible_os_family == 'Darwin'

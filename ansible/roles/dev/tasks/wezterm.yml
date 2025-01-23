@@ -29,7 +29,7 @@
 
 - name: Link wezterm config
   file:
-    src: "wezterm/"
+    src: "{{ checkout_dir }}/config/wezterm/"
     dest: "{{ ansible_env.HOME }}/.config/wezterm"
     state: link
     force: yes

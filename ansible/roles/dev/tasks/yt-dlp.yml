@@ -1,18 +1,12 @@
 ---
-- name: Install ffmpeg + ffprobe
+- name: Install ffmpeg
   ansible.builtin.apt:
-    name: "{{ item }}"
-  loop:
-      - ffmpeg
-      - ffprobe
+    name: ffmpeg
   when: ansible_os_family == 'Debian'
 
-- name: Install ffmpeg + ffprobe
+- name: Install ffmpeg
   community.general.homebrew:
-    name: "{{ item }}"
-  loop:
-    - ffmpeg
-    - ffprobe
+    name: ffmpeg
   when: ansible_os_family == 'Darwin'
 
 - name: Add yt-dlp repository from PPA

@@ -17,7 +17,7 @@
 
 - name: Link direnv config
   file:
-    src: "direnv"
+    src: "{{ checkout_dir }}/config/direnv"
     dest: "{{ ansible_env.HOME }}/.config/direnv"
     state: link
     force: yes

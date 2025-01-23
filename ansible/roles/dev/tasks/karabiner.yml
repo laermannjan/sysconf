@@ -6,7 +6,7 @@
 
 - name: Link karabiner config
   file:
-    src: "karabiner"
+    src: "{{ checkout_dir }}/config/karabiner"
     dest: "{{ ansible_env.HOME }}/.config/karabiner"
     state: link
     force: yes

@@ -87,10 +87,6 @@
   import_tasks: firefox.yml
   tags: firefox
 
-- name: arc
-  import_tasks: arc.yml
-  tags: arc
-
 - name: postgres
   import_tasks: postgres.yml
   tags: postgres
@@ -103,10 +99,6 @@
   import_tasks: linearmouse.yml
   tags: linearmouse
 
-- name: slack
-  import_tasks: slack.yml
-  tags: slack
-
 - name: tailscale
   import_tasks: tailscale.yml
   tags: tailscale
@@ -116,6 +108,7 @@
     name: "{{ item }}"
   loop:
     - arc
+    - slack
     - jetbrains-toolbox
     - monitorcontrol
     - notion-calendar
