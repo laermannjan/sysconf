@@ -1,0 +1,10 @@
+---
+- include_tasks: "{{ ansible_os_family | lower }}.yml"
+  when: ansible_os_family in ['Darwin', 'Debian']
+
+- name: Link 1password config
+  file:
+    src: "{{ checkout_dir }}/config/1password"
+    dest: "{{ ansible_env.HOME }}/.config/1password"
+    state: link
+    force: yes

@@ -1,0 +1,14 @@
+---
+- name: Install core packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+  loop:
+    - build-essential
+    - coreutils
+    - keyring
+    - lz4
+    - morutils
+    - p7zip
+    - unzip
+  become: yes
+

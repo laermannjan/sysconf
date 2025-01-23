@@ -1,0 +1,8 @@
+---
+- name: Install zoxide
+  community.general.homebrew:
+    name: zoxide
+
+- name: Install direnv
+  community.general.homebrew:
+    name: direnv

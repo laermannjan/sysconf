@@ -1,0 +1,5 @@
+---
+- name: Install 1Password
+  community.general.homebrew:
+    name: 1password
+

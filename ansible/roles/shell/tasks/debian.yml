@@ -1,0 +1,8 @@
+---
+- name: Install direnv
+  ansible.builtin.apt:
+    name: direnv
+
+- name: Install zoxide
+  ansible.builtin.apt:
+    name: zoxide

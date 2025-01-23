@@ -1,0 +1,26 @@
+---
+- name: Add Mozilla GPG key
+  ansible.builtin.get_url:
+    url: https://packages.mozilla.org/apt/repo-signing-key.gpg
+    dest: /etc/apt/keyrings/packages.mozilla.org.asc
+    state: present
+
+- name: Add Mozilla repository
+  ansible.builtin.apt_repository:
+    repo: 'deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main'
+    state: present
+
+- name: Configure APT to prioritize packages from Mozilla repository
+  copy:
+    dest: /etc/apt/preferences.d/mozilla
+    content: |
+      Package: *
+      Pin: origin packages.mozilla.org
+      Pin-Priority: 1000
+  args:
+    creates: /etc/apt/preferences/mozilla
+
+- name: Install firefox
+  ansible.builtin.apt:
+    name: firefox-developer-edition
+

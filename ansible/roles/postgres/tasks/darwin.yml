@@ -1,0 +1,5 @@
+---
+- name: Install postgres
+  community.general.homebrew:
+    name: postgres-unofficial
+
