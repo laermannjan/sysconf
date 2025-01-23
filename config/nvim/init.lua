@@ -1,3 +1,4 @@
+vim.g.python3_host_prog = '~/.venv.nvim/bin/python3'
 vim.g.colorscheme = 'tokyonight'
 -- vim.g.colorscheme = 'randomhue'
 
