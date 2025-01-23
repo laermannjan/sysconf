@@ -10,7 +10,7 @@
     - morutils
     - p7zip
     - unzip
-  becomme: yes
+  become: yes
   when: ansible_os_family == 'Debian'
 
 - name: Install core Darwin packages
