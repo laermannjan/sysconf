@@ -10,4 +10,3 @@ fish_variables
 config/fish/conf.d/
 config/fish/functions/
 config/fish/completions/
-!config/fish/functions/fisher.fish
