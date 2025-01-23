@@ -1,0 +1,10 @@
+---
+- name: Install fd
+  ansible.builtin.apt:
+    name: fd-find
+  when: ansible_os_family == 'Debian'
+
+- name: Install fd
+  community.general.homebrew:
+    name: fd
+  when: ansible_os_family == 'Darwin'

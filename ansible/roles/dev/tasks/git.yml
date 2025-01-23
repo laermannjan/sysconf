@@ -1,0 +1,32 @@
+---
+- name: Install git
+  ansible.builtin.apt:
+    name: git
+  when: ansible_os_family == 'Debian'
+
+- name: Install git
+  community.general.homebrew:
+    name: git
+  when: ansible_os_family == 'Darwin'
+
+- name: Link git config
+  file:
+    src: "git"
+    dest: "{{ ansible_env.HOME }}/.config/git"
+    state: link
+    force: yes
+
+- name: Install lazygit
+  community.general.homebrew:
+    name: lazygit
+
+- name: Link lazygit config
+  file:
+    src: "lazygit"
+    dest: "{{ ansible_env.HOME }}/.config/lazygit"
+    state: link
+    force: yes
+
+- name: Install delta
+  community.general.homebrew:
+    name: git-delta

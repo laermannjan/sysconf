@@ -1,0 +1,13 @@
+---
+- name: Install karabiner-elements
+  community.general.homebrew:
+    name: karabiner-elements
+  when: ansible_os_family == 'Darwin'
+
+- name: Link karabiner config
+  file:
+    src: "karabiner"
+    dest: "{{ ansible_env.HOME }}/.config/karabiner"
+    state: link
+    force: yes
+  when: ansible_os_family == 'Darwin'

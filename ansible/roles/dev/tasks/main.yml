@@ -1,0 +1,123 @@
+---
+- name: Homebrew
+  import_tasks: homebrew.yml
+  tags: homebrew
+
+- name: core
+  import_tasks: core.yml
+  tags: core
+
+- name: shell
+  import_tasks: shell.yml
+  tags: shell
+
+- name: git
+  import_tasks: git.yml
+  tags: git
+
+- name: inet
+  import_tasks: inet.yml
+  tags: inet
+
+- name: fzf
+  import_tasks: fzf.yml
+  tags: fzf
+
+- name: fd
+  import_tasks: fd.yml
+  tags: fd
+
+- name: ripgrep
+  import_tasks: ripgrep.yml
+  tags: ripgrep
+
+# - name: bat
+#   import_tasks: bat.yml
+#   tags: bat
+
+- name: wezterm
+  import_tasks: wezterm.yml
+  tags: wezterm
+
+- name: docker
+  import_tasks: docker.yml
+  tags: docker
+
+- name: python
+  import_tasks: python.yml
+  tags: python
+
+- name: go
+  import_tasks: go.yml
+  tags: go
+
+- name: rust
+  import_tasks: rust.yml
+  tags: rust
+
+- name: node
+  import_tasks: node.yml
+  tags: node
+
+- name: eza
+  import_tasks: eza.yml
+  tags: eza
+
+- name: jq
+  import_tasks: jq.yml
+  tags: jq
+
+- name: yt-dlp
+  import_tasks: yt-dlp.yml
+  tags: yt-dlp
+
+- name: neovim
+  import_tasks: neovim.yml
+  tags: neovim
+
+- name: awscli
+  import_tasks: awscli.yml
+  tags: awscli
+
+- name: 1password
+  import_tasks: 1password.yml
+  tags: 1password
+
+- name: firefox
+  import_tasks: firefox.yml
+  tags: firefox
+
+- name: arc
+  import_tasks: arc.yml
+  tags: arc
+
+- name: postgres
+  import_tasks: postgres.yml
+  tags: postgres
+
+- name: karabiner
+  import_tasks: karabiner.yml
+  tags: karabiner
+
+- name: linearmouse
+  import_tasks: linearmouse.yml
+  tags: linearmouse
+
+- name: slack
+  import_tasks: slack.yml
+  tags: slack
+
+- name: tailscale
+  import_tasks: tailscale.yml
+  tags: tailscale
+
+- name: Install some mac apps
+  community.general.homebrew:
+    name: "{{ item }}"
+  loop:
+    - arc
+    - jetbrains-toolbox
+    - monitorcontrol
+    - notion-calendar
+    - raycast
+    - utm

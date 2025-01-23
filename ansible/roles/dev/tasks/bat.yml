@@ -1,0 +1,11 @@
+---
+- name: Install bat
+  ansible.builtin.apt:
+    name: bat
+  when: ansible_os_family == 'Debian'
+
+- name: Install bat
+  community.general.homebrew:
+    name: bat
+  when: ansible_os_family == 'Darwin'
+

@@ -1,0 +1,23 @@
+---
+- name: Install direnv
+  ansible.builtin.apt:
+    name: direnv
+  when: ansible_os_family == 'Debian'
+
+- name: Install direnv
+  community.general.homebrew:
+    name: direnv
+  when: ansible_os_family == 'Darwin'
+
+- name: Ensure direnv is sourced
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.config/fish/config.fish"
+    search_string: "direnv hook fish | source"
+    line: "direnv hook fish | source"
+
+- name: Link direnv config
+  file:
+    src: "direnv"
+    dest: "{{ ansible_env.HOME }}/.config/direnv"
+    state: link
+    force: yes

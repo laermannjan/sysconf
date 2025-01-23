@@ -1,0 +1,28 @@
+---
+- name: Install core Debian packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+  loop:
+    - build-essential
+    - coreutils
+    - keyring
+    - lz4
+    - morutils
+    - p7zip
+    - unzip
+  becomme: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Install core Darwin packages
+  community.general.homebrew:
+    name: "{{ item }}"
+  loop:
+    - coreutils
+    - lz4
+    - moreutils
+    - p7zip
+    - unar
+    - unzip
+    - the-unarchiver
+  when: ansible_os_family == 'Darwin'
+

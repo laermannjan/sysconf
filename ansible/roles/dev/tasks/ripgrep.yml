@@ -1,0 +1,10 @@
+---
+- name: Install ripgrep
+  ansible.builtin.apt:
+    name: ripgrep
+  when: ansible_os_family == 'Debian'
+
+- name: Install ripgrep
+  community.general.homebrew:
+    name: ripgrep
+  when: ansible_os_family == 'Darwin'

@@ -1,3 +1,4 @@
+---
 - hosts: localhost
   vars:
     checkout_dir: "{{ playbook_dir | dirname }}"
@@ -13,9 +14,7 @@
       prompt: sudo password
       private: yes
   roles:
-    - {role: packages, tags: ['packages']}
+    - {role: dev, tags: ['dev']}
     - {role: system, tags: ['system']}
     - {role: ssh, tags: ['ssh']}
-    - {role: config, tags: ['config']}
-    - {role: shell, tags: ['shell']}
     - {role: fonts, tags: ['fonts']}

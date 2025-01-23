@@ -1,3 +1,4 @@
+---
 - name: Install pre-built Nerd Fonts from homebrew
   import_role:
     name: geerlingguy.mac.homebrew

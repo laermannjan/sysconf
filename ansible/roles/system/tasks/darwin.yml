@@ -1,3 +1,4 @@
+---
 - name: Configure macOS settings
   community.general.osx_defaults:
     domain: "{{ item.domain }}"
@@ -54,13 +55,15 @@
     - {domain: com.apple.desktopservices, key: DSDontWriteNetworkStores, type: bool, value: true} # Avoid creating .DS_Store files on network volumes
     - {domain: com.apple.desktopservices, key: DSDontWriteUSBStores, type: bool, value: true} # Avoid creating .DS_Store files on USB volumes
     - {domain: com.apple.screensaver, key: askForPassword, type: int, value: 1} # Require password immediately after screen saver begins
-    - {domain: com.apple.screensaver, key: askForPasswordDelay, type: int, value: 0} # Require password immediately after screen saver begins
+    - {domain: com.apple.screensaver, key: askForPasswordDelay, type: int, value: 0,} # Require password immediately after screen saver begins
+
 - name: Enable TouchID for sudo
   become: true
   lineinfile:
     path: /etc/pam.d/sudo
     line: 'auth       sufficient     pam_tid.so'
     insertbefore: BOF
+
 - name: Configure settings requiring shell commands
   command: "{{ item }}"
   loop:
@@ -69,6 +72,7 @@
     - sudo chflags nohidden /Volumes
     - /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
   changed_when: false
+
 - name: Allow apps from anywhere
   shell: |
     if ! [ "$SPCTL" = "assessments disabled" ]; then
@@ -76,18 +80,22 @@
     fi
   become: true
   changed_when: false
+
 - name: Show the ~/Library folder
   command: chflags nohidden ~/Library
   changed_when: false
+
 - name: Show the /Volumes folder
   command: chflags nohidden /Volumes
   changed_when: false
+
 - name: Enable snap-to-grid for icons on the desktop and in other icon views
   shell: |
     /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
     /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
     /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
   changed_when: false
+
 - name: Configure Dock
   import_role:
     name: geerlingguy.mac.dock

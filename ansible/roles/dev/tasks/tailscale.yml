@@ -1,0 +1,27 @@
+---
+- block:
+    - name: Download and save the Tailscale GPG key
+      get_url:
+        url: "https://pkgs.tailscale.com/stable/debian/{{ ansible_distribution_release }}.noarmor.gpg"
+        dest: /usr/share/keyrings/tailscale-archive-keyring.gpg
+        mode: '0644'
+
+    - name: Add Tailscale repository to sources list
+      copy:
+        dest: /etc/apt/sources.list.d/tailscale.list
+        content: |
+          "deb [signed-by=/usr/share/keyrings/tailscale-archive-keyring.gpg] https://pkgs.tailscale.com/stable/debian {{ ansible_distribution_release }} main"
+
+    - name: Update APT cache
+      apt:
+        update_cache: yes
+
+    - name: Install tailscale
+      ansible.builtin.apt:
+        name: tailscale
+  when: ansible_os_family == 'Debian'
+
+- name: Install tailscale
+  community.general.homebrew:
+    name: tailscale
+  when: ansible_os_family == 'Darwin'

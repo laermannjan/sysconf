@@ -1,0 +1,13 @@
+---
+- name: Install linearmouse
+  community.general.homebrew:
+    name: linearmouse
+  when: ansible_os_family == 'Darwin'
+
+- name: Link karabiner config
+  file:
+    src: "linearmouse"
+    dest: "{{ ansible_env.HOME }}/.config/linearmouse"
+    state: link
+    force: yes
+  when: ansible_os_family == 'Darwin'

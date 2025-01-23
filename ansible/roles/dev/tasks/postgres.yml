@@ -1,0 +1,10 @@
+---
+- name: Install postgres
+  community.general.homebrew:
+    name: postgres-unofficial
+  when: ansible_os_family == 'Darwin'
+
+- name: Install postgres
+  ansible.builtin.apt:
+    name: postgres-client
+  when: ansible_os_family == 'Darwin'

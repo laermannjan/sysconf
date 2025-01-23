@@ -1,0 +1,10 @@
+---
+- name: Install jq
+  ansible.builtin.apt:
+    name: jq
+  when: ansible_os_family == 'Debian'
+
+- name: Install jq
+  community.general.homebrew:
+    name: jq
+  when: ansible_os_family == 'Darwin'

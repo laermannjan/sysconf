@@ -1,0 +1,5 @@
+---
+- name: Install Arc
+  community.general.homebrew:
+    name: arc
+  when: ansible_os_family == 'Darwin'
