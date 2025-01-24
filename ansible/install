@@ -2,25 +2,57 @@
 
 set -e
 
-function have {
+SYSCONF_DIR="${HOME}/sysconf"
+BREW_PATH=$(if [[ $(uname) = 'Darwin' ]]; then echo "/opt/homebrew/bin"; else echo "/home/linuxbrew/.linuxbrew/bin"; fi)
+
+
+if [[ -t 1 ]]
+then
+  tty_escape() { printf "\033[%sm" "$1"; }
+else
+  tty_escape() { :; }
+fi
+tty_mkbold() { tty_escape "1;$1"; }
+tty_underline="$(tty_escape "4;39")"
+tty_blue="$(tty_mkbold 34)"
+tty_red="$(tty_mkbold 31)"
+tty_bold="$(tty_mkbold 39)"
+tty_reset="$(tty_escape 0)"
+
+ohai() {
+  printf "${tty_blue}==>${tty_bold} %s${tty_reset}\n" "$1"
+}
+
+have() {
     command -v "$1" &>/dev/null
 }
 
-for dir in "${HOME}/.local/bin" "/opt/homebrew/bin" "/home/linuxbrew/.linuxbrew/bin"; do
-    [ -d "$dir" ] && [[ ":$PATH:" != *":$dir:"* ]] && export PATH="$dir:$PATH"
-done
+ohai "installing brew requirements"
+have apt && sudo apt install build-essential procps curl file git
+have yum && sudo yum groupinstall 'Development Tools' && sudo yum install procps-ng curl file git
+have pacman && sudo pacman -S base-devel procps-ng curl file git
 
-[ ! -d "${HOME}/sysconf" ] && [ ! -d "${HOME}/sysconf/.git" ] && echo "cloning sysconf repo to ~/sysconf" && git clone https://github.com/laermannjan/sysconf.git ~/sysconf && pushd ~/sysconf && git remote set-url origin git@github.com:laermannjan/sysconf.git && popd
+ohai "ensuring brew is installed, available and up to date"
+have brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+have brew || export PATH="${BREW_PATH}:${PATH}"
+have brew && brew update ||  echo "brew still not found after installing and prepending PATH" 1>&2; exit 1
 
-have uv || curl -LsSf https://astral.sh/uv/install.sh | sh && source "${HOME}/.local/bin/env"
-# uv tool install doesn't put all the executables on the path, so I'm linking them myself https://github.com/astral-sh/uv/issues/6314#issuecomment-2510284936
-have ansible || uv tool install ansible && find "$(uv tool dir)/ansible/bin" -mindepth 1 -maxdepth 1 -type f -perm -u=x -exec ln -f -s {} ~/.local/bin/ \;
+ohai "ensuring ansible is installed"
+have ansible || brew install ansible
 
-pushd ~/sysconf/ansible
-ansible-galaxy install -r requirements.yml
-ansible-playbook playbook.yml --ask-vault-pass
-popd
+ohai "ensuring ansible collections are installed"
+ansible-galaxy collection list | grep community.general || ansible-galaxy collection install community.general
+ansible-galaxy collection list | grep geerlingguy.mac || ansible-galaxy collection install geerlingguy.mac
 
-have brew && brew update
+if [[ ! -d "${SYSCONF_DIR}" ]]; then
+  ohai "cloning sysconf repo to ${SYSCONF_DIR}"
+  git clone https://github.com/laermannjan/sysconf.git "${SYSCONF_DIR}"
+  git -C "${SYSCONF_DIR}" remote set-url origin git@github.com:laermannjan/sysconf.git
+fi
+
+
+ohai "running ansible playbook"
+ansible-playbook ~/sysconf/ansible/playbook.yml --ask-vault-pass
+
+ohai "Done. Invoking fish shell. You should reboot now."
 exec fish
-echo "Done. You should reboot now."
