@@ -1,8 +1,10 @@
 ---
 - name: Install direnv
+  become: yes
   ansible.builtin.apt:
     name: direnv
 
 - name: Install zoxide
+  become: yes
   ansible.builtin.apt:
     name: zoxide

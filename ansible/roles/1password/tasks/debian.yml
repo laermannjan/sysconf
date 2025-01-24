@@ -15,6 +15,7 @@
     update_cache: yes
 
 - name: Install 1Password
+  become: yes
   apt:
     name: 1password
     state: present

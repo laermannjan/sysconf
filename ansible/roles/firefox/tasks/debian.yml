@@ -21,6 +21,7 @@
     creates: /etc/apt/preferences/mozilla
 
 - name: Install firefox
+  become: yes
   ansible.builtin.apt:
     name: firefox-developer-edition
 

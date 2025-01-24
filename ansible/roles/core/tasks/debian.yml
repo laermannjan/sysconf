@@ -1,5 +1,6 @@
 ---
 - name: Install core packages
+  become: yes
   ansible.builtin.apt:
     name: "{{ item }}"
   loop:
@@ -11,5 +12,4 @@
     - moreutils
     - p7zip
     - unzip
-  become: yes
 
