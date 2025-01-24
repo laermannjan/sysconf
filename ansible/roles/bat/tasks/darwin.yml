@@ -1,0 +1,6 @@
+---
+- name: Install bat
+  community.general.homebrew:
+    name: bat
+  when: ansible_os_family == 'Darwin'
+

@@ -1,3 +1,4 @@
+---
 - hosts: localhost
   vars:
     checkout_dir: "{{ playbook_dir | dirname }}"
@@ -13,9 +14,46 @@
       prompt: sudo password
       private: yes
   roles:
-    - {role: packages, tags: ['packages']}
-    - {role: system, tags: ['system']}
-    - {role: ssh, tags: ['ssh']}
-    - {role: config, tags: ['config']}
+    - {role: core, tags: ['core']}
+    - {role: git, tags: ['git']}
+    - {role: homebrew, tags: ['homebrew']}
     - {role: shell, tags: ['shell']}
+    - {role: inet, tags: ['inet']}
+    - {role: fd, tags: ['fd']}
+    - {role: ripgrep, tags: ['ripgrep']}
+    - {role: fzf, tags: ['fzf']}
+    - {role: node, tags: ['node']}
+    - {role: python, tags: ['python']}
+    - {role: neovim, tags: ['neovim']}
+    - {role: eza, tags: ['eza']}
+    - {role: jq, tags: ['jq']}
+    - {role: bat, tags: ['bat']}
+    - {role: awscli, tags: ['awscli']}
+    - {role: docker, tags: ['docker']}
+    - {role: firefox, tags: ['firefox']}
+    - {role: karabiner, tags: ['karabiner']}
+    - {role: linearmouse, tags: ['linearmouse']}
+    - {role: postgres, tags: ['postgres']}
+    - {role: tailscale, tags: ['tailscale']}
+    - {role: wezterm, tags: ['wezterm']}
+    - {role: yt-dlp, tags: ['yt-dlp']}
+    - {role: 1password, tags: ['1password']}
+    - {role: go, tags: ['go']}
+    - {role: rust, tags: ['rust']}
+    - {role: ssh, tags: ['ssh']}
     - {role: fonts, tags: ['fonts']}
+    - {role: system, tags: ['system'],}
+
+  tasks:
+    - name: Install some mac apps
+      community.general.homebrew:
+        name: "{{ item }}"
+      loop:
+        - arc
+        - slack
+        - jetbrains-toolbox
+        - monitorcontrol
+        - notion-calendar
+        - raycast
+        - utm
+      when: ansible_os_family == 'Darwin'

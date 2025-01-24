@@ -1,0 +1,13 @@
+---
+- name: Install core packages
+  community.general.homebrew:
+    name: "{{ item }}"
+  loop:
+    - coreutils
+    - lz4
+    - moreutils
+    - p7zip
+    - unar
+    - unzip
+    - the-unarchiver
+

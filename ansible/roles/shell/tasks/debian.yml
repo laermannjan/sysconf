@@ -1,10 +1,8 @@
-- name: Add fish to /etc/shells
-  become: true
-  lineinfile:
-    path: /etc/shells
-    line: /home/linuxbrew/.linuxbrew/bin/fish"
-- name: Set fish as default shell
-  become: true
-  user:
-    name: "{{ ansible_user_id }}"
-    shell: "/home/linuxbrew/.linuxbrew/bin/fish"
+---
+- name: Install direnv
+  ansible.builtin.apt:
+    name: direnv
+
+- name: Install zoxide
+  ansible.builtin.apt:
+    name: zoxide

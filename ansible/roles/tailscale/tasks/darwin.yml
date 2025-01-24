@@ -1,0 +1,5 @@
+---
+- name: Install tailscale
+  community.general.homebrew_cask:
+    name: tailscale
+

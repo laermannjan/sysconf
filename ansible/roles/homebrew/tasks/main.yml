@@ -1,0 +1,22 @@
+---
+- name: Check if Homebrew is installed
+  community.general.homebrew:
+    state: present
+  register: homebrew_check
+  become: false
+
+- block:
+    - name: Download Homebrew installer
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+        dest: /tmp/homebrew-install.sh
+        mode: 0700
+        force: false
+      become: false
+
+    - name: Install Homebrew via /tmp/homebrew-install.sh
+      ansible.builtin.command: bash -c "/tmp/homebrew-install.sh"
+      register: install_result
+      changed_when: "install_result.rc == 0"
+      become: false
+  when: homebrew_check is failed

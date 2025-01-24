@@ -1,0 +1,19 @@
+---
+- name: Install awscli
+  community.general.homebrew:
+    name: awscli
+
+- name: Check if AWS config file exists
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.aws/config"
+  register: aws_config_file
+
+- name: Check if AWS credentials file exists
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.aws/credentials"
+  register: aws_credentials_file
+
+- name: Notify user to run aws configure if config/credentials file not present
+  ansible.builtin.debug:
+    msg: You need to run `aws configure`
+  when: not aws_config_file.stat.exists or not aws_credentials_file.stat.exists

@@ -1,0 +1,11 @@
+---
+- name: Install karabiner-elements
+  community.general.homebrew:
+    name: karabiner-elements
+
+- name: Link karabiner config
+  file:
+    src: "{{ checkout_dir }}/config/karabiner"
+    dest: "{{ ansible_env.HOME }}/.config/karabiner"
+    state: link
+    force: yes

@@ -1,0 +1,13 @@
+---
+- name: Install rustup
+  community.general.homebrew:
+    name: rustup
+
+- name: Install rust via rustup
+  command: rustup-init -y
+  args:
+    creates:
+      - "{{ ansible_env.HOME }}/.cargo/bin/rustc"
+      - "{{ ansible_env.HOME }}/.cargo/bin/cargo"
+      - "{{ ansible_env.HOME }}/.cargo/bin/rustup"
+
