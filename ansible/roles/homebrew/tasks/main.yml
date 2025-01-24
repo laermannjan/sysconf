@@ -3,6 +3,7 @@
   community.general.homebrew:
     state: present
   register: homebrew_check
+  ignore_errors: true
   become: false
 
 - block:
