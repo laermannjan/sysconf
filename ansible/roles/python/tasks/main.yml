@@ -1,0 +1,18 @@
+---
+- name: Install uv
+  ansible.builtin.shell: curl -LsSf https://astral.sh/uv/install.sh | sh
+  args:
+    creates:
+      - "{{ ansible_env.HOME }}/.local/bin/uv"
+      - "{{ ansible_env.HOME }}/.local/bin/uvx"
+
+- name: Install python
+  ansible.builtin.command: uv python install
+  args:
+    creates: "{{ ansible_env.HOME }}/.local/share/uv/python/*/"
+
+- name: Ensure uv completions are sourced
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.config/fish/config.fish"
+    search_string: "uv generate-shell-completion fish | source"
+    line: "uv generate-shell-completion fish | source"

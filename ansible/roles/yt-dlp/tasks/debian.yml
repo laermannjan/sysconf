@@ -1,0 +1,12 @@
+---
+- name: Install ffmpeg
+  ansible.builtin.apt:
+    name: ffmpeg
+
+- name: Add yt-dlp repository from PPA
+  ansible.builtin.apt_repository:
+    repo: ppa:tomtomtom/yt-dlp
+
+- name: Install yt-dlp
+  ansible.builtin.apt:
+    name: yt-dlp

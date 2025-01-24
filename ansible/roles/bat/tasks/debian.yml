@@ -1,0 +1,6 @@
+---
+- name: Install bat
+  ansible.builtin.apt:
+    name: bat
+  when: ansible_os_family == 'Debian'
+
