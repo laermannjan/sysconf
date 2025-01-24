@@ -5,9 +5,9 @@
   loop:
     - build-essential
     - coreutils
-    - keyring
+    - keychain
     - lz4
-    - morutils
+    - moreutils
     - p7zip
     - unzip
   become: yes
