@@ -16,8 +16,12 @@ sudo apt update && sudo apt install -y curl git
 ## Installation
 1. run the bootstrap script, which will clone the repo to `~/sysoncf` from where you can run `./ansible/install` again, should it fail
 ```sh
-curl -fsSL https://raw.githubusercontent.com/laermannjan/sysconf/refs/heads/main/ansible/install | bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/laermannjan/sysconf/refs/heads/main/ansible/install)"
 ```
+
+ [!IMPORTANT]
+> Do not pipe `curl` into `bash` as the script won't run in interactive mode and will skip setup prompts.
+
 1. You will be asked for the user password (`BECOME`) and the ansible vault password. You can create a file containing the vault password and run `VAULT_PASSWORD_FILE=<path to that file> ./install` to not be prompted (makes it easier to check for typos and you don't have to reenter after failed runs)
 1. Ansible playbook might fail because some files are in the way, see if you can just delete them (like an edited `~/.config/fish` dir)
 1. Restart / log out and in after the playbook ran successfully.
