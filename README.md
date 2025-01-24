@@ -10,7 +10,7 @@ xcode-select --install
 ### WSL / Debian
 1. install git and curl
 ```sh
-sudo apt install curl git
+sudo apt update && sudo apt install -y curl git
 ```
 
 ## Installation
