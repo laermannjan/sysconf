@@ -13,6 +13,20 @@
     - name: ansible_become_password
       prompt: sudo password
       private: yes
+
+  pre_task:
+    - name: Ensure ~/.config exists
+      file:
+        path: ~/.config
+        state: directory
+      tags: ['config']
+    - name: Ensure ~/.ssh exists
+      file:
+        path: "~/.ssh"
+        mode: '0700'
+        state: directory
+      tags: ['ssh']
+
   roles:
     - {role: ssh, tags: ['ssh']}
     - {role: system, tags: ['system']}
