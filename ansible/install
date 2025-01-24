@@ -3,7 +3,7 @@
 set -e
 
 SYSCONF_DIR="${HOME}/sysconf"
-BREW_PATH=$(if [[ $(uname) = 'Darwin' ]]; then echo "/opt/homebrew/bin"; else echo "/home/linuxbrew/.linuxbrew/bin"; fi)
+HOMEBREW_PREFIX=$(if [[ $(uname) = 'Darwin' ]]; then echo "/opt/homebrew"; else echo "/home/linuxbrew/.linuxbrew"; fi)
 
 
 if [[ -t 1 ]]
@@ -28,14 +28,14 @@ have() {
 }
 
 ohai "installing brew requirements"
-have apt && sudo apt install build-essential procps curl file git
-have yum && sudo yum groupinstall 'Development Tools' && sudo yum install procps-ng curl file git
-have pacman && sudo pacman -S base-devel procps-ng curl file git
+have apt && sudo apt update && sudo apt -y install build-essential procps curl file git
+have dnf && sudo dnf group install -y 'Development Tools' && sudo dnf install -y procps-ng curl file git
+have pacman && sudo pacman -Syu --no-confirm base-devel procps-ng curl file git
 
 ohai "ensuring brew is installed, available and up to date"
-have brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-have brew || export PATH="${BREW_PATH}:${PATH}"
-have brew && brew update ||  echo "brew still not found after installing and prepending PATH" 1>&2; exit 1
+have brew || NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+have brew || export PATH="${HOMEBREW_PREFIX}/bin:${PATH}"
+have brew && brew update || { echo "brew still not found after installing and prepending PATH" 1>&2; exit 1; }
 
 ohai "ensuring ansible is installed"
 have ansible || brew install ansible
