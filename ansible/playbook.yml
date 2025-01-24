@@ -14,9 +14,9 @@
       prompt: sudo password
       private: yes
   roles:
+    - {role: homebrew, tags: ['homebrew']}
     - {role: core, tags: ['core']}
     - {role: git, tags: ['git']}
-    - {role: homebrew, tags: ['homebrew']}
     - {role: shell, tags: ['shell']}
     - {role: inet, tags: ['inet']}
     - {role: fd, tags: ['fd']}
