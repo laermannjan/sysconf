@@ -14,7 +14,8 @@
       prompt: sudo password
       private: yes
   roles:
-    - {role: homebrew, tags: ['homebrew']}
+    - {role: ssh, tags: ['ssh']}
+    - {role: system, tags: ['system']}
     - {role: core, tags: ['core']}
     - {role: git, tags: ['git']}
     - {role: shell, tags: ['shell']}
@@ -40,9 +41,7 @@
     - {role: 1password, tags: ['1password']}
     - {role: go, tags: ['go']}
     - {role: rust, tags: ['rust']}
-    - {role: ssh, tags: ['ssh']}
-    - {role: fonts, tags: ['fonts']}
-    - {role: system, tags: ['system'],}
+    - {role: fonts, tags: ['fonts'],}
 
   tasks:
     - name: Install some mac apps
