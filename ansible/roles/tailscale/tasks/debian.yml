@@ -16,6 +16,7 @@
     update_cache: yes
 
 - name: Install tailscale
+  become: yes
   ansible.builtin.apt:
     name: tailscale
 

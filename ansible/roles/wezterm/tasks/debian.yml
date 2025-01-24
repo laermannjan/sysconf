@@ -15,6 +15,7 @@
     update_cache: yes
 
 - name: Install WezTerm
+  become: yes
   ansible.builtin.apt:
     name: wezterm
 
