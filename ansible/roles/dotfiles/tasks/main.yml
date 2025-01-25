@@ -10,23 +10,20 @@
 
 - name: Ensure {{ config_target }} exists
   file:
-    path: ~/.config
+    path: "{{ config_target }}"
     state: directory
 
-- name: Remove existing dotfiles directories in {{ config_target }}
-  file:
-    path: "{{ config_target }}/{{ item.path | basename }}"
-    state: absent
-  loop: "{{ dotfiles.files }}"
-  loop_control:
-    label: "{{ config_target }}/{{ item.path | basename }}"
-
 - name: Linking dotfiles from {{ config_source }} -> {{ config_target }}
-  file:
-    src: "{{ item.path }}"
-    dest: "{{ config_target }}/{{ item.path | basename }}"
-    state: link
-    force: yes
+  shell: |
+    link_path="{{ config_target }}/{{ item.path | basename }}"
+    target_path="{{ item.path }}"
+    if [ "$(readlink $link_path)" == "$(realpath $target_path)" ]; then
+      exit 2
+    fi
+    ln -sFn $target_path $link_path
   loop: "{{ dotfiles.files }}"
   loop_control:
     label: "{{ config_target }}/{{ item.path | basename }}"
+  register: link_result
+  changed_when: link_result.rc != 2
+  failed_when: link_result.rc not in [0, 2]
