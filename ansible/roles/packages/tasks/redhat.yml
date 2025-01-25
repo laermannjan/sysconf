@@ -9,7 +9,7 @@
     - atim/bottom
     - atim/lazydocker
     - atim/lazygit
-    - materka/starship
+    - atim/starship
     - errornointernet/packages
     - wezfurlong/wezterm-nightly
 
