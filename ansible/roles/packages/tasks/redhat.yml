@@ -1,6 +1,6 @@
 ---
 - name: copr
-  become: yes
+  become: true
   community.general.copr:
     name: "{{item}}"
   loop:
@@ -21,9 +21,10 @@
     gpgcheck: yes
     gpgkey: "https://downloads.1password.com/linux/keys/1password.asc"
     enabled: yes
-  become: yes
+  become: true
 
 - name: install {{ package | sort | join(', ')}}
+  become: true
   vars:
     packages:
       - '@Development Tools'

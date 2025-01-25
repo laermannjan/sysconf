@@ -10,6 +10,7 @@
       apt_repository:
         repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main"
         state: present
+  become: true
 
 - block:
     - name: Add WezTerm GPG key
@@ -22,12 +23,14 @@
       ansible.builtin.apt_repository:
         repo: 'deb [signed-by=/etc/apt/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *'
         state: present
+  become: true
 
 - name: Update apt cache
   apt:
     update_cache: yes
 
 - name: Install {{ packages | sort | join(', ')}}
+  become: true
   vars:
     packages:
       - build-essential

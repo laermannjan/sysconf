@@ -1,6 +1,5 @@
 ---
 - include_tasks: "{{ ansible_os_family | lower }}.yml"
-  when: ansible_os_family in ['Debian', 'Darwin']
 
 - name: "install tools ==> {{ packages | join(', ') }}"
   vars:
@@ -36,12 +35,14 @@
       - wezterm
       - starship
     packages: "{{ _packages | reject('equalto', omit) | sort | list}}"
+  become: "{{ ansible_pkg_mgr != 'brew' }}"
   package:
     name: "{{ packages }}"
   tags:
     - tools
 
 - name: install podman
+  become: "{{ ansible_pkg_mgr != 'brew' }}"
   package:
     name:
       - podman
@@ -52,6 +53,7 @@
     - podman
 
 - name: install tailscale
+  become: "{{ ansible_pkg_mgr != 'brew' }}"
   package:
     name:
       - tailscale
@@ -76,6 +78,7 @@
   args:
     executable: "{{ fish_path.stdout }}"
     creates: "{{ ansible_env.HOME }}/.local/share/nvm/*/bin/node"
+
 - name: Install python
   ansible.builtin.command: uv python install
   args:

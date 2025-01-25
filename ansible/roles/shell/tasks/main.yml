@@ -1,5 +1,6 @@
 ---
 - name: Install fish
+  become: "{{ ansible_pkg_mgr != 'brew' }}"
   package:
     name:
       - fish
