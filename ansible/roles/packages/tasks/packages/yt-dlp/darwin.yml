@@ -1,8 +1,0 @@
----
-- name: Install ffmpeg
-  community.general.homebrew:
-    name: ffmpeg
-
-- name: Install yt-dlp
-  community.general.homebrew:
-    name: yt-dlp

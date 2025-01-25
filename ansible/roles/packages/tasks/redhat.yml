@@ -1,0 +1,31 @@
+---
+- name: copr
+  become: yes
+  community.general.copr:
+    name: "{{item}}"
+  loop:
+    - agriffis/neovim-nightly
+    - atim/bandwhich
+    - atim/bottom
+    - atim/lazydocker
+    - atim/lazygit
+    - materka/starship
+    - errornointernet/packages
+    - wezfurlong/wezterm-nightly
+
+- name: Add 1Password RPM repository to DNF
+  ansible.builtin.yum_repository:
+    name: "1password"
+    description: "1Password Repository"
+    baseurl: "https://downloads.1password.com/linux/rpm/stable/$basearch"
+    gpgcheck: yes
+    gpgkey: "https://downloads.1password.com/linux/keys/1password.asc"
+    enabled: yes
+  become: yes
+
+- name: install {{ package | sort | join(', ')}}
+  vars:
+    packages:
+      - postgresql
+  package:
+    name: "{{ packages }}"

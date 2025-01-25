@@ -1,4 +1,0 @@
----
-- name: Install doggo dns explorer
-  community.general.homebrew:
-    name: doggo

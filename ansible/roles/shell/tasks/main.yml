@@ -1,7 +1,9 @@
 ---
 - name: Install fish
-  community.general.homebrew:
-    name: fish # install via brew on linux so brew completions are automatically added
+  package:
+    name:
+      - fish
+      - curl
 
 - name: Get the fish binary path
   shell: PATH=/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:$PATH command -v fish

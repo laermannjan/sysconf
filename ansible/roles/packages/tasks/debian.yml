@@ -1,0 +1,37 @@
+---
+- block:
+    - name: Add 1Password GPG key
+      ansible.builtin.get_url:
+        url: https://downloads.1password.com/linux/keys/1password.asc
+        dest: /etc/apt/keyrings/1password-archive-keyring.gpg
+        state: present
+
+    - name: Add 1Password repository
+      apt_repository:
+        repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main"
+        state: present
+
+- block:
+    - name: Add WezTerm GPG key
+      ansible.builtin.get_url:
+        url: https://apt.fury.io/wez/gpg.key
+        dest: /etc/apt/keyrings/wezterm-fury.gpg
+        mode: '0644'
+
+    - name: Add WezTerm repository
+      ansible.builtin.apt_repository:
+        repo: 'deb [signed-by=/etc/apt/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *'
+        state: present
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install {{ packages | sort | join(', ')}}
+  vars:
+    packages:
+      - build-essential
+      - man-db
+      - postgres-client
+  package:
+    name: "{{ packages }}"

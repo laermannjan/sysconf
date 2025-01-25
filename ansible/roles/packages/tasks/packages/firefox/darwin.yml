@@ -1,5 +1,0 @@
----
-- name: Install Firefox
-  community.general.homebrew:
-    name: firefox@developer-edition
-

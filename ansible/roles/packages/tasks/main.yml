@@ -1,22 +1,81 @@
 ---
-- name: "Find installable package tasks"
-  find:
-    paths: "{{ role_path }}/tasks/packages"
-    file_type: file
-    patterns:
-      - "{{ ansible_os_family | lower }}.yml"
-      - common.yml
-    use_regex: false
-    depth: 2
-    recurse: true
-  register: installable_packages
+- include_tasks: "{{ ansible_os_family | lower }}.yml"
+  when: ansible_os_family in ['Debian', 'Darwin']
 
-- name: "Dynamically include installable packages tasks"
-  include_tasks: "{{ package.path }}"
-  loop: "{{ installable_packages.files | sort(attribute='path') }}"
-  loop_control:
-    loop_var: package
-    label: "{{ package.path | dirname | basename }}"
-  when:
-    - "package.path | dirname | basename not in ansible_skip_tags"
+- name: "install tools ==> {{ packages | join(', ') }}"
+  vars:
+    _packages:
+      - 1password
+      - awscli
+      - bat
+      - coreutils
+      - direnv
+      - eza # NOTE: on Debian only available on `sid` or newer, not on `bookworm` and before
+      - fzf
+      - firefox
+      - git
+      - git-delta
+      - curl
+      - wget
+      - httpie
+      - jq
+      - lz4
+      - moreutils
+      - p7zip
+      - ripgrep
+      - unzip
+      - yt-dlp
+      - "{{ 'fd'              if ansible_os_family == 'Darwin' else 'fd-find' }}"
+      - "{{ 'keychain'        if ansible_os_family != 'Darwin' else omit }}"
+      - zoxide
+      - uv
+      - "{{ 'go'              if ansible_os_family == 'Darwin' else 'golang' }}"
+      - rustup
+      - neovim
+      - wezterm
+      - starship
+    packages: "{{ _packages | reject('equalto', omit) | sort | list}}"
+  package:
+    name: "{{ packages }}"
+  tags:
+    - tools
 
+- name: install podman
+  package:
+    name:
+      - podman
+      - podman-desktop
+  tags:
+    - docker
+    - containers
+    - podman
+
+- name: install tailscale
+  package:
+    name:
+      - tailscale
+  tags:
+    - tailscale
+
+- name: Install neovim python venv
+  pip:
+    executable: /usr/bin/pip3
+    name:
+      - pynvim
+      - beancount
+
+- name: Install rust via rustup
+  command: rustup-init -y
+  args:
+    creates: "{{ ansible_env.HOME }}/.cargo/bin/cargo"
+
+- name: Install Node
+  # NOTE: this expects jorgebucaran/nvm.fish to be installed
+  ansible.builtin.shell: nvm install lts
+  args:
+    executable: "{{ fish_path.stdout }}"
+    creates: "{{ ansible_env.HOME }}/.local/share/nvm/*/bin/node"
+- name: Install python
+  ansible.builtin.command: uv python install
+  args:
+    creates: "{{ ansible_env.HOME }}/.local/share/uv/python/*/"
