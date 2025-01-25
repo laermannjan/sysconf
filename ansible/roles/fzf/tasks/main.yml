@@ -1,9 +1,0 @@
----
-- include_tasks: "{{ ansible_os_family | lower }}.yml"
-  when: ansible_os_family in ['Darwin', 'Debian']
-
-- name: Ensure fzf is sourced
-  ansible.builtin.lineinfile:
-    path: "{{ ansible_env.HOME }}/.config/fish/config.fish"
-    search_string: "fzf --fish | source"
-    line: "fzf --fish | source"

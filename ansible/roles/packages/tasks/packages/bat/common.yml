@@ -1,0 +1,4 @@
+---
+- name: Install bat
+  ansible.builtin.package:
+    name: bat

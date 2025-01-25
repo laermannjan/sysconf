@@ -1,0 +1,4 @@
+---
+- name: Install linearmouse
+  community.general.homebrew:
+    name: linearmouse

@@ -1,0 +1,21 @@
+---
+- name: "Find installable package tasks"
+  find:
+    paths: "{{ role_path }}/tasks/packages"
+    file_type: file
+    patterns:
+      - "{{ ansible_os_family | lower }}.yml"
+      - common.yml
+    use_regex: false
+    depth: 2
+    recurse: true
+  register: installable_packages
+
+- name: "Dynamically include installable packages tasks"
+  include_tasks: "{{ item.path }}"
+  loop: "{{ installable_packages.files | sort(attribute='path') }}"
+  loop_control:
+    label: "{{ item.path | dirname | basename }}"
+  when:
+    - "item.path | dirname | basename not in ansible_skip_tags"
+

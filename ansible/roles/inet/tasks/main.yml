@@ -1,7 +1,0 @@
----
-- include_tasks: "{{ ansible_os_family | lower }}.yml"
-  when: ansible_os_family in ['Darwin', 'Debian']
-
-- name: Install doggo dns explorer
-  community.general.homebrew:
-    name: doggo

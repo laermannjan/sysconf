@@ -1,0 +1,12 @@
+---
+- name: Install git
+  ansible.builtin.package:
+    name: git
+
+- name: Install lazygit
+  community.general.homebrew:
+    name: lazygit
+
+- name: Install delta
+  community.general.homebrew:
+    name: git-delta
