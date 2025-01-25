@@ -1,7 +1,0 @@
----
-- name: Install bat
-  become: yes
-  ansible.builtin.apt:
-    name: bat
-  when: ansible_os_family == 'Debian'
-

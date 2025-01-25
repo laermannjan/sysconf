@@ -1,4 +1,10 @@
 ---
+- name: Ensure ~/.ssh exists
+  file:
+    path: "~/.ssh"
+    mode: '0700'
+    state: directory
+
 - name: Deploy SSH config and keys
   copy:
     src: "{{ item.src }}"
@@ -10,3 +16,4 @@
     - {src: "id_ed25519.personal.pub.vault", dest: "~/.ssh/id_ed25519.personal.pub", mode: "0644"}
     - {src: "id_ed25519.alcemy.vault", dest: "~/.ssh/id_ed25519.alcemy", mode: "0600"}
     - {src: "id_ed25519.alcemy.pub.vault", dest: "~/.ssh/id_ed25519.alcemy.pub", mode: "0644"}
+  tags: ['vault']

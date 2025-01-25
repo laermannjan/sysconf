@@ -1,0 +1,23 @@
+---
+- name: Install {{ packages | sort | join(', ')}}
+  vars:
+    packages:
+      - arc
+      - slack
+      - unar
+      - karabiner-elements
+      - linearmouse
+      - the-unarchiver
+      - jetbrains-toolbox
+      - monitorcontrol
+      - notion-calendar
+      - raycast
+      - utm
+      - libpq
+  package:
+    name: "{{ packages }}"
+
+- name: Force-link libpq
+  command: brew link --force libpq
+  args:
+    creates: /opt/homebrew/bin/psql

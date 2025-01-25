@@ -1,6 +1,0 @@
----
-- name: Install jq
-  become: yes
-  ansible.builtin.apt:
-    name: jq
-

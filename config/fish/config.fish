@@ -88,11 +88,6 @@ zoxide init fish | source
         end
     end
 
-    # add psql on macos
-    if test -d /Applications/Postgres.app
-        fish_add_path --global /Applications/Postgres.app/Contents/Versions/latest/bin
-    end
-
     set -gx XDG_CONFIG_HOME "$HOME/.config"  # needed for lazygit
 
     # set -gx nvm_default_version "lts"  # this doesn't work, must be set via `set -U ...`

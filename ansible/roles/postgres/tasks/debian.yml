@@ -1,6 +1,0 @@
----
-- name: Install postgres
-  become: yes
-  ansible.builtin.apt:
-    name: postgres-client
-

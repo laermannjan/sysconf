@@ -1,8 +1,0 @@
----
-- name: Install inet utils
-  community.general.homebrew:
-    name: "{{ item }}"
-  loop:
-    - inetutils
-    - httpie
-

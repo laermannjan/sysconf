@@ -1,17 +1,9 @@
 ---
-- include_tasks: "{{ ansible_os_family | lower }}.yml"
-  when: ansible_os_family in ['Darwin', 'Debian']
-
 - name: Install fish
-  community.general.homebrew:
-    name: fish # install via brew on linux so brew completions are automatically added
-
-- name: Link fish config
-  file:
-    src: "{{ checkout_dir }}/config/fish"
-    dest: "{{ ansible_env.HOME }}/.config/fish"
-    state: link
-    force: yes
+  package:
+    name:
+      - fish
+      - curl
 
 - name: Get the fish binary path
   shell: PATH=/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:$PATH command -v fish
@@ -39,33 +31,3 @@
   args:
     executable: "{{ fish_path.stdout }}"
     creates: "{{ ansible_env.HOME }}/.config/fish/functions/fisher.fish"
-
-- name: Ensure zoxide is sourced
-  ansible.builtin.lineinfile:
-    path: "{{ ansible_env.HOME }}/.config/fish/config.fish"
-    search_string: "zoxide init fish | source"
-    line: "zoxide init fish | source"
-
-- name: Install starship
-  community.general.homebrew:
-    name: starship
-
-- name: Ensure starship is sourced
-  ansible.builtin.lineinfile:
-    path: "{{ ansible_env.HOME }}/.config/fish/config.fish"
-    search_string: "eval (starship init fish)"
-    line: "eval (starship init fish)"
-
-- name: Ensure direnv is sourced
-  ansible.builtin.lineinfile:
-    path: "{{ ansible_env.HOME }}/.config/fish/config.fish"
-    search_string: "direnv hook fish | source"
-    line: "direnv hook fish | source"
-
-- name: Link direnv config
-  file:
-    src: "{{ checkout_dir }}/config/direnv"
-    dest: "{{ ansible_env.HOME }}/.config/direnv"
-    state: link
-    force: yes
-

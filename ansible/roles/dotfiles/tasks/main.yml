@@ -1,0 +1,29 @@
+---
+
+- name: Find dotfiles in {{ config_source }}
+  find:
+    paths: "{{ config_source }}"
+    recurse: no
+    file_type: any
+    hidden: yes
+  register: dotfiles
+
+- name: Ensure {{ config_target }} exists
+  file:
+    path: "{{ config_target }}"
+    state: directory
+
+- name: Linking dotfiles from {{ config_source }} -> {{ config_target }}
+  shell: |
+    link_path="{{ config_target }}/{{ item.path | basename }}"
+    target_path="{{ item.path }}"
+    if [ "$(readlink $link_path)" == "$(realpath $target_path)" ]; then
+      exit 2
+    fi
+    ln -sFn $target_path $link_path
+  loop: "{{ dotfiles.files }}"
+  loop_control:
+    label: "{{ config_target }}/{{ item.path | basename }}"
+  register: link_result
+  changed_when: link_result.rc != 2
+  failed_when: link_result.rc not in [0, 2]

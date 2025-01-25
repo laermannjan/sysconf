@@ -1,5 +1,0 @@
----
-- name: Install ripgrep
-  community.general.homebrew:
-    name: ripgrep
-

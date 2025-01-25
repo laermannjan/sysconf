@@ -1,9 +1,0 @@
----
-- name: Install inet utils
-  become: yes
-  ansible.builtin.apt:
-    name: "{{ item }}"
-  loop:
-    - inetutils-tools
-    - httpie
-
