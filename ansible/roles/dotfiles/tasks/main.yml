@@ -15,8 +15,8 @@
 
 - name: Linking dotfiles from {{ config_source }} -> {{ config_target }}
   shell: |
-    link_path="{{ config_target }}/{{ item.path | basename }}"
-    target_path="{{ item.path }}"
+    link_path={{ config_target }}/{{ item.path | basename }}
+    target_path={{ item.path }}
     if [ "$(readlink $link_path)" == "$(realpath $target_path)" ]; then
       exit 2
     fi

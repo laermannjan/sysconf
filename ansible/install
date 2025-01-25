@@ -54,5 +54,5 @@ fi
 ohai "running ansible playbook"
 ansible-playbook ~/sysconf/ansible/playbook.yml "$@"
 
-ohai "Done. Invoking fish shell. You should reboot now."
+ohai "Done. Invoking fish shell. You should probably reboot now."
 exec fish
