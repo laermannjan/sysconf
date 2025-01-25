@@ -26,6 +26,9 @@
 - name: install {{ package | sort | join(', ')}}
   vars:
     packages:
+      - '@Development Tools'
+      - '@Multimedia'
       - postgresql
+      - procps-ng
   package:
     name: "{{ packages }}"

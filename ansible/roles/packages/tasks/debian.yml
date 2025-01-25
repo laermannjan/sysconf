@@ -32,6 +32,7 @@
     packages:
       - build-essential
       - man-db
+      - procps
       - postgres-client
   package:
     name: "{{ packages }}"

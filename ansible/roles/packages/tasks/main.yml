@@ -12,6 +12,7 @@
       - direnv
       - eza # NOTE: on Debian only available on `sid` or newer, not on `bookworm` and before
       - fzf
+      - file
       - firefox
       - git
       - git-delta

@@ -28,14 +28,23 @@ status is-interactive; and begin
     alias la 'eza -a'
     alias ll 'eza -l'
     alias lla 'eza -la'
-alias ls eza
+    alias ls eza
     alias lt 'eza --tree'
 
     # Disable greeting
     set fish_greeting
 
+    # homebrew completions
+    if command -q brew && test -d (brew --prefix)"/share/fish/completions"
+        set -p fish_complete_path (brew --prefix)/share/fish/completions
+    end
+
+    if command -q brew && test -d (brew --prefix)"/share/fish/vendor_completions.d"
+        set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
+    end
+
     if command -q starship && test "$TERM" != dumb
-eval (starship init fish)
+        eval (starship init fish)
     end
 
     if command -q aws
@@ -44,11 +53,11 @@ eval (starship init fish)
     end
 
     if command -q direnv
-direnv hook fish | source
+        direnv hook fish | source
     end
 
     if command -q fzf
-fzf --fish | source
+        fzf --fish | source
     end
 
     if command -q pipenv
@@ -62,12 +71,12 @@ fzf --fish | source
     end
 
     if command -q uv
-uv generate-shell-completion fish | source
+        uv generate-shell-completion fish | source
         uvx --generate-shell-completion fish | source
     end
 
     if command -q zoxide
-zoxide init fish | source
+        zoxide init fish | source
     end
 
     # Start ssh-agent if not running, connect to system agent otherwise
