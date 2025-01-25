@@ -16,14 +16,14 @@
 - name: Add 1Password RPM repository to DNF
   ansible.builtin.yum_repository:
     name: "1password"
-    description: "1Password Repository"
+    description: "1Password Stable Channel"
     baseurl: "https://downloads.1password.com/linux/rpm/stable/$basearch"
     gpgcheck: yes
     gpgkey: "https://downloads.1password.com/linux/keys/1password.asc"
     enabled: yes
   become: true
 
-- name: install {{ package | sort | join(', ')}}
+- name: install {{ packages | sort | join(', ')}}
   become: true
   vars:
     packages:
