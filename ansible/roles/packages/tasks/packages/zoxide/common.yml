@@ -1,0 +1,10 @@
+---
+- name: Install zoxide
+  ansible.builtin.package:
+    name: zoxide
+
+- name: Ensure zoxide is sourced
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.config/fish/config.fish"
+    search_string: "zoxide init fish | source"
+    line: "zoxide init fish | source"

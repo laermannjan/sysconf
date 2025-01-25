@@ -12,10 +12,11 @@
   register: installable_packages
 
 - name: "Dynamically include installable packages tasks"
-  include_tasks: "{{ item.path }}"
+  include_tasks: "{{ package.path }}"
   loop: "{{ installable_packages.files | sort(attribute='path') }}"
   loop_control:
-    label: "{{ item.path | dirname | basename }}"
+    loop_var: package
+    label: "{{ package.path | dirname | basename }}"
   when:
-    - "item.path | dirname | basename not in ansible_skip_tags"
+    - "package.path | dirname | basename not in ansible_skip_tags"
 

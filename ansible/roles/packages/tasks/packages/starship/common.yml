@@ -1,0 +1,10 @@
+---
+- name: Install starship
+  community.general.homebrew:
+    name: starship
+
+- name: Ensure starship is sourced
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.config/fish/config.fish"
+    search_string: "eval (starship init fish)"
+    line: "eval (starship init fish)"
