@@ -67,19 +67,19 @@
 - name: Configure settings requiring shell commands
   command: "{{ item }}"
   loop:
-    - sudo spctl --master-disable
     - chflags nohidden ~/Library
     - sudo chflags nohidden /Volumes
     - /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
   changed_when: false
 
-- name: Allow apps from anywhere
-  shell: |
-    if ! [ "$SPCTL" = "assessments disabled" ]; then
-      spctl --master-disable
-    fi
-  become: true
-  changed_when: false
+# - name: Allow apps from anywhere
+#   shell: |
+#     if ! [ "$(spctl --status)" = "assessments disabled" ]; then
+#       spctl --master-disable
+#     fi
+#   become: true
+#   changed_when: false
+#   ignore_errors: true
 
 - name: Show the ~/Library folder
   command: chflags nohidden ~/Library

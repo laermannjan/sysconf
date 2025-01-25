@@ -1,0 +1,32 @@
+---
+
+- name: Find dotfiles in {{ config_source }}
+  find:
+    paths: "{{ config_source }}"
+    recurse: no
+    file_type: any
+    hidden: yes
+  register: dotfiles
+
+- name: Ensure {{ config_target }} exists
+  file:
+    path: ~/.config
+    state: directory
+
+- name: Remove existing dotfiles directories in {{ config_target }}
+  file:
+    path: "{{ config_target }}/{{ item.path | basename }}"
+    state: absent
+  loop: "{{ dotfiles.files }}"
+  loop_control:
+    label: "{{ config_target }}/{{ item.path | basename }}"
+
+- name: Linking dotfiles from {{ config_source }} -> {{ config_target }}
+  file:
+    src: "{{ item.path }}"
+    dest: "{{ config_target }}/{{ item.path | basename }}"
+    state: link
+    force: yes
+  loop: "{{ dotfiles.files }}"
+  loop_control:
+    label: "{{ config_target }}/{{ item.path | basename }}"

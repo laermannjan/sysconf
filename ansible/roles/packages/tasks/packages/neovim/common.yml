@@ -4,7 +4,7 @@
     name: neovim
 
 - name: Install neovim python venv
-  ansible.builtin.command: /usr/bin/python3 -m pip install pynvim python3
+  ansible.builtin.command: /usr/bin/python3 -m pip install pynvim
 
 - name: Install/Clean/Update the plugins
   ansible.builtin.command: nvim --headless "+Lazy! sync" +qa

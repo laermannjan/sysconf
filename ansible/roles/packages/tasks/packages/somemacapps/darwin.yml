@@ -1,0 +1,12 @@
+---
+- name: Install some mac apps
+  community.general.homebrew:
+    name: "{{ item }}"
+  loop:
+    - arc
+    - slack
+    - jetbrains-toolbox
+    - monitorcontrol
+    - notion-calendar
+    - raycast
+    - utm

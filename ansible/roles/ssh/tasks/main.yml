@@ -1,4 +1,10 @@
 ---
+- name: Ensure ~/.ssh exists
+  file:
+    path: "~/.ssh"
+    mode: '0700'
+    state: directory
+
 - name: Deploy SSH config and keys
   copy:
     src: "{{ item.src }}"

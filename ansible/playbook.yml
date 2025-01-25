@@ -1,10 +1,5 @@
 ---
 - hosts: localhost
-  vars:
-    checkout_dir: "{{ playbook_dir | dirname }}"
-    dotfiles_source_dir: "{{ playbook_dir | dirname }}/config/"
-    dotfiles_target_dir: "{{ lookup('env','XDG_CONFIG_HOME') | default('~/.config', true) }}"
-    dotfiles_skip: ["ssh"]
   vars_prompt:
     # we do this instead of -K/--ask-become-pass for geerlingguy.mac.homebrew
     # that role can read `ansible_become_password` and pass it to `sudo_password`
@@ -14,60 +9,10 @@
       prompt: sudo password
       private: yes
 
-  # pre_task:
-  #   - name: Ensure ~/.config exists
-  #     file:
-  #       path: ~/.config
-  #       state: directory
-  #     tags: ['config']
-  #   - name: Ensure ~/.ssh exists
-  #     file:
-  #       path: "~/.ssh"
-  #       mode: '0700'
-  #       state: directory
-  #     tags: ['ssh']
-
   roles:
-    # - {role: ssh, tags: ['ssh']}
-    # - {role: system, tags: ['system']}
-    # - {role: core, tags: ['core']}
-    # - {role: git, tags: ['git']}
-    # - {role: shell, tags: ['shell']}
-    - {role: packages, tags: ['packages'],}
-    # - {role: inet, tags: ['inet']}
-    # - {role: fd, tags: ['fd']}
-    # - {role: ripgrep, tags: ['ripgrep']}
-    # - {role: fzf, tags: ['fzf']}
-    # - {role: node, tags: ['node']}
-    # - {role: python, tags: ['python']}
-    # - {role: neovim, tags: ['neovim']}
-    # - {role: eza, tags: ['eza']}
-    # - {role: jq, tags: ['jq']}
-    # - {role: bat, tags: ['bat']}
-    # - {role: awscli, tags: ['awscli']}
-    # - {role: docker, tags: ['docker']}
-    # - {role: firefox, tags: ['firefox']}
-    # - {role: karabiner, tags: ['karabiner']}
-    # - {role: linearmouse, tags: ['linearmouse']}
-    # - {role: postgres, tags: ['postgres']}
-    # - {role: tailscale, tags: ['tailscale']}
-    # - {role: wezterm, tags: ['wezterm']}
-    # - {role: yt-dlp, tags: ['yt-dlp']}
-    # - {role: 1password, tags: ['1password']}
-    # - {role: go, tags: ['go']}
-    # - {role: rust, tags: ['rust']}
-    # - {role: fonts, tags: ['fonts'],}
-
-  # tasks:
-  #   - name: Install some mac apps
-  #     community.general.homebrew:
-  #       name: "{{ item }}"
-  #     loop:
-  #       - arc
-  #       - slack
-  #       - jetbrains-toolbox
-  #       - monitorcontrol
-  #       - notion-calendar
-  #       - raycast
-  #       - utm
-  #     when: ansible_os_family == 'Darwin'
+    - {role: ssh, tags: ['ssh']}
+    - {role: system, tags: ['system']}
+    - {role: dotfiles, tags: ['dotfiles']}
+    - {role: shell, tags: ['shell']}
+    - {role: packages, tags: ['packages']}
+    - {role: fonts, tags: ['fonts']}
