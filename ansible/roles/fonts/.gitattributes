@@ -1,0 +1,1 @@
+**/roles/fonts/files/* filter=lfs diff=lfs merge=lfs -text
