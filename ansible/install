@@ -12,12 +12,19 @@ fi
 tty_mkbold() { tty_escape "1;$1"; }
 tty_underline="$(tty_escape "4;39")"
 tty_blue="$(tty_mkbold 34)"
+tty_green="$(tty_mkbold 32)"
+tty_yellow="$(tty_mkbold 33)"
+tty_cyan="$(tty_mkbold 36)"
 tty_red="$(tty_mkbold 31)"
 tty_bold="$(tty_mkbold 39)"
 tty_reset="$(tty_escape 0)"
 
 ohai() {
-    printf "${tty_blue}==>${tty_bold} %s${tty_reset}\n" "$1"
+    printf "${tty_yellow}[ ... ]${tty_bold} %s${tty_reset}\n" "$1"
+}
+
+error() {
+    printf "${tty_red}[ ### ]${tty_bold} %s${tty_reset}\n" "$1"
 }
 
 have() {
@@ -49,11 +56,24 @@ if [[ ! -d "${SYSCONF_DIR}" ]]; then
     install git-lfs
     git clone https://github.com/laermannjan/sysconf.git "${SYSCONF_DIR}"
     git -C "${SYSCONF_DIR}" remote set-url origin git@github.com:laermannjan/sysconf.git
-    git -C "${SYSCONF_DIR}" lfs pull
+fi
+
+pushd "${SYSCONF_DIR}"
+
+git fetch origin
+LOCAL=$(git rev-parse @)
+REMOTE=$(git rev-parse @{u})
+BASE=$(git merge-base @ @{u})
+
+if [[ $REMOTE != $BASE ]]; then
+    error "New commits on remote. You might want to 'git pull --rebase && git lfs pull'\nGiving you 3 seconds to ^C"
+    sleep 3
 fi
 
 ohai "running ansible playbook"
-ansible-playbook ~/sysconf/ansible/playbook.yml "$@"
+ansible-playbook ansible/playbook.yml "$@"
+
+popd
 
 ohai "Done. Invoking fish shell. You should probably reboot now."
 exec fish
