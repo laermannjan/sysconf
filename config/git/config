@@ -51,3 +51,8 @@
 	enable = true  # remember how to solve a merge conflict and apply resolution automatically next time
 [alias]
 	diffw = diff --word-diff
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
