@@ -1,9 +1,14 @@
 ---
 
+- name: Ensure {{ font_dir }} exists
+  file:
+    path: "{{ font_dir }}"
+    state: directory
+
 - name: fonts
   unarchive:
     src: "{{ playbook_dir }}/roles/fonts/files/fonts.tar.xz.vault"
-    dest: "{{ ansible_env.HOME }}/{{ 'Library/Fonts' if ansible_os_family == 'Darwin' else '.local/share/fonts' }}"
+    dest: "{{ font_dir }}"
     decrypt: yes
     mode: '0644'
 

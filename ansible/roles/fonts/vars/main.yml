@@ -1,0 +1,2 @@
+---
+font_dir: "{{ ansible_env.HOME }}/{{ 'Library/Fonts' if ansible_os_family == 'Darwin' else '.local/share/fonts' }}"
