@@ -33,3 +33,10 @@
       - procps-ng
   package:
     name: "{{ packages }}"
+
+- name: install flatpaks {{ packages | map(attribute='name') | sort | sort(', ')}}
+  vars:
+    packages:
+      - {id: io.podman_desktop.PodmanDesktop, name: podman-desktop}
+  flatpak:
+    name: "{{ packages | map(attribute='id') }}"

@@ -32,6 +32,7 @@
       - "{{ 'go'              if ansible_os_family == 'Darwin' else 'golang' }}"
       - rustup
       - neovim
+      - podman
       - wezterm
       - starship
     packages: "{{ _packages | reject('equalto', omit) | sort | list}}"
@@ -41,12 +42,6 @@
   tags:
     - tools
 
-- name: install podman
-  become: "{{ ansible_pkg_mgr != 'brew' }}"
-  package:
-    name:
-      - podman
-      - podman-desktop
   tags:
     - docker
     - containers
