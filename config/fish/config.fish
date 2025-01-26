@@ -90,7 +90,7 @@ status is-interactive; and begin
             if test (uname) = "Darwin"
                 /usr/bin/ssh-add --apple-use-keychain $key  # ssh-add might be shadowed by openssh installed via homebrew
             else if command -v keychain
-                eval (keychain --eval --quiet $key)
+                eval (SHELL=fish keychain --eval --quiet $key)
             else
                 ssh-add $key
             end
