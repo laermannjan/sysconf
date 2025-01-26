@@ -34,7 +34,7 @@
   package:
     name: "{{ packages }}"
 
-- name: install flatpaks {{ packages | map(attribute='name') | sort | sort(', ')}}
+- name: install flatpaks {{ packages | map(attribute='name') | sort | join(', ')}}
   vars:
     packages:
       - {id: io.podman_desktop.PodmanDesktop, name: podman-desktop}
