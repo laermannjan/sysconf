@@ -46,8 +46,10 @@ ansible-galaxy collection list | grep geerlingguy.mac || ansible-galaxy collecti
 
 if [[ ! -d "${SYSCONF_DIR}" ]]; then
     ohai "cloning sysconf repo to ${SYSCONF_DIR}"
+    install git-lfs
     git clone https://github.com/laermannjan/sysconf.git "${SYSCONF_DIR}"
     git -C "${SYSCONF_DIR}" remote set-url origin git@github.com:laermannjan/sysconf.git
+    git -C "${SYSCONF_DIR}" lfs pull
 fi
 
 ohai "running ansible playbook"
