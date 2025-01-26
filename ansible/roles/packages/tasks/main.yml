@@ -31,6 +31,7 @@
       - uv
       - "{{ 'go'              if ansible_os_family == 'Darwin' else 'golang' }}"
       - rustup
+      - tailscale
       - neovim
       - podman
       - wezterm
@@ -41,19 +42,6 @@
     name: "{{ packages }}"
   tags:
     - tools
-
-  tags:
-    - docker
-    - containers
-    - podman
-
-- name: install tailscale
-  become: "{{ ansible_pkg_mgr != 'brew' }}"
-  package:
-    name:
-      - tailscale
-  tags:
-    - tailscale
 
 - name: Install neovim python venv
   pip:
@@ -71,7 +59,7 @@
   # NOTE: this expects jorgebucaran/nvm.fish to be installed
   ansible.builtin.shell: nvm install lts
   args:
-    executable: "{{ fish_path.stdout }}"
+    executable: "/usr/bin/env fish"
     creates: "{{ ansible_env.HOME }}/.local/share/nvm/*/bin/node"
 
 - name: Install python
