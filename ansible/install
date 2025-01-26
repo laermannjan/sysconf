@@ -3,7 +3,6 @@
 set -e
 
 SYSCONF_DIR="${HOME}/sysconf"
-HOMEBREW_PREFIX=$(if [[ $(uname) = 'Darwin' ]]; then echo "/opt/homebrew"; else echo "/home/linuxbrew/.linuxbrew"; fi)
 
 if [[ -t 1 ]]; then
     tty_escape() { printf "\033[%sm" "$1"; }
@@ -35,7 +34,7 @@ install() {
 if [ $(uname) = "Darwin" ] && ! have brew; then
     ohai "ensuring brew is installed, available and up to date"
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    export PATH="${HOMEBREW_PREFIX}/bin:${PATH}"
+    export PATH="/opt/homebrew/bin:${PATH}"
 fi
 
 ohai "ensuring ansible is installed"
