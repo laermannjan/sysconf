@@ -6,12 +6,6 @@
       - fish
       - curl
 
-- name: Get the fish binary path
-  shell: PATH=/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:$PATH command -v fish
-  register: fish_path
-  changed_when: false
-  become: false
-
 - name: Add fish to /etc/shells
   become: true
   lineinfile:
@@ -25,10 +19,13 @@
     shell: "{{ fish_path.stdout }}"
 
 - name: Install fisher
+  # NOTE: fisher update must come first so plugins won't be erased from ~/.config/fish/fish_plugins file
   ansible.builtin.shell: |
     curl -fsSL git.io/fisher | source
-    fisher install jorgebucaran/fisher
     fisher update
+    fisher install jorgebucaran/fisher
   args:
-    executable: "{{ fish_path.stdout }}"
+    executable: fish
     creates: "{{ ansible_env.HOME }}/.config/fish/functions/fisher.fish"
+  environment:
+    PATH: "/opt/homebrew//bin:/home/linuxbrew/.linuxbrew/bin:{{ lookup('env', 'PATH') }}"

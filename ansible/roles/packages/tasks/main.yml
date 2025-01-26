@@ -56,11 +56,16 @@
     creates: "{{ ansible_env.HOME }}/.cargo/bin/cargo"
 
 - name: Install Node
-  # NOTE: this expects jorgebucaran/nvm.fish to be installed
-  ansible.builtin.shell: nvm install lts
+  # NOTE: fisher update must come first so plugins won't be erased from ~/.config/fish/fish_plugins file
+  ansible.builtin.shell: |
+    fisher update
+    fisher install jorgebucaran/nvm.fish
+    nvm install lts
   args:
-    executable: "/usr/bin/env fish"
+    executable: fish
     creates: "{{ ansible_env.HOME }}/.local/share/nvm/*/bin/node"
+  environment:
+    PATH: "/opt/homebrew//bin:/home/linuxbrew/.linuxbrew/bin:{{ lookup('env', 'PATH') }}"
 
 - name: Install python
   ansible.builtin.command: uv python install
