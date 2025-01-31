@@ -20,5 +20,7 @@
 
 - name: Force-link libpq
   command: brew link --force libpq
+  environment:
+    PATH: "/opt/homebrew/bin:{{ lookup('env', 'PATH') }}"
   args:
     creates: /opt/homebrew/bin/psql
