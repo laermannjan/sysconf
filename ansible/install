@@ -1,65 +1,21 @@
 #!/usr/bin/env bash
 
-set -euxo pipefail
+set -euo pipefail
 
 SYSCONF_DIR="${HOME}/sysconf"
 SYSCONF_REPO_HTTPS="https://github.com/laermannjan/sysconf.git"
 SYSCONF_REPO_SSH="git@github.com:laermannjan/sysconf.git"
-eval $(cat /etc/*-release | grep ^ID=)
-ID="${ID:-macos}"
-
-if [[ -t 1 ]]; then
-    tty_escape() { printf "\033[%sm" "$1"; }
-else
-    tty_escape() { :; }
-fi
-tty_mkbold() { tty_escape "1;$1"; }
-tty_yellow="$(tty_mkbold 33)"
-tty_red="$(tty_mkbold 31)"
-tty_reset="$(tty_escape 0)"
-
-ohai() { printf "${tty_yellow}[ ... ]${tty_bold} %s${tty_reset}\n" "$1" }
-error() { printf "${tty_red}[ ### ]${tty_bold} %s${tty_reset}\n" "$1" }
-
-have() {
-}
-
-install() {
-    ohai "ensuring $1 is installed"
-    command -v "$1" &>/dev/null && return
-    case $ID in
-        macos) brew install "$1";;
-        fedora) sudo dnf install -y "$1";;
-        debian|ubuntu) sudo apt install -y "$1";;
-    esac
-}
-
-install ansible
-install git-lfs
-
-ohai "ensuring ansible collections are installed"
-ansible-galaxy collection list | grep community.general || ansible-galaxy collection install community.general
-ansible-galaxy collection list | grep geerlingguy.mac || ansible-galaxy collection install geerlingguy.mac
 
 if [[ ! -d "${SYSCONF_DIR}" ]]; then
-    ohai "cloning sysconf repo to ${SYSCONF_DIR}"
     git clone ${SYSCONF_REPO_HTTPS} "${SYSCONF_DIR}"
     # make ssh the primary, keep https so we can fetch updates before ssh keys are installed
     git -C "${SYSCONF_DIR}" remote set-url --push origin "${SYSCONF_REPO_SSH}"
 fi
 
 pushd "${SYSCONF_DIR}"
-ohai "running ansible playbook"
+ansible-galaxy install -r ansible/requirements.yml &>/dev/null
 ansible-playbook ansible/playbook.yml "$@"
 popd
 
-git fetch origin
-LOCAL=$(git rev-parse @)
-REMOTE=$(git rev-parse @{u})
-BASE=$(git merge-base @ @{u})
-
-if [[ $REMOTE != $BASE ]]; then
-    error "New commits on remote. You might want to 'git pull --rebase && git lfs pull'"
-fi
-ohai "Done. Invoking fish shell. You should probably reboot now."
+echo "Done. Invoking fish shell. You should probably reboot now."
 exec fish
