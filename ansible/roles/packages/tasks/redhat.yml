@@ -40,3 +40,4 @@
       - {id: io.podman_desktop.PodmanDesktop, name: podman-desktop}
   flatpak:
     name: "{{ packages | map(attribute='id') }}"
+  when: "'WSL2' not in ansible_facts['kernel']"
