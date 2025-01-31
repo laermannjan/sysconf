@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -euxo pipefail
 
 SYSCONF_DIR="${HOME}/sysconf"
 
@@ -38,14 +38,18 @@ install() {
     have pacman && sudo pacman -Syu --no-confirm "$1"
 }
 
+ensure() {
+    ohai "ensuring $1 is installed"
+    have "$1" || install "$1"
+}
+
 if [ $(uname) = "Darwin" ] && ! have brew; then
     ohai "ensuring brew is installed, available and up to date"
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     export PATH="/opt/homebrew/bin:${PATH}"
 fi
 
-ohai "ensuring ansible is installed"
-have ansible || install ansible
+ensure ansible
 
 ohai "ensuring ansible collections are installed"
 ansible-galaxy collection list | grep community.general || ansible-galaxy collection install community.general
@@ -53,7 +57,7 @@ ansible-galaxy collection list | grep geerlingguy.mac || ansible-galaxy collecti
 
 if [[ ! -d "${SYSCONF_DIR}" ]]; then
     ohai "cloning sysconf repo to ${SYSCONF_DIR}"
-    install git-lfs
+    ensure git-lfs
     git clone https://github.com/laermannjan/sysconf.git "${SYSCONF_DIR}"
     git -C "${SYSCONF_DIR}" remote set-url origin git@github.com:laermannjan/sysconf.git
 fi
