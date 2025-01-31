@@ -20,7 +20,7 @@ return {
                 ['<Tab>'] = { 'select_and_accept', 'snippet_forward', function(cmp) require('neotab').tabout() end, 'fallback' },
                 ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
                 ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
-                cmdline = { preset = 'default' },
+                cmdline = { preset = 'enter', ['<Tab>'] = { 'select_next', 'show', 'fallback' }, ['<S-Tab>'] = { 'select_prev', 'fallback' } },
             },
             completion = {
                 list = { selection = { preselect = false, auto_insert = false } },
@@ -37,7 +37,7 @@ return {
                     -- dont show LuaLS require statements when lazydev has items
                     lsp = { fallbacks = { 'lazydev' } },
                     lazydev = { name = 'LazyDev', module = 'lazydev.integrations.blink' },
-                    copilot = { name = 'copilot', module = 'blink-cmp-copilot', score_offset = 100, async = true },
+                    copilot = { name = 'copilot', module = 'blink-cmp-copilot', score_offset = 0, async = true },
                     beancount = { name = 'beancount', module = 'blink.compat.source' },
                 },
             },
