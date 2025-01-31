@@ -2,8 +2,8 @@
 - curl
 - git
 - ansible
-- git-lfs (optional, only necessary for fonts)
-- brew (optional, only necessary on macos)
+- git-lfs (optional, only necessary for **fonts**)
+- brew (optional, only necessary on **macos**)
 
 > [!Important]
 > On **macOS** log in to the App Store and install the command line tools first
@@ -23,7 +23,10 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/laermannjan/sysconf/HEAD
 
 > [!Tip]
 > The installer will not re-clone/update the repo if it already exists.
-> Update manually with `git pull && git lfs pull`
+> Update manually with 
+> ```sh
+> git pull && git lfs pull
+> ```
 
 You will be asked for
 - **Vault password**: for secrets and private stuff
@@ -40,5 +43,4 @@ You will be asked for
 > Useful, when the playbook is failing and you're trying to debug.
 
 ## Post-installation
-1. `CMD+\`` in WezTerm might not work initially as it's could be bound to switch windows of the same app.
-On **macOS** you need to disable the window switcher in `Settings > Keyboard > Keyboard Shortcuts > Keyboard > Move focus to next window`
+1. On **macOS** you need to disable the window switcher in `Settings > Keyboard > Keyboard Shortcuts > Keyboard > Move focus to next window`, so the WezTerm workspace shortcuts **CMD+`** works
