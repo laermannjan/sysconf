@@ -65,7 +65,7 @@
     executable: fish
     creates: "{{ ansible_env.HOME }}/.local/share/nvm/*/bin/node"
   environment:
-    PATH: "/opt/homebrew//bin:/home/linuxbrew/.linuxbrew/bin:{{ lookup('env', 'PATH') }}"
+    PATH: "/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:{{ lookup('env', 'PATH') }}"
 
 - name: Install python
   ansible.builtin.command: uv python install

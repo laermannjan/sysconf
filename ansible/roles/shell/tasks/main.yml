@@ -36,4 +36,4 @@
     executable: fish
     creates: "{{ ansible_env.HOME }}/.config/fish/functions/fisher.fish"
   environment:
-    PATH: "/opt/homebrew//bin:/home/linuxbrew/.linuxbrew/bin:{{ lookup('env', 'PATH') }}"
+    PATH: "/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:{{ lookup('env', 'PATH') }}"
