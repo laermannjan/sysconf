@@ -1,9 +1,10 @@
 ## ⚡️ Requirements
 - curl
 - git
-- ansible
 - git-lfs (optional, only necessary for **fonts**)
-- brew (optional, only necessary on **macos**)
+- ansible
+- brew (only necessary on **macos**)
+- flatpak (only necessary on **linux**)
 
 > [!Important]
 > On **macOS** log in to the App Store and install the command line tools first
@@ -15,7 +16,7 @@
 The install script clones this repo to `~/sysconf` and runs the ansible playbook. Any arguments to the script are passed to the `ansible-playbook` command.
 
 ```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/laermannjan/sysconf/HEAD/ansible/install)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/laermannjan/sysconf/HEAD/ansible/install.sh)"
 ```
 
 > [!Important]
@@ -23,7 +24,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/laermannjan/sysconf/HEAD
 
 > [!Tip]
 > The installer will not re-clone/update the repo if it already exists.
-> Update manually with 
+> Update manually with
 > ```sh
 > git pull && git lfs pull
 > ```
