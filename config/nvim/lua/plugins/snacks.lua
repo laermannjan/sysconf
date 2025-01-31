@@ -26,7 +26,7 @@ return {
         { '<leader>p', function() Snacks.picker.projects() end, desc = 'Projects' },
         { '<leader>P', function() Snacks.picker() end, desc = 'PickersProjectsProjects' },
         { '<leader>.', function() Snacks.picker.grep_word() end, desc = 'Grep (word or selection)', mode = { 'n', 'x' } },
-        { "<leader>'", function() Snacks.picker.resume() end, desc = 'Resume' },
+        { '<leader>\\', function() Snacks.picker.resume() end, desc = 'Resume' },
 
         { 'gr', function() Snacks.picker.lsp_references({ include_declaration = false }) end, desc = 'References' },
         { 'gd', function() Snacks.picker.lsp_definitions() end, desc = 'Definition' },
@@ -39,6 +39,7 @@ return {
         { '<leader>g', function() Snacks.lazygit() end, desc = 'Lazygit' },
         { 'gF', function() Snacks.gitbrowse() end, desc = 'Open Git Remote URL' },
         { '<F2>', function() Snacks.rename.rename_file() end, desc = 'Rename file' },
+        { '<leader>R', function() Snacks.rename.rename_file() end, desc = 'Rename file' },
         { [[<c-\>]], function() Snacks.terminal() end, desc = 'Toggle terminal', mode = { 'n', 't', 'i' } },
         { ']]', function() Snacks.words.jump(vim.v.count1) end, desc = 'Next reference', mode = { 'n', 't' } },
         { '[[', function() Snacks.words.jump(-vim.v.count1) end, desc = 'Prev reference', mode = { 'n', 't' } },
