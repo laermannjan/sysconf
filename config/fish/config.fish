@@ -4,10 +4,10 @@ else if test -f /home/linuxbrew/.linuxbrew/bin/brew
     /home/linuxbrew/.linuxbrew/bin/brew shellenv | source
 end
 
-# if not contains "$HOME/.local/bin" $PATH
-#     # Prepending path in case a system-installed binary needs to be overridden
-#     set -x PATH "$HOME/.local/bin" $PATH
-# end
+ if not contains "$HOME/.local/bin" $PATH
+     # Prepending path in case a system-installed binary needs to be overridden
+     set -x PATH "$HOME/.local/bin" $PATH
+ end
 
 status is-interactive; and begin
     abbr --add -- e nvim
