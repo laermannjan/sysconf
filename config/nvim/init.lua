@@ -1,6 +1,8 @@
 vim.g.python3_host_prog = '~/.venv.nvim/bin/python3'
-vim.g.colorscheme = 'tokyonight'
+-- vim.g.colorscheme = 'tokyonight'
 -- vim.g.colorscheme = 'randomhue'
+vim.g.colorscheme = 'iceclimber'
+-- vim.g.colorscheme = 'vague'
 
 vim.g.enable_gitsigns = true
 
