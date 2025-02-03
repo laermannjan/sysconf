@@ -6,8 +6,8 @@ return {
     event = { 'BufReadPost', 'BufNewFile' },
     cmd = 'Grapple',
     keys = {
-        { 'gma', '<cmd>Grapple tag<cr>', desc = 'Grapple mark file' },
-        { 'gml', '<cmd>Grapple toggle_tags<cr>', desc = 'Grapple toggle list' },
+        { '<leader>a', '<cmd>Grapple tag<cr>', desc = 'Mark file' },
+        { '<leader>m', '<cmd>Grapple toggle_tags<cr>', desc = 'Toggle mark list' },
         { '<c-h>', '<cmd>Grapple select index=1<cr>', desc = 'Grapple to 1. file' },
         { '<c-j>', '<cmd>Grapple select index=2<cr>', desc = 'Grapple to 2. file' },
         { '<c-k>', '<cmd>Grapple select index=3<cr>', desc = 'Grapple to 3. file' },
