@@ -22,9 +22,9 @@ return {
         { '<leader>F', function() Snacks.picker.files({ hidden = true, ignored = true }) end, desc = 'Files (workspace)' },
         { '<leader>h', function() Snacks.picker.help() end, desc = 'Help' },
         { '<leader>s', function() Snacks.picker.lsp_symbols() end, desc = 'Symbols' },
-        { '<leader>S', function() Snacks.picker.lsp_symbols() end, desc = 'Symbols (workspace TODO)' },
+        { '<leader>S', function() Snacks.picker.lsp_workspace_symbols() end, desc = 'Symbols (workspace TODO)' },
         { '<leader>p', function() Snacks.picker.projects() end, desc = 'Projects' },
-        { '<leader>P', function() Snacks.picker() end, desc = 'PickersProjectsProjects' },
+        { '<leader>P', function() Snacks.picker() end, desc = 'Pickers' },
         { '<leader>.', function() Snacks.picker.grep_word() end, desc = 'Grep (word or selection)', mode = { 'n', 'x' } },
         { '<leader>\\', function() Snacks.picker.resume() end, desc = 'Resume' },
 
