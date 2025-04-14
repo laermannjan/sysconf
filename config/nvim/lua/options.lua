@@ -112,6 +112,29 @@ if vim.fn.has('nvim-0.11') == 1 then
   vim.opt.completeopt:append('fuzzy') -- Use fuzzy matching for built-in completion
 end
 
+-- Vim LSP Diagnostics ==========================================================
+vim.diagnostic.config( {
+    float = { focusable = true, border = 'double' },
+    -- Show gutter sings
+    signs = {
+        severity = { min = 'HINT', max = 'ERROR' },
+        text = {
+            [vim.diagnostic.severity.ERROR] = ' ',
+            [vim.diagnostic.severity.WARN] = ' ',
+            [vim.diagnostic.severity.HINT] = ' ',
+            [vim.diagnostic.severity.INFO] = ' ',
+        },
+    },
+    -- Show virtual text only for errors and warnings
+    virtual_text = { severity = { min = 'WARN', max = 'ERROR' } },
+    -- Don't update diagnostics when typing
+    update_in_insert = false,
+    severity_sort = true,
+
+    source = true, -- always show diagnostics sources
+})
+
+
 -- Custom autocommands ========================================================
 local function augroup(name)
   return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
