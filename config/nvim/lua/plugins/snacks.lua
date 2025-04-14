@@ -11,13 +11,14 @@ return {
         statuscolumn = { enabled = true },
         scope = { enabled = true },
         words = { enabled = true },
+        -- scroll = { enabled = true },
     },
     keys = {
         { '<leader>/', function() Snacks.picker.grep() end, desc = 'Search (workspace)' },
         { '<leader>?', function() Snacks.picker.keymaps() end, desc = 'Keymaps' },
         { '<leader>b', function() Snacks.picker.buffers() end, desc = 'Buffers' },
         { '<leader>d', function() Snacks.picker.diagnostics_buffer() end, desc = 'Diagnostics' },
-        { '<leader>D', function() Snacks.picker.diagnostics() end, desc = 'Diagnostics (open files)' },
+        -- { '<leader>D', function() Snacks.picker.diagnostics() end, desc = 'Diagnostics (open files)' },
         { '<leader>f', function() Snacks.picker.smart() end, desc = 'Files' },
         { '<leader>F', function() Snacks.picker.files({ hidden = true, ignored = true }) end, desc = 'Files (workspace)' },
         { '<leader>h', function() Snacks.picker.help() end, desc = 'Help' },
@@ -43,6 +44,14 @@ return {
         { [[<c-\>]], function() Snacks.terminal() end, desc = 'Toggle terminal', mode = { 'n', 't', 'i' } },
         { ']]', function() Snacks.words.jump(vim.v.count1) end, desc = 'Next reference', mode = { 'n', 't' } },
         { '[[', function() Snacks.words.jump(-vim.v.count1) end, desc = 'Prev reference', mode = { 'n', 't' } },
+        {
+            '<leader>uf',
+            function()
+                vim.g.disable_autoformat = not vim.g.disable_autoformat
+                vim.notify('Autoformatting is now ' .. (vim.g.disable_autoformat and '**disabled**' or '**enabled**'))
+            end,
+            desc = 'Toggle Autoformat',
+        },
     },
     init = function()
         vim.api.nvim_create_autocmd('User', {

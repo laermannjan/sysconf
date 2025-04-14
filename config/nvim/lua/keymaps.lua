@@ -4,7 +4,7 @@ vim.keymap.set('ca', 'Wq!', 'wq!')
 vim.keymap.set('ca', 'WQ!', 'wq!')
 vim.keymap.set('ca', 'Q', 'q')
 vim.keymap.set('ca', 'Q!', 'q!')
-vim.keymap.set({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save File' })
+-- vim.keymap.set({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save File' })
 vim.keymap.set({ 'i', 'n', 's' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Clear search and <esc>' })
 
 vim.keymap.set('n', '<S-h>', '^')
