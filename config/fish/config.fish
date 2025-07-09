@@ -17,10 +17,13 @@ status is-interactive; and begin
     abbr --add -- ssh-reset-alcemy 'ssh-keygen -R alhambra-dev.alcemy.tech && ssh-keygen -R alhambra-prod.alcemy.tech'
 
     function dsn --description "retrieve the DSN for a alcemy prism database"
-        set --local host $(aws ssm get-parameter --name /alcemy/cement/$argv[1]/db-host/main | jq -r .Parameter.Value | tr -d '\n')
-        set --local user "$argv[1]_user"
-        set --local pw $(aws secretsmanager get-secret-value --secret-id alcemy/cement/$argv[1]/prism-db-user-password | jq -r .SecretString | tr -d '\n')
-        set --local db "alcemy_prism_$argv[1]"
+        set --local env_underscore $(string replace - _ $argv[1])
+        set --local env_hyphen $(string replace _ - $argv[1])
+
+        set --local host $(aws ssm get-parameter --name /alcemy/cement/$env_hyphen/db-host/main | jq -r .Parameter.Value | tr -d '\n')
+        set --local user "$env_underscore"_user
+        set --local pw $(aws secretsmanager get-secret-value --secret-id alcemy/cement/$env_hyphen/prism-db-user-password | jq -r .SecretString | tr -d '\n')
+        set --local db alcemy_prism_"$env_underscore"
         echo "postgres://$user:$pw@$host/$db"
     end
 
