@@ -1,9 +1,14 @@
-vim.lsp.enable('basedpyright')
-
 return {
     {
         'nvim-treesitter/nvim-treesitter',
         opts = { ensure_installed = { 'python', 'ninja', 'rst' } },
+    },
+    {
+        'williamboman/mason-lspconfig.nvim',
+        opts = {
+            ensure_installed = { 'basedpyright', 'pyright' },
+            automatic_enable = { exclude = { 'pyright' } },
+        },
     },
     {
         'nvim-neotest/neotest',

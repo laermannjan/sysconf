@@ -1,12 +1,10 @@
-vim.lsp.enable('rust_analyzer')
-
 return {
     {
         'nvim-treesitter/nvim-treesitter',
         opts = { ensure_installed = { 'rust', 'toml', 'ron' } },
     },
 
-    { 'williamboman/mason.nvim', opts = { ensure_installed = { 'codelldb' } } },
+    { 'williamboman/mason-lspconfig.nvim', opts = { ensure_installed = { 'rust_analyzer', 'codelldb' } } },
     {
         'Saecki/crates.nvim',
         event = { 'BufRead Cargo.toml' },

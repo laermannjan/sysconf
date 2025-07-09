@@ -1,3 +1,6 @@
-vim.lsp.enable('lua_ls')
-
-return {}
+return {
+    'williamboman/mason-lspconfig.nvim',
+    opts = {
+        ensure_installed = { 'stylua', 'lua_ls' },
+    },
+}

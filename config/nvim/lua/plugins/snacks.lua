@@ -8,6 +8,7 @@ return {
         indent = { enabled = true },
         input = { enabled = true },
         notifier = { enabled = true },
+        picker = { ui_select = true },
         statuscolumn = { enabled = true },
         scope = { enabled = true },
         words = { enabled = true },

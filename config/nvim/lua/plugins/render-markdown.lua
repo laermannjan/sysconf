@@ -1,5 +1,5 @@
 return {
     'MeanderingProgrammer/render-markdown.nvim',
     opts = {},
-    keys = { '\\m', '<cmd>RenderMarkdown toggle<cr>', desc = 'Toggle markdown renderer' },
+    -- keys = { '<LocalLeader>m', '<cmd>RenderMarkdown toggle<cr>', desc = 'Toggle markdown renderer' },
 }

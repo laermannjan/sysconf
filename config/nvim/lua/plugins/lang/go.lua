@@ -1,14 +1,12 @@
-vim.lsp.enable('gopls')
-
 return {
     {
         'nvim-treesitter/nvim-treesitter',
         opts = { ensure_installed = { 'go', 'gomod', 'gowork', 'gosum' } },
     },
     {
-        'williamboman/mason.nvim',
+        'williamboman/mason-lspconfig.nvim',
         opts = {
-            ensure_installed = { 'goimports', 'gofumpt' },
+            ensure_installed = { 'goimports', 'gofumpt', 'gopls', 'delve' },
         },
     },
     {
@@ -23,16 +21,7 @@ return {
     {
         'mfussenegger/nvim-dap',
         optional = true,
-        dependencies = {
-            {
-                'williamboman/mason.nvim',
-                opts = { ensure_installed = { 'delve' } },
-            },
-            {
-                'leoluz/nvim-dap-go',
-                opts = {},
-            },
-        },
+        dependencies = { { 'leoluz/nvim-dap-go', opts = {} } },
     },
     {
         'nvim-neotest/neotest',
