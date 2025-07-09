@@ -20,7 +20,7 @@
       - httpie
       - jq
       - lz4
-      - moreutils
+      - parallel
       - p7zip
       - ripgrep
       - unzip
