@@ -1,16 +1,23 @@
 ## ⚡️ Requirements
+
+> [!Info] macOS
+> log in to the App Store and install the command line tools first
+> ```sh
+> xcode-select --install
+> ```
+
+> [!Info] Fedora
+> ```sh
+> sudo dnf group install -y core
+> sudo dnf install -y git-lfs ansible dnf-plugins-core
+> ```
+
 - curl
 - git
 - git-lfs (optional, only necessary for **fonts**)
 - ansible
 - brew (only necessary on **macos**)
 - flatpak (only necessary on **linux**)
-
-> [!Important]
-> On **macOS** log in to the App Store and install the command line tools first
-> ```sh
-> xcode-select --install
-> ```
 
 ## 📦 Installation
 The install script clones this repo to `~/sysconf` and runs the ansible playbook. Any arguments to the script are passed to the `ansible-playbook` command.
