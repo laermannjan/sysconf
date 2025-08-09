@@ -65,7 +65,7 @@
     fisher update
     fisher install jorgebucaran/nvm.fish
     set -q nvm_default_version || set -Ux nvm_default_version lts
-    nvm install
+    nvm install lts
   args:
     executable: fish
     creates: "{{ ansible_env.HOME }}/.local/share/nvm/*/bin/node"
