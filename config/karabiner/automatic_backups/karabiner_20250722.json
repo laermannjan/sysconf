@@ -23,6 +23,19 @@
                         ]
                     },
                     {
+                        "description": "Disable Command+H (Hide Window)",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": { "mandatory": ["command"] }
+                                },
+                                "to": [],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Double tap left_command -> Hyper",
                         "enabled": false,
                         "manipulators": [
