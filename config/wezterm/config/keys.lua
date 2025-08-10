@@ -9,13 +9,19 @@ local keys = {
         key = ',',
         mods = 'CMD',
         action = act.SpawnCommandInNewTab({
-            cwd = wezterm.home_dir .. '/.config/wezterm/',
             args = {
-                os.getenv('SHELL'),
+                os.getenv('SHELL'), -- should be fish
+                '-l',
+                '-i',
                 '-c',
-                'nvim ' .. wezterm.home_dir .. '/.config/wezterm/wezterm.lua',
+                'nvim ' .. wezterm.shell_quote_arg(wezterm.config_file),
             },
         }),
+    },
+    {
+        key = ',',
+        mods = 'CMD|SHIFT',
+        action = act.ReloadConfiguration,
     },
     {
         key = 'w',
@@ -28,6 +34,19 @@ local keys = {
         action = act.CloseCurrentTab({ confirm = true }),
     },
     {
+        key = 'd',
+        mods = 'CMD|SHIFT',
+        action = act.SplitVertical({ domain = 'CurrentPaneDomain' }),
+    },
+    {
+        key = 'd',
+        mods = 'CMD',
+        action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }),
+    },
+
+    { key = 'i', mods = 'CMD|OPT', action = act.ShowDebugOverlay },
+
+    {
         key = 'Enter',
         mods = 'CMD',
         action = act.TogglePaneZoomState,
@@ -36,7 +55,7 @@ local keys = {
         key = 'g',
         mods = 'CMD',
         action = wezterm.action.SpawnCommandInNewTab({
-            args = { os.getenv('SHELL'), '-c', 'lazygit' },
+            args = { os.getenv('SHELL'), '-lic', 'lazygit' },
             label = 'lazygit',
         }),
     },
@@ -44,65 +63,54 @@ local keys = {
         key = 'b',
         mods = 'CMD',
         action = act.SpawnCommandInNewTab({
-            args = { os.getenv('SHELL'), '-c', 'btop' },
+            args = { os.getenv('SHELL'), '-lic', 'btop' },
         }),
     },
     {
-        key = '`',
-        mods = 'CMD',
+        key = 'Tab',
+        mods = 'SHIFT',
         action = workspace_switcher.switch_workspace(),
     },
 
     {
-        key = 's',
-        mods = 'CTRL|SHIFT|CMD',
-        action = act.SplitVertical({ domain = 'CurrentPaneDomain' }),
-    },
-    {
-        key = 'v',
-        mods = 'CTRL|SHIFT|CMD',
-        action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }),
-    },
-
-    {
         key = 'h',
-        mods = 'CTRL|SHIFT|CMD',
-        action = act.AdjustPaneSize({ 'Left', 1 }),
+        mods = 'SHIFT|CMD',
+        action = act.AdjustPaneSize({ 'Left', 3 }),
     },
     {
         key = 'j',
-        mods = 'CTRL|SHIFT|CMD',
+        mods = 'SHIFT|CMD',
         action = act.AdjustPaneSize({ 'Down', 1 }),
     },
     {
         key = 'k',
-        mods = 'CTRL|SHIFT|CMD',
+        mods = 'SHIFT|CMD',
         action = act.AdjustPaneSize({ 'Up', 1 }),
     },
     {
         key = 'l',
-        mods = 'CTRL|SHIFT|CMD',
-        action = act.AdjustPaneSize({ 'Right', 1 }),
+        mods = 'SHIFT|CMD',
+        action = act.AdjustPaneSize({ 'Right', 3 }),
     },
 
     {
         key = 'h',
-        mods = 'CTRL|CMD',
+        mods = 'CMD',
         action = act.ActivatePaneDirection('Left'),
     },
     {
         key = 'j',
-        mods = 'CTRL|CMD',
+        mods = 'CMD',
         action = act.ActivatePaneDirection('Down'),
     },
     {
         key = 'k',
-        mods = 'CTRL|CMD',
+        mods = 'CMD',
         action = act.ActivatePaneDirection('Up'),
     },
     {
         key = 'l',
-        mods = 'CTRL|CMD',
+        mods = 'CMD',
         action = act.ActivatePaneDirection('Right'),
     },
 
