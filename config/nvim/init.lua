@@ -218,13 +218,6 @@ require('lazydev').setup {
         { path = 'snacks.nvim', words = { 'Snacks' } },
     },
 }
-vim.lsp.config('lua_ls', {
-    settings = {
-        Lua = {
-            telemetry = { enable = false },
-        },
-    },
-})
 
 require('conform').setup {
     formatters_by_ft = {
