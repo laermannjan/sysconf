@@ -400,6 +400,7 @@ vim.keymap.set({ 'n' }, '<leader>P', function() Snacks.picker() end, { desc = 'P
 vim.keymap.set({ 'n', 'x' }, '<leader>.', function() Snacks.picker.grep_word() end, { desc = 'Grep (word or selection)' })
 vim.keymap.set({ 'n' }, '<leader>\\', function() Snacks.picker.resume() end, { desc = 'Resume' })
 
+vim.keymap.set({ 'n' }, 'ga', function() vim.lsp.buf.code_action() end, { desc = 'Code Actions' })
 vim.keymap.set({ 'n' }, 'gr', function() Snacks.picker.lsp_references { include_declaration = false } end, { desc = 'References' })
 vim.keymap.set({ 'n' }, 'gd', function() Snacks.picker.lsp_definitions() end, { desc = 'Definition' })
 vim.keymap.set({ 'n' }, 'gD', function() Snacks.picker.lsp_declarations() end, { desc = 'Declaration' })
@@ -425,9 +426,9 @@ vim.keymap.set({ 'n' }, '<Space><Space>3', ':Grapple select index=3<CR>', { desc
 vim.keymap.set({ 'n' }, '<Space><Space>4', ':Grapple select index=4<CR>', { desc = 'open tagged file' })
 vim.keymap.set({ 'n' }, '<Space><Space>5', ':Grapple select index=5<CR>', { desc = 'open tagged file' })
 
-vim.keymap.set({ 'n', 'v' }, '<leader>a', ':CodeCompanionChat Toggle<CR>', { desc = 'Toggle AI chat buffer' })
-vim.keymap.set({ 'v' }, '<localleader>a', ':CodeCompanionChat Add<CR>', { desc = 'Add code to AI chat buffer' })
-vim.keymap.set({ 'n', 'v' }, 'ga', ':CodeCompanionActions<CR>', { desc = 'Open AI action selection' })
+vim.keymap.set({ 'n' }, '<leader>a', ':CodeCompanionChat Toggle<CR>', { desc = 'Toggle AI chat buffer' })
+vim.keymap.set({ 'v' }, '<leader>a', ':CodeCompanionChat Add<CR>', { desc = 'Add code to AI chat buffer' })
+vim.keymap.set({ 'n', 'v' }, '<localleader>a', ':CodeCompanionActions<CR>', { desc = 'Open AI action selection' })
 
 -- Toggles -------------------------------------------------------------------------------------------------------------
 
