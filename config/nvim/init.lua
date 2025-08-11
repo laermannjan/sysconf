@@ -8,33 +8,33 @@ if vim.fn.has 'nvim-0.12' == 0 then error '[ERROR] Need at least nvim 0.12' end
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
 
-vim.o.number = true
-vim.o.relativenumber = false
+vim.opt.number = true
+vim.opt.relativenumber = false
 
-vim.o.autoindent = true -- copy indent from current line when starting a new line
-vim.o.smartindent = true -- indent new line based on key words 'cinwords'
-vim.o.expandtab = true -- use spaces instead of tabs
-vim.o.shiftwidth = 4 -- size of indent
-vim.o.tabstop = 4 -- number of spaces tabs count for
-vim.o.smarttab = true -- a <Tab> in front of a line inserts blanks according to 'shiftwidth'
-vim.o.shiftround = true -- indent to next multiple of 'shiftwidth'
-vim.o.wrap = false
+vim.opt.autoindent = true -- copy indent from current line when starting a new line
+vim.opt.smartindent = true -- indent new line based on key words 'cinwords'
+vim.opt.expandtab = true -- use spaces instead of tabs
+vim.opt.shiftwidth = 4 -- size of indent
+vim.opt.tabstop = 4 -- number of spaces tabs count for
+vim.opt.smarttab = true -- a <Tab> in front of a line inserts blanks according to 'shiftwidth'
+vim.opt.shiftround = true -- indent to next multiple of 'shiftwidth'
+vim.opt.wrap = false
 
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.hlsearch = true -- disable highlight with `:noh`, also mapped to <ESC>
-vim.o.incsearch = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.hlsearch = true -- disable highlight with `:noh`, also mapped to <ESC>
+vim.opt.incsearch = true
 
-vim.o.splitbelow = true
-vim.o.splitright = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
 
-vim.o.cursorline = true
-vim.o.signcolumn = 'yes'
-vim.o.termguicolors = true
+vim.opt.cursorline = true
+vim.opt.signcolumn = 'yes'
+vim.opt.termguicolors = true
 vim.opt.winborder = 'single'
 vim.opt.laststatus = 3 -- one status line for the active window
 
-vim.o.list = true -- show invisible characters (e.g. trailing spaces)
+vim.opt.list = true -- show invisible characters (e.g. trailing spaces)
 vim.opt.listchars = { trail = '␣', nbsp = '␣', tab = '> ', extends = '…', precedes = '…' }
 
 vim.opt.clipboard = 'unnamedplus'
