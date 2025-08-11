@@ -81,16 +81,16 @@ config.window_close_confirmation = 'NeverPrompt'
 config.window_frame = {
     active_titlebar_bg = '#090909',
     font = wezterm.font({ family = 'Berkley Mono', weight = 'Bold' }),
-    font_size = os == 'mac' and 16.0 or 13.0,
+    font_size = get_os() == 'mac' and 16.0 or 13.0,
 }
--- config.window_decorations = "RESIZE"
+config.window_decorations = get_os() == 'mac' and 'RESIZE' or 'TITLE|RESIZE'
 config.inactive_pane_hsb = { saturation = 0.9, brightness = 0.65 }
 
 -- fonts
 config.adjust_window_size_when_changing_font_size = false
 config.allow_square_glyphs_to_overflow_width = 'WhenFollowedBySpace'
 config.anti_alias_custom_block_glyphs = true
-config.font_size = os == 'mac' and 16.0 or 13.0
+config.font_size = get_os() == 'mac' and 16.0 or 13.0
 config.font = wezterm.font('ComicCode Nerd Font')
 -- config.font = wezterm.font 'JetBrains Mono Light'
 -- config.font = wezterm.font 'Monaspace Argon Var'
@@ -98,48 +98,30 @@ config.font = wezterm.font('ComicCode Nerd Font')
 -- config.font = wezterm.font 'MonaspiceRn Nerd Font'
 -- config.font = wezterm.font 'Monaspace Krypton'
 
-function workspaces()
-    local active = wezterm.mux.get_active_workspace()
-    local workspaces = wezterm.mux.get_workspace_names()
-
-    local ws = {}
-
-    for i, val in ipairs(workspaces) do
-        local workspace_str = i .. ': ' .. val
-        if active == val then
-            table.insert(ws, {
-                label = '[' .. workspace_str .. ']',
-                active = true,
-            })
-        else
-            table.insert(ws, {
-                label = ' ' .. workspace_str .. ' ',
-                active = false,
-            })
-        end
-    end
-
-    return ws
-end
-
 wezterm.on('update-status', function(window, _)
-    local segments = worspaces()
+    local workspaces = wezterm.mux.get_workspace_names()
+    local active_ws = wezterm.mux.get_active_workspace()
+    local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
 
-    local color_scheme = window:effective_config()
-    local active_color = wezterm.color.parse(color_scheme.window_frame.button_fg)
-    local inactive_color = active_color:darken(0.3)
+    local color_scheme = window:effective_config().resolved_palette
+    local fg = wezterm.color.parse(color_scheme.foreground)
+    -- local fg_inactive = active_color:darken(0.3)
+    local bg = wezterm.color.parse(color_scheme.background)
+    local bg_inactive = bg:lighten(0.3)
 
-    -- We'll build up the elements to send to wezterm.format in this table.
     local elements = {}
 
-    for _, seg in ipairs(segments) do
-        if seg.active then
-            table.insert(elements, { Foreground = { Color = active_color } })
-        else
-            table.insert(elements, { Foreground = { Color = inactive_color } })
-        end
-        table.insert(elements, { Background = { Color = 'none' } })
-        table.insert(elements, { Text = seg.label })
+    for i, ws in ipairs(workspaces) do
+        local is_first = i == 1
+
+        if is_first then table.insert(elements, { Background = { Color = 'none' } }) end
+        local color = ws == active_ws and bg or bg_inactive
+        table.insert(elements, { Foreground = { Color = color } })
+        table.insert(elements, { Text = SOLID_LEFT_ARROW })
+
+        table.insert(elements, { Foreground = { Color = fg } })
+        table.insert(elements, { Background = { Color = color } })
+        table.insert(elements, { Text = ' ' .. ws:gsub('.*/', '') .. ' ' })
     end
 
     table.insert(elements, { Text = ' ' }) -- a bit of padding
@@ -179,7 +161,7 @@ config.keys = {
 
     { mods = k('CMD', 'ALT'), key = 'g', action = spawn_in_tab('lazygit'), label = 'lazygit' },
 
-    { mods = 'SHIFT', key = 'Tab', action = workspace_switcher.switch_workspace() },
+    { mods = k('CMD', 'ALT'), key = 'p', action = workspace_switcher.switch_workspace() },
 
     { mods = k('CMD', 'ALT'), key = 'Enter', action = act.TogglePaneZoomState },
 
