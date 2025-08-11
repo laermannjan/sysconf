@@ -31,7 +31,7 @@ vim.o.splitright = true
 vim.o.cursorline = true
 vim.o.signcolumn = 'yes'
 vim.o.termguicolors = true
-vim.opt.winborder = 'rounded'
+vim.opt.winborder = 'single'
 vim.opt.laststatus = 3 -- one status line for the active window
 
 vim.o.list = true -- show invisible characters (e.g. trailing spaces)
@@ -262,7 +262,7 @@ require('snacks').setup {
     words = { enabled = true },
 }
 
-require('which-key').setup { preset = 'helix' }
+require('which-key').setup { preset = 'helix', show_help = false }
 require('todo-comments').setup()
 
 -- Statusline ---------------------------------------------------------------------------------------------------------
@@ -383,6 +383,8 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz')
 
 vim.keymap.set('n', '<S-h>', '^')
 vim.keymap.set('n', '<S-l>', 'g_')
+
+vim.keymap.set({ 'n', 'i', 's' }, '<Esc>', '<Esc>:noh<CR>')
 
 vim.keymap.set('n', '<leader>ve', ':e $MYVIMRC<CR>', { desc = 'edit init.lua' })
 vim.keymap.set('n', '<leader>vr', ':source $MYVIMRC<CR>', { desc = 'reload init.lua' })
