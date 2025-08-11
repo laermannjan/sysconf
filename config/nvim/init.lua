@@ -154,7 +154,9 @@ vim.api.nvim_set_hl(0, 'NormalNC', { bg = '#212121' }) -- 'dim' inactive windows
 
 -- treesitter ----------------------------------------------------------------------------------------------------------
 
-require('nvim-treesitter').install 'unstable' -- TODO: This should likely be 'stable' or 'core'. But every parser is currently unstable on main; https://github.com/nvim-treesitter/nvim-treesitter/issues/4767
+-- WARN: tree-sitter-cli needs to be installed, not just tree-sitter (the lib)
+-- This is likely the problem when things hang at 'Compiling parser ...'
+-- require('nvim-treesitter').install 'stable' -- TODO: likely should be 'stable' or 'core'. But every parser is currently unstable on main; https://github.com/nvim-treesitter/nvim-treesitter/issues/4767
 
 vim.api.nvim_create_autocmd('FileType', {
     group = group,
@@ -162,11 +164,15 @@ vim.api.nvim_create_autocmd('FileType', {
     callback = function(args)
         local filetype = args.match
         local lang = vim.treesitter.language.get_lang(filetype)
-        if lang and vim.treesitter.language.add(lang) then
-            vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-            vim.treesitter.start() -- highlights
+
+        if not lang then return end
+
+        if not vim.treesitter.language.add(lang) then
+            if require('nvim-treesitter').install(lang):wait(5000) ~= 0 then return end
         end
+
+        vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     end,
 })
 
