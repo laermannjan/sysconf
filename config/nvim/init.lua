@@ -169,6 +169,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
         if not vim.treesitter.language.add(lang) then
             if require('nvim-treesitter').install(lang):wait(5000) ~= 0 then return end
+            vim.treesitter.language.add(lang)
         end
 
         vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
