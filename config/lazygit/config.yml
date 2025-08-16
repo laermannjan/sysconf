@@ -1,6 +1,7 @@
 git:
   autoFetch: true
 gui:
+  nerdFontsVersion: "3"
   theme:
     activeBorderColor:
       - '#89b4fa'
