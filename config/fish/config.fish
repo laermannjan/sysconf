@@ -46,9 +46,9 @@ status is-interactive; and begin
         set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
     end
 
-    # if command -q starship && test "$TERM" != dumb
-    #     eval (starship init fish)
-    # end
+    if command -q starship && test "$TERM" != dumb
+        eval (starship init fish)
+    end
 
     if command -q aws
         # Enable AWS CLI autocompletion: github.com/aws/aws-cli/issues/1079
