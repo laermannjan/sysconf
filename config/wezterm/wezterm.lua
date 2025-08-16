@@ -38,18 +38,18 @@ config.front_end = 'WebGpu'
 config.webgpu_power_preference = 'HighPerformance'
 
 config.colors = {
-    background = '#121b1b', -- black
-    foreground = '#e4e4e7', --white
+    background = '#121b1b', -- black (greenish, looks nice with tokyonight)
+    foreground = '#e4e4e7', -- white
     -- tailwind colors.. search for `text-{color}-600` for normal or `text-{color}-400/300` for bright
     ansi = {
-        '#121b1b', -- black
+        '#0c0c0c', -- black
         '#ef4444', -- red
         '#22c55e', -- green
-        '#f59e0b', --yellow
+        '#f59e0b', -- yellow
         '#2563eb', -- blue
         '#9333ea', -- magenta
         '#0891b2', -- cyan
-        '#d1d5db', --white
+        '#d1d5db', -- white
     },
     brights = {
         '#6c7983',
