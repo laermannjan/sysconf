@@ -80,7 +80,7 @@ config.window_close_confirmation = 'NeverPrompt'
 -- NOTE: why do I need to put these font settings into window_frame?
 config.window_frame = {
     active_titlebar_bg = '#090909',
-    font = wezterm.font({ family = 'Berkley Mono', weight = 'Bold' }),
+    font = wezterm.font({ family = 'Berkeley Mono Variable', weight = 'ExtraBold' }),
     font_size = get_os() == 'mac' and 16.0 or 13.0,
 }
 config.window_decorations = get_os() == 'mac' and 'RESIZE' or 'TITLE|RESIZE'
@@ -90,13 +90,45 @@ config.inactive_pane_hsb = { saturation = 0.9, brightness = 0.65 }
 config.adjust_window_size_when_changing_font_size = false
 config.allow_square_glyphs_to_overflow_width = 'WhenFollowedBySpace'
 config.anti_alias_custom_block_glyphs = true
-config.font_size = get_os() == 'mac' and 16.0 or 13.0
-config.font = wezterm.font('ComicCode Nerd Font')
--- config.font = wezterm.font 'JetBrains Mono Light'
--- config.font = wezterm.font 'Monaspace Argon Var'
--- config.font = wezterm.font 'Monaspace Xenon Var'
--- config.font = wezterm.font 'MonaspiceRn Nerd Font'
--- config.font = wezterm.font 'Monaspace Krypton'
+config.font_size = get_os() == 'mac' and 18.0 or 14.0
+
+config.font = wezterm.font({
+    family = 'Berkeley Mono Variable',
+    weight = 'Regular',
+    stretch = 'Normal',
+    harfbuzz_features = {
+        -- test: @ <=> //= _|_
+        'calt=1', -- allow ligatures (contextual alternatives)
+        -- 'salt=1', -- enable stylistic alternatives (overwrites / interferes with stylistic sets below)
+        -- 'ss01', -- zero.slashed 0
+        'ss02', -- zero.dotted 0
+        -- 'ss03', -- zero.split 0
+        -- 'ss04', -- seven.european 7
+        -- 'ss05', -- r.german  (top right curves down a bit more)
+        -- 'ss06', -- bar.broken | ; ligatures where compiled with broken bar in this font and are not affected e.g. {|
+        'ss09', -- == and === ligatures with gap
+        -- 'ss10', -- <= arrow instead of less or equal than sign
+    },
+})
+
+-- NOTE: italics will be synthesized by wezterm without those font_rules, as it doesn't know about the slant variable axis
+-- but this overwrites all font settings from above, so need to respecify harfbuzz_features, stetch, etc
+-- there doesn't seem to be a visual difference between synthesized italics and font obliques
+-- harfbuzz_features can also be global, i.e. config.harfbuzz_features
+
+-- config.font_rules = {
+--     { italic = true, intensity = 'Bold', font = wezterm.font('Berkeley Mono Variable', { style = 'Oblique', weight = 'Bold' }) },
+--     { italic = true, intensity = 'Normal', font = wezterm.font('Berkeley Mono Variable', { style = 'Oblique' }) },
+--     { italic = true, intensity = 'Half', font = wezterm.font('Berkeley Mono Variable', { style = 'Oblique', weight = 'Light' }) },
+-- }
+
+-- config.font = wezterm.font('ComicCode Nerd Font')
+-- config.font = wezterm.font('CartographCF Nerd Font')
+-- config.font = wezterm.font('JetBrains Mono')
+-- config.font = wezterm.font('MonaspiceAr Nerd Font')
+-- config.font = wezterm.font('MonaspiceXe Nerd Font')
+-- config.font = wezterm.font('MonaspiceRn Nerd Font')
+-- config.font = wezterm.font('MonaspiceKr Nerd Font')
 
 wezterm.on('update-status', function(window, _)
     local workspaces = wezterm.mux.get_workspace_names()
