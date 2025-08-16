@@ -128,6 +128,7 @@ vim.pack.add {
     { src = 'https://github.com/neovim/nvim-lspconfig' },
     { src = 'https://github.com/mason-org/mason.nvim' },
     { src = 'https://github.com/mason-org/mason-lspconfig.nvim' },
+    { src = 'https://github.com/folke/tokyonight.nvim' },
     { src = 'https://github.com/folke/lazydev.nvim' },
     { src = 'https://github.com/folke/snacks.nvim' },
     { src = 'https://github.com/stevearc/conform.nvim' },
@@ -147,10 +148,12 @@ vim.pack.add {
 
 -- colorscheme ---------------------------------------------------------------------------------------------------------
 
-require('vague').setup { transparent = false }
-vim.cmd 'colorscheme vague'
+require('tokyonight').setup { transparent = true }
+require('vague').setup { transparent = true }
+vim.cmd 'colorscheme tokyonight-night'
+-- vim.cmd 'colorscheme vague'
 -- vim.cmd(":hi statusline guibg=NONE")
-vim.api.nvim_set_hl(0, 'NormalNC', { bg = '#212121' }) -- 'dim' inactive windows
+-- vim.api.nvim_set_hl(0, 'NormalNC', { bg = '#212121' }) -- 'dim' inactive windows
 
 -- treesitter ----------------------------------------------------------------------------------------------------------
 
