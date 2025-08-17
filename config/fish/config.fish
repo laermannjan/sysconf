@@ -84,7 +84,7 @@ status is-interactive; and begin
     end
 
     if command -q zoxide
-        zoxide init fish | source
+        zoxide init --cmd cd fish | source
     end
 
     # Start ssh-agent if not running, connect to system agent otherwise
