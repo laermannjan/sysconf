@@ -205,6 +205,9 @@ config.keys = {
     { mods = k('CMD|SHIFT', 'ALT|SHIFT'), key = 'j', action = act.AdjustPaneSize({ 'Down', 1 }) },
     { mods = k('CMD|SHIFT', 'ALT|SHIFT'), key = 'k', action = act.AdjustPaneSize({ 'Up', 1 }) },
     { mods = k('CMD|SHIFT', 'ALT|SHIFT'), key = 'l', action = act.AdjustPaneSize({ 'Right', 3 }) },
+
+    { mods = 'SHIFT', key = 'UpArrow', action = act.ScrollToPrompt(-1) },
+    { mods = 'SHIFT', key = 'DownArrow', action = act.ScrollToPrompt(1) },
 }
 
 return config
