@@ -144,6 +144,7 @@ vim.pack.add {
     { src = 'https://github.com/echasnovski/mini.surround' },
     { src = 'https://github.com/zbirenbaum/copilot.lua' },
     { src = 'https://github.com/olimorris/codecompanion.nvim' },
+    { src = 'https://github.com/qvalentin/helm-ls.nvim' },
 }
 
 -- colorscheme ---------------------------------------------------------------------------------------------------------
@@ -214,6 +215,7 @@ mr.refresh(function()
         'tinymist',
         -- sql
         'sqlfluff',
+        'yaml-language-server',
     }
     for _, tool in ipairs(ensure_installed) do
         local p = mr.get_package(tool)
@@ -229,6 +231,8 @@ require('lazydev').setup {
         { path = 'snacks.nvim', words = { 'Snacks' } },
     },
 }
+
+require('helm-ls').setup()
 
 require('conform').setup {
     formatters_by_ft = {
