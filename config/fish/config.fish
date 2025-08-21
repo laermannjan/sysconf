@@ -17,15 +17,32 @@ status is-interactive; and begin
     abbr --add -- ssh-reset-alcemy 'ssh-keygen -R alhambra-dev.alcemy.tech && ssh-keygen -R alhambra-prod.alcemy.tech'
 
     function dsn --description "retrieve the DSN for a alcemy prism database"
-        set --local env_underscore $(string replace - _ $argv[1])
-        set --local env_hyphen $(string replace _ - $argv[1])
+        argparse -x r,w,o r/read-only w/full-access o/owner -- $argv
+        or return
 
-        set --local host $(aws ssm get-parameter --name /alcemy/cement/$env_hyphen/db-host/main | jq -r .Parameter.Value | tr -d '\n')
-        set --local user "$env_underscore"_user
-        set --local pw $(aws secretsmanager get-secret-value --secret-id alcemy/cement/$env_hyphen/prism-db-user-password | jq -r .SecretString | tr -d '\n')
-        set --local db alcemy_prism_"$env_underscore"
+        set env $argv[1]
+        string match -rq --invert '^(prod|testing|staging|dyn-[A-Za-z0-9_-]+)$' -- $env
+        and echo Error `$env` is not a valid environment slug >&2
+        and return
+
+        set env_underscore $(string replace - _ $env)
+        set env_hyphen $(string replace _ - $env)
+
+        set access read_only
+        set -q _flag_w; and set access full_access
+        set -q _flag_o; and set access owner
+
+        set host $(aws ssm get-parameter --name /alcemy/cement/$env_hyphen/db-host/main | jq -r .Parameter.Value | tr -d '\n')
+        set user "$env_underscore"_iam_"$access"
+        set pw $(aws rds generate-db-auth-token --hostname $host --port 5432 --username $user | string escape --style=url)
+        set db alcemy_prism_"$env_underscore"
+
         echo "postgres://$user:$pw@$host/$db"
     end
+    complete -c dsn -s w -l read-only   -d 'Use access level `read_only` (default)'
+    complete -c dsn -s w -l full-access -d 'Use access level: full_access'
+    complete -c dsn -s o -l owner       -d 'Use access level: owner'
+    complete -c dsn -fa 'prod testing staging dyn-' -d 'EVIRONMENT_SLUG'
 
     alias eza 'eza --group-directories-first --header --group --git'
     alias la 'eza -a'
