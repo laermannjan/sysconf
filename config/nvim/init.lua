@@ -185,7 +185,7 @@ vim.api.nvim_create_autocmd('FileType', {
 -- lsp -----------------------------------------------------------------------------------------------------------------
 
 require('mason').setup()
-require('mason-lspconfig').setup() -- keeping this for auto enabling lsps
+require('mason-lspconfig').setup { automatic_enable = { exclude = { 'basedpyright' } } } -- keeping this for auto enabling lsps
 
 -- auto installer
 
