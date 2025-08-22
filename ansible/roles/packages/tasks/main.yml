@@ -40,6 +40,8 @@
       - lazydocker
       - doggo
       - "{{ 'dust'            if ansible_os_family == 'Darwin' else 'du-dust' }}"
+      - imagemagick
+      - ghostscript
     packages: "{{ _packages | reject('equalto', omit) | sort | list}}"
   become: "{{ ansible_pkg_mgr != 'brew' }}"
   package:
