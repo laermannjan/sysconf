@@ -27,4 +27,4 @@ node_modules
 devenv.local.nix
 .devenv
 .direnv
-
+.jan/
