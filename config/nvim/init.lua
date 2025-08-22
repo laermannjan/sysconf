@@ -420,6 +420,7 @@ vim.keymap.set({ 'n', 'x' }, '<leader>.', function() Snacks.picker.grep_word() e
 vim.keymap.set({ 'n' }, '<leader>\\', function() Snacks.picker.resume() end, { desc = 'Resume' })
 vim.keymap.set({ 'n' }, '<leader>l', function() Snacks.picker.lsp_config() end, { desc = 'LspInfo' })
 vim.keymap.set({ 'n' }, '<leader>m', '<cmd>Mason<cr>', { desc = 'Mason' })
+vim.keymap.set({ 'n' }, '<leader>r', function() vim.lsp.buf.rename() end, { desc = 'Rename symbol' })
 
 vim.keymap.set({ 'n' }, 'ga', function() vim.lsp.buf.code_action() end, { desc = 'Code Actions' })
 vim.keymap.set({ 'n' }, 'gr', function() Snacks.picker.lsp_references { include_declaration = false } end, { desc = 'References' })
