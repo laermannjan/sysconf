@@ -423,7 +423,7 @@ vim.keymap.set({ 'n' }, '<leader>m', '<cmd>Mason<cr>', { desc = 'Mason' })
 vim.keymap.set({ 'n' }, '<leader>r', function() vim.lsp.buf.rename() end, { desc = 'Rename symbol' })
 
 vim.keymap.set({ 'n' }, 'ga', function() vim.lsp.buf.code_action() end, { desc = 'Code Actions' })
-vim.keymap.set({ 'n' }, 'gr', function() Snacks.picker.lsp_references { include_declaration = false } end, { desc = 'References' })
+vim.keymap.set({ 'n' }, 'gr', function() Snacks.picker.lsp_references { include_declaration = false } end, { desc = 'References', nowait = true }) -- nowait = disable gr- builtins
 vim.keymap.set({ 'n' }, 'gd', function() Snacks.picker.lsp_definitions() end, { desc = 'Definition' })
 vim.keymap.set({ 'n' }, 'gD', function() Snacks.picker.lsp_declarations() end, { desc = 'Declaration' })
 vim.keymap.set({ 'n' }, 'gI', function() Snacks.picker.lsp_implementations() end, { desc = 'Implementation' })
