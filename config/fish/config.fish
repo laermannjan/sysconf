@@ -17,11 +17,11 @@ status is-interactive; and begin
     abbr --add -- ssh-reset-alcemy 'ssh-keygen -R alhambra-dev.alcemy.tech && ssh-keygen -R alhambra-prod.alcemy.tech'
 
     function dsn --description "retrieve the DSN for a alcemy prism database"
-        argparse -x r,w,o r/read-only w/full-access o/owner -- $argv
+        argparse -x r,w,o r/read-only w/full-access o/owner p/port -- $argv
         or return
 
         set env $argv[1]
-        string match -rq --invert '^(prod|testing|staging|dyn-[A-Za-z0-9_-]+)$' -- $env
+        string match -rq --invert '^(testing|staging|dyn-[A-Za-z0-9_-]+)$' -- $env
         and echo Error `$env` is not a valid environment slug >&2
         and return
 
@@ -32,12 +32,15 @@ status is-interactive; and begin
         set -q _flag_w; and set access full_access
         set -q _flag_o; and set access owner
 
+        set port 5432
+        set -q _flag_port; and set port _flag_port
+
         set host $(aws ssm get-parameter --name /alcemy/cement/$env_hyphen/db-host/main | jq -r .Parameter.Value | tr -d '\n')
-        set user "$env_underscore"_iam_"$access"
-        set pw $(aws rds generate-db-auth-token --hostname $host --port 5432 --username $user | string escape --style=url)
+        set user prism_"$env_underscore"_iam_"$access"
+        set pw $(aws rds generate-db-auth-token --hostname $host --port $port --username $user | jq -Rr @uri)
         set db alcemy_prism_"$env_underscore"
 
-        echo "postgres://$user:$pw@$host/$db"
+        echo "postgresql://$user:$pw@$host:$port/$db"
     end
     complete -c dsn -s w -l read-only   -d 'Use access level `read_only` (default)'
     complete -c dsn -s w -l full-access -d 'Use access level: full_access'
