@@ -185,7 +185,7 @@ vim.api.nvim_create_autocmd('FileType', {
 -- lsp -----------------------------------------------------------------------------------------------------------------
 
 require('mason').setup()
-require('mason-lspconfig').setup { automatic_enable = { exclude = { 'basedpyright' } } } -- keeping this for auto enabling lsps
+require('mason-lspconfig').setup { automatic_enable = { exclude = { 'ty' } } } -- keeping this for auto enabling lsps
 
 -- auto installer
 
@@ -232,7 +232,7 @@ require('lazydev').setup {
     },
 }
 
-require('helm-ls').setup()
+-- require('helm-ls').setup()  # FIXME: doesn't work with treesitter@main
 
 require('conform').setup {
     formatters_by_ft = {
