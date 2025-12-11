@@ -4,10 +4,13 @@ else if test -f /home/linuxbrew/.linuxbrew/bin/brew
     /home/linuxbrew/.linuxbrew/bin/brew shellenv | source
 end
 
- if not contains "$HOME/.local/bin" $PATH
-     # Prepending path in case a system-installed binary needs to be overridden
-     set -x PATH "$HOME/.local/bin" $PATH
- end
+if not contains "$HOME/.local/bin" $PATH
+    # Prepending path in case a system-installed binary needs to be overridden
+    set -x PATH "$HOME/.local/bin" $PATH
+end
+
+# added to python package cairosvg can find a `libcairo.so.2`
+set -x DYLD_FALLBACK_LIBRARY_PATH /opt/homebrew/lib
 
 status is-interactive; and begin
     abbr --add -- e nvim
@@ -42,10 +45,10 @@ status is-interactive; and begin
 
         echo "postgresql://$user:$pw@$host:$port/$db"
     end
-    complete -c dsn -s w -l read-only   -d 'Use access level `read_only` (default)'
+    complete -c dsn -s w -l read-only -d 'Use access level `read_only` (default)'
     complete -c dsn -s w -l full-access -d 'Use access level: full_access'
-    complete -c dsn -s o -l owner       -d 'Use access level: owner'
-    complete -c dsn -fa 'prod testing staging dyn-' -d 'EVIRONMENT_SLUG'
+    complete -c dsn -s o -l owner -d 'Use access level: owner'
+    complete -c dsn -fa 'prod testing staging dyn-' -d EVIRONMENT_SLUG
 
     alias eza 'eza --group-directories-first --header --group --git'
     alias la 'eza -a'
@@ -115,8 +118,8 @@ status is-interactive; and begin
     # add every ssh key to the agent; prompts for passwords
     for key in ~/.ssh/id_*
         if test -f $key; and not test (string match -r '\.pub$' $key); and not ssh-add -L | string match -q "* $key"
-            if test (uname) = "Darwin"
-                /usr/bin/ssh-add --apple-use-keychain $key  # ssh-add might be shadowed by openssh installed via homebrew
+            if test (uname) = Darwin
+                /usr/bin/ssh-add --apple-use-keychain $key # ssh-add might be shadowed by openssh installed via homebrew
             else if command -v keychain
                 eval (SHELL=fish keychain --eval --quiet $key)
             else
@@ -125,9 +128,8 @@ status is-interactive; and begin
         end
     end
 
-    set -gx XDG_CONFIG_HOME "$HOME/.config"  # needed for lazygit
+    set -gx XDG_CONFIG_HOME "$HOME/.config" # needed for lazygit
 
     # set -gx nvm_default_version "lts"  # this doesn't work, must be set via `set -U ...`
-
 
 end
