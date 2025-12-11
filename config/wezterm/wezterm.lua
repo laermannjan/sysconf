@@ -208,6 +208,8 @@ config.keys = {
 
     { mods = 'SHIFT', key = 'UpArrow', action = act.ScrollToPrompt(-1) },
     { mods = 'SHIFT', key = 'DownArrow', action = act.ScrollToPrompt(1) },
+
+    { mods = 'SHIFT', key = 'Enter', action = wezterm.action({ SendString = '\x1b\r' }) },
 }
 
 return config
