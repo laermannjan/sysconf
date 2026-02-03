@@ -122,7 +122,7 @@ vim.api.nvim_create_autocmd('PackChanged', {
 })
 
 vim.pack.add {
-    { src = 'https://github.com/nvim-lua/plenary.nvim' }, -- dep from: codecompanion, todo-comments
+    { src = 'https://github.com/nvim-lua/plenary.nvim' }, -- dep from: todo-comments
     { src = 'https://github.com/vague2k/vague.nvim' },
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
     { src = 'https://github.com/neovim/nvim-lspconfig' },
@@ -143,7 +143,6 @@ vim.pack.add {
     { src = 'https://github.com/echasnovski/mini.icons' },
     { src = 'https://github.com/echasnovski/mini.surround' },
     { src = 'https://github.com/zbirenbaum/copilot.lua' },
-    -- { src = 'https://github.com/olimorris/codecompanion.nvim' },
     { src = 'https://github.com/qvalentin/helm-ls.nvim' },
     { src = 'https://github.com/folke/sidekick.nvim' },
 }
@@ -359,29 +358,13 @@ require('gitsigns').setup {
 
 require('grapple').setup { scope = 'git' }
 
--- code companion ------------------------------------------------------------------------------------------------------
+-- sidekick ------------------------------------------------------------------------------------------------------
 
 -- only use this to get the token
 require('copilot').setup {
     panel = { enabled = false },
     suggestion = { enabled = false },
 }
--- require('codecompanion').setup {
---     strategies = {
---         chat = {
---             adapter = { name = 'copilot', model = 'claude-sonnet-4' },
---         },
---         inline = {
---             adapter = { name = 'copilot', model = 'claude-sonnet-4' },
---         },
---         cmd = {
---             adapter = { name = 'copilot', model = 'claude-sonnet-4' },
---         },
---     },
--- }
--- vim.keymap.set('ca', 'cc', 'CodeCompanion')
--- vim.keymap.set('ca', 'Cc', 'CodeCompanion')
--- vim.keymap.set('ca', 'CC', 'CodeCompanion')
 require('sidekick').setup {}
 
 -- Keymaps (refactor of `keys = { ... }`)
@@ -504,9 +487,7 @@ vim.keymap.set({ 'n' }, '<Space><Space>3', ':Grapple select index=3<CR>', { desc
 vim.keymap.set({ 'n' }, '<Space><Space>4', ':Grapple select index=4<CR>', { desc = 'open tagged file' })
 vim.keymap.set({ 'n' }, '<Space><Space>5', ':Grapple select index=5<CR>', { desc = 'open tagged file' })
 
-vim.keymap.set({ 'n' }, '<leader>a', ':CodeCompanionChat Toggle<CR>', { desc = 'Toggle AI chat buffer' })
-vim.keymap.set({ 'v' }, '<leader>a', ':CodeCompanionChat Add<CR>', { desc = 'Add code to AI chat buffer' })
-vim.keymap.set({ 'n', 'v' }, '<localleader>a', ':CodeCompanionActions<CR>', { desc = 'Open AI action selection' })
+vim.keymap.set({ 'n', 't', 'i', 'x' }, '<c-/>', function() Snacks.terminal.toggle() end, { desc = 'Terminal' })
 
 -- Toggles -------------------------------------------------------------------------------------------------------------
 
