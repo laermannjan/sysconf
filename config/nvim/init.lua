@@ -276,6 +276,7 @@ require('snacks').setup {
     statuscolumn = { enabled = true },
     scope = { enabled = true },
     words = { enabled = true },
+    terminal = { enabled = true },
 }
 
 require('which-key').setup { preset = 'helix', show_help = false }
