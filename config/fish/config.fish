@@ -14,41 +14,7 @@ set -x DYLD_FALLBACK_LIBRARY_PATH /opt/homebrew/lib
 
 status is-interactive; and begin
     abbr --add -- e nvim
-    abbr --add -- elevate 'aws iam add-user-to-group --group-name Elevated --user-name $(aws iam get-user | grep UserName | cut -d'\''"'\'' -f4)'
-    abbr --add -- secrets 'aws secretsmanager get-secret-value --secret-id (aws secretsmanager list-secrets | jq -r '\''.[][] | .Name'\'' | fzf) | jq -r .SecretString | tr -d '\''\n'\'' | pbcopy'
-    abbr --add -- params 'aws ssm get-parameter --name (aws ssm describe-parameters | jq -r '\''.[][] | .Name'\'' | fzf) | jq -r .Parameter.Value | tr -d '\''\n'\'' | pbcopy'
-    abbr --add -- ssh-reset-alcemy 'ssh-keygen -R alhambra-dev.alcemy.tech && ssh-keygen -R alhambra-prod.alcemy.tech'
-
-    function dsn --description "retrieve the DSN for a alcemy prism database"
-        argparse -x r,w,o r/read-only w/full-access o/owner p/port -- $argv
-        or return
-
-        set env $argv[1]
-        string match -rq --invert '^(testing|staging|dyn-[A-Za-z0-9_-]+)$' -- $env
-        and echo Error `$env` is not a valid environment slug >&2
-        and return
-
-        set env_underscore $(string replace - _ $env)
-        set env_hyphen $(string replace _ - $env)
-
-        set access read_only
-        set -q _flag_w; and set access full_access
-        set -q _flag_o; and set access owner
-
-        set port 5432
-        set -q _flag_port; and set port _flag_port
-
-        set host $(aws ssm get-parameter --name /alcemy/cement/$env_hyphen/db-host/main | jq -r .Parameter.Value | tr -d '\n')
-        set user prism_"$env_underscore"_iam_"$access"
-        set pw $(aws rds generate-db-auth-token --hostname $host --port $port --username $user | jq -Rr @uri)
-        set db alcemy_prism_"$env_underscore"
-
-        echo "postgresql://$user:$pw@$host:$port/$db"
-    end
-    complete -c dsn -s w -l read-only -d 'Use access level `read_only` (default)'
-    complete -c dsn -s w -l full-access -d 'Use access level: full_access'
-    complete -c dsn -s o -l owner -d 'Use access level: owner'
-    complete -c dsn -fa 'prod testing staging dyn-' -d EVIRONMENT_SLUG
+    abbr --add -- delhist 'history | fzf | read -l entry && history delete --exact --case-sensitive -- "$entry"'
 
     alias eza 'eza --group-directories-first --header --group --git'
     alias la 'eza -a'
@@ -130,6 +96,6 @@ status is-interactive; and begin
 
     set -gx XDG_CONFIG_HOME "$HOME/.config" # needed for lazygit
 
-    # set -gx nvm_default_version "lts"  # this doesn't work, must be set via `set -U ...`
+    # nvm_default_version is set in conf.d/00-nvm-config.fish (must load before conf.d/nvm.fish)
 
 end

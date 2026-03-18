@@ -7,6 +7,8 @@ templates/**/flake.lock
 !private/**.age
 .pre-commit-config.yaml
 fish_variables
-config/fish/conf.d/
+config/fish/conf.d/*
+!config/fish/conf.d/colors.fish
+!config/fish/conf.d/00-nvm-config.fish
 config/fish/functions/
 config/fish/completions/
