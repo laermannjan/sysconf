@@ -111,6 +111,16 @@ config.font = wezterm.font({
     },
 })
 
+-- config.font = wezterm.font({
+--     family = 'Maple Mono NF',
+--     weight = 'Light',
+--     stretch = 'Normal',
+--     harfbuzz_features = {
+--         -- =>
+--         'calt=1',
+--     },
+-- })
+
 -- NOTE: italics will be synthesized by wezterm without those font_rules, as it doesn't know about the slant variable axis
 -- but this overwrites all font settings from above, so need to respecify harfbuzz_features, stetch, etc
 -- there doesn't seem to be a visual difference between synthesized italics and font obliques
@@ -210,6 +220,15 @@ config.keys = {
     { mods = 'SHIFT', key = 'DownArrow', action = act.ScrollToPrompt(1) },
 
     { mods = 'SHIFT', key = 'Enter', action = wezterm.action({ SendString = '\x1b\r' }) },
+}
+
+config.ssh_domains = {
+    {
+        name = 'ugreen',
+        remote_address = 'ugreen', -- or IP
+        username = 'root',
+        multiplexing = 'None',
+    },
 }
 
 return config
