@@ -12,7 +12,7 @@
   changed_when: false
   become: false
   environment:
-    PATH: "/opt/homebrew//bin:/home/linuxbrew/.linuxbrew/bin:{{ lookup('env', 'PATH') }}"
+    PATH: "/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:{{ lookup('env', 'PATH') }}"
 
 - name: Add fish to /etc/shells
   become: true
@@ -29,7 +29,7 @@
 - name: Install fisher
   # NOTE: fisher update must come first so plugins won't be erased from ~/.config/fish/fish_plugins file
   ansible.builtin.shell: |
-    curl -fsSL git.io/fisher | source
+    curl -fsSL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
     fisher update
     fisher install jorgebucaran/fisher
   args:
