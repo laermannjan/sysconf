@@ -10,5 +10,6 @@ fish_variables
 config/fish/conf.d/*
 !config/fish/conf.d/colors.fish
 !config/fish/conf.d/00-nvm-config.fish
-config/fish/functions/
+config/fish/functions/*
+!config/fish/functions/fixaudio.fish
 config/fish/completions/
