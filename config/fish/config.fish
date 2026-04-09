@@ -1,39 +1,38 @@
-if test -f /opt/homebrew/bin/brew
-    /opt/homebrew/bin/brew shellenv | source
-else if test -f /home/linuxbrew/.linuxbrew/bin/brew
-    /home/linuxbrew/.linuxbrew/bin/brew shellenv | source
-end
+set -gx XDG_CONFIG_HOME ~/.config
+set -gx XDG_DATA_HOME ~/.local/share
+set -gx XDG_CACHE_HOME ~/.cache
+set -gx XDG_STATE_HOME ~/.local/state
 
-if not contains "$HOME/.local/bin" $PATH
-    # Prepending path in case a system-installed binary needs to be overridden
-    set -x PATH "$HOME/.local/bin" $PATH
+fish_add_path --prepend ~/.local/bin # Prepending path in case a system-installed binary needs to be overridden
+
+test -f /home/linuxbrew/.linuxbrew/bin/brew; and set brew_prefix /home/linuxbrew/.linuxbrew
+test -f /opt/homebrew/bin/brew; and set brew_prefix /opt/homebrew
+if set -q brew_prefix
+    set -gx HOMEBREW_NO_ANALYTICS 1
+    $brew_prefix/bin/brew shellenv | source
+    set -p fish_complete_path $brew_prefix/share/fish/completions
+    set -p fish_complete_path $brew_prefix/share/fish/vendor_completions.d
 end
 
 # added to python package cairosvg can find a `libcairo.so.2`
 set -x DYLD_FALLBACK_LIBRARY_PATH /opt/homebrew/lib
 
 status is-interactive; and begin
+    set fish_greeting
+
+    set -gx EDITOR nvim
+    set -gx VISUAL nvim
+    set -gx PAGER less
+    set -gx LESS '-R -F -X --mouse'
+
     abbr --add -- e nvim
     abbr --add -- delhist 'history | fzf | read -l entry && history delete --exact --case-sensitive -- "$entry"'
 
-    alias eza 'eza --group-directories-first --header --group --git'
-    alias la 'eza -a'
-    alias ll 'eza -l'
-    alias lla 'eza -la'
-    alias ls eza
-    alias lt 'eza --tree'
-
-    # Disable greeting
-    set fish_greeting
-
-    # homebrew completions
-    if command -q brew && test -d (brew --prefix)"/share/fish/completions"
-        set -p fish_complete_path (brew --prefix)/share/fish/completions
-    end
-
-    if command -q brew && test -d (brew --prefix)"/share/fish/vendor_completions.d"
-        set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
-    end
+    alias ls 'eza --group-directories-first --header --group --git'
+    alias la 'ls -a'
+    alias ll 'ls -l'
+    alias lla 'ls -la'
+    alias lt 'ls --tree'
 
     if command -q starship && test "$TERM" != dumb
         eval (starship init fish)
@@ -57,16 +56,6 @@ status is-interactive; and begin
         fzf --fish | source
     end
 
-    if command -q pipenv
-        set -gx PIPENV_VENV_IN_PROJECT 1
-    end
-
-    if command -q pyenv
-        set -gx PYENV_ROOT $HOME/.pyenv
-        fish_add_path --global $PYENV_ROOT/bin
-        pyenv init - | source
-    end
-
     if command -q uv
         uv generate-shell-completion fish | source
         uvx --generate-shell-completion fish | source
@@ -76,26 +65,19 @@ status is-interactive; and begin
         zoxide init --cmd cd fish | source
     end
 
-    # Start ssh-agent if not running, connect to system agent otherwise
-    if not set -q SSH_AUTH_SOCK
-        eval (ssh-agent -c)
-    end
+    # Shared SSH agent across terminals (Linux only; macOS has a system agent that handles all of this itself).
+    # SSH sessions have a forwarded agent, which we don't want to override.
+    # Keys are loaded on first use via AddKeysToAgent in ~/.ssh/config.
+    if test (uname) != Darwin; and not set -q SSH_CONNECTION
+        set -l ssh_env ~/.ssh/environment
+        test -f $ssh_env; and source $ssh_env &>/dev/null
+        ssh-add -l &>/dev/null
 
-    # add every ssh key to the agent; prompts for passwords
-    for key in ~/.ssh/id_*
-        if test -f $key; and not test (string match -r '\.pub$' $key); and not ssh-add -L | string match -q "* $key"
-            if test (uname) = Darwin
-                /usr/bin/ssh-add --apple-use-keychain $key # ssh-add might be shadowed by openssh installed via homebrew
-            else if command -v keychain
-                eval (SHELL=fish keychain --eval --quiet $key)
-            else
-                ssh-add $key
-            end
+        if test $status -eq 2 # no agent reachable
+            ssh-agent -c | grep -v '^echo' >$ssh_env # strip the `echo Agent pid ...` line
+            chmod 600 $ssh_env
+            source $ssh_env &>/dev/null
         end
     end
-
-    set -gx XDG_CONFIG_HOME "$HOME/.config" # needed for lazygit
-
-    # nvm_default_version is set in conf.d/00-nvm-config.fish (must load before conf.d/nvm.fish)
 
 end
