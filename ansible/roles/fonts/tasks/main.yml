@@ -5,11 +5,6 @@
     path: "{{ font_dir }}"
     state: directory
 
-- name: Pull LFS font archive
-  command: git lfs pull --include="roles/fonts/files/*"
-  args:
-    chdir: "{{ playbook_dir }}"
-
 - name: fonts
   unarchive:
     src: "{{ playbook_dir }}/roles/fonts/files/fonts.tar.xz.vault"
