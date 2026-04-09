@@ -64,14 +64,6 @@
     line: 'auth       sufficient     pam_tid.so'
     insertbefore: BOF
 
-- name: Configure settings requiring shell commands
-  command: "{{ item }}"
-  loop:
-    - chflags nohidden ~/Library
-    - sudo chflags nohidden /Volumes
-    - /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-  changed_when: false
-
 # - name: Allow apps from anywhere
 #   shell: |
 #     if ! [ "$(spctl --status)" = "assessments disabled" ]; then
@@ -86,6 +78,7 @@
   changed_when: false
 
 - name: Show the /Volumes folder
+  become: true
   command: chflags nohidden /Volumes
   changed_when: false
 
