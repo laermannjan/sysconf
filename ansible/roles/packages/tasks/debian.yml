@@ -26,6 +26,7 @@
   become: true
 
 - name: Update apt cache
+  become: true
   apt:
     update_cache: yes
 

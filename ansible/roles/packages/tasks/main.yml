@@ -50,6 +50,7 @@
     - tools
 
 - name: Install neovim python venv
+  become: true
   pip:
     executable: /usr/bin/pip3
     name:
