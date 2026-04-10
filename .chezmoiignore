@@ -1,0 +1,32 @@
+# chezmoi should not deploy these files to the home directory
+key.txt.age
+fonts
+docs
+CLAUDE.md
+LICENSE
+README.md
+.gitattributes
+.gitignore
+
+# Platform-specific script filtering
+{{ if ne .chezmoi.os "darwin" }}
+*-darwin.*
+*-darwin
+dot_config/karabiner
+dot_config/linearmouse
+dot_config/1password
+{{ end }}
+{{ if eq .chezmoi.os "darwin" }}
+*-fedora.*
+*-fedora
+*-ubuntu.*
+*-ubuntu
+{{ end }}
+{{ if and (ne .chezmoi.os "darwin") (ne (get .chezmoi.osRelease "id") "fedora") }}
+*-fedora.*
+*-fedora
+{{ end }}
+{{ if and (ne .chezmoi.os "darwin") (ne (get .chezmoi.osRelease "id") "ubuntu") }}
+*-ubuntu.*
+*-ubuntu
+{{ end }}
