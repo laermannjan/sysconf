@@ -1,6 +1,8 @@
 # chezmoi should not deploy these files to the home directory
 key.txt.age
 fonts
+update-fonts.sh
+chezmoi.toml
 docs
 CLAUDE.md
 LICENSE
