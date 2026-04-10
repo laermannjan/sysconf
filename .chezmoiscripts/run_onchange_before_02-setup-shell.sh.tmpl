@@ -1,0 +1,31 @@
+#!/bin/bash
+set -euo pipefail
+. "{{ .chezmoi.sourceDir }}/.chezmoiscripts/lib.sh"
+
+log_section "Shell setup"
+
+# Find fish binary
+if [ -f /opt/homebrew/bin/fish ]; then
+    FISH=/opt/homebrew/bin/fish
+elif [ -f /home/linuxbrew/.linuxbrew/bin/fish ]; then
+    FISH=/home/linuxbrew/.linuxbrew/bin/fish
+elif command -v fish &>/dev/null; then
+    FISH=$(command -v fish)
+else
+    log_error "fish not found - run system baseline first"
+    exit 1
+fi
+
+if grep -qF "$FISH" /etc/shells; then
+    log_skipped "fish already in /etc/shells"
+else
+    log_changed "Adding fish to /etc/shells"
+    echo "$FISH" | sudo tee -a /etc/shells
+fi
+
+if [ "$SHELL" = "$FISH" ]; then
+    log_skipped "fish already default shell"
+else
+    log_changed "Setting fish as default shell"
+    sudo chsh -s "$FISH" "$(whoami)"
+fi

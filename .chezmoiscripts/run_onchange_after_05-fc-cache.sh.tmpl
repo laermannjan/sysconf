@@ -1,0 +1,6 @@
+#!/bin/sh
+# font dir: {{ output "sh" "-c" (printf "ls ~/%s/ 2>/dev/null | sha256sum" .fontDir) }}
+{{ if ne .chezmoi.os "darwin" -}}
+echo "Updating font cache..."
+fc-cache -f
+{{ end -}}

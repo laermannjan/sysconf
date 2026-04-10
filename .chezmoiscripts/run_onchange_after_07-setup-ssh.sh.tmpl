@@ -1,38 +1,38 @@
 #!/bin/bash
 set -euo pipefail
+. "{{ .chezmoi.sourceDir }}/.chezmoiscripts/lib.sh"
+
+log_section "SSH key setup"
 
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
 
-# Only generate key if it doesn't exist
 if [ -f ~/.ssh/id_ed25519 ]; then
-    echo "SSH key already exists, skipping generation."
+    log_skipped "SSH key already exists"
     exit 0
 fi
 
-# Prompt for passphrase
 echo -n "Enter passphrase for new SSH key: "
 read -rs passphrase
 echo
 
-# Generate keypair
 ssh-keygen -t ed25519 \
     -C "$(whoami)@$(hostname -s)" \
     -f ~/.ssh/id_ed25519 \
     -N "$passphrase"
 
-# Copy public key to clipboard
-if [ "$(uname)" = "Darwin" ]; then
-    pbcopy < ~/.ssh/id_ed25519.pub
-    OPEN=open
-else
-    xclip -selection clipboard < ~/.ssh/id_ed25519.pub
-    OPEN=xdg-open
-fi
+log_changed "SSH key generated"
 
-echo "Public key copied to clipboard."
+{{ if eq .chezmoi.os "darwin" -}}
+pbcopy < ~/.ssh/id_ed25519.pub
+OPEN=open
+{{ else -}}
+xclip -selection clipboard < ~/.ssh/id_ed25519.pub
+OPEN=xdg-open
+{{ end -}}
 
-# Open forge SSH key pages
+log_ok "Public key copied to clipboard"
+
 $OPEN "https://github.com/settings/ssh/new"
 $OPEN "https://gitlab.com/-/user_settings/ssh_keys"
 $OPEN "https://codeberg.org/user/settings/keys"

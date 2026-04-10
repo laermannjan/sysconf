@@ -26,10 +26,6 @@ chezmoi apply
 # Edit encrypted SSH config
 chezmoi edit ~/.ssh/config
 
-# Update font archive after adding new fonts
-./update-fonts.sh ~/Library/Fonts  # macOS
-./update-fonts.sh ~/.local/share/fonts  # Linux
-
 # Check what chezmoi would change
 chezmoi diff
 ```
@@ -78,8 +74,7 @@ chezmoi edit ~/.ssh/config
 # Add a new encrypted file
 chezmoi add --encrypt <file>
 
-# Encrypt the font archive
-./update-fonts.sh <font-directory>
+# Font archive is auto-repacked by chezmoi apply when font directory changes
 ```
 
 **WARNING**: If you find ANY unencrypted sensitive file, STOP immediately and:

@@ -1,5 +1,5 @@
 #!/bin/sh
-# key.txt.age hash: {{ include "key.txt.age" | sha256sum }}
+
 if [ ! -f "${HOME}/.config/chezmoi/key.txt" ]; then
     mkdir -p "${HOME}/.config/chezmoi"
     chezmoi age decrypt --passphrase --output "${HOME}/.config/chezmoi/key.txt" \

@@ -1,0 +1,11 @@
+#!/bin/sh
+# font dir: {{ output "sh" "-c" (printf "ls ~/%s/ 2>/dev/null | sha256sum" .fontDir) }}
+FONT_DIR="$HOME/{{ .fontDir }}"
+
+if [ ! -d "$FONT_DIR" ] || [ -z "$(ls "$FONT_DIR" 2>/dev/null)" ]; then
+    exit 0
+fi
+
+echo "Font directory changed, repacking archive..."
+tar cJf - -C "$FONT_DIR" . \
+    | chezmoi age encrypt --output "{{ .chezmoi.sourceDir }}/fonts/fonts.tar.xz.age"

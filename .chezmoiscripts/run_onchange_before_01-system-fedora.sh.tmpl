@@ -1,0 +1,64 @@
+#!/bin/bash
+set -euo pipefail
+. "{{ .chezmoi.sourceDir }}/.chezmoiscripts/lib.sh"
+
+log_section "System baseline (Fedora)"
+
+log_section "System packages"
+sudo dnf install -y \
+    @development-tools \
+    @multimedia \
+    fish \
+    flatpak \
+    procps-ng \
+    postgresql
+
+# 1Password
+if rpm -q 1password &>/dev/null; then
+    log_skipped "1Password already installed"
+else
+    log_changed "Setting up 1Password"
+    sudo rpm --import https://downloads.1password.com/linux/keys/1password.asc
+    sudo tee /etc/yum.repos.d/1password.repo > /dev/null <<'REPO'
+[1password]
+name=1Password Stable Channel
+baseurl=https://downloads.1password.com/linux/rpm/stable/$basearch
+gpgcheck=1
+gpgkey=https://downloads.1password.com/linux/keys/1password.asc
+enabled=1
+REPO
+    sudo dnf install -y 1password
+fi
+
+# Flathub
+if flatpak remotes | grep -q flathub; then
+    log_skipped "Flathub already configured"
+else
+    log_changed "Adding Flathub remote"
+    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+fi
+
+# Homebrew (linuxbrew)
+if command -v brew &>/dev/null; then
+    log_skipped "Homebrew already installed"
+else
+    log_changed "Installing Homebrew (linuxbrew)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# rustup
+if command -v rustup &>/dev/null; then
+    log_skipped "rustup already installed"
+else
+    log_changed "Installing rustup"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+fi
+
+# uv
+if command -v uv &>/dev/null; then
+    log_skipped "uv already installed"
+else
+    log_changed "Installing uv"
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+fi

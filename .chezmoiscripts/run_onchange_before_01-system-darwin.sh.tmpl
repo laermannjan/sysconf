@@ -1,0 +1,38 @@
+#!/bin/bash
+set -euo pipefail
+. "{{ .chezmoi.sourceDir }}/.chezmoiscripts/lib.sh"
+
+log_section "System baseline (macOS)"
+
+# Homebrew
+if ! command -v brew &>/dev/null; then
+    log_changed "Installing Homebrew"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+    log_skipped "Homebrew already installed"
+fi
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Fish
+if brew list fish &>/dev/null 2>&1; then
+    log_skipped "fish already installed"
+else
+    log_changed "Installing fish"
+    brew install fish
+fi
+
+# rustup
+if command -v rustup &>/dev/null; then
+    log_skipped "rustup already installed"
+else
+    log_changed "Installing rustup"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+fi
+
+# uv
+if command -v uv &>/dev/null; then
+    log_skipped "uv already installed"
+else
+    log_changed "Installing uv"
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+fi

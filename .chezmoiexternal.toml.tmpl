@@ -1,8 +1,4 @@
-{{ if eq .chezmoi.os "darwin" -}}
-["Library/Fonts"]
-{{ else -}}
-[".local/share/fonts"]
-{{ end -}}
+["{{ .fontDir }}"]
     type = "archive"
     url = "file://{{ .chezmoi.sourceDir }}/fonts/fonts.tar.xz.age"
     encrypted = true

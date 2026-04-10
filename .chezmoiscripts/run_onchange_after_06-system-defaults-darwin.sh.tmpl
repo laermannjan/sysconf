@@ -1,0 +1,98 @@
+#!/bin/bash
+set -euo pipefail
+. "{{ .chezmoi.sourceDir }}/.chezmoiscripts/lib.sh"
+
+# macOS build version: {{ output "sw_vers" "--buildVersion" }}
+
+log_section "macOS defaults"
+
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+defaults write NSGlobalDomain _HIHideMenuBar -bool false
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
+defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write NSGlobalDomain NSStatusItemSelectionPadding -int 6
+defaults write NSGlobalDomain NSStatusItemSpacing -int 6
+log_ok "NSGlobalDomain"
+
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock showhidden -bool true
+defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
+defaults write com.apple.dock mouse-over-hilite-stack -bool true
+defaults write com.apple.dock mineffect -string "genie"
+defaults write com.apple.dock orientation -string "bottom"
+defaults write com.apple.dock show-recents -bool false
+defaults write com.apple.dock tilesize -int 44
+defaults write com.apple.dock show-process-indicators -bool true
+defaults write com.apple.dock magnification -bool true
+defaults write com.apple.dock largesize -int 48
+log_ok "Dock"
+
+defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+defaults write com.apple.finder QuitMenuItem -bool true
+defaults write com.apple.finder ShowPathbar -bool true
+defaults write com.apple.finder AppleShowAllExtensions -bool true
+defaults write com.apple.finder ShowStatusBar -bool true
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+defaults write com.apple.finder WarnOnEmptyTrash -bool false
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
+defaults write com.apple.finder NewWindowTarget -string "PfLo"
+defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
+log_ok "Finder"
+
+defaults write com.apple.LaunchServices LSQuarantine -bool false
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -int 1
+defaults write com.apple.screencapture location -string "~/Screenshots"
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -int 0
+log_ok "System"
+
+log_section "TouchID for sudo"
+if grep -q pam_tid.so /etc/pam.d/sudo; then
+    log_skipped "TouchID already enabled"
+else
+    log_changed "Enabling TouchID for sudo"
+    sudo sed -i '' '1s/^/auth       sufficient     pam_tid.so\n/' /etc/pam.d/sudo
+fi
+
+log_section "Hidden folders"
+chflags nohidden ~/Library
+sudo chflags nohidden /Volumes
+log_ok "~/Library and /Volumes visible"
+
+log_section "Finder snap-to-grid"
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+log_ok "Grid layout"
+
+log_section "Dock items"
+for app in Launchpad Safari Messages Maps Photos FaceTime Contacts Reminders Notes Calendar TV Podcasts "App Store"; do
+    dockutil --remove "$app" --no-restart 2>/dev/null || true
+done
+
+dockutil --add "/System/Library/CoreServices/Finder.app" --position 1 --no-restart
+dockutil --add "/Applications/Arc.app" --position 2 --no-restart
+dockutil --add "/Applications/Firefox Developer Edition.app" --position 3 --no-restart
+dockutil --add "/Applications/WezTerm.app" --position 4 --no-restart
+dockutil --add "/Applications/Slack.app" --position 5 --no-restart
+dockutil --add "/Applications/Notion Calendar.app" --position 6 --no-restart
+dockutil --add "/System/Applications/Mail.app" --position 7 --no-restart
+dockutil --add "/Applications/1Password.app" --no-restart
+dockutil --add "/System/Applications/System Settings.app" --no-restart
+log_ok "Dock configured"
+
+killall Dock

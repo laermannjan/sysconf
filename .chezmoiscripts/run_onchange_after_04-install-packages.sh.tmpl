@@ -1,0 +1,52 @@
+#!/bin/bash
+set -euo pipefail
+. "{{ .chezmoi.sourceDir }}/.chezmoiscripts/lib.sh"
+
+# Brewfile hash: {{ include (joinPath .chezmoi.sourceDir "dot_config/homebrew/Brewfile") | sha256sum }}
+# fish_plugins hash: {{ include (joinPath .chezmoi.sourceDir "dot_config/fish/fish_plugins") | sha256sum }}
+
+# Ensure brew on PATH
+if [ -f /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+# Ensure cargo on PATH
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# Ensure uv on PATH
+export PATH="$HOME/.local/bin:$PATH"
+
+log_section "Packages (brew bundle)"
+brew bundle --global
+
+{{ if eq .chezmoi.os "darwin" -}}
+brew link --force libpq
+{{ end -}}
+
+log_section "Python packages"
+if uv pip show pynvim &>/dev/null 2>&1; then
+    log_skipped "pynvim already installed"
+else
+    log_changed "Installing pynvim"
+    uv pip install --system pynvim
+fi
+
+log_section "Fisher + plugins"
+# Find fish binary
+if [ -f /opt/homebrew/bin/fish ]; then
+    FISH=/opt/homebrew/bin/fish
+elif [ -f /home/linuxbrew/.linuxbrew/bin/fish ]; then
+    FISH=/home/linuxbrew/.linuxbrew/bin/fish
+else
+    FISH=$(command -v fish)
+fi
+
+$FISH -c '
+    curl -fsSL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
+    fisher update
+'
+
+log_section "Node (via nvm.fish)"
+$FISH -c 'nvm install lts'
