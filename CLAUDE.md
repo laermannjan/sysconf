@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Purpose
 
-Personal system configuration repository for bootstrapping and syncing development environments across machines (primarily macOS and Fedora/WSL2). Designed with a "just works" philosophy - should remain functional after weeks or months of inactivity.
+Personal system configuration repository for bootstrapping and syncing development environments across machines (primarily macOS and Fedora/WSL2). Managed with chezmoi in symlink mode. Designed with a "just works" philosophy - should remain functional after weeks or months of inactivity.
 
 ## Core Principles
 
@@ -18,112 +18,81 @@ Personal system configuration repository for bootstrapping and syncing developme
 
 ```bash
 # Bootstrap a new machine (the ONE command that must always work)
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/laermannjan/sysconf/HEAD/ansible/install.sh)"
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply laermannjan/sysconf
 
-# Update existing configuration
-cd ~/sysconf/ansible && ansible-playbook playbook.yml
+# Apply changes after editing config files
+chezmoi apply
 
-# Update encrypted secrets
-VAULT_PASSWORD_FILE=/tmp/vaultpw ~/sysconf/ansible/update-secrets.sh
+# Edit encrypted SSH config
+chezmoi edit ~/.ssh/config
+
+# Update font archive after adding new fonts
+./update-fonts.sh ~/Library/Fonts  # macOS
+./update-fonts.sh ~/.local/share/fonts  # Linux
+
+# Check what chezmoi would change
+chezmoi diff
 ```
 
-## Architecture for Resiliency
+## Architecture
 
-### Bootstrap Safety
-- `ansible/install.sh` is the critical entry point - must handle all edge cases
-- Uses standard tools available on fresh systems (curl, git, bash)
-- Checks prerequisites before making any changes
-- Creates backups of existing configurations before symlinking
+### How chezmoi works here
+- This repo IS the chezmoi source directory (`~/sysconf/`)
+- **Symlink mode**: most config files in `dot_config/` are symlinked to `~/.config/`, so editing in place works
+- **Encrypted files** (SSH config) are copied, not symlinked - edit via `chezmoi edit`
+- **Platform-specific scripts** use name suffixes (`-darwin`, `-fedora`) filtered by `.chezmoiignore`
+- **Encryption** uses age with a passphrase-protected key (`key.txt.age` in repo)
 
-### Configuration Structure
-- **Ansible roles** provide modular, testable units of configuration
-- **Idempotent operations** - safe to run multiple times
-- **Platform detection** - separate logic for macOS vs Linux/WSL2
-- **Encrypted vault** for sensitive data - fails safely if password incorrect
+### Key directories
+- `dot_config/` - config files, symlinked to `~/.config/`
+- `private_dot_ssh/` - SSH config (encrypted with age)
+- `fonts/` - age-encrypted font archive, deployed via `.chezmoiexternal.toml.tmpl`
+- `run_once_*` / `run_onchange_*` - setup scripts that run during `chezmoi apply`
 
-### Key Design Decisions
-
-1. **Why Ansible?** 
-   - Declarative configuration reduces complexity
-   - Built-in error handling and reporting
-   - Idempotent by design
-   - Clear YAML syntax readable years later
-
-2. **Configuration Symlinks**
-   - All configs live in `~/sysconf/config/`
-   - Ansible creates symlinks to expected locations
-   - Easy to track changes in git
-   - Original configs backed up before linking
-
-3. **Package Management**
-   - Homebrew on macOS (widely supported, stable)
-   - Native package managers on Linux (dnf for Fedora)
-   - Packages defined in simple lists in ansible roles
-
-4. **Error Handling Strategy**
-   - Install script validates environment before proceeding
-   - Ansible stops on first error (fail-fast)
-   - Clear error messages indicate what went wrong
-   - No silent failures or ambiguous states
-
-### Common Failure Points to Guard Against
-
-1. **Missing prerequisites** - Check for git, ansible, package managers
-2. **Network issues** - Retry logic for package downloads
-3. **Permission errors** - Clear messages about sudo requirements
-4. **Existing configurations** - Always backup before overwriting
-5. **Platform differences** - Explicit conditionals for macOS/Linux
-6. **Vault password** - Graceful handling of authentication failures
+### Platform filtering
+- Files ending in `-darwin` are ignored on Linux
+- Files ending in `-fedora` are ignored on macOS and non-Fedora Linux
+- Files ending in `-ubuntu` are ignored on macOS and non-Ubuntu Linux
+- macOS-only directories (karabiner, linearmouse, 1password) are explicitly ignored on Linux
 
 ## Security and Secrets Management
 
 ### CRITICAL SECURITY RULES
 
-1. **ALL secrets MUST be encrypted using ansible-vault**
-2. **Files with `.vault` extension contain encrypted data**
+1. **ALL secrets MUST be encrypted using age**
+2. **Files with `.age` extension contain encrypted data**
 3. **NEVER commit unencrypted sensitive files**
-4. **ALWAYS check for unencrypted secrets before committing**
+4. **The decrypted age key (`~/.config/chezmoi/key.txt`) must NEVER be committed**
 
 ### What Constitutes a Secret?
-- SSH private keys
+- SSH private keys and config
 - API tokens and keys
 - Passwords and passphrases
-- AWS credentials
-- Database connection strings
 - Any personal or identifying information
 
-### Before ANY Git Operations
+### Working with Encrypted Files
 ```bash
-# Check for potential unencrypted secrets
-find . -type f -name "*.key" -o -name "*.pem" -o -name "*_rsa" -o -name "*_dsa" -o -name "*_ecdsa" -o -name "*_ed25519" | grep -v ".vault"
-grep -r "PRIVATE KEY" --exclude="*.vault" .
-grep -r "password\|token\|secret\|key" --exclude="*.vault" config/
-```
+# Edit encrypted SSH config (decrypts, opens editor, re-encrypts)
+chezmoi edit ~/.ssh/config
 
-### Working with Vault Files
-```bash
-# View encrypted file
-ansible-vault view ansible/vault/file.vault
+# Add a new encrypted file
+chezmoi add --encrypt <file>
 
-# Edit encrypted file
-ansible-vault edit ansible/vault/file.vault
-
-# Encrypt a new file
-ansible-vault encrypt newfile --output ansible/vault/newfile.vault
+# Encrypt the font archive
+./update-fonts.sh <font-directory>
 ```
 
 **WARNING**: If you find ANY unencrypted sensitive file, STOP immediately and:
 1. DO NOT commit
 2. Remove from git history if already staged
-3. Encrypt using ansible-vault
+3. Encrypt using `chezmoi add --encrypt`
 4. Alert the user about the security risk
 
 ## When Making Changes
 
 - **SECURITY FIRST** - Always verify no secrets are exposed
-- Test changes on a clean system when possible
-- Keep ansible roles focused and single-purpose
-- Document non-obvious decisions in comments
+- Edit config files in place (they're symlinks to the source dir)
+- Use `chezmoi diff` to verify before applying
+- Platform-specific scripts use name suffixes, not template conditionals
 - Prefer explicit over implicit behavior
 - If something could fail, add error handling
-- Maintain backwards compatibility with existing setups
