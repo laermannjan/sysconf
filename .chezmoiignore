@@ -1,6 +1,7 @@
 # chezmoi should not deploy these files to the home directory
 key.txt.age
 assets
+bootstrap.sh
 chezmoi.toml
 docs
 CLAUDE.md
