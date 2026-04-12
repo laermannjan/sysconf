@@ -57,4 +57,4 @@ export PATH="$CHEZMOI_BIN:$PATH"
 # ============================================================================
 
 log_section "Applying dotfiles"
-chezmoi init --apply "$CHEZMOI_REPO"
+chezmoi init --source "$HOME/sysconf" --apply "$CHEZMOI_REPO"
