@@ -24,6 +24,8 @@ ssh-keygen -t ed25519 \
 log_changed "SSH key generated"
 
 {{ if eq .chezmoi.os "darwin" -}}
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+log_ok "Key added to Keychain - no passphrase needed on future logins"
 pbcopy < ~/.ssh/id_ed25519.pub
 OPEN=open
 {{ else -}}
