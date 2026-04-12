@@ -28,11 +28,12 @@ if [ "$OS" = "Darwin" ]; then
     if xcode-select -p &>/dev/null; then
         log_ok "Already installed"
     else
-        log_changed "Starting installation - follow the dialog to complete"
-        xcode-select --install
-        echo
-        echo "Re-run this script after Xcode CLI tools finish installing."
-        exit 0
+        log_changed "Click Install in the dialog - waiting for completion"
+        xcode-select --install 2>/dev/null || true
+        until xcode-select -p &>/dev/null; do
+            sleep 2
+        done
+        log_ok "Installed"
     fi
 fi
 
