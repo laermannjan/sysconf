@@ -1,0 +1,19 @@
+#!/bin/bash
+set -euo pipefail
+. "{{ .chezmoi.sourceDir }}/.chezmoitemplates/lib.sh"
+
+# archive hash: {{ include "assets/fonts.tar.xz.age" | sha256sum }}
+
+FONT_DIR="$HOME/{{ .fontDir }}"
+ARCHIVE="{{ .chezmoi.sourceDir }}/assets/fonts.tar.xz.age"
+
+log_section "Fonts"
+
+mkdir -p "$FONT_DIR"
+chezmoi age decrypt "$ARCHIVE" | tar xJf - -C "$FONT_DIR"
+log_changed "Fonts extracted to $FONT_DIR"
+
+{{ if ne .chezmoi.os "darwin" -}}
+fc-cache -f
+log_ok "Font cache updated"
+{{ end -}}

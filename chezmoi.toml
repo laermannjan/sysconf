@@ -1,0 +1,6 @@
+mode = "symlink"
+encryption = "age"
+
+[age]
+  identity = "~/.config/chezmoi/key.txt"
+  recipient = "age1wlm9nfwhwsc7ech57zaql2kdchj78mr4jt0quujx5yztnmzxtc9qrm5xyy"

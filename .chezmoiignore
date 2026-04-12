@@ -1,6 +1,6 @@
 # chezmoi should not deploy these files to the home directory
 key.txt.age
-fonts
+assets
 chezmoi.toml
 docs
 CLAUDE.md

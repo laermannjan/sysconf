@@ -8,4 +8,4 @@ fi
 
 echo "Font directory changed, repacking archive..."
 tar cJf - -C "$FONT_DIR" . \
-    | chezmoi age encrypt --output "{{ .chezmoi.sourceDir }}/fonts/fonts.tar.xz.age"
+    | chezmoi age encrypt --output "{{ .chezmoi.sourceDir }}/assets/fonts.tar.xz.age"
