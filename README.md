@@ -1,71 +1,53 @@
-## ⚡️ Requirements
+# sysconf
 
-> [!Info] macOS
-> log in to the App Store and install the command line tools first
-> ```sh
-> xcode-select --install
-> ```
+Personal system configuration managed with [chezmoi](https://www.chezmoi.io) in symlink mode.
 
-> [!Info] Fedora
-> ```sh
-> sudo dnf group install -y core
-> sudo dnf install -y git-lfs ansible dnf-plugins-core
-> ```
+## Fresh install
 
-- curl
-- git
-- git-lfs (optional, only necessary for **fonts**)
-- ansible
-- brew (only necessary on **macos**)
-- flatpak (only necessary on **linux**)
+### macOS
 
-## 📦 Installation
-The install script clones this repo to `~/sysconf` and runs the ansible playbook. Any arguments to the script are passed to the `ansible-playbook` command.
-
-```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/laermannjan/sysconf/HEAD/ansible/install.sh)"
+```bash
+xcode-select --install  # opens a dialog - wait for it to complete
+curl -fsLS https://raw.githubusercontent.com/laermannjan/sysconf/main/bootstrap.sh | bash
 ```
 
-> [!Important]
-> Do not pipe `curl` into `bash` as the script won't run in interactive mode and will skip setup prompts.
+### Fedora
 
-> [!Tip]
-> The installer will not re-clone/update the repo if it already exists.
-> Update manually with
-> ```sh
-> git pull && git lfs pull
-> ```
-
-You will be asked for
-- **Vault password**: for secrets and private stuff
-- **sudo** password: to store as the `BECOME` password for the ansible playbook
-
-> [!Caution]
-> If you run the playbook manually, make sure to run it from the `./ansible` subdirectory.
-
-> [!Tip]
-> You can store the vault password in e.g. `/tmp/vaulpw` and run the installer or playbook with
-> ```sh
-> VAULT_PASSWORD_FILE=/tmp/vaultpw ~/sysconf/ansible/install.sh
-> ```
-> Useful, when the playbook is failing and you're trying to debug.
-
-## Post-installation
-1. On **macOS** you need to disable the window switcher in `Settings > Keyboard > Keyboard Shortcuts > Keyboard > Move focus to next window`, so the WezTerm workspace shortcuts **CMD+`** works
-
-## 🔐 SSH Secrets
-SSH secrets are encrypted using `ansible-vault` and a vault password in addition to the keys' native passwords.
-
-To update these secrets create a file containing the vault password, e.g. at `/tmp/vaultpw`,
-
-then run the update script
-
-```sh
-VAULT_PASSWORD_FILE=/tmp/vaultpw ~/sysconf/ansible/update-secrets.sh
+```bash
+sudo dnf install -y curl
+curl -fsLS https://raw.githubusercontent.com/laermannjan/sysconf/main/bootstrap.sh | bash
 ```
 
-> [!Caution]
-> Never commit unencrypted ssh stuff here. Encrypted files always end in `.vault` and their first line reads `$ANSIBLE_VAULT;...`
+The bootstrap script installs chezmoi, clones this repo to `~/sysconf`, and runs `chezmoi apply`.
 
-> [!Note]
-> There are other vault encrypted files in this repo, which you might want to update, the script only takes care of a few ssh files.
+You will be prompted for:
+- **Age passphrase** - to decrypt the private key on first run
+- **sudo** - for package installation and shell setup
+- **SSH key passphrase** - when generating a new SSH key
+
+## Day-to-day
+
+```bash
+# Apply changes after editing config files
+chezmoi apply
+
+# Pull latest and apply
+chezmoi update
+
+# Add a new font (re-packs archive automatically on next apply)
+cp MyFont.ttf ~/Library/Fonts/
+chezmoi apply
+```
+
+## Post-install
+
+- **macOS**: disable the window switcher in `Settings > Keyboard > Keyboard Shortcuts > Keyboard > Move focus to next window` so WezTerm's **CMD+`** workspace shortcut works
+
+## Secrets
+
+SSH config and fonts are encrypted with [age](https://age-encryption.org). The passphrase-protected private key (`key.txt.age`) is committed to this repo and decrypted on first run.
+
+To edit encrypted files:
+```bash
+chezmoi edit ~/.ssh/config
+```
