@@ -2,7 +2,7 @@
 - name: Ensure ~/.ssh exists
   file:
     path: "~/.ssh"
-    mode: '0700'
+    mode: "0700"
     state: directory
 
 # --- Key generation (only on first run) ---
@@ -31,7 +31,7 @@
 
 - name: Deploy SSH config
   copy:
-    src: config.vault
+    src: config
     dest: "~/.ssh/config"
     mode: "0400"
 
