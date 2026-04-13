@@ -24,7 +24,7 @@
     comment: "{{ ansible_facts.user_id }}@{{ ansible_facts.hostname }}"
     passphrase: "{{ ssh_passphrase.user_input }}"
     state: present
-    register: my_ssh_key
+  register: my_ssh_key
 
 - name: Deploy SSH config
   copy:
