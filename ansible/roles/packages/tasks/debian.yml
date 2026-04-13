@@ -1,21 +1,5 @@
 ---
 - block:
-    - name: Set 1Password architecture
-      ansible.builtin.set_fact:
-        _1password_arch: "{{ 'arm64' if ansible_architecture == 'aarch64' else 'amd64' }}"
-
-    - name: Add 1Password GPG key
-      ansible.builtin.get_url:
-        url: https://downloads.1password.com/linux/keys/1password.asc
-        dest: /etc/apt/keyrings/1password-archive-keyring.asc
-
-    - name: Add 1Password repository
-      ansible.builtin.apt_repository:
-        repo: "deb [arch={{ _1password_arch }} signed-by=/etc/apt/keyrings/1password-archive-keyring.asc] https://downloads.1password.com/linux/debian/{{ _1password_arch }} stable main"
-        state: present
-  become: true
-
-- block:
     - name: Add WezTerm GPG key
       ansible.builtin.get_url:
         url: https://apt.fury.io/wez/gpg.key
@@ -37,11 +21,30 @@
   become: true
   vars:
     packages:
-      - 1password
-      - 1password-cli
       - build-essential
       - man-db
       - procps
       - postgres-client
   package:
     name: "{{ packages }}"
+
+- block:
+    - name: Add 1Password GPG key
+      ansible.builtin.get_url:
+        url: https://downloads.1password.com/linux/keys/1password.asc
+        dest: /etc/apt/keyrings/1password-archive-keyring.asc
+
+    - name: Add 1Password repository
+      ansible.builtin.apt_repository:
+        repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/1password-archive-keyring.asc] https://downloads.1password.com/linux/debian/amd64 stable main"
+        state: present
+
+    - name: Install 1Password
+      ansible.builtin.apt:
+        name:
+          - 1password
+          - 1password-cli
+        state: present
+        update_cache: true
+  become: true
+  when: ansible_architecture == "x86_64"
