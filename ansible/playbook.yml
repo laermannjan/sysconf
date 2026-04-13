@@ -8,12 +8,12 @@
       private: yes
 
   roles:
-    - {role: ssh, tags: ['ssh']}
-    - {role: system, tags: ['system']}
-    - {role: dotfiles, tags: ['dotfiles']}
-    - {role: shell, tags: ['shell']}
-    - {role: packages, tags: ['packages']}
-    - {role: fonts, tags: ['fonts']}
+    - { role: ssh, tags: ["ssh"] }
+    - { role: system, tags: ["system"] }
+    - { role: dotfiles, tags: ["dotfiles"] }
+    - { role: shell, tags: ["shell"] }
+    - { role: packages, tags: ["packages"] }
+    - { role: fonts, tags: ["fonts"] }
 
   post_tasks:
     - name: Copy public key to clipboard
