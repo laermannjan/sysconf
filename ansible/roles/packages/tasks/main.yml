@@ -50,11 +50,6 @@
   tags:
     - tools
 
-- name: Pull git-lfs objects
-  command: git lfs pull
-  args:
-    chdir: "{{ playbook_dir }}"
-
 - name: Install neovim python venv
   become: true
   pip:
