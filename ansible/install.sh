@@ -12,6 +12,27 @@ if [[ ! -d "${SYSCONF_DIR}" ]]; then
     git -C "${SYSCONF_DIR}" remote set-url --push origin "${SYSCONF_REPO_SSH}"
 fi
 
+if ! command -v brew &> /dev/null; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    if [[ $(uname -m) == "arm64" ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    else
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
+fi
+
+if ! command -v uv &> /dev/null; then
+    echo "uv not found. Installing via brew..."
+    brew install uv
+fi
+
+if ! command -v ansible &> /dev/null; then
+    echo "Ansible not found. Installing via uv..."
+    uv tool install ansible-core --with bcrypt
+fi
+
 pushd "${SYSCONF_DIR}"
 ansible-galaxy install -r ansible/requirements.yml &>/dev/null
 ansible-playbook ansible/playbook.yml "$@"

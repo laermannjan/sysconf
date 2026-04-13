@@ -1,5 +1,4 @@
 brew "awscli"
-brew "ansible"
 brew "bat"
 brew "coreutils" if OS.mac?
 brew "btop"
