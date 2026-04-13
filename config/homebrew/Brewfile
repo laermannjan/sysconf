@@ -1,0 +1,143 @@
+brew "awscli"
+brew "ansible"
+brew "bat"
+brew "coreutils" if OS.mac?
+brew "btop"
+brew "direnv"
+brew "eza"
+brew "fish" if OS.mac?
+brew "fzf"
+brew "file"
+brew "git"
+brew "git-delta"
+brew "git-lfs"
+brew "curl"
+brew "wget"
+brew "httpie"
+brew "jq"
+brew "lz4"
+brew "mkvtoolnix"
+brew "parallel" if OS.mac?
+brew "p7zip"
+brew "ripgrep"
+brew "gnu-tar" if OS.mac?
+brew "unzip"
+brew "yt-dlp"
+brew "fd"
+brew "libpq", link: true  # get psql without server
+brew "zoxide"
+brew "uv"
+brew "go"
+brew "rustup", postinstall: "rustup-init -y --default-toolchain stable --no-modify-path"
+brew "neovim"
+brew "starship"
+brew "typst"
+brew "doggo"
+brew "dust"
+brew "imagemagick"
+brew "ghostscript"
+brew "tree-sitter-cli"
+brew "mas" if OS.mac?
+
+
+cask "1password"
+
+cask "firefox"
+
+cask "arc"
+cask "ausweisapp"
+flatpak "de.bund.ausweisapp.bundesapp"
+cask "iina"
+cask "handbrake-app"
+flatpak "fr.handbrake.ghb"
+
+cask "claude"
+cask "claude-code@latest"
+
+cask "librewolf"
+flatpak "io.gitlab.librewolf-community"
+
+cask "jetbrains-toolbox"
+cask "karabiner-elements"
+cask "linearmouse"
+cask "macfuse"
+cask "monitorcontrol"
+cask "notion-calendar"
+if OS.mac?
+  cask "docker-desktop"
+elsif !system("command -v docker >/dev/null 2>&1")
+  system("curl -fsSL https://get.docker.com | sh")
+  system("sudo groupadd docker")
+  system("sudo usermod -aG docker #{ENV['USER']} && newgrp docker")
+end
+cask "raycast"
+
+cask "slack"
+flatpak "com.slack.Slack"
+
+brew "unar"
+cask "the-unarchiver"
+cask "utm"
+
+if OS.mac?
+  cask "wezterm"
+else
+  tap "wezterm/wezterm-linuxbrew" if OS.linux?
+  brew "wezterm" if OS.linux?
+end
+
+cask "ghostty"
+
+if OS.mac?
+  cask "zed" 
+elsif !system("command -v zed >/dev/null 2>&1")
+  system("curl -fsSL https://zed.dev/install.sh | sh")
+end
+
+cask "vlc"
+flatpak "org.videolan.VLC"
+
+if OS.mac?
+  cask "tailscale-app" 
+elsif !system("command -v tailscale >/dev/null 2>&1")
+  system("curl -fsSL https://tailscale.com/install.sh | sh")
+  system("sudo tailscale set --operator=$USER")
+  system("tailscale systray >/dev/null 2>&1 &")
+end
+
+cask "signal"
+flatpak "org.signal.Signal"
+
+cask "ollama-app"
+cask "steam"
+flatpak "com.valvesoftware.Steam"
+cask "obsidian"
+flatpak "md.obsidian.Obsidian"
+
+cask "nextcloud"
+flatpak "com.nextcloud.desktopclient.nextcloud"
+
+mas "Things", id: 904280696
+mas "Infuse", id: 1136220934
+
+cask "font-maple-mono-nf"
+cask "font-monaspace-nf"
+cask "font-pt-mono"
+cask "font-sauce-code-pro-nerd-font"
+
+uv "pynvim"
+uv "beancount"
+uv "git-filter-repo"
+uv "ruff"
+uv "ty"
+uv "pre-commit"
+uv "posting"
+uv "harlequin"
+
+go "github.com/charmbracelet/crush"
+go "github.com/charmbracelet/vhs"
+go "github.com/charmbracelet/gum"
+go "github.com/charmbracelet/glow"
+go "github.com/jesseduffield/lazygit"
+go "github.com/jesseduffield/lazydocker"
+go "github.com/vitor-mariano/regex-tui"

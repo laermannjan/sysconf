@@ -13,6 +13,12 @@
     - errornointernet/packages
     - wezfurlong/wezterm-nightly
 
+- name: Import 1Password RPM GPG key
+  ansible.builtin.rpm_key:
+    key: https://downloads.1password.com/linux/keys/1password.asc
+    state: present
+  become: true
+
 - name: Add 1Password RPM repository to DNF
   ansible.builtin.yum_repository:
     name: "1password"
@@ -29,6 +35,8 @@
     packages:
       - '@Development Tools'
       - '@Multimedia'
+      - 1password
+      - 1password-cli
       - postgresql
       - procps-ng
   package:

@@ -1,65 +1,22 @@
 ---
 - include_tasks: "{{ ansible_os_family | lower }}.yml"
+  when: ansible_os_family | lower in ['debian', 'redhat']
 
-- name: "install tools ==> {{ packages | join(', ') }}"
+- name: Run brew bundle
+  ansible.builtin.command:
+    cmd: brew bundle install --file {{ brewfile }}
   vars:
-    _packages:
-      - 1password
-      - awscli
-      - bat
-      - coreutils
-      - direnv
-      - eza # NOTE: on Debian only available on `sid` or newer, not on `bookworm` and before
-      - fzf
-      - file
-      - firefox
-      - git
-      - git-delta
-      - git-lfs
-      - curl
-      - wget
-      - httpie
-      - jq
-      - lz4
-      - parallel
-      - p7zip
-      - ripgrep
-      - unzip
-      - yt-dlp
-      - "{{ 'fd'              if ansible_os_family == 'Darwin' else 'fd-find' }}"
-      - "{{ 'keychain'        if ansible_os_family != 'Darwin' else omit }}"
-      - zoxide
-      - uv
-      - "{{ 'go'              if ansible_os_family == 'Darwin' else 'golang' }}"
-      - rustup
-      - tailscale
-      - neovim
-      - podman
-      - wezterm
-      - starship
-      - lazygit
-      - lazydocker
-      - doggo
-      - "{{ 'dust'            if ansible_os_family == 'Darwin' else 'du-dust' }}"
-      - imagemagick
-      - ghostscript
-    packages: "{{ _packages | reject('equalto', omit) | sort | list}}"
-  become: "{{ ansible_pkg_mgr != 'homebrew' }}"
-  package:
-    name: "{{ packages }}"
+    brewfile: "{{ lookup('env', 'XDG_CONFIG_HOME') | default(ansible_env.HOME + '/.config', true) }}/homebrew/Brewfile"
+  environment:
+    PATH: "/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:{{ ansible_env.PATH }}"
+    HOMEBREW_NO_ANALYTICS: "1"
+  register: brew_bundle
+  changed_when: "'Installing' in brew_bundle.stdout or 'Upgrading' in brew_bundle.stdout"
   tags:
     - tools
 
-- name: Install neovim python venv
-  become: true
-  pip:
-    executable: /usr/bin/pip3
-    name:
-      - pynvim
-      - beancount
-
 - name: Install rust via rustup
-  command: rustup-init -y
+  ansible.builtin.command: rustup-init -y
   args:
     creates: "{{ ansible_env.HOME }}/.cargo/bin/cargo"
 
@@ -73,7 +30,7 @@
     executable: fish
     creates: "{{ ansible_env.HOME }}/.local/share/nvm/*/bin/node"
   environment:
-    PATH: "/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:{{ lookup('env', 'PATH') }}"
+    PATH: "/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:{{ ansible_env.PATH }}"
 
 - name: Install python
   ansible.builtin.command: uv python install
