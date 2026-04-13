@@ -5,8 +5,6 @@
     mode: "0700"
     state: directory
 
-# --- Key generation (only on first run) ---
-
 - name: Check if SSH key exists
   stat:
     path: ~/.ssh/id_ed25519
@@ -20,29 +18,16 @@
   when: not ssh_key.stat.exists
 
 - name: Generate SSH keypair
-  command: >-
-    ssh-keygen -t ed25519
-    -C "{{ ansible_user_id }}@{{ ansible_hostname }}"
-    -f {{ ansible_env.HOME }}/.ssh/id_ed25519
-    -N "{{ ssh_passphrase.user_input }}"
-  when: not ssh_key.stat.exists
-
-# --- SSH config deployment ---
+  community.crypto.openssh_keypair:
+    path: "{{ ansible_facts.env.HOME }}/.ssh/id_ed25519"
+    type: ed25519
+    comment: "{{ ansible_facts.user_id }}@{{ ansible_facts.hostname }}"
+    passphrase: "{{ ssh_passphrase.user_input }}"
+    state: present
+    register: my_ssh_key
 
 - name: Deploy SSH config
   copy:
     src: config
     dest: "~/.ssh/config"
     mode: "0400"
-
-# --- Legacy cleanup ---
-
-- name: Remove legacy per-identity SSH keys
-  file:
-    path: "{{ item }}"
-    state: absent
-  loop:
-    - ~/.ssh/id_ed25519.personal
-    - ~/.ssh/id_ed25519.personal.pub
-    - ~/.ssh/id_ed25519.alcemy
-    - ~/.ssh/id_ed25519.alcemy.pub
