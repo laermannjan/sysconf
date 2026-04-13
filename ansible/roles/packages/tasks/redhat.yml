@@ -1,18 +1,4 @@
 ---
-- name: copr
-  become: true
-  community.general.copr:
-    name: "{{item}}"
-  loop:
-    # - agriffis/neovim-nightly
-    - atim/bandwhich
-    - atim/bottom
-    - atim/lazydocker
-    - atim/lazygit
-    - atim/starship
-    - errornointernet/packages
-    - wezfurlong/wezterm-nightly
-
 - name: Import 1Password RPM GPG key
   ansible.builtin.rpm_key:
     key: https://downloads.1password.com/linux/keys/1password.asc
@@ -33,8 +19,8 @@
   become: true
   vars:
     packages:
-      - '@Development Tools'
-      - '@Multimedia'
+      - "@Development Tools"
+      - "@Multimedia"
       - 1password
       - 1password-cli
       - postgresql
@@ -45,7 +31,7 @@
 - name: install flatpaks {{ packages | map(attribute='name') | sort | join(', ')}}
   vars:
     packages:
-      - {id: io.podman_desktop.PodmanDesktop, name: podman-desktop}
+      - { id: io.podman_desktop.PodmanDesktop, name: podman-desktop }
   flatpak:
     name: "{{ packages | map(attribute='id') }}"
   when: "'WSL2' not in ansible_facts['kernel']"
