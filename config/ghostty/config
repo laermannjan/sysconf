@@ -1,3 +1,8 @@
-font-family="ComicCode Nerd Font"
-theme=flabber
+ font-family = ComicCode Nerd Font
+# font-family = Codelia Ligatures
+# font-family = Berkeley Mono Variable
+# font-family = Maple Mono NF
+# font-family = Monaspace Krypton NF
+# font-family = Monaspace Radon NF
+theme = flabber
 shell-integration-features = no-cursor
