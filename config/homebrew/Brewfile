@@ -5,6 +5,7 @@ brew "btop"
 brew "direnv"
 brew "eza"
 brew "fish" if OS.mac?
+brew "fisher", postinstall: "fish -c 'fisher update; nvm install lts'"
 brew "fzf"
 brew "file"
 brew "git"
