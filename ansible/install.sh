@@ -41,7 +41,7 @@ fi
 
 pushd "${SYSCONF_DIR}"
 ansible-galaxy install -r ansible/requirements.yml &>/dev/null
-ansible-playbook ansible/playbook.yml "$@"
+ansible-playbook ansible/playbook.yml -i localhost, "$@"
 popd
 
 echo "Done. Invoking fish shell. You should probably reboot now."
