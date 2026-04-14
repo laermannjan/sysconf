@@ -45,17 +45,17 @@
         state: present
         update_cache: true
   become: true
-  when: ansible_architecture == "x86_64"
+  when: ansible_facts['architecture'] == "x86_64"
 
 - block:
     - name: Add Tailscale GPG key
       ansible.builtin.get_url:
-        url: "https://pkgs.tailscale.com/stable/{{ ansible_distribution | lower }}/{{ ansible_distribution_release }}.noarmor.gpg"
+        url: "https://pkgs.tailscale.com/stable/{{ ansible_facts['distribution'] | lower }}/{{ ansible_facts['distribution_release'] }}.noarmor.gpg"
         dest: /usr/share/keyrings/tailscale-archive-keyring.gpg
 
     - name: Add Tailscale repository
       ansible.builtin.get_url:
-        url: "https://pkgs.tailscale.com/stable/{{ ansible_distribution | lower }}/{{ ansible_distribution_release }}.tailscale-keyring.list"
+        url: "https://pkgs.tailscale.com/stable/{{ ansible_facts['distribution'] | lower }}/{{ ansible_facts['distribution_release'] }}.tailscale-keyring.list"
         dest: /etc/apt/sources.list.d/tailscale.list
 
     - name: Install Tailscale
@@ -74,7 +74,7 @@
 
 - name: Add user to docker group
   ansible.builtin.user:
-    name: "{{ ansible_user_id }}"
+    name: "{{ ansible_facts['user_id'] }}"
     groups: docker
     append: true
   become: true
@@ -82,4 +82,4 @@
 - name: Install zed
   ansible.builtin.shell: curl -fsSL https://zed.dev/install.sh | sh
   args:
-    creates: "{{ ansible_env.HOME }}/.local/bin/zed"
+    creates: "{{ ansible_facts['env'].HOME }}/.local/bin/zed"

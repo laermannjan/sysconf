@@ -1,6 +1,6 @@
 ---
 - name: Install fish
-  become: "{{ ansible_pkg_mgr != 'homebrew' }}"
+  become: "{{ ansible_facts['pkg_mgr'] != 'homebrew' }}"
   package:
     name:
       - fish
@@ -23,7 +23,7 @@
 - name: Set fish as default shell
   become: true
   user:
-    name: "{{ ansible_user_id }}"
+    name: "{{ ansible_facts['user_id'] }}"
     shell: "{{ fish_path.stdout }}"
 
 - name: Install fisher
@@ -34,6 +34,6 @@
     fisher install jorgebucaran/fisher
   args:
     executable: fish
-    creates: "{{ ansible_env.HOME }}/.config/fish/functions/fisher.fish"
+    creates: "{{ ansible_facts['env'].HOME }}/.config/fish/functions/fisher.fish"
   environment:
     PATH: "/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:{{ lookup('env', 'PATH') }}"

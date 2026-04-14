@@ -1,14 +1,14 @@
 ---
-- include_tasks: "{{ ansible_os_family | lower }}.yml"
-  when: ansible_os_family | lower in ['debian', 'redhat']
+- include_tasks: "{{ ansible_facts['os_family'] | lower }}.yml"
+  when: ansible_facts['os_family'] | lower in ['debian', 'redhat']
 
 - name: Run brew bundle
   ansible.builtin.command:
     cmd: brew bundle install --file {{ brewfile }}
   vars:
-    brewfile: "{{ lookup('env', 'XDG_CONFIG_HOME') | default(ansible_env.HOME + '/.config', true) }}/homebrew/Brewfile"
+    brewfile: "{{ lookup('env', 'XDG_CONFIG_HOME') | default(ansible_facts['env'].HOME + '/.config', true) }}/homebrew/Brewfile"
   environment:
-    PATH: "/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:{{ ansible_env.PATH }}"
+    PATH: "/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:{{ ansible_facts['env'].PATH }}"
     HOMEBREW_NO_ANALYTICS: "1"
   register: brew_bundle
   changed_when: "'Installing' in brew_bundle.stdout or 'Upgrading' in brew_bundle.stdout"
@@ -18,7 +18,7 @@
 - name: Install rust via rustup
   ansible.builtin.command: rustup-init -y
   args:
-    creates: "{{ ansible_env.HOME }}/.cargo/bin/cargo"
+    creates: "{{ ansible_facts['env'].HOME }}/.cargo/bin/cargo"
 
 - name: Install Node
   # NOTE: fisher update must come first so plugins won't be erased from ~/.config/fish/fish_plugins file
@@ -28,11 +28,11 @@
     nvm install lts
   args:
     executable: fish
-    creates: "{{ ansible_env.HOME }}/.local/share/nvm/*/bin/node"
+    creates: "{{ ansible_facts['env'].HOME }}/.local/share/nvm/*/bin/node"
   environment:
-    PATH: "/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:{{ ansible_env.PATH }}"
+    PATH: "/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:{{ ansible_facts['env'].PATH }}"
 
 - name: Install python
   ansible.builtin.command: uv python install
   args:
-    creates: "{{ ansible_env.HOME }}/.local/share/uv/python/*/"
+    creates: "{{ ansible_facts['env'].HOME }}/.local/share/uv/python/*/"

@@ -46,7 +46,7 @@
     - {domain: com.apple.finder, key: WarnOnEmptyTrash, type: bool, value: false} # Disable the warning before emptying the Trash
     - {domain: com.apple.finder, key: _FXSortFoldersFirst, type: bool, value: true} # Keep folders on top when sorting by name
     - {domain: com.apple.finder, key: NewWindowTarget, type: string, value: "PfLo"} # New Finder window will open in home directory
-    - {domain: com.apple.finder, key: NewWindowTargetPath, type: string, value: "file://{{ ansible_env.HOME }}/"} # New Finder window will open in home directory
+    - {domain: com.apple.finder, key: NewWindowTargetPath, type: string, value: "file://{{ ansible_facts['env'].HOME }}/"} # New Finder window will open in home directory
     # Other settings
     - {domain: com.apple.LaunchServices, key: LSQuarantine, type: bool, value: false} # Disable "Are you sure you want to open" dialog
     - {domain: com.apple.driver.AppleBluetoothMultitouch.trackpad, key: Clicking, type: int, value: 1} # Enable trackpad tap to click
