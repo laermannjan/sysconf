@@ -26,7 +26,7 @@ brew "yt-dlp"
 brew "fd"
 brew "libpq", link: true  # get psql without server
 brew "zoxide"
-brew "uv"
+brew "uv", postinstall: "uv python install"
 brew "go"
 brew "rustup", postinstall: "rustup-init -y --default-toolchain stable --no-modify-path"
 brew "neovim"

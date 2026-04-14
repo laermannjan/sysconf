@@ -15,7 +15,3 @@
   tags:
     - tools
 
-- name: Install python
-  ansible.builtin.command: uv python install
-  args:
-    creates: "{{ ansible_facts['env'].HOME }}/.local/share/uv/python/*/"
