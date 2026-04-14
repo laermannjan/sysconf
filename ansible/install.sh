@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+PATH="/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:/usr/local/bin:${PATH}"
+
 SYSCONF_DIR="${HOME}/sysconf"
 SYSCONF_REPO_HTTPS="https://github.com/laermannjan/sysconf.git"
 SYSCONF_REPO_SSH="git@github.com:laermannjan/sysconf.git"
@@ -32,6 +34,7 @@ if ! command -v uv &> /dev/null; then
     echo "uv not found. Installing via brew..."
     brew install uv
     uv tool update-shell
+    exec bash
 fi
 
 if ! command -v ansible &> /dev/null; then
