@@ -209,7 +209,6 @@ mr.refresh(function()
         'zls',
         -- rust
         'rust-analyzer',
-        'rustfmt', -- NOTE: deprecated, should be shipped via rustup
         'codelldb',
         -- typst
         'tinymist',
