@@ -25,13 +25,48 @@
       - 1password-cli
       - postgresql
       - procps-ng
+      - zed
   package:
     name: "{{ packages }}"
 
-- name: install flatpaks {{ packages | map(attribute='name') | sort | join(', ')}}
-  vars:
-    packages:
-      - { id: io.podman_desktop.PodmanDesktop, name: podman-desktop }
-  flatpak:
-    name: "{{ packages | map(attribute='id') }}"
+- block:
+    - name: Add Tailscale repository
+      ansible.builtin.get_url:
+        url: https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+        dest: /etc/yum.repos.d/tailscale.repo
+
+    - name: Install Tailscale
+      ansible.builtin.package:
+        name: tailscale
+        state: present
+  become: true
+  when: "'WSL2' not in ansible_facts['kernel']"
+
+- name: Install docker engine
+  ansible.builtin.shell: curl -fsSL https://get.docker.com | sh
+  args:
+    creates: /usr/bin/docker
+  become: true
+
+- name: Add user to docker group
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: true
+  become: true
+
+- name: Install flatpak
+  become: true
+  ansible.builtin.package:
+    name: flatpak
+    state: present
+  when: "'WSL2' not in ansible_facts['kernel']"
+
+- name: Add flathub remote
+  community.general.flatpak_remote:
+    name: flathub
+    flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+    state: present
+    method: system
+  become: true
   when: "'WSL2' not in ansible_facts['kernel']"

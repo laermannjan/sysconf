@@ -62,13 +62,8 @@ cask "linearmouse"
 cask "macfuse"
 cask "monitorcontrol"
 cask "notion-calendar"
-if OS.mac?
-  cask "docker-desktop"
-elsif !system("command -v docker >/dev/null 2>&1")
-  system("curl -fsSL https://get.docker.com | sh")
-  system("sudo groupadd docker")
-  system("sudo usermod -aG docker #{ENV['USER']} && newgrp docker")
-end
+# docker: linux handled in ansible packages role (native engine, no Desktop)
+cask "docker-desktop" if OS.mac?
 cask "raycast"
 
 cask "slack"
@@ -80,29 +75,21 @@ cask "utm"
 
 if OS.mac?
   cask "wezterm"
-else
-  tap "wezterm/wezterm-linuxbrew" if OS.linux?
-  brew "wezterm" if OS.linux?
+elsif OS.linux? && Hardware::CPU.intel?
+  tap "wezterm/wezterm-linuxbrew"
+  brew "wezterm"
 end
 
 cask "ghostty"
 
-if OS.mac?
-  cask "zed" 
-elsif !system("command -v zed >/dev/null 2>&1")
-  system("curl -fsSL https://zed.dev/install.sh | sh")
-end
+# zed: linux handled in ansible packages role (dnf on Fedora, installer on Debian)
+cask "zed" if OS.mac?
 
 cask "vlc"
 flatpak "org.videolan.VLC"
 
-if OS.mac?
-  cask "tailscale-app" 
-elsif !system("command -v tailscale >/dev/null 2>&1")
-  system("curl -fsSL https://tailscale.com/install.sh | sh")
-  system("sudo tailscale set --operator=$USER")
-  system("tailscale systray >/dev/null 2>&1 &")
-end
+# tailscale: linux handled in ansible packages role (official apt/dnf repos)
+cask "tailscale-app" if OS.mac?
 
 cask "signal"
 flatpak "org.signal.Signal"
