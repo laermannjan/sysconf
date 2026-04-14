@@ -31,6 +31,7 @@ fi
 if ! command -v uv &> /dev/null; then
     echo "uv not found. Installing via brew..."
     brew install uv
+    uv tool update-shell
 fi
 
 if ! command -v ansible &> /dev/null; then
