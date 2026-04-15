@@ -12,6 +12,18 @@
     HOMEBREW_NO_ANALYTICS: "1"
   register: brew_bundle
   changed_when: "'Installing' in brew_bundle.stdout or 'Upgrading' in brew_bundle.stdout"
+  # Continue playbook on failure (commonly arch-unavailable flatpaks).
+  ignore_errors: true
+  tags:
+    - tools
+
+- name: Report brew bundle failures
+  ansible.builtin.debug:
+    msg:
+      - "brew bundle exited {{ brew_bundle.rc }} - playbook continued"
+      - "Failure-related lines (Installing X followed by Error/Failed = that package):"
+      - "{{ (brew_bundle.stdout_lines + brew_bundle.stderr_lines) | select('search', '(Installing|Error|Failed|not installed|No remote refs|Nothing matches)') | list }}"
+  when: brew_bundle.failed | default(false)
   tags:
     - tools
 
