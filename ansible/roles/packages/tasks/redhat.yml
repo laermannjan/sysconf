@@ -67,6 +67,5 @@
     name: flathub
     flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
     state: present
-    method: system
-  become: true
+    method: user
   when: "'WSL2' not in ansible_facts['kernel']"
