@@ -13,6 +13,8 @@ if set -q brew_prefix
     $brew_prefix/bin/brew shellenv | source
     set -p fish_complete_path $brew_prefix/share/fish/completions
     set -p fish_complete_path $brew_prefix/share/fish/vendor_completions.d
+    # Append (not prepend) so user/plugin functions win over brew-provided ones
+    set -a fish_function_path $brew_prefix/share/fish/vendor_functions.d
 end
 
 # added to python package cairosvg can find a `libcairo.so.2`
