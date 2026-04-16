@@ -5,7 +5,7 @@ set -gx XDG_DATA_HOME ~/.local/share
 set -gx XDG_CACHE_HOME ~/.cache
 set -gx XDG_STATE_HOME ~/.local/state
 
-fish_add_path --prepend ~/.local/bin # Prepending path in case a system-installed binary needs to be overridden
+fish_add_path --prepend ~/.local/bin
 
 test -f /home/linuxbrew/.linuxbrew/bin/brew; and set brew_prefix /home/linuxbrew/.linuxbrew
 test -f /opt/homebrew/bin/brew; and set brew_prefix /opt/homebrew
