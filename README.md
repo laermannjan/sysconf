@@ -18,7 +18,7 @@ sudo dnf install -y curl
 The bootstrap script clones this repo to `~/sysconf` and runs the ansible playbook. Any arguments to the script are passed to the `ansible-playbook` command.
 
 ```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/laermannjan/sysconf/HEAD/bootstrap.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/laermannjan/sysconf/HEAD/sysconf.sh)"
 ```
 
 > [!Important]

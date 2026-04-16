@@ -14,4 +14,5 @@ config/fish/conf.d/*
 !config/fish/functions/__fish_list_current_token.fish
 config/fish/functions/*
 !config/fish/functions/fixaudio.fish
+!config/fish/functions/sysconf.fish
 config/fish/completions/

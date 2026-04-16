@@ -18,7 +18,7 @@ Personal system configuration repository for bootstrapping and syncing developme
 
 ```bash
 # Bootstrap a new machine (the ONE command that must always work)
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/laermannjan/sysconf/HEAD/bootstrap.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/laermannjan/sysconf/HEAD/sysconf.sh)"
 
 # Update existing configuration
 cd ~/sysconf/ansible && ansible-playbook playbook.yml
@@ -30,7 +30,7 @@ VAULT_PASSWORD_FILE=/tmp/vaultpw ~/sysconf/ansible/update-secrets.sh
 ## Architecture for Resiliency
 
 ### Bootstrap Safety
-- `bootstrap.sh` is the critical entry point - must handle all edge cases
+- `sysconf.sh` is the critical entry point - must handle all edge cases
 - Only requires curl and bash on a fresh system (git is installed via brew if missing)
 - Checks prerequisites before making any changes
 - Creates backups of existing configurations before symlinking
@@ -68,7 +68,7 @@ VAULT_PASSWORD_FILE=/tmp/vaultpw ~/sysconf/ansible/update-secrets.sh
 
 ### Common Failure Points to Guard Against
 
-1. **Missing prerequisites** - Check for brew, git, uv, ansible (bootstrap.sh handles all of these)
+1. **Missing prerequisites** - Check for brew, git, uv, ansible (sysconf.sh handles all of these)
 2. **Network issues** - Retry logic for package downloads
 3. **Permission errors** - Clear messages about sudo requirements
 4. **Existing configurations** - Always backup before overwriting
