@@ -3,6 +3,8 @@ set -gx XDG_DATA_HOME ~/.local/share
 set -gx XDG_CACHE_HOME ~/.cache
 set -gx XDG_STATE_HOME ~/.local/state
 
+set -p fish_function_path $XDG_CONFIG_HOME/fish/custom-functions
+
 fish_add_path --prepend ~/.local/bin # Prepending path in case a system-installed binary needs to be overridden
 
 test -f /home/linuxbrew/.linuxbrew/bin/brew; and set brew_prefix /home/linuxbrew/.linuxbrew

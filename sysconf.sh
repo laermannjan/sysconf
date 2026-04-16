@@ -22,9 +22,7 @@ eval "$(brew shellenv)"
 has uv || brew install uv
 has ansible || uv tool install ansible-core --with bcrypt
 
-FIRST_RUN=
 if [[ -z "${NONINTERACTIVE:-}" && ! -d "${SYSCONF_DIR}" ]]; then
-    FIRST_RUN=1
     git clone https://github.com/laermannjan/sysconf.git "${SYSCONF_DIR}"
     # make ssh the primary, keep https so we can fetch updates before ssh keys are installed
     git -C "${SYSCONF_DIR}" remote set-url --push origin git@github.com:laermannjan/sysconf.git
@@ -36,7 +34,4 @@ ansible-galaxy install -r ansible/requirements.yml &>/dev/null
 ansible-playbook ansible/playbook.yml -i localhost, "$@"
 popd
 
-if [[ -n "$FIRST_RUN" ]]; then
-    echo "Done. You should probably reboot now."
-    exec fish
-fi
+echo "Done. Start a new shell or run 'exec fish' to pick up changes."
