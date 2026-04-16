@@ -1,7 +1,7 @@
 ---
 - name: Ensure ~/.ssh exists
   file:
-    path: "~/.ssh"
+    path: "{{ ansible_facts.env.HOME }}/.ssh"
     mode: "0700"
     state: directory
 
@@ -17,5 +17,5 @@
 - name: Deploy SSH config
   copy:
     src: config
-    dest: "~/.ssh/config"
+    dest: "{{ ansible_facts.env.HOME }}/.ssh/config"
     mode: "0400"
