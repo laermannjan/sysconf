@@ -23,7 +23,7 @@
       args:
         stdin: "{{ my_ssh_key.public_key }}"
       when: my_ssh_key.changed
-      tags: [ssh]
+      tags: [ssh, ssh-register]
 
     - name: Open forge SSH key pages
       command: "{{ 'open' if ansible_facts.os_family == 'Darwin' else 'xdg-open' }} {{ item }}"
@@ -32,10 +32,10 @@
         - https://gitlab.com/-/user_settings/ssh_keys
         - https://codeberg.org/user/settings/keys
       when: my_ssh_key.changed
-      tags: [ssh]
+      tags: [ssh, ssh-register]
 
     - name: Wait for user to add SSH key to forges
       pause:
         prompt: "Public key copied to clipboard. Add it to each forge, then press Enter"
       when: my_ssh_key.changed
-      tags: [ssh]
+      tags: [ssh, ssh-register]
