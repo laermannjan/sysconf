@@ -2,50 +2,30 @@
 
 set -euo pipefail
 
-PATH="/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:/usr/local/bin:${PATH}"
+PATH="/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:/usr/local/bin:${HOME}/.local/bin:${PATH}"
 
-SYSCONF_DIR="${HOME}/sysconf"
-SYSCONF_REPO_HTTPS="https://github.com/laermannjan/sysconf.git"
-SYSCONF_REPO_SSH="git@github.com:laermannjan/sysconf.git"
+SYSCONF_DIR="${SYSCONF_DIR:-${HOME}/sysconf}"
 
-if [[ ! -d "${SYSCONF_DIR}" ]]; then
-    git clone ${SYSCONF_REPO_HTTPS} "${SYSCONF_DIR}"
+has() { command -v "$1" &> /dev/null || { echo "Missing $1..."; return 1; }; }
+
+if [[ -z "${NONINTERACTIVE:-}" && ! -d "${SYSCONF_DIR}" ]]; then
+    git clone https://github.com/laermannjan/sysconf.git "${SYSCONF_DIR}"
     # make ssh the primary, keep https so we can fetch updates before ssh keys are installed
-    git -C "${SYSCONF_DIR}" remote set-url --push origin "${SYSCONF_REPO_SSH}"
+    git -C "${SYSCONF_DIR}" remote set-url --push origin git@github.com:laermannjan/sysconf.git
 fi
 
-if ! command -v brew &> /dev/null; then
-    echo "Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+has brew || NONINTERACTIVE="${NONINTERACTIVE:-}" /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+eval "$(brew shellenv)"
 
-    if [[ -x /opt/homebrew/bin/brew ]]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-    elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-    elif [[ -x /usr/local/bin/brew ]]; then
-        eval "$(/usr/local/bin/brew shellenv)"
-    else
-        echo "brew installed but binary not found in expected locations" >&2
-        exit 1
-    fi
-fi
-
-if ! command -v uv &> /dev/null; then
-    echo "uv not found. Installing via brew..."
-    brew install uv
-    uv tool update-shell
-    exec bash
-fi
-
-if ! command -v ansible &> /dev/null; then
-    echo "Ansible not found. Installing via uv..."
-    uv tool install ansible-core --with bcrypt
-fi
+has uv || brew install uv
+has ansible || uv tool install ansible-core --with bcrypt
 
 pushd "${SYSCONF_DIR}"
 ansible-galaxy install -r ansible/requirements.yml &>/dev/null
 ansible-playbook ansible/playbook.yml -i localhost, "$@"
 popd
 
-echo "Done. Invoking fish shell. You should probably reboot now."
-exec fish
+if [[ -z "${NONINTERACTIVE:-}" ]]; then
+    echo "Done. Invoking fish shell. You should probably reboot now."
+    exec fish
+fi
