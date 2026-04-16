@@ -1,9 +1,9 @@
+set -g fish_color_command blue
+
 set -gx XDG_CONFIG_HOME ~/.config
 set -gx XDG_DATA_HOME ~/.local/share
 set -gx XDG_CACHE_HOME ~/.cache
 set -gx XDG_STATE_HOME ~/.local/state
-
-set -p fish_function_path $XDG_CONFIG_HOME/fish/custom-functions
 
 fish_add_path --prepend ~/.local/bin # Prepending path in case a system-installed binary needs to be overridden
 
@@ -18,6 +18,8 @@ if set -q brew_prefix
     # Append (not prepend) so user/plugin functions win over brew-provided ones
     set -a fish_function_path $brew_prefix/share/fish/vendor_functions.d
 end
+
+test -f "$HOME/.cargo/env.fish" && source "$HOME/.cargo/env.fish"
 
 # added to python package cairosvg can find a `libcairo.so.2`
 set -x DYLD_FALLBACK_LIBRARY_PATH /opt/homebrew/lib
@@ -69,6 +71,8 @@ status is-interactive; and begin
     if command -q zoxide
         zoxide init --cmd cd fish | source
     end
+
+    set --query nvm_current_version || nvm use --silent lts
 
     # Shared SSH agent across terminals (Linux only; macOS has a system agent that handles all of this itself).
     # SSH sessions have a forwarded agent, which we don't want to override.
