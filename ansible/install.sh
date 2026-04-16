@@ -26,6 +26,6 @@ ansible-playbook ansible/playbook.yml -i localhost, "$@"
 popd
 
 if [[ -z "${NONINTERACTIVE:-}" ]]; then
-    echo "Done. Invoking fish shell. You should probably reboot now."
+    echo "Done. You should probably reboot now."
     exec fish
 fi
