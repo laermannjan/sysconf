@@ -80,7 +80,7 @@ function savid --description "Save an HLS stream, name it nicely, and tag metada
     set -l cookie
     if set -q _flag_cookie
         set cookie "$_flag_cookie"
-    else if set -q DLCOOKIE; and test -n "$DLCOOKIE"
+    else if set -q DLCOOKIE && test -n "$DLCOOKIE"
         set cookie "$DLCOOKIE"
     end
 
@@ -151,7 +151,7 @@ function savid --description "Save an HLS stream, name it nicely, and tag metada
     if command -q exiftool
         set -l exif_args -overwrite_original
 
-        if set -q _flag_artist; and not set -q _flag_no_artist_title
+        if set -q _flag_artist && not set -q _flag_no_artist_title
             set -a exif_args -Title="$_flag_artist: $_flag_title"
         else
             set -a exif_args -Title="$_flag_title"
