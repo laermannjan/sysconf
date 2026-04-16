@@ -31,7 +31,7 @@ VAULT_PASSWORD_FILE=/tmp/vaultpw ~/sysconf/ansible/update-secrets.sh
 
 ### Bootstrap Safety
 - `ansible/install.sh` is the critical entry point - must handle all edge cases
-- Uses standard tools available on fresh systems (curl, git, bash)
+- Only requires curl and bash on a fresh system (git is installed via brew if missing)
 - Checks prerequisites before making any changes
 - Creates backups of existing configurations before symlinking
 
@@ -68,7 +68,7 @@ VAULT_PASSWORD_FILE=/tmp/vaultpw ~/sysconf/ansible/update-secrets.sh
 
 ### Common Failure Points to Guard Against
 
-1. **Missing prerequisites** - Check for git, ansible, package managers
+1. **Missing prerequisites** - Check for brew, git, uv, ansible (install.sh handles all of these)
 2. **Network issues** - Retry logic for package downloads
 3. **Permission errors** - Clear messages about sudo requirements
 4. **Existing configurations** - Always backup before overwriting

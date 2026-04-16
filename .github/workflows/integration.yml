@@ -30,8 +30,6 @@ jobs:
       image: fedora:latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install system prerequisites
-        run: dnf install -y curl git procps-ng
       - name: Run playbook
         run: >
           bash ansible/install.sh
