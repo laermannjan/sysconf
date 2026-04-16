@@ -1,0 +1,53 @@
+---
+name: Integration
+
+on:
+  push:
+    branches: [main]
+    paths: [ansible/**, config/**]
+  pull_request:
+    paths: [ansible/**, config/**]
+
+env:
+  NONINTERACTIVE: "1"
+
+jobs:
+  test-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run playbook
+        run: >
+          bash ansible/install.sh
+          --skip-tags ssh-register
+          -e ansible_become_password=dummy
+        env:
+          SYSCONF_DIR: ${{ github.workspace }}
+
+  test-fedora:
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install system prerequisites
+        run: dnf install -y curl git procps-ng
+      - name: Run playbook
+        run: >
+          bash ansible/install.sh
+          --skip-tags ssh-register
+          -e ansible_become_password=dummy
+        env:
+          SYSCONF_DIR: ${{ github.workspace }}
+
+  test-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run playbook
+        run: >
+          bash ansible/install.sh
+          --skip-tags ssh-register
+          -e ansible_become_password=dummy
+        env:
+          SYSCONF_DIR: ${{ github.workspace }}
