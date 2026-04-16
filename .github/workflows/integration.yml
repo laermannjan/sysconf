@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run playbook
         run: >
-          bash ansible/install.sh
+          bash bootstrap.sh
           --skip-tags ssh-register
           -e ansible_become_password=dummy
         env:
@@ -32,7 +32,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run playbook
         run: >
-          bash ansible/install.sh
+          bash bootstrap.sh
           --skip-tags ssh-register
           -e ansible_become_password=dummy
         env:
@@ -44,7 +44,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run playbook
         run: >
-          bash ansible/install.sh
+          bash bootstrap.sh
           --skip-tags ssh-register
           -e ansible_become_password=dummy
         env:

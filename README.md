@@ -9,7 +9,7 @@ The install script handles everything else (Xcode CLT on macOS, brew, git, uv, a
 The install script clones this repo to `~/sysconf` and runs the ansible playbook. Any arguments to the script are passed to the `ansible-playbook` command.
 
 ```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/laermannjan/sysconf/HEAD/ansible/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/laermannjan/sysconf/HEAD/bootstrap.sh)"
 ```
 
 > [!Important]
@@ -32,7 +32,7 @@ You will be asked for
 > [!Tip]
 > You can store the vault password in e.g. `/tmp/vaulpw` and run the installer or playbook with
 > ```sh
-> VAULT_PASSWORD_FILE=/tmp/vaultpw ~/sysconf/ansible/install.sh
+> VAULT_PASSWORD_FILE=/tmp/vaultpw ~/sysconf/bootstrap.sh
 > ```
 > Useful, when the playbook is failing and you're trying to debug.
 
