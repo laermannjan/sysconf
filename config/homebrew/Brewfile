@@ -66,7 +66,7 @@ cask "linearmouse"
 cask "macfuse"
 cask "monitorcontrol"
 cask "notion-calendar"
-# docker: linux handled in ansible packages role (native engine, no Desktop)
+# docker: linux uses native engine via get.docker.com (setup/packages.sh)
 cask "docker-desktop" if OS.mac?
 cask "raycast"
 
@@ -86,13 +86,13 @@ end
 
 cask "ghostty"
 
-# zed: linux handled in ansible packages role (dnf on Fedora, installer on Debian)
+# zed: linux uses install script (setup/packages.sh)
 cask "zed" if OS.mac?
 
 cask "vlc"
 flatpak "org.videolan.VLC"
 
-# tailscale: linux handled in ansible packages role (official apt/dnf repos)
+# tailscale: linux uses official install script (setup/packages.sh)
 cask "tailscale-app" if OS.mac?
 
 cask "signal"

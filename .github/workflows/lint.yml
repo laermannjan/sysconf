@@ -4,27 +4,15 @@ name: Lint
 on:
   push:
     branches: [main]
-    paths: [ansible/**]
+    paths: ["**/*.sh"]
   pull_request:
-    paths: [ansible/**]
+    paths: ["**/*.sh"]
 
 jobs:
-  ansible-lint:
+  shellcheck:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install ansible and lint tools
-        run: pip install ansible ansible-lint
-
-      - name: Install ansible collections
-        run: ansible-galaxy install -r ansible/requirements.yml
-
-      - name: Run ansible-lint
-        run: ansible-lint ansible/
-
-      - name: Syntax check
-        run: >
-          ansible-playbook ansible/playbook.yml
-          --syntax-check
-          -e ansible_become_password=dummy
+      - name: Run shellcheck
+        run: shellcheck -x sysconf.sh setup/*.sh
