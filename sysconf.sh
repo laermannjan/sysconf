@@ -11,8 +11,10 @@ has() { command -v "$1" &> /dev/null || { echo "Missing $1..."; return 1; }; }
 # On Linux, brew requires git and build tools to be installed via system package manager
 if [[ "$(uname -s)" == "Linux" ]] && ! has git; then
     if has apt-get; then
-        sudo apt-get update -y && sudo apt-get install -y build-essential curl file git
+        sudo apt-get update -y || true
+        sudo apt-get install -y build-essential curl file git
     elif has dnf; then
+        sudo dnf check-update || true
         sudo dnf install -y curl file git gcc-c++ make procps-ng
     fi
 fi
