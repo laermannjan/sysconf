@@ -4,9 +4,9 @@ name: Integration
 on:
   push:
     branches: [main]
-    paths: [ansible/**, config/**]
+    paths: [ansible/**, config/**, sysconf.sh, .github/workflows/integration.yml]
   pull_request:
-    paths: [ansible/**, config/**]
+    paths: [ansible/**, config/**, sysconf.sh, .github/workflows/integration.yml]
 
 env:
   NONINTERACTIVE: "1"
