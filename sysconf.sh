@@ -82,7 +82,10 @@ else
 fi
 
 pushd "${SYSCONF_DIR}" >/dev/null
-git pull --ff-only || log_warn "Could not fast-forward, continuing with local state"
+# Pull latest changes if on a branch (skip on detached HEAD, e.g. CI checkout)
+if git symbolic-ref -q HEAD &>/dev/null; then
+    git pull --ff-only || log_warn "Could not fast-forward, continuing with local state"
+fi
 
 # --- Run setup ---
 
@@ -95,11 +98,11 @@ if [[ "$(id -u)" -ne 0 ]]; then
     trap 'kill $SUDO_KEEPALIVE_PID 2>/dev/null' EXIT
 fi
 
-should_skip packages || source setup/packages.sh
-should_skip dotfiles || source setup/dotfiles.sh
+should_skip dotfiles || source setup/dotfiles.sh  # first: brew bundle needs ~/.config/homebrew/Brewfile
+should_skip packages || source setup/packages.sh  # second: installs fish, flatpak, etc.
 should_skip shell    || source setup/shell.sh
 should_skip system   || source setup/system.sh
-should_skip ssh      || source setup/ssh.sh
+should_skip ssh      || source setup/ssh.sh       # last: only interactive step
 
 popd >/dev/null
 

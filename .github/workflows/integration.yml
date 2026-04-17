@@ -10,7 +10,6 @@ on:
 
 env:
   NONINTERACTIVE: "1"
-  SYSCONF_DIR: ${{ github.workspace }}
 
 jobs:
   test-ubuntu:
@@ -18,9 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: First run
-        run: bash sysconf.sh
+        run: SYSCONF_DIR="$GITHUB_WORKSPACE" bash sysconf.sh
       - name: Second run (idempotency)
-        run: bash sysconf.sh
+        run: SYSCONF_DIR="$GITHUB_WORKSPACE" bash sysconf.sh
 
   test-fedora:
     runs-on: ubuntu-latest
@@ -31,15 +30,15 @@ jobs:
       - name: Install sudo (not in base container)
         run: dnf install -y sudo
       - name: First run
-        run: bash sysconf.sh
+        run: SYSCONF_DIR="$GITHUB_WORKSPACE" bash sysconf.sh
       - name: Second run (idempotency)
-        run: bash sysconf.sh
+        run: SYSCONF_DIR="$GITHUB_WORKSPACE" bash sysconf.sh
 
   test-macos:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - name: First run
-        run: bash sysconf.sh
+        run: SYSCONF_DIR="$GITHUB_WORKSPACE" bash sysconf.sh
       - name: Second run (idempotency)
-        run: bash sysconf.sh
+        run: SYSCONF_DIR="$GITHUB_WORKSPACE" bash sysconf.sh
