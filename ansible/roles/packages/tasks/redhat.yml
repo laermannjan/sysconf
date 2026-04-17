@@ -25,9 +25,13 @@
       - 1password-cli
       - postgresql
       - procps-ng
-      - zed
   package:
     name: "{{ packages }}"
+
+- name: Install zed
+  ansible.builtin.shell: curl -fsSL https://zed.dev/install.sh | sh
+  args:
+    creates: "{{ ansible_facts['env'].HOME }}/.local/bin/zed"
 
 - block:
     - name: Add Tailscale repository

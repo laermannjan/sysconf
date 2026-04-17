@@ -25,6 +25,12 @@
     method: user
   when: "'WSL2' not in ansible_facts['kernel']"
 
+- name: Check for existing 1Password apt source
+  ansible.builtin.find:
+    paths: /etc/apt/sources.list.d
+    patterns: "*1password*"
+  register: existing_1password_source
+
 - block:
     - name: Add 1Password GPG key
       ansible.builtin.get_url:
@@ -35,14 +41,16 @@
       ansible.builtin.apt_repository:
         repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/1password-archive-keyring.asc] https://downloads.1password.com/linux/debian/amd64 stable main"
         state: present
+  become: true
+  when: ansible_facts['architecture'] == "x86_64" and existing_1password_source.files | length == 0
 
-    - name: Install 1Password
-      ansible.builtin.apt:
-        name:
-          - 1password
-          - 1password-cli
-        state: present
-        update_cache: true
+- name: Install 1Password
+  ansible.builtin.apt:
+    name:
+      - 1password
+      - 1password-cli
+    state: present
+    update_cache: true
   become: true
   when: ansible_facts['architecture'] == "x86_64"
 
