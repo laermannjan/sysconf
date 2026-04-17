@@ -20,6 +20,7 @@ jobs:
         run: >
           bash sysconf.sh
           --skip-tags ssh-register
+          -e ansible_become_password=dummy
         env:
           SYSCONF_DIR: ${{ github.workspace }}
 
@@ -33,6 +34,7 @@ jobs:
         run: >
           bash sysconf.sh
           --skip-tags ssh-register
+          -e ansible_become_password=dummy
         env:
           SYSCONF_DIR: ${{ github.workspace }}
 
@@ -44,5 +46,6 @@ jobs:
         run: >
           bash sysconf.sh
           --skip-tags ssh-register
+          -e ansible_become_password=dummy
         env:
           SYSCONF_DIR: ${{ github.workspace }}
