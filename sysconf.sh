@@ -22,7 +22,7 @@ fi
 has brew || NONINTERACTIVE="${NONINTERACTIVE:-}" /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(brew shellenv)"
 has uv || brew install uv
-has ansible || uv tool install ansible-core --with bcrypt
+uv tool install ansible-core --with bcrypt  # bcrypt for community.crypto, always install to ensure correct env
 
 if [[ -z "${NONINTERACTIVE:-}" && ! -d "${SYSCONF_DIR}" ]]; then
     git clone https://github.com/laermannjan/sysconf.git "${SYSCONF_DIR}"
