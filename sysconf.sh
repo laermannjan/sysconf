@@ -71,8 +71,8 @@ else
 fi
 eval "$(brew shellenv)"
 
-if [[ -d "${SYSCONF_DIR}/.git" ]]; then
-    log_skip "Repository (already cloned)"
+if [[ -f "${SYSCONF_DIR}/sysconf.sh" ]]; then
+    log_skip "Repository (already present)"
 else
     log "Cloning sysconf repository"
     git clone https://github.com/laermannjan/sysconf.git "${SYSCONF_DIR}"
