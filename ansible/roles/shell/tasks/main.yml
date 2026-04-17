@@ -29,8 +29,4 @@
     name: "{{ ansible_facts['user_id'] }}"
     shell: "{{ fish_path.stdout }}"
 
-- name: Install fish plugins
-  command: "{{ fish_path.stdout }} -c 'fisher update'"
-  register: fisher_result
-  changed_when: "'Installing' in fisher_result.stdout or 'Updating' in fisher_result.stdout"
 
