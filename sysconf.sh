@@ -33,6 +33,8 @@ fi
 pushd "${SYSCONF_DIR}"
 git pull --ff-only || echo "Warning: could not fast-forward, continuing with local state."
 ansible-galaxy install -r ansible/requirements.yml &>/dev/null
+# prepend -K (ask sudo password) for interactive runs
+[[ -z "${NONINTERACTIVE:-}" ]] && set -- -K "$@"
 ansible-playbook ansible/playbook.yml -i localhost, "$@"
 popd
 
