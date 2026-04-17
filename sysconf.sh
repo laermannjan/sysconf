@@ -50,7 +50,7 @@ should_skip() { printf '%s\n' "${SKIP[@]}" | grep -qx "$1" 2>/dev/null; }
 
 log "Bootstrapping prerequisites"
 
-if is_linux && ! has git; then
+if is_linux; then
     log "Installing build tools and git"
     if has apt-get; then
         sudo apt-get update -y || true

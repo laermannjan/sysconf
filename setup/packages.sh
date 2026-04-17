@@ -7,15 +7,6 @@ log "Installing packages"
 # Prevent apt from spawning interactive config prompts
 export DEBIAN_FRONTEND=noninteractive
 
-# --- System packages (distro-specific names) ---
-
-if is_debian; then
-    sudo apt-get update -y || true
-    sudo apt-get install -y build-essential man-db procps
-elif is_redhat; then
-    sudo dnf install -y @"Development Tools" @Multimedia postgresql procps-ng
-fi
-
 # --- 1Password (x86_64 Linux only, macOS via Brewfile) ---
 
 if is_linux && [[ "$(uname -m)" == "x86_64" ]] && ! has 1password; then
