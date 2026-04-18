@@ -65,20 +65,6 @@ if is_linux; then
     sudo usermod -aG docker "$USER"
 fi
 
-# --- Flatpak (Linux only, macOS uses casks) ---
-
-if is_linux; then
-    log "Flatpak"
-    if is_debian; then
-        sudo apt-get install -y flatpak
-    elif is_redhat; then
-        sudo dnf install -y flatpak
-    fi
-    quiet flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-    quiet flatpak update --user --noninteractive
-    log_ok "flatpak + flathub"
-fi
-
 # --- Zed (Linux only, macOS via Brewfile) ---
 
 if is_linux && [[ ! -f "$HOME/.local/bin/zed" ]]; then
@@ -100,3 +86,17 @@ PATH="/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:$PATH" \
     log_warn "brew bundle failed (arm? some flatpaks are x86_64-only)"
     return 1
 }
+
+# --- Toolchain setup (after brew bundle installs uv/rustup) ---
+
+if has uv; then
+    log "Python (uv)"
+    uv python install
+    log_ok "python"
+fi
+
+if has rustup-init; then
+    log "Rust (rustup)"
+    rustup-init -y --default-toolchain stable --no-modify-path
+    log_ok "rust"
+fi

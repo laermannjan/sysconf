@@ -25,9 +25,9 @@ brew "yt-dlp"
 brew "fd"
 brew "libpq", link: true  # get psql without server
 brew "zoxide"
-brew "uv", postinstall: "uv python install"
+brew "uv"
 brew "go"
-brew "rustup", postinstall: "rustup-init -y --default-toolchain stable --no-modify-path"
+brew "rustup"
 brew "neovim"
 brew "starship"
 brew "typst"
@@ -103,8 +103,11 @@ flatpak "md.obsidian.Obsidian"
 cask "nextcloud"
 flatpak "com.nextcloud.desktopclient.nextcloud"
 
-mas "Things", id: 904280696
-mas "Infuse", id: 1136220934
+# mas requires App Store sign-in; skip in CI/noninteractive
+unless ENV["CI"]
+  mas "Things", id: 904280696
+  mas "Infuse", id: 1136220934
+end
 
 cask "font-maple-mono-nf"
 cask "font-monaspace-nf"
