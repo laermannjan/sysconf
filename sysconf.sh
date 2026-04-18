@@ -7,6 +7,9 @@ PATH="/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:/usr/local/bin:${HOME}/.l
 SYSCONF_DIR="${SYSCONF_DIR:-${HOME}/sysconf}"
 export SYSCONF_DIR
 
+USER="${USER:-$(whoami)}"
+export USER
+
 # --- Helpers (used by all setup scripts via source) ---
 
 has()      { command -v "$1" &>/dev/null; }
