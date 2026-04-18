@@ -82,7 +82,7 @@ else
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     log_ok "homebrew"
 fi
-eval "$(brew shellenv)"
+eval "$(brew shellenv bash)"
 
 if [[ -f "${SYSCONF_DIR}/sysconf.sh" ]]; then
     log_skip "repo"
