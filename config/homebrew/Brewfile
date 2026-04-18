@@ -1,7 +1,3 @@
-# Note: flatpak entries may fail on architectures where the app isn't published
-# to flathub (e.g. Steam, Slack are x86_64 only). Accept these failures when
-# running brew bundle on arm; install what's available manually if needed.
-
 brew "awscli"
 brew "bat"
 brew "coreutils" if OS.mac?

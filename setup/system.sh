@@ -4,7 +4,7 @@
 
 is_mac || return 0
 
-log "Configuring macOS system preferences"
+log "System preferences"
 
 # --- Keyboard & input ---
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3                          # full keyboard access for all controls
@@ -18,7 +18,7 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -int 1              # tap to click
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -int 1
-log_ok "Keyboard & input"
+log_ok "keyboard & input"
 
 # --- UI ---
 defaults write NSGlobalDomain _HIHideMenuBar -bool false
@@ -27,7 +27,7 @@ defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 defaults write NSGlobalDomain NSStatusItemSelectionPadding -int 6
 defaults write NSGlobalDomain NSStatusItemSpacing -int 6
-log_ok "UI preferences"
+log_ok "ui"
 
 # --- Dock ---
 defaults write com.apple.dock autohide -bool true
@@ -41,7 +41,7 @@ defaults write com.apple.dock tilesize -int 44
 defaults write com.apple.dock show-process-indicators -bool true
 defaults write com.apple.dock magnification -bool true
 defaults write com.apple.dock largesize -int 48
-log_ok "Dock"
+log_ok "dock"
 
 # --- Finder ---
 defaults write com.apple.finder FXPreferredViewStyle -string "clmv"              # column view
@@ -60,7 +60,7 @@ defaults write com.apple.finder NewWindowTargetPath -string "file://$HOME/"
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist 2>/dev/null || true
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist 2>/dev/null || true
 chflags nohidden ~/Library
-log_ok "Finder"
+log_ok "finder"
 
 # --- Security & privacy ---
 defaults write com.apple.LaunchServices LSQuarantine -bool false                  # no "are you sure" dialog
@@ -74,7 +74,7 @@ if [[ -f /etc/pam.d/sudo_local ]]; then
 elif ! grep -q pam_tid.so /etc/pam.d/sudo 2>/dev/null; then
     sudo sed -i '' '1s/^/auth       sufficient     pam_tid.so\n/' /etc/pam.d/sudo
 fi
-log_ok "Security & privacy"
+log_ok "security & privacy"
 
 # --- Misc ---
 # shellcheck disable=SC2088 # macOS defaults handles ~ expansion
@@ -82,4 +82,4 @@ defaults write com.apple.screencapture location -string "~/Screenshots"
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 sudo chflags nohidden /Volumes
-log_ok "Misc"
+log_ok "misc"

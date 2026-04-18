@@ -19,12 +19,22 @@ is_debian(){ [[ -f /etc/debian_version ]]; }
 is_redhat(){ [[ -f /etc/redhat-release ]]; }
 is_wsl2()  { [[ -f /proc/version ]] && grep -qi microsoft /proc/version; }
 
-_color() { printf '\033[%sm' "$1"; }
-_reset() { printf '\033[0m'; }
-log()      { printf '%s==>%s %s\n' "$(_color '1;34')" "$(_reset)" "$1"; }
-log_ok()   { printf '  %s✓%s %s\n' "$(_color '32')" "$(_reset)" "$1"; }
-log_skip() { printf '  %s- %s%s\n' "$(_color '2')" "$1" "$(_reset)"; }
-log_warn() { printf '  %s! %s%s\n' "$(_color '33')" "$1" "$(_reset)"; }
+log()      { printf '\033[1;34m[sysconf] %s\033[0m\n' "$1"; }
+log_ok()   { printf '\033[32m[sysconf]   ✓ %s\033[0m\n' "$1"; }
+log_skip() { printf '\033[2m[sysconf]   - %s\033[0m\n' "$1"; }
+log_warn() { printf '\033[33m[sysconf]   ! %s\033[0m\n' "$1"; }
+
+# Run command silently, show output only on failure
+quiet() {
+    local out
+    if out=$("$@" 2>&1); then
+        return 0
+    else
+        local rc=$?
+        printf '%s\n' "$out"
+        return "$rc"
+    fi
+}
 
 # --- Skip configuration ---
 # Via CLI: --skip ssh --skip system
@@ -51,43 +61,41 @@ should_skip() { printf '%s\n' "${SKIP[@]}" | grep -qx "$1" 2>/dev/null; }
 
 # --- Bootstrap prerequisites ---
 
-log "Bootstrapping prerequisites"
+log "Prerequisites"
 
 if is_linux; then
-    log "Installing build tools and git"
+    log "Build tools"
     if has apt-get; then
-        sudo apt-get update -y || true
+        quiet sudo apt-get update -y
         sudo apt-get install -y build-essential curl file git
     elif has dnf; then
-        sudo dnf check-update || true
-        sudo dnf install -y curl file git gcc-c++ make procps-ng
+        sudo dnf group install -y c-development development-libs development-tools
+        sudo dnf install -y curl file git
     fi
-    log_ok "Build tools"
+    log_ok "build tools"
 fi
 
 if has brew; then
-    log_skip "Homebrew (already installed)"
+    log_skip "homebrew"
 else
-    log "Installing Homebrew"
+    log "Homebrew"
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    log_ok "Homebrew"
+    log_ok "homebrew"
 fi
 eval "$(brew shellenv)"
 
 if [[ -f "${SYSCONF_DIR}/sysconf.sh" ]]; then
-    log_skip "Repository (already present)"
+    log_skip "repo"
 else
-    log "Cloning sysconf repository"
+    log "Cloning repo"
     git clone https://github.com/laermannjan/sysconf.git "${SYSCONF_DIR}"
-    # make ssh the primary, keep https so we can fetch updates before ssh keys are installed
     git -C "${SYSCONF_DIR}" remote set-url --push origin git@github.com:laermannjan/sysconf.git
-    log_ok "Repository"
+    log_ok "repo"
 fi
 
 pushd "${SYSCONF_DIR}" >/dev/null
-# Pull latest changes if on a branch (skip on detached HEAD, e.g. CI checkout)
 if git symbolic-ref -q HEAD &>/dev/null; then
-    git pull --ff-only || log_warn "Could not fast-forward, continuing with local state"
+    git pull --ff-only || log_warn "git pull failed, using local state"
 fi
 
 # --- Run setup ---
@@ -101,13 +109,12 @@ if [[ "$(id -u)" -ne 0 ]]; then
     trap 'kill $SUDO_KEEPALIVE_PID 2>/dev/null' EXIT
 fi
 
-should_skip dotfiles || source setup/dotfiles.sh  # first: brew bundle needs ~/.config/homebrew/Brewfile
-should_skip packages || source setup/packages.sh  # second: installs fish, flatpak, etc.
+should_skip dotfiles || source setup/dotfiles.sh
+should_skip packages || source setup/packages.sh
 should_skip shell    || source setup/shell.sh
 should_skip system   || source setup/system.sh
 should_skip ssh      || source setup/ssh.sh       # last: only interactive step
 
 popd >/dev/null
 
-log "Done"
-echo "Run 'exec fish' to pick up changes (including docker group)."
+log "Done - run 'exec fish' to pick up changes"

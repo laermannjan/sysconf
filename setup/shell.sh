@@ -2,7 +2,7 @@
 # Install fish and set as default shell
 # Sourced by sysconf.sh (helpers/platform already loaded)
 
-log "Setting up shell"
+log "Shell"
 
 if is_mac; then
     brew install fish
@@ -21,10 +21,10 @@ else
 fi
 
 if grep -qxF "$fish_bin" /etc/shells; then
-    log_skip "fish already in /etc/shells"
+    log_skip "fish in /etc/shells"
 else
     echo "$fish_bin" | sudo tee -a /etc/shells >/dev/null
-    log_ok "Added fish to /etc/shells"
+    log_ok "fish in /etc/shells"
 fi
 
 # getent doesn't exist on macOS, use dscl instead
@@ -35,8 +35,8 @@ else
 fi
 
 if [[ "$current_shell" == "$fish_bin" ]]; then
-    log_skip "fish already default shell"
+    log_skip "fish is default shell"
 else
     sudo chsh -s "$fish_bin" "$USER"
-    log_ok "Set fish as default shell"
+    log_ok "fish is default shell"
 fi

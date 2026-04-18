@@ -2,7 +2,7 @@
 # Generate SSH keypair and deploy config
 # Sourced by sysconf.sh (helpers/platform already loaded)
 
-log "Setting up SSH"
+log "SSH"
 
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
@@ -11,15 +11,15 @@ chmod 700 ~/.ssh
 # doesn't preserve them. The source file would be 644 after clone.
 cp "${SYSCONF_DIR}/config/ssh/config" ~/.ssh/config
 chmod 0600 ~/.ssh/config
-log_ok "Deployed SSH config"
+log_ok "ssh config"
 
 if [[ -f ~/.ssh/id_ed25519 ]]; then
-    log_skip "SSH keypair already exists"
+    log_skip "ssh keypair"
     return 0
 fi
 
 ssh-keygen -t ed25519 -C "$USER@$(hostname -s)" -f ~/.ssh/id_ed25519
-log_ok "Generated ed25519 keypair"
+log_ok "ed25519 keypair"
 
 # Copy public key to clipboard
 if is_mac; then
