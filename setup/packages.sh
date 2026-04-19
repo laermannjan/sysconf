@@ -65,6 +65,27 @@ if is_linux; then
     sudo usermod -aG docker "$USER"
 fi
 
+# --- WezTerm (Linux only, macOS via Brewfile) ---
+
+if is_linux && ! has wezterm; then
+    log "WezTerm"
+    if is_debian; then
+        sudo install -d -m 0755 /etc/apt/keyrings
+        curl -fsSL https://apt.fury.io/wez/gpg.key \
+            | sudo gpg --yes --dearmor -o /etc/apt/keyrings/wezterm-fury.gpg
+        echo "deb [signed-by=/etc/apt/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *" \
+            | sudo tee /etc/apt/sources.list.d/wezterm.list >/dev/null
+        quiet sudo apt-get update -y
+        sudo apt-get install -y wezterm-nightly
+    elif is_redhat; then
+        sudo dnf copr enable -y wezfurlong/wezterm-nightly
+        sudo dnf install -y wezterm
+    fi
+    log_ok "wezterm"
+elif is_linux; then
+    log_skip "wezterm"
+fi
+
 # --- Zed (Linux only, macOS via Brewfile) ---
 
 if is_linux && [[ ! -f "$HOME/.local/bin/zed" ]]; then

@@ -1,5 +1,4 @@
 tap "charmbracelet/tap"
-tap "wezterm/wezterm-linuxbrew" if OS.linux? && Hardware::CPU.intel?
 
 # core
 brew "curl"
@@ -102,8 +101,7 @@ flatpak "com.valvesoftware.Steam"
 cask "tailscale-app"  # `curl ... | sh` on linux
 cask "the-unarchiver"
 cask "utm"
-cask "wezterm" if OS.mac?
-brew "wezterm" if OS.linux? && Hardware::CPU.intel?
+cask "wezterm@nightly"  # linux via apt/dnf in setup/packages.sh
 cask "zed"  # `curl ... | sh` on linux
 
 unless ENV["CI"]  # mas needs app-store sign in and would hang
