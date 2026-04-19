@@ -40,7 +40,7 @@ if command -q fzf
 end
 
 if command -q go
-    fish_add_path --prepend ~/go
+    fish_add_path --prepend ~/go/bin
 end
 
 if command -q uv
