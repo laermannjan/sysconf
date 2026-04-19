@@ -94,6 +94,17 @@ if has uv; then
     log "Python (uv)"
     uv python install
     log_ok "python"
+
+    # Single env so plugins/importers are shared across bean-check, fava, bean-query.
+    # Brewfile's uv DSL only supports :with, not --with-executables-from, so it's here.
+    # --no-build: fail fast if no wheel for the active Python; --managed-python: use uv's.
+    # Python version comes from config/uv/.python-version (symlinked to ~/.config/uv/).
+    log "Beancount (+fava)"
+    uv tool install beancount \
+        --no-build --managed-python \
+        --with-executables-from fava \
+        --with-executables-from beanquery
+    log_ok "beancount"
 fi
 
 if has rustup-init; then

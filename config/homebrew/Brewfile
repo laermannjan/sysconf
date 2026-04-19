@@ -37,7 +37,6 @@ flatpak "org.videolan.VLC"
 # extras
 brew "awscli"
 brew "bat"
-uv "beancount" unless ENV["CI"]
 brew "btop"
 brew "charmbracelet/tap/crush"
 brew "doggo"
