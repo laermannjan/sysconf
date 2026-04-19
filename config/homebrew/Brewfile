@@ -103,6 +103,9 @@ flatpak "md.obsidian.Obsidian"
 cask "nextcloud"
 flatpak "com.nextcloud.desktopclient.nextcloud"
 
+
+cask "sozercan/repo/kaset"  # youtube music macos native player
+
 # mas requires App Store sign-in; skip in CI/noninteractive
 unless ENV["CI"]
   mas "Things", id: 904280696
@@ -115,13 +118,14 @@ cask "font-pt-mono"
 cask "font-sauce-code-pro-nerd-font"
 
 uv "pynvim"
-uv "beancount"
+uv "beancount" unless ENV["CI"]
 uv "git-filter-repo"
 uv "ruff"
 uv "ty"
 uv "pre-commit"
 uv "posting"
 uv "harlequin"
+
 
 go "github.com/charmbracelet/crush"
 go "github.com/charmbracelet/vhs"
