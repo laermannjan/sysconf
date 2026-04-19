@@ -80,7 +80,7 @@ cask "firefox"
 cask "ghostty"
 cask "jetbrains-toolbox"
 cask "karabiner-elements"
-cask "sozercan/repo/kaset" if MacOS.version >= :tahoe
+cask "sozercan/repo/kaset" if OS.mac? && MacOS.version >= :tahoe
 cask "librewolf"
 flatpak "io.gitlab.librewolf-community"
 cask "linearmouse"
