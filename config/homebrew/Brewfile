@@ -65,6 +65,7 @@ brew "starship"
 brew "tree-sitter-cli"
 brew "typst"
 brew "vhs"
+brew "xan"
 brew "zoxide"
 
 # apps
