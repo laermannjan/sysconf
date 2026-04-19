@@ -82,6 +82,7 @@ quiet brew update
 log "Brew bundle"
 PATH="/opt/homebrew/bin:/home/linuxbrew/.linuxbrew/bin:$PATH" \
     HOMEBREW_NO_ANALYTICS=1 \
+    UV_PYTHON_PREFERENCE=only-managed \
     brew bundle install --verbose --file "$brewfile" || {
     log_warn "brew bundle failed (arm? some flatpaks are x86_64-only)"
     return 1
