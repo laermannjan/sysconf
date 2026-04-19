@@ -104,7 +104,7 @@ cask "nextcloud"
 flatpak "com.nextcloud.desktopclient.nextcloud"
 
 
-cask "sozercan/repo/kaset"  # youtube music macos native player
+cask "sozercan/repo/kaset" if OS.mac? && MacOS.version >= :tahoe  # youtube music macos native player
 
 # mas requires App Store sign-in; skip in CI/noninteractive
 unless ENV["CI"]
