@@ -4,9 +4,9 @@ name: Integration
 on:
   push:
     branches: [main]
-    paths: [ansible/**, config/**, sysconf.sh, .github/workflows/integration.yml]
+    paths: ["**/*.sh", config/**, .github/workflows/integration.yml]
   pull_request:
-    paths: [ansible/**, config/**, sysconf.sh, .github/workflows/integration.yml]
+    paths: ["**/*.sh", config/**, .github/workflows/integration.yml]
 
 env:
   NONINTERACTIVE: "1"
@@ -16,13 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run playbook
-        run: >
-          bash sysconf.sh
-          --skip-tags ssh-register
-          -e ansible_become_password=dummy
-        env:
-          SYSCONF_DIR: ${{ github.workspace }}
+      - name: First run
+        run: SYSCONF_DIR="$GITHUB_WORKSPACE" bash sysconf.sh
+      - name: Second run (idempotency)
+        run: SYSCONF_DIR="$GITHUB_WORKSPACE" bash sysconf.sh
 
   test-fedora:
     runs-on: ubuntu-latest
@@ -30,22 +27,18 @@ jobs:
       image: fedora:latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run playbook
-        run: >
-          bash sysconf.sh
-          --skip-tags ssh-register
-          -e ansible_become_password=dummy
-        env:
-          SYSCONF_DIR: ${{ github.workspace }}
+      - name: Install sudo (not in base container)
+        run: dnf install -y sudo
+      - name: First run
+        run: SYSCONF_DIR="$GITHUB_WORKSPACE" bash sysconf.sh
+      - name: Second run (idempotency)
+        run: SYSCONF_DIR="$GITHUB_WORKSPACE" bash sysconf.sh
 
   test-macos:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run playbook
-        run: >
-          bash sysconf.sh
-          --skip-tags ssh-register
-          -e ansible_become_password=dummy
-        env:
-          SYSCONF_DIR: ${{ github.workspace }}
+      - name: First run
+        run: SYSCONF_DIR="$GITHUB_WORKSPACE" bash sysconf.sh
+      - name: Second run (idempotency)
+        run: SYSCONF_DIR="$GITHUB_WORKSPACE" bash sysconf.sh

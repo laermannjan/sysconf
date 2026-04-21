@@ -1,133 +1,115 @@
-# Note: flatpak entries may fail on architectures where the app isn't published
-# to flathub (e.g. Steam, Slack are x86_64 only). Accept these failures when
-# running brew bundle on arm; install what's available manually if needed.
+tap "charmbracelet/tap"
 
-brew "awscli"
-brew "bat"
+# core
+brew "curl"
 brew "coreutils" if OS.mac?
-brew "btop"
 brew "direnv"
-brew "eza"
+brew "file"
 brew "fish" if OS.mac?
 brew "fzf"
-brew "file"
+brew "gcc" if OS.mac?
 brew "git"
-brew "git-delta"
-brew "git-lfs"
-brew "curl"
-brew "wget"
-brew "httpie"
-brew "jq"
-brew "lz4"
-brew "mkvtoolnix"
-brew "parallel" if OS.mac?
-brew "p7zip"
-brew "ripgrep"
 brew "gnu-tar" if OS.mac?
-brew "unzip"
-brew "yt-dlp"
-brew "fd"
-brew "libpq", link: true  # get psql without server
-brew "zoxide"
-brew "uv", postinstall: "uv python install"
-brew "go"
-brew "rustup", postinstall: "rustup-init -y --default-toolchain stable --no-modify-path"
+brew "jq"
 brew "neovim"
-brew "starship"
-brew "typst"
-brew "doggo"
-brew "dust"
-brew "imagemagick"
-brew "ghostscript"
-brew "tree-sitter-cli"
-brew "mas" if OS.mac?
+brew "parallel" if OS.mac?
+brew "unar"
 
+# lang
+brew "go"
+brew "rustup", postinstall: "#{HOMEBREW_PREFIX}/bin/rustup-init -y --default-toolchain stable --no-modify-path"
+brew "uv", postinstall: "#{HOMEBREW_PREFIX}/bin/uv python install"
+brew "ruff"
+brew "ty"
 
-cask "1password"
-
-cask "firefox"
-
-cask "arc"
-cask "ausweisapp"
-flatpak "de.bund.ausweisapp.ausweissapp"
-cask "iina"
+# media
+brew "exiftool"
+brew "imagemagick-full"
+brew "mkvtoolnix"
+brew "yt-dlp"
 cask "handbrake-app"
 flatpak "fr.handbrake.ghb"
-
-cask "claude"
-cask "claude-code@latest"
-
-cask "librewolf"
-flatpak "io.gitlab.librewolf-community"
-
-cask "jetbrains-toolbox"
-cask "karabiner-elements"
-cask "linearmouse"
-cask "macfuse"
-cask "monitorcontrol"
-cask "notion-calendar"
-# docker: linux handled in ansible packages role (native engine, no Desktop)
-cask "docker-desktop" if OS.mac?
-cask "raycast"
-
-cask "slack"
-flatpak "com.slack.Slack"
-
-brew "unar"
-cask "the-unarchiver"
-cask "utm"
-
-if OS.mac?
-  cask "wezterm"
-elsif OS.linux? && Hardware::CPU.intel?
-  tap "wezterm/wezterm-linuxbrew"
-  brew "wezterm"
-end
-
-cask "ghostty"
-
-# zed: linux handled in ansible packages role (dnf on Fedora, installer on Debian)
-cask "zed" if OS.mac?
-
+cask "iina"
 cask "vlc"
 flatpak "org.videolan.VLC"
 
-# tailscale: linux handled in ansible packages role (official apt/dnf repos)
-cask "tailscale-app" if OS.mac?
+# extras
+brew "awscli"
+brew "bat"
+brew "btop"
+brew "charmbracelet/tap/crush"
+brew "doggo"
+brew "dust"
+brew "eza"
+brew "fd"
+brew "git-delta"
+brew "git-filter-repo"
+brew "git-lfs"
+brew "glow"
+brew "grex"
+brew "gum"
+uv "harlequin"
+brew "httpie"
+brew "lazydocker"
+brew "lazygit"
+brew "libpq", link: true
+brew "mas" if OS.mac?
+uv "posting"
+uv "pre-commit"
+uv "pynvim"
+go "github.com/vitor-mariano/regex-tui"
+brew "ripgrep"
+brew "starship"
+brew "tree-sitter-cli"
+brew "typst"
+brew "vhs"
+brew "xan"
+brew "zoxide"
 
-cask "signal"
-flatpak "org.signal.Signal"
+# apps
 
-cask "ollama-app"
-cask "steam"
-flatpak "com.valvesoftware.Steam"
-cask "obsidian"
-flatpak "md.obsidian.Obsidian"
-
+cask "1password"
+cask "arc"
+cask "ausweisapp"
+flatpak "de.bund.ausweisapp.ausweissapp"
+cask "claude"
+cask "claude-code@latest"
+cask "docker-desktop"  # `curl ... | sh` on linux
+cask "firefox"
+cask "ghostty"
+cask "jetbrains-toolbox"
+cask "karabiner-elements"
+cask "sozercan/repo/kaset" if OS.mac? && MacOS.version >= :tahoe
+cask "librewolf"
+flatpak "io.gitlab.librewolf-community"
+cask "linearmouse"
+cask "macfuse"
+cask "monitorcontrol"
 cask "nextcloud"
 flatpak "com.nextcloud.desktopclient.nextcloud"
+cask "notion-calendar"
+cask "obsidian"
+flatpak "md.obsidian.Obsidian"
+cask "ollama-app"
+cask "raycast"
+cask "signal"
+flatpak "org.signal.Signal"
+cask "slack"
+flatpak "com.slack.Slack"
+cask "steam"
+flatpak "com.valvesoftware.Steam"
+cask "tailscale-app"  # `curl ... | sh` on linux
+cask "the-unarchiver"
+cask "utm"
+cask "wezterm@nightly"  # linux via apt/dnf in setup/packages.sh
+cask "zed"  # `curl ... | sh` on linux
 
-mas "Things", id: 904280696
-mas "Infuse", id: 1136220934
+unless ENV["CI"]  # mas needs app-store sign in and would hang
+  mas "Things", id: 904280696
+  mas "Infuse", id: 1136220934
+end
 
 cask "font-maple-mono-nf"
 cask "font-monaspace-nf"
 cask "font-pt-mono"
 cask "font-sauce-code-pro-nerd-font"
-
-uv "pynvim"
-uv "beancount"
-uv "git-filter-repo"
-uv "ruff"
-uv "ty"
-uv "pre-commit"
-uv "posting"
-uv "harlequin"
-
-go "github.com/charmbracelet/crush"
-go "github.com/charmbracelet/vhs"
-go "github.com/charmbracelet/gum"
-go "github.com/charmbracelet/glow"
-go "github.com/jesseduffield/lazygit"
-go "github.com/jesseduffield/lazydocker"
-go "github.com/vitor-mariano/regex-tui"

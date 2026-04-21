@@ -40,7 +40,7 @@ if command -q fzf
 end
 
 if command -q go
-    fish_add_path --prepend ~/go
+    fish_add_path --prepend ~/go/bin
 end
 
 if command -q uv
@@ -52,7 +52,9 @@ if command -q zoxide
     zoxide init --cmd cd fish | source
 end
 
-set --query nvm_current_version || nvm use --silent lts
+if type -q nvm
+    nvm use --silent lts || nvm install lts
+end
 
 # Shared SSH agent across terminals (Linux only; macOS has a system agent).
 # SSH sessions have a forwarded agent, which we don't want to override.

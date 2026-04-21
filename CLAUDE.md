@@ -8,11 +8,11 @@ Personal system configuration repository for bootstrapping and syncing developme
 
 ## Core Principles
 
-1. **Privacy and Security First** - Secrets MUST be encrypted at all times, no exceptions
-2. **Simplicity over cleverness** - Code should be understandable months/years later
-3. **Defensive programming** - Explicit error handling, fail early with clear messages
-4. **Resiliency** - Bootstrap process must never leave system in broken state
-5. **Maintainability** - Clear structure, minimal dependencies, obvious intent
+1. **Simplicity over cleverness** - Code should be understandable months/years later
+2. **Defensive programming** - Explicit error handling, fail early with clear messages
+3. **Resiliency** - Bootstrap process must never leave system in broken state
+4. **Maintainability** - Clear structure, minimal dependencies, obvious intent
+5. **Zero unnecessary dependencies** - Only bash, curl, and git on a fresh system
 
 ## Critical Commands
 
@@ -21,109 +21,62 @@ Personal system configuration repository for bootstrapping and syncing developme
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/laermannjan/sysconf/HEAD/sysconf.sh)"
 
 # Update existing configuration
-cd ~/sysconf/ansible && ansible-playbook playbook.yml
+cd ~/sysconf && bash sysconf.sh
 
-# Update encrypted secrets
-VAULT_PASSWORD_FILE=/tmp/vaultpw ~/sysconf/ansible/update-secrets.sh
+# Skip specific steps
+bash sysconf.sh --skip ssh --skip system
 ```
 
-## Architecture for Resiliency
+## Architecture
+
+### Structure
+```
+sysconf.sh          # bootstrap + helpers + orchestration (sources setup scripts)
+setup/
+  packages.sh       # brew bundle + platform dispatch
+  packages-debian.sh
+  packages-redhat.sh
+  dotfiles.sh       # symlink config/ -> ~/.config/
+  shell.sh          # install fish, set as default
+  ssh.sh            # keypair generation, config deployment
+  system.sh         # macOS defaults, TouchID, Finder
+config/             # all dotfiles, symlinked into ~/.config/
+```
 
 ### Bootstrap Safety
 - `sysconf.sh` is the critical entry point - must handle all edge cases
 - Only requires curl and bash on a fresh system (git is installed via brew if missing)
-- Checks prerequisites before making any changes
-- Creates backups of existing configurations before symlinking
-
-### Configuration Structure
-- **Ansible roles** provide modular, testable units of configuration
-- **Idempotent operations** - safe to run multiple times
-- **Platform detection** - separate logic for macOS vs Linux/WSL2
-- **Encrypted vault** for sensitive data - fails safely if password incorrect
+- All operations are naturally idempotent - safe to run repeatedly
+- Platform detection via `lib/platform.sh` drives all conditionals
 
 ### Key Design Decisions
 
-1. **Why Ansible?** 
-   - Declarative configuration reduces complexity
-   - Built-in error handling and reporting
-   - Idempotent by design
-   - Clear YAML syntax readable years later
+1. **Plain bash over configuration management tools** - Ansible/chezmoi/pyinfra all add a dependency chain that can break after months of inactivity. Bash won't.
 
-2. **Configuration Symlinks**
-   - All configs live in `~/sysconf/config/`
-   - Ansible creates symlinks to expected locations
-   - Easy to track changes in git
-   - Original configs backed up before linking
+2. **Configuration symlinks** - All configs live in `~/sysconf/config/`, symlinked to `~/.config/`. Edit in place, changes tracked in git.
 
-3. **Package Management**
-   - Homebrew on macOS (widely supported, stable)
-   - Native package managers on Linux (dnf for Fedora)
-   - Packages defined in simple lists in ansible roles
+3. **One file per concern** - Each setup script handles one domain (packages, shell, ssh, etc.). Easy to skip, debug, or extend independently.
 
-4. **Error Handling Strategy**
-   - Install script validates environment before proceeding
-   - Ansible stops on first error (fail-fast)
-   - Clear error messages indicate what went wrong
-   - No silent failures or ambiguous states
+4. **Package management** - Homebrew on all platforms for CLI tools. Native package managers (apt/dnf) for system packages and repo setup on Linux.
 
 ### Common Failure Points to Guard Against
 
-1. **Missing prerequisites** - Check for brew, git, uv, ansible (sysconf.sh handles all of these)
-2. **Network issues** - Retry logic for package downloads
-3. **Permission errors** - Clear messages about sudo requirements
-4. **Existing configurations** - Always backup before overwriting
-5. **Platform differences** - Explicit conditionals for macOS/Linux
-6. **Vault password** - Graceful handling of authentication failures
+1. **Missing prerequisites** - sysconf.sh installs brew, git before anything else
+2. **Network issues** - Package install failures shouldn't halt the entire run
+3. **Permission errors** - `sudo -v` upfront, scripts use `sudo` directly where needed
+4. **Existing configurations** - Symlinks overwrite via `ln -sf`, real directories removed before linking
+5. **Platform differences** - Explicit conditionals via `lib/platform.sh`
 
-## Security and Secrets Management
+## Security
 
-### CRITICAL SECURITY RULES
-
-1. **ALL secrets MUST be encrypted using ansible-vault**
-2. **Files with `.vault` extension contain encrypted data**
-3. **NEVER commit unencrypted sensitive files**
-4. **ALWAYS check for unencrypted secrets before committing**
-
-### What Constitutes a Secret?
-- SSH private keys
-- API tokens and keys
-- Passwords and passphrases
-- AWS credentials
-- Database connection strings
-- Any personal or identifying information
-
-### Before ANY Git Operations
-```bash
-# Check for potential unencrypted secrets
-find . -type f -name "*.key" -o -name "*.pem" -o -name "*_rsa" -o -name "*_dsa" -o -name "*_ecdsa" -o -name "*_ed25519" | grep -v ".vault"
-grep -r "PRIVATE KEY" --exclude="*.vault" .
-grep -r "password\|token\|secret\|key" --exclude="*.vault" config/
-```
-
-### Working with Vault Files
-```bash
-# View encrypted file
-ansible-vault view ansible/vault/file.vault
-
-# Edit encrypted file
-ansible-vault edit ansible/vault/file.vault
-
-# Encrypt a new file
-ansible-vault encrypt newfile --output ansible/vault/newfile.vault
-```
-
-**WARNING**: If you find ANY unencrypted sensitive file, STOP immediately and:
-1. DO NOT commit
-2. Remove from git history if already staged
-3. Encrypt using ansible-vault
-4. Alert the user about the security risk
+- NEVER commit SSH private keys, API tokens, passwords, or credentials
+- Check for unencrypted secrets before committing
+- SSH config in `config/ssh/config` must not contain secrets (host aliases and options only)
 
 ## When Making Changes
 
-- **SECURITY FIRST** - Always verify no secrets are exposed
 - Test changes on a clean system when possible
-- Keep ansible roles focused and single-purpose
-- Document non-obvious decisions in comments
+- Keep setup scripts focused and single-purpose
 - Prefer explicit over implicit behavior
 - If something could fail, add error handling
-- Maintain backwards compatibility with existing setups
+- Run `shellcheck` on all scripts before committing
