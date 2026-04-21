@@ -13,6 +13,7 @@ if is_linux && [[ "$(uname -m)" == "x86_64" ]] && ! has 1password; then
     log "1Password"
     if is_debian; then
         if ! find /etc/apt/sources.list.d -name "*1password*" -print -quit 2>/dev/null | grep -q .; then
+            sudo install -d -m 0755 /etc/apt/keyrings
             sudo install -m 0644 /dev/null /etc/apt/keyrings/1password-archive-keyring.asc
             curl -fsSL https://downloads.1password.com/linux/keys/1password.asc \
                 | sudo tee /etc/apt/keyrings/1password-archive-keyring.asc >/dev/null

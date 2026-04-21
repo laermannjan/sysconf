@@ -44,7 +44,7 @@ SKIP=()
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --skip) SKIP+=("$2"); shift 2 ;;
-        *) shift ;;
+        *) echo "unknown argument: $1" >&2; exit 2 ;;
     esac
 done
 
@@ -96,6 +96,8 @@ fi
 pushd "${SYSCONF_DIR}" >/dev/null
 if git symbolic-ref -q HEAD &>/dev/null; then
     git pull --ff-only || log_warn "git pull failed, using local state"
+else
+    log_skip "git pull (detached HEAD)"
 fi
 
 # --- Run setup ---

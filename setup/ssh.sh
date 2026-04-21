@@ -7,10 +7,9 @@ log "SSH"
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
 
-# Copy, not symlink - SSH requires restrictive permissions (0600) and git
-# doesn't preserve them. The source file would be 644 after clone.
-cp "${SYSCONF_DIR}/config/ssh/config" ~/.ssh/config
-chmod 0600 ~/.ssh/config
+# Symlink into repo - ~/.ssh perms (700) block other local users from
+# the symlink path, and this config is already public on GitHub.
+ln -sfn "${SYSCONF_DIR}/config/ssh/config" ~/.ssh/config
 log_ok "ssh config"
 
 if [[ -f ~/.ssh/id_ed25519 ]]; then
