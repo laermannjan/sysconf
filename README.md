@@ -1,7 +1,9 @@
 # sysconf
 
+> [!Important]
+> Do not pipe `curl` into `bash` as the script won't run in interactive mode and will skip setup prompts.
+
 ```sh
-# Do not pipe `curl` into `bash` as the script won't run in interactive mode and will skip setup prompts.
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/laermannjan/sysconf/HEAD/sysconf.sh)"
 ```
 
@@ -25,15 +27,15 @@ A tool must justify itself against bash: complexity, learning curve, new workflo
 
 ### Already Tried
 
-**Ansible**
+### Ansible
 Offers: Idempotency, organized roles, ecosystem
 Why not: Thinking "the ansible way" (roles, yaml, facts) becomes overhead. Constant lookups, galaxy caveats, workarounds. No payoff.
 
-**Nix**
+### Nix + home-manager
 Offers: Reproducibility, declarative system
 Why not: Paradigm everywhere, iteration heavy, broke edit-and-git flow, required to learn an insane amount of context, tooling, caveats, specifics.
 
-**Chezmoi**
+### Chezmoi
 Offers: Dotfile syncing, script hooks (only_once, before, after), templating
 Why not: Templates break bidirectional flow. Only symlink mode relevant, but most complexity is in bash script now and will be in bash scripts in chezmoi, so why chezmoi at all? Only potential could be script ordering and trigger framework.
 
