@@ -8,3 +8,4 @@ templates/**/flake.lock
 !private/**.age
 .pre-commit-config.yaml
 fish_variables
+config/karabiner/automatic_backups/

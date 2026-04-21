@@ -2,6 +2,7 @@ local wezterm = require('wezterm')
 local act = wezterm.action
 
 local workspace_switcher = wezterm.plugin.require('https://github.com/MLFlexer/smart_workspace_switcher.wezterm')
+local tabline = wezterm.plugin.require('https://github.com/michaelbrusegard/tabline.wez')
 
 -- 0. HELPERS ==========================================================================================================
 
@@ -67,16 +68,31 @@ config.enable_scroll_bar = true
 
 -- tab bar
 config.enable_tab_bar = true
-config.use_fancy_tab_bar = true
+config.use_fancy_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = false
 config.tab_max_width = 25
 config.show_tab_index_in_tab_bar = true
 config.switch_to_last_active_tab_when_closing_tab = true
 config.tab_and_split_indices_are_zero_based = false
 
+tabline.setup({
+    options = { theme = 'tokyonight' },
+    extensions = { 'smart_workspace_switcher' },
+    sections = {
+        tabline_a = {},
+        tabline_b = {},
+        tabline_c = {},
+        tab_active = { 'index', 'process', 'zoomed' },
+        tab_inactive = { 'index', 'process' },
+        tabline_x = {},
+        tabline_y = { 'workspace' },
+        tabline_z = { 'domain' },
+    },
+})
+
 -- window
 config.window_padding = { left = 5, right = 10, top = 12, bottom = 7 }
-config.window_close_confirmation = 'NeverPrompt'
+config.window_close_confirmation = 'AlwaysPrompt'
 -- NOTE: why do I need to put these font settings into window_frame?
 config.window_frame = {
     active_titlebar_bg = '#090909',
@@ -84,7 +100,7 @@ config.window_frame = {
     font_size = get_os() == 'mac' and 16.0 or 13.0,
 }
 config.window_decorations = get_os() == 'mac' and 'RESIZE' or 'TITLE|RESIZE'
-config.inactive_pane_hsb = { saturation = 0.9, brightness = 0.65 }
+config.inactive_pane_hsb = { saturation = 0.8, brightness = 0.65 }
 
 -- fonts
 config.adjust_window_size_when_changing_font_size = false
@@ -92,24 +108,24 @@ config.allow_square_glyphs_to_overflow_width = 'WhenFollowedBySpace'
 config.anti_alias_custom_block_glyphs = true
 config.font_size = get_os() == 'mac' and 18.0 or 14.0
 
-config.font = wezterm.font({
-    family = 'Berkeley Mono Variable',
-    weight = 'Regular',
-    stretch = 'Normal',
-    harfbuzz_features = {
-        -- test: @ <=> //= _|_
-        'calt=1', -- allow ligatures (contextual alternatives)
-        -- 'salt=1', -- enable stylistic alternatives (overwrites / interferes with stylistic sets below)
-        -- 'ss01', -- zero.slashed 0
-        'ss02', -- zero.dotted 0
-        -- 'ss03', -- zero.split 0
-        -- 'ss04', -- seven.european 7
-        -- 'ss05', -- r.german  (top right curves down a bit more)
-        -- 'ss06', -- bar.broken | ; ligatures where compiled with broken bar in this font and are not affected e.g. {|
-        'ss09', -- == and === ligatures with gap
-        -- 'ss10', -- <= arrow instead of less or equal than sign
-    },
-})
+-- config.font = wezterm.font({
+--     family = 'Berkeley Mono Variable',
+--     weight = 'Regular',
+--     stretch = 'Normal',
+--     harfbuzz_features = {
+--         -- test: @ <=> //= _|_
+--         'calt=1', -- allow ligatures (contextual alternatives)
+--         -- 'salt=1', -- enable stylistic alternatives (overwrites / interferes with stylistic sets below)
+--         -- 'ss01', -- zero.slashed 0
+--         'ss02', -- zero.dotted 0
+--         -- 'ss03', -- zero.split 0
+--         -- 'ss04', -- seven.european 7
+--         -- 'ss05', -- r.german  (top right curves down a bit more)
+--         -- 'ss06', -- bar.broken | ; ligatures where compiled with broken bar in this font and are not affected e.g. {|
+--         'ss09', -- == and === ligatures with gap
+--         -- 'ss10', -- <= arrow instead of less or equal than sign
+--     },
+-- })
 
 -- config.font = wezterm.font({
 --     family = 'Maple Mono NF',
@@ -133,6 +149,7 @@ config.font = wezterm.font({
 -- }
 
 -- config.font = wezterm.font('ComicCode Nerd Font')
+config.font = wezterm.font('Codelia Ligatures')
 -- config.font = wezterm.font('CartographCF Nerd Font')
 -- config.font = wezterm.font('JetBrains Mono')
 -- config.font = wezterm.font('MonaspiceAr Nerd Font')
@@ -140,36 +157,36 @@ config.font = wezterm.font({
 -- config.font = wezterm.font('MonaspiceRn Nerd Font')
 -- config.font = wezterm.font('MonaspiceKr Nerd Font')
 
-wezterm.on('update-status', function(window, _)
-    local workspaces = wezterm.mux.get_workspace_names()
-    local active_ws = wezterm.mux.get_active_workspace()
-    local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
-
-    local color_scheme = window:effective_config().resolved_palette
-    local fg = wezterm.color.parse(color_scheme.foreground)
-    -- local fg_inactive = active_color:darken(0.3)
-    local bg = wezterm.color.parse(color_scheme.background)
-    local bg_inactive = bg:lighten(0.3)
-
-    local elements = {}
-
-    for i, ws in ipairs(workspaces) do
-        local is_first = i == 1
-
-        if is_first then table.insert(elements, { Background = { Color = 'none' } }) end
-        local color = ws == active_ws and bg or bg_inactive
-        table.insert(elements, { Foreground = { Color = color } })
-        table.insert(elements, { Text = SOLID_LEFT_ARROW })
-
-        table.insert(elements, { Foreground = { Color = fg } })
-        table.insert(elements, { Background = { Color = color } })
-        table.insert(elements, { Text = ' ' .. ws:gsub('.*/', '') .. ' ' })
-    end
-
-    table.insert(elements, { Text = ' ' }) -- a bit of padding
-
-    window:set_right_status(wezterm.format(elements))
-end)
+-- wezterm.on('update-status', function(window, _)
+--     local workspaces = wezterm.mux.get_workspace_names()
+--     local active_ws = wezterm.mux.get_active_workspace()
+--     local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
+--
+--     local color_scheme = window:effective_config().resolved_palette
+--     local fg = wezterm.color.parse(color_scheme.foreground)
+--     -- local fg_inactive = active_color:darken(0.3)
+--     local bg = wezterm.color.parse(color_scheme.background)
+--     local bg_inactive = bg:lighten(0.3)
+--
+--     local elements = {}
+--
+--     for i, ws in ipairs(workspaces) do
+--         local is_first = i == 1
+--
+--         if is_first then table.insert(elements, { Background = { Color = 'none' } }) end
+--         local color = ws == active_ws and bg or bg_inactive
+--         table.insert(elements, { Foreground = { Color = color } })
+--         table.insert(elements, { Text = SOLID_LEFT_ARROW })
+--
+--         table.insert(elements, { Foreground = { Color = fg } })
+--         table.insert(elements, { Background = { Color = color } })
+--         table.insert(elements, { Text = ' ' .. ws:gsub('.*/', '') .. ' ' })
+--     end
+--
+--     table.insert(elements, { Text = ' ' }) -- a bit of padding
+--
+--     window:set_right_status(wezterm.format(elements))
+-- end)
 
 -- 2. KEYBINGS =========================================================================================================
 
@@ -201,7 +218,7 @@ config.keys = {
 
     { mods = k('CMD|OPT', 'ALT|WIN'), key = 'i', action = act.ShowDebugOverlay },
 
-    { mods = k('CMD', 'ALT'), key = 'g', action = spawn_in_tab('lazygit'), label = 'lazygit' },
+    { mods = k('CMD', 'ALT'), key = 'g', action = spawn_in_tab('lazygit') },
 
     { mods = k('CMD', 'ALT'), key = 'p', action = workspace_switcher.switch_workspace() },
 
@@ -228,6 +245,7 @@ config.ssh_domains = {
         remote_address = 'ugreen', -- or IP
         username = 'root',
         multiplexing = 'None',
+        default_prog = { 'tmux', 'new-session', '-As', 'main' }, -- -A = attach if exists, -s = name it, creates only if missing, -CC control mode, Wezterm handles rendering
     },
 }
 
