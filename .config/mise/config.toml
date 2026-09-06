@@ -44,6 +44,7 @@ python.uv_venv_auto = "create|source"
 "brew:parallel" = "latest"
 "brew:unar" = "latest"
 "brew:wget" = "latest"
+"brew:mas" = "latest"
 "mas:1569813296" = "latest"  # 1Password Safari
 "mas:1136220934" = "latest"  # Infuse
 "mas:904280696" = "latest"  # Things
@@ -201,7 +202,6 @@ imagemagick = "latest"
 lazygit = "latest"
 lazydocker = "latest"
 delta = "latest"
-mas = { version = "latest", os = "macos" }
 tree-sitter = "latest"
 hk = "latest"
 neovim = "nightly"
