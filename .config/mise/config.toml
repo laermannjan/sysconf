@@ -1,0 +1,214 @@
+[settings]
+dotfiles.root = "~/.dotfiles"
+dotfiles.default_mode = "symlink"
+python.uv_venv_auto = "create|source"
+
+[bootstrap.packages]
+"brew-cask:1password" = "latest"
+"brew-cask:ausweisapp" = "latest"
+"brew-cask:claude" = "latest"
+"brew-cask:docker-desktop" = "latest"
+# "brew-cask:docker/tap/sbx" = "latest"  # WARN: cannot be found with mise
+"brew-cask:firefox" = "latest"
+"brew-cask:font-commit-mono-nerd-font" = "latest"
+"brew-cask:font-monaspace-nf" = "latest"
+"brew-cask:font-pt-mono" = "latest"
+"brew-cask:handy" = "latest"
+"brew-cask:iina" = "latest"
+"brew-cask:karabiner-elements" = "latest"
+"brew-cask:librewolf" = "latest"
+"brew-cask:linearmouse" = "latest"
+"brew-cask:macfuse" = "latest"
+"brew-cask:monitorcontrol" = "latest"
+"brew-cask:mounty" = "latest"
+"brew-cask:nextcloud" = "latest"
+"brew-cask:openmtp" = "latest"
+"brew-cask:raycast" = "latest"
+"brew-cask:signal" = "latest"
+"brew-cask:slack" = "latest"
+"brew-cask:spotify" = "latest"
+"brew-cask:tailscale-app" = "latest"
+"brew-cask:the-unarchiver" = "latest"
+"brew-cask:utm" = "latest"
+"brew-cask:wezterm@nightly" = "latest"
+"brew-cask:zed" = "latest"
+"brew-cask:zen" = "latest"
+"brew-cask:zoom" = "latest"
+"brew:btop" = "latest"  # NOTE: unsupported in mise on macos
+"brew:curl" = "latest"
+"brew:fish" = "latest"
+"brew:git" = { version = "latest", os = "macos" }
+"brew:gnu-tar" = { version = "latest", os = "macos" }
+"brew:gromgit/fuse/ntfs-3g-mac" = { version = "latest", os = "macos" }
+"brew:httpie" = "latest"
+"brew:parallel" = "latest"
+"brew:unar" = "latest"
+"brew:wget" = "latest"
+"mas:1569813296" = "latest"  # 1Password Safari
+"mas:1136220934" = "latest"  # Infuse
+"mas:904280696" = "latest"  # Things
+"mas:497799835" = "latest"  # xcode
+
+[bootstrap.mise_shell_activate]
+fish = "activate"
+
+[bootstrap.user]
+login_shell = "/opt/homebrew/bin/fish"
+
+[dotfiles]
+"~/.config/1password" = {}
+"~/.config/direnv" = {}
+"~/.config/fish" = {}
+"~/.config/ghostty" = {}
+"~/.config/git" = {}
+"~/.config/homebrew" = {}
+"~/.config/karabiner" = {}
+"~/.config/lazygit" = {}
+"~/.config/linearmouse" = {}
+"~/.config/mise/miserc.toml" = {}
+"~/.config/nvim" = {}
+"~/.config/starship.toml" = {}
+"~/.config/wezterm" = {}
+"~/.config/yt-dlp" = {}
+"~/.ssh/config" = {}
+
+[bootstrap.repos]
+"~/.dotfiles-foo" = { url = "git@github.com:laermannjan/sysconf.git", ref = "main" }
+
+[bootstrap.macos.dock]
+autohide = true
+orientation = "bottom"
+magnification = true
+tilesize = 44
+largesize = 48
+show_recents = false
+
+[bootstrap.macos.finder]
+show_all_files = true
+show_pathbar = true
+show_status_bar = true
+show_extensions_warning = false
+preferred_view_style = "list"
+
+[bootstrap.macos.keyboard]
+key_repeat = 1
+initial_key_repeat = 15
+press_and_hold = false
+
+[bootstrap.macos.trackpad]
+tap_to_click = true
+three_finger_drag = true
+
+[bootstrap.macos.defaults]
+"com.apple.finder" = { 
+    AppleShowAllExtensions = true,
+    AppleShowAllFiles = true,
+    FXDefaultSearchScope = "SCcf",  # search current folder
+    NewWindowTarget = "PfLo",
+    NewWindowTargetPath = "file://~/",
+    QuitMenuItem = true,
+    WarnOnEmptyTrash = false,
+    _FXShowPosixPathInTitle = true,
+    _FXSortFoldersFirst = true,
+}
+"com.apple.LaunchServices" = { LSQuarantine = false }
+"com.apple.screensaver" = { 
+    askForPassword = true,
+    askForPasswordDelay = 0
+}
+"com.apple.screencapture" = { location = "~/Screenshots" }
+"com.apple.desktopservices" = { 
+    DSDontWriteNetworkStores = true, 
+    DSDontWriteUSBStores = true
+}
+"NSGlobalDomain" = { 
+    AppleKeyboardUIMode = 3,  # full keyboard access for all controls
+    NSAutomaticCapitalizationEnabled = false,
+    NSAutomaticDashSubstitutionEnabled = false,
+    NSAutomaticPeriodSubstitutionEnabled = false,
+    NSAutomaticQuoteSubstitutionEnabled = false,
+    NSAutomaticSpellingCorrectionEnabled = false,
+    NSDocumentSaveNewDocumentsToCloud = false,
+    NSNavPanelExpandedStateForSaveMode = true,
+    NSStatusItemSelectionPadding = 6,
+    NSStatusItemSpacing = 6,
+    PMPrintingExpandedStateForPrint = true,
+    _HIHideMenuBar = false,
+}
+"com.apple.dock" = { 
+    enable-spring-load-actions-on-all-items = true,
+    mineffect = "genie",
+    mouse-over-hilite-stack = true,
+    show-process-indicators = true,
+    showhidden = true,
+}
+
+# TODO: convert
+# /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist 2>/dev/null || true
+# /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist 2>/dev/null || true
+# /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist 2>/dev/null || true
+# chflags nohidden ~/Library
+# sudo chflags nohidden /Volumes
+# # Use sudo_local (survives macOS updates, available since Sonoma)
+# if [[ -f /etc/pam.d/sudo_local ]]; then
+#     if ! grep -q pam_tid.so /etc/pam.d/sudo_local 2>/dev/null; then
+#         echo "auth       sufficient     pam_tid.so" | sudo tee -a /etc/pam.d/sudo_local >/dev/null
+#     fi
+# elif ! grep -q pam_tid.so /etc/pam.d/sudo 2>/dev/null; then
+#     sudo sed -i '' '1s/^/auth       sufficient     pam_tid.so\n/' /etc/pam.d/sudo
+# fi
+#
+
+[bootstrap.hooks.post-defaults]
+run = [
+    "killall Dock || true",
+    "chflags nohidden ~/Library",
+    "sudo chflags nohidden /Volumes"
+]
+
+[tools]
+python = "latest"
+uv = "latest"
+ty = "latest"
+ruff = "latest"
+go = "latest"
+node = "lts"
+swift = "latest"
+rust = "latest"
+zig = "latest"
+
+1password = "latest"
+7zip = "latest"
+bat = "latest"
+claude = "latest"
+curlie = "latest"
+dust = "latest"
+grex = "latest"
+gum = "latest"
+jq = "latest"
+opencode = "latest"
+pre-commit = "latest"
+ripgrep = "latest"
+starship = "latest"
+tealdeer = "latest"
+tmux = "latest"
+typst = "latest"
+usage = "latest"
+zoxide = "latest"
+doggo = "latest"
+ffmpeg = "latest"
+imagemagick = "latest"
+lazygit = "latest"
+lazydocker = "latest"
+delta = "latest"
+mas = { version = "latest", os = "macos" }
+tree-sitter = "latest"
+hk = "latest"
+neovim = "nightly"
+yt-dlp = { version = "latest", rename_exe = "yt-dlp" }
+
+[env]
+EDITOR = "nvim"
+VISUAL = "nvim"
+PAGER = "less"
+LESS = "-R -F -X --mouse"

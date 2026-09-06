@@ -1,0 +1,4 @@
+[user]
+    name = "Jan"
+    email = "jan@baerg.dev"
+    signingkey = ~/.ssh/id_ed25519

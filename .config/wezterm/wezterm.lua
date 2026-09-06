@@ -66,6 +66,9 @@ config.colors = {
 
 config.enable_scroll_bar = true
 
+-- toast notifications (OSC 9 / OSC 777); don't nag about the tab I'm already looking at
+config.notification_handling = 'SuppressFromFocusedTab'
+
 -- tab bar
 config.enable_tab_bar = true
 config.use_fancy_tab_bar = false
@@ -150,6 +153,8 @@ config.font_size = get_os() == 'mac' and 18.0 or 14.0
 
 -- config.font = wezterm.font('ComicCode Nerd Font')
 config.font = wezterm.font('Codelia Ligatures')
+-- config.font = wezterm.font('CommitMono Nerd Font')
+-- config.line_height = 1.2
 -- config.font = wezterm.font('CartographCF Nerd Font')
 -- config.font = wezterm.font('JetBrains Mono')
 -- config.font = wezterm.font('MonaspiceAr Nerd Font')
@@ -239,14 +244,14 @@ config.keys = {
     { mods = 'SHIFT', key = 'Enter', action = wezterm.action({ SendString = '\x1b\r' }) },
 }
 
-config.ssh_domains = {
-    {
-        name = 'ugreen',
-        remote_address = 'ugreen', -- or IP
-        username = 'root',
-        multiplexing = 'None',
-        default_prog = { 'tmux', 'new-session', '-As', 'main' }, -- -A = attach if exists, -s = name it, creates only if missing, -CC control mode, Wezterm handles rendering
-    },
-}
+-- config.ssh_domains = {
+--     {
+--         name = 'ugreen',
+--         remote_address = 'ugreen', -- or IP
+--         username = 'root',
+--         multiplexing = 'None',
+--         default_prog = { 'tmux', 'new-session', '-As', 'main' }, -- -A = attach if exists, -s = name it, creates only if missing, -CC control mode, Wezterm handles rendering
+--     },
+-- }
 
 return config

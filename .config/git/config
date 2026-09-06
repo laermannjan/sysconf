@@ -41,11 +41,11 @@
 	email = "git@flabber.mozmail.com"
 	name = "Jan Laermann"
 
-[includeIf "gitdir:~/dev/alcemy/"]
-	path = "~/.config/git/config.alcemy"
-
 [includeIf "gitdir:~/dev/personal/"]
 	path = "~/.config/git/config.personal"
+
+[includeIf "gitdir:~/dev/shotquest/"]
+	path = "~/.config/git/config.codeberg"
 
 [rerere]
 	enable = true  # remember how to solve a merge conflict and apply resolution automatically next time
@@ -56,3 +56,12 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[credential "https://codeberg.org"]
+	helper = 
+	helper = !tea login helper
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
