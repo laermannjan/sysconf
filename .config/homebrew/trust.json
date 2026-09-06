@@ -1,0 +1,19 @@
+{
+  "trustedtaps": [
+    "charmbracelet/tap",
+    "docker/tap",
+    "gromgit/fuse",
+    "https://github.com/bepaald/signalbackup-tools",
+    "sozercan/repo"
+  ],
+  "trustedcasks": [
+    "docker/tap/sbx",
+    "netbirdio/tap/netbird-ui"
+  ],
+  "trustedformulae": [
+    "homebrew-ffmpeg/ffmpeg/ffmpeg",
+    "https://github.com/bepaald/signalbackup-tools/signalbackup-tools",
+    "netbirdio/tap/netbird",
+    "sandreas/tap/m4b-tool"
+  ]
+}

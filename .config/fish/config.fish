@@ -4,11 +4,6 @@ set fish_greeting
 set -g fish_color_command blue
 fish_add_path --prepend ~/.local/bin
 
-set -gx EDITOR nvim
-set -gx VISUAL nvim
-set -gx PAGER less
-set -gx LESS '-R -F -X --mouse'
-
 abbr --add -- e nvim
 abbr --add -- delhist 'history | fzf | read -l entry && history delete --exact --case-sensitive -- "$entry"'
 
@@ -70,3 +65,5 @@ if test (uname) != Darwin && not set -q SSH_CONNECTION
         source $ssh_env &>/dev/null
     end
 end
+
+/Users/jan/.local/bin/mise activate fish | source # added by https://mise.run/fish
