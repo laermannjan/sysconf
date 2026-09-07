@@ -1,5 +1,5 @@
 [settings]
-dotfiles.root = "~/.dotfiles"
+dotfiles.root = "~/sysconf"
 dotfiles.default_mode = "symlink"
 python.uv_venv_auto = "create|source"
 
@@ -72,11 +72,6 @@ login_shell = "/opt/homebrew/bin/fish"
 "~/.config/wezterm" = {}
 "~/.config/yt-dlp" = {}
 "~/.ssh/config" = {}
-
-[bootstrap.repos]
-"~/dev/sysconf" = { url = "https://github.com/laermannjan/sysconf.git" }
-[bootstrap.hooks.post-repos]
-run = 'git -C "~/dev/sysconf" remote set-url --push origin git@github.com:laermannjan/sysconf.git'
 
 [bootstrap.macos.dock]
 autohide = true
@@ -214,3 +209,6 @@ EDITOR = "nvim"
 VISUAL = "nvim"
 PAGER = "less"
 LESS = "-R -F -X --mouse"
+
+[bootstrap.hooks.final]
+run = "git -C ~/sysconf remote set-url --push origin git@github.com:laermannjan/sysconf.git"
