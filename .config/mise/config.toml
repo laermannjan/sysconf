@@ -18,9 +18,9 @@ python.uv_venv_auto = "create|source"
 "brew-cask:karabiner-elements" = "latest"
 "brew-cask:librewolf" = "latest"
 "brew-cask:linearmouse" = "latest"
-"brew-cask:macfuse" = "latest"
+# "brew-cask:macfuse" = "latest"
 "brew-cask:monitorcontrol" = "latest"
-"brew-cask:mounty" = "latest"
+# "brew-cask:mounty" = "latest"
 "brew-cask:nextcloud" = "latest"
 "brew-cask:openmtp" = "latest"
 "brew-cask:raycast" = "latest"
@@ -39,7 +39,7 @@ python.uv_venv_auto = "create|source"
 "brew:fish" = "latest"
 "brew:git" = { version = "latest", os = "macos" }
 "brew:gnu-tar" = { version = "latest", os = "macos" }
-"brew:gromgit/fuse/ntfs-3g-mac" = { version = "latest", os = "macos" }
+# "brew:gromgit/fuse/ntfs-3g-mac" = { version = "latest", os = "macos" }
 "brew:httpie" = "latest"
 "brew:parallel" = "latest"
 "brew:unar" = "latest"
@@ -74,7 +74,9 @@ login_shell = "/opt/homebrew/bin/fish"
 "~/.ssh/config" = {}
 
 [bootstrap.repos]
-"~/.dotfiles-foo" = { url = "git@github.com:laermannjan/sysconf.git", ref = "main" }
+"~/dev/sysconf" = { url = "https://github.com/laermannjan/sysconf.git" }
+[bootstrap.hooks.post-repos]
+run = 'git -C "~/dev/sysconf" remote set-url --push origin git@github.com:laermannjan/sysconf.git'
 
 [bootstrap.macos.dock]
 autohide = true
@@ -106,7 +108,7 @@ three_finger_drag = true
     AppleShowAllFiles = true,
     FXDefaultSearchScope = "SCcf",  # search current folder
     NewWindowTarget = "PfLo",
-    NewWindowTargetPath = "file://~/",
+    NewWindowTargetPath = "file://{{env.HOME}}/",
     QuitMenuItem = true,
     WarnOnEmptyTrash = false,
     _FXShowPosixPathInTitle = true,
@@ -117,7 +119,7 @@ three_finger_drag = true
     askForPassword = true,
     askForPasswordDelay = 0
 }
-"com.apple.screencapture" = { location = "~/Screenshots" }
+"com.apple.screencapture" = { location = "{{env.HOME}}/Screenshots" }
 "com.apple.desktopservices" = { 
     DSDontWriteNetworkStores = true, 
     DSDontWriteUSBStores = true
