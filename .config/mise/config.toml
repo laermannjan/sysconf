@@ -67,6 +67,7 @@ tree-sitter = "latest"
 hk = "latest"
 neovim = "nightly"
 yt-dlp = { version = "latest", rename_exe = "yt-dlp" }
+eza = "latest"
 
 [env]
 EDITOR = "nvim"
