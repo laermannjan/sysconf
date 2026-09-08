@@ -1,0 +1,134 @@
+[bootstrap.packages]
+"brew-cask:1password" = "latest"
+"brew-cask:ausweisapp" = "latest"
+"brew-cask:docker-desktop" = "latest"
+"brew-cask:firefox" = "latest"
+"brew-cask:font-commit-mono-nerd-font" = "latest"
+"brew-cask:font-monaspace-nf" = "latest"
+"brew-cask:handy" = "latest"
+"brew-cask:iina" = "latest"
+"brew-cask:karabiner-elements" = "latest"
+"brew-cask:librewolf" = "latest"
+"brew-cask:linearmouse" = "latest"
+"brew-cask:monitorcontrol" = "latest"
+# "brew-cask:docker/tap/sbx" = "latest"  # WARN: cannot be found with mise
+# "brew-cask:macfuse" = "latest"  # WARN: postflight not available with mise
+# "brew-cask:mounty" = "latest"  # WARN: postflight not available with mise
+# "brew:gromgit/fuse/ntfs-3g-mac" = "latest"  # WARN: postflight not available with mise
+# "brew-cask:font-pt-mono" = "latest"  # WARN: 404
+"brew-cask:nextcloud" = "latest"
+"brew-cask:openmtp" = "latest"
+"brew-cask:raycast" = "latest"
+"brew-cask:signal" = "latest"
+"brew-cask:slack" = "latest"
+"brew-cask:spotify" = "latest"
+"brew-cask:tailscale-app" = "latest"
+"brew-cask:the-unarchiver" = "latest"
+"brew-cask:utm" = "latest"
+"brew-cask:wezterm@nightly" = "latest"
+"brew-cask:zed" = "latest"
+"brew-cask:zen" = "latest"
+"brew-cask:zoom" = "latest"
+"brew:curl" = "latest"
+"brew:fish" = "latest"
+"brew:git" = "latest"
+"brew:gnu-tar" = "latest"
+"brew:httpie" = "latest"
+"brew:parallel" = "latest"
+"brew:unar" = "latest"
+"brew:wget" = "latest"
+"brew:mas" = "latest"
+"mas:1569813296" = "latest"  # 1Password Safari
+"mas:1136220934" = "latest"  # Infuse
+"mas:904280696" = "latest"  # Things
+"mas:497799835" = "latest"  # xcode
+
+[bootstrap.macos.dock]
+autohide = true
+orientation = "bottom"
+magnification = true
+tilesize = 44
+largesize = 48
+show_recents = false
+
+[bootstrap.macos.finder]
+show_all_files = true
+show_pathbar = true
+show_status_bar = true
+show_extensions_warning = false
+preferred_view_style = "list"
+
+[bootstrap.macos.keyboard]
+key_repeat = 1
+initial_key_repeat = 15
+press_and_hold = false
+
+[bootstrap.macos.trackpad]
+tap_to_click = true
+three_finger_drag = true
+
+[bootstrap.macos.defaults]
+"com.apple.finder" = { 
+    AppleShowAllExtensions = true,
+    AppleShowAllFiles = true,
+    FXDefaultSearchScope = "SCcf",  # search current folder
+    NewWindowTarget = "PfLo",
+    NewWindowTargetPath = "file://{{env.HOME}}/",
+    QuitMenuItem = true,
+    WarnOnEmptyTrash = false,
+    _FXShowPosixPathInTitle = true,
+    _FXSortFoldersFirst = true,
+}
+"com.apple.LaunchServices" = { LSQuarantine = false }
+"com.apple.screensaver" = { 
+    askForPassword = true,
+    askForPasswordDelay = 0
+}
+"com.apple.screencapture" = { location = "{{env.HOME}}/Screenshots" }
+"com.apple.desktopservices" = { 
+    DSDontWriteNetworkStores = true, 
+    DSDontWriteUSBStores = true
+}
+"NSGlobalDomain" = { 
+    AppleKeyboardUIMode = 3,  # full keyboard access for all controls
+    NSAutomaticCapitalizationEnabled = false,
+    NSAutomaticDashSubstitutionEnabled = false,
+    NSAutomaticPeriodSubstitutionEnabled = false,
+    NSAutomaticQuoteSubstitutionEnabled = false,
+    NSAutomaticSpellingCorrectionEnabled = false,
+    NSDocumentSaveNewDocumentsToCloud = false,
+    NSNavPanelExpandedStateForSaveMode = true,
+    NSStatusItemSelectionPadding = 6,
+    NSStatusItemSpacing = 6,
+    PMPrintingExpandedStateForPrint = true,
+    _HIHideMenuBar = false,
+}
+"com.apple.dock" = { 
+    enable-spring-load-actions-on-all-items = true,
+    mineffect = "genie",
+    mouse-over-hilite-stack = true,
+    show-process-indicators = true,
+    showhidden = true,
+}
+
+
+[bootstrap.files."/etc/pam.d/sudo_local"]
+# enables Touch ID for sudo
+content = "auth       sufficient     pam_tid.so"
+owner = "root"
+group = "wheel"
+mode = "0444"
+
+[bootstrap.hooks.post-defaults]
+run = [
+    # snap to grid
+    '/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist 2>/dev/null || true',
+    '/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist 2>/dev/null || true',
+    '/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist 2>/dev/null || true',
+    "killall cfprefsd || true",
+    "killall Finder || true",
+
+    "killall Dock || true",
+    "chflags nohidden ~/Library",
+    "sudo chflags nohidden /Volumes"
+]
