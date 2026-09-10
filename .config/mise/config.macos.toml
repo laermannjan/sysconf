@@ -1,6 +1,7 @@
 [bootstrap.packages]
 "brew-cask:1password" = "latest"
 "brew-cask:ausweisapp" = "latest"
+"brew-cask:ausweisapp" = "arc"
 "brew-cask:docker-desktop" = "latest"
 "brew-cask:firefox" = "latest"
 "brew-cask:font-commit-mono-nerd-font" = "latest"
