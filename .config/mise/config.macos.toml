@@ -71,6 +71,27 @@ press_and_hold = false
 tap_to_click = true
 three_finger_drag = true
 
+[[bootstrap.macos.defaults_entries]]
+# snap to grid
+domain = "com.apple.finder"
+key = "DesktopViewSettings"
+path = ["IconViewSettings", "arrangeBy"]
+value = "grid"
+
+[[bootstrap.macos.defaults_entries]]
+# snap to grid
+domain = "com.apple.finder"
+key = "FK_StandardViewSettings"
+path = ["IconViewSettings", "arrangeBy"]
+value = "grid"
+
+[[bootstrap.macos.defaults_entries]]
+# snap to grid
+domain = "com.apple.finder"
+key = "StandardViewSettings"
+path = ["IconViewSettings", "arrangeBy"]
+value = "grid"
+
 [bootstrap.macos.defaults]
 "com.apple.finder" = { 
     AppleShowAllExtensions = true,
@@ -125,13 +146,7 @@ mode = "0444"
 
 [bootstrap.hooks.post-defaults]
 run = [
-    # snap to grid
-    '/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist 2>/dev/null || true',
-    '/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist 2>/dev/null || true',
-    '/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist 2>/dev/null || true',
-    "killall cfprefsd || true",
     "killall Finder || true",
-
     "killall Dock || true",
     "chflags nohidden ~/Library",
     "sudo chflags nohidden /Volumes"
