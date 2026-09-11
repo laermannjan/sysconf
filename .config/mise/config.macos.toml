@@ -62,11 +62,14 @@ show_status_bar = true
 show_extensions_warning = false
 preferred_view_style = "list"
 sort_folders_first = true
+save_new_documents_to_cloud = false
 
 [bootstrap.macos.keyboard]
 key_repeat = 1
 initial_key_repeat = 15
 press_and_hold = false
+automatic_capitalization = false
+automatic_spelling_correction = false
 
 [bootstrap.macos.trackpad]
 tap_to_click = true
@@ -116,12 +119,9 @@ value = "grid"
 }
 "NSGlobalDomain" = { 
     AppleKeyboardUIMode = 3,  # full keyboard access for all controls
-    NSAutomaticCapitalizationEnabled = false,
     NSAutomaticDashSubstitutionEnabled = false,
     NSAutomaticPeriodSubstitutionEnabled = false,
     NSAutomaticQuoteSubstitutionEnabled = false,
-    NSAutomaticSpellingCorrectionEnabled = false,
-    NSDocumentSaveNewDocumentsToCloud = false,
     NSNavPanelExpandedStateForSaveMode = true,
     NSStatusItemSelectionPadding = 6,
     NSStatusItemSpacing = 6,
