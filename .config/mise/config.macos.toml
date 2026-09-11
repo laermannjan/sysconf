@@ -75,66 +75,65 @@ automatic_spelling_correction = false
 tap_to_click = true
 three_finger_drag = true
 
-[[bootstrap.macos.defaults_entries]]
-# snap to grid
-domain = "com.apple.finder"
-key = "DesktopViewSettings"
-path = ["IconViewSettings", "arrangeBy"]
-value = "grid"
-
-[[bootstrap.macos.defaults_entries]]
-# snap to grid
-domain = "com.apple.finder"
-key = "FK_StandardViewSettings"
-path = ["IconViewSettings", "arrangeBy"]
-value = "grid"
-
-[[bootstrap.macos.defaults_entries]]
-# snap to grid
-domain = "com.apple.finder"
-key = "StandardViewSettings"
-path = ["IconViewSettings", "arrangeBy"]
-value = "grid"
 
 [bootstrap.macos.defaults]
-"com.apple.finder" = { 
-    AppleShowAllExtensions = true,
-    AppleShowAllFiles = true,
+"com.apple.finder" = {
     FXDefaultSearchScope = "SCcf",  # search current folder
-    NewWindowTarget = "PfHm",
+    NewWindowTarget = "PfHm",       # home folder; no NewWindowTargetPath needed
     QuitMenuItem = true,
     WarnOnEmptyTrash = false,
     _FXShowPosixPathInTitle = true,
 }
-"com.apple.LaunchServices" = { LSQuarantine = false }
-"com.apple.screensaver" = { 
-    askForPassword = true,
-    askForPasswordDelay = 0
-}
-"com.apple.screencapture" = { location = "{{env.HOME}}/Screenshots" }
-"com.apple.desktopservices" = { 
-    DSDontWriteNetworkStores = true, 
+"com.apple.desktopservices" = {
+    DSDontWriteNetworkStores = true,
     DSDontWriteUSBStores = true
 }
-"NSGlobalDomain" = { 
-    AppleKeyboardUIMode = 3,  # full keyboard access for all controls
-    NSAutomaticDashSubstitutionEnabled = false,
-    NSAutomaticPeriodSubstitutionEnabled = false,
-    NSAutomaticQuoteSubstitutionEnabled = false,
-    NSNavPanelExpandedStateForSaveMode = true,
-    NSStatusItemSelectionPadding = 6,
-    NSStatusItemSpacing = 6,
-    PMPrintingExpandedStateForPrint = true,
-    _HIHideMenuBar = false,
-}
-"com.apple.dock" = { 
+"com.apple.dock" = {
     enable-spring-load-actions-on-all-items = true,
     mineffect = "genie",
     mouse-over-hilite-stack = true,
     show-process-indicators = true,
     showhidden = true,
 }
+"com.apple.screensaver" = { 
+    # NOTE: might not actually work anymore
+    askForPassword = true,
+    askForPasswordDelay = 0
+}
+"com.apple.screencapture" = { location = "{{env.HOME}}/Screenshots" }
+"NSGlobalDomain" = {
+    AppleKeyboardUIMode = 2,  # keyboard navigation (Sonoma+)
+    AppleShowAllExtensions = true,
+    NSAutomaticDashSubstitutionEnabled = false,
+    NSAutomaticPeriodSubstitutionEnabled = false,
+    NSAutomaticQuoteSubstitutionEnabled = false,
+    NSNavPanelExpandedStateForSaveMode = true,
+    NSNavPanelExpandedStateForSaveMode2 = true,
+    NSStatusItemSelectionPadding = 6,
+    NSStatusItemSpacing = 6,
+    PMPrintingExpandedStateForPrint = true,
+    PMPrintingExpandedStateForPrint2 = true,
+    _HIHideMenuBar = false,
+}
 
+# Snap to grid, replacing the PlistBuddy hook lines
+[[bootstrap.macos.defaults_entries]]
+domain = "com.apple.finder"
+key = "DesktopViewSettings"
+path = ["IconViewSettings", "arrangeBy"]
+value = "grid"
+
+[[bootstrap.macos.defaults_entries]]
+domain = "com.apple.finder"
+key = "FK_StandardViewSettings"
+path = ["IconViewSettings", "arrangeBy"]
+value = "grid"
+
+[[bootstrap.macos.defaults_entries]]
+domain = "com.apple.finder"
+key = "StandardViewSettings"
+path = ["IconViewSettings", "arrangeBy"]
+value = "grid"
 
 [bootstrap.files."/etc/pam.d/sudo_local"]
 # enables Touch ID for sudo
@@ -145,6 +144,7 @@ mode = "0444"
 
 [bootstrap.hooks.post-defaults]
 run = [
+    'mkdir -p "$HOME/Screenshots" && defaults write com.apple.screencapture location "$HOME/Screenshots"',
     "killall Finder || true",
     "killall Dock || true",
     "chflags nohidden ~/Library",
