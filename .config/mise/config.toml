@@ -66,6 +66,7 @@ hk = "latest"
 neovim = "nightly"
 yt-dlp = "latest"
 eza = "latest"
+git-lfs = "latest"
 
 [env]
 EDITOR = "nvim"
