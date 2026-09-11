@@ -56,12 +56,9 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
-[credential "https://codeberg.org"]
-	helper = 
-	helper = !tea login helper
-[credential "https://github.com"]
-	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
+
+[url "git@github.com:laermannjan/"]
+    insteadOf = https://github.com/laermannjan/
+
+[url "git@github.com:"]
+    pushInsteadOf = https://github.com/

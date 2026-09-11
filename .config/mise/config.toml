@@ -72,6 +72,3 @@ EDITOR = "nvim"
 VISUAL = "nvim"
 PAGER = "less"
 LESS = "-R -F -X --mouse"
-
-[bootstrap.hooks.final]
-run = "git -C ~/sysconf remote set-url --push origin git@github.com:laermannjan/sysconf.git"
