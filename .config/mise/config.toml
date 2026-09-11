@@ -33,7 +33,6 @@ ty = "latest"
 ruff = "latest"
 go = "latest"
 node = "lts"
-swift = "latest"
 rust = "latest"
 zig = "latest"
 
