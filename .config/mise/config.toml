@@ -6,9 +6,6 @@ python.uv_venv_auto = "create|source"
 [bootstrap.mise_shell_activate]
 fish = "activate"
 
-[bootstrap.user]
-login_shell = "/opt/homebrew/bin/fish"
-
 [dotfiles]
 "~/.config/1password" = {}
 "~/.config/direnv" = {}
