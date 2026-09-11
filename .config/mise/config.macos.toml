@@ -61,6 +61,7 @@ show_pathbar = true
 show_status_bar = true
 show_extensions_warning = false
 preferred_view_style = "list"
+sort_folders_first = true
 
 [bootstrap.macos.keyboard]
 key_repeat = 1
@@ -102,7 +103,6 @@ value = "grid"
     QuitMenuItem = true,
     WarnOnEmptyTrash = false,
     _FXShowPosixPathInTitle = true,
-    _FXSortFoldersFirst = true,
 }
 "com.apple.LaunchServices" = { LSQuarantine = false }
 "com.apple.screensaver" = { 
