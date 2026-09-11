@@ -2,6 +2,7 @@
 dotfiles.root = "~/sysconf"
 dotfiles.default_mode = "symlink"
 python.uv_venv_auto = "create|source"
+activate_aggressive = true
 
 [bootstrap.mise_shell_activate]
 fish = "activate"
