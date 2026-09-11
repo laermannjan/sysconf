@@ -1,4 +1,0 @@
-[user]
-    name = "Jan Laermann"
-    email = "jan.laermann@alcemy.tech"
-    signingkey = ~/.ssh/id_ed25519.alcemy
