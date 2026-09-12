@@ -1,5 +1,14 @@
 git:
   autoFetch: true
+  diffRenderers:
+    - type: extDiff
+      command: difft --color=always --context={{diffContext}}
+      name: difftastic
+    - command: delta --paging=never --features="my-theme zebra-dark lazygit" # --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+      name: delta
+    - type: rawGit
+      args: [--color-words]
+      name: color-words
 gui:
   nerdFontsVersion: "3"
   theme:
