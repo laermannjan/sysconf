@@ -1,42 +1,3 @@
-[color]
-	ui = true
-
-[core]
-	pager = "delta"
-
-[delta]
-	navigate = true
-
-[gpg]
-	format = "ssh"
-
-[help]
-	autocorrect = "1"
-
-[init]
-	defaultBranch = "main"
-
-[interactive]
-	diffFilter = "delta --color-only"
-
-[log]
-	date = "iso"
-
-[pull]
-	ff = "only"
-
-[push]
-	autoSetupRemote = true
-	default = "current"
-	followtags = true
-	useForceIfIncludes = true
-
-[rebase]
-	updateRefs = true
-
-[safe]
-    directory = "~/sysconf"
-
 [user]
 	email = "git@flabber.mozmail.com"
 	name = "Jan Laermann"
@@ -47,15 +8,125 @@
 [includeIf "gitdir:~/dev/shotquest/"]
 	path = "~/.config/git/config.codeberg"
 
+[include]
+	path = delta-themes.gitconfig
+
+[init]
+	defaultBranch = "main"
+
+[core]
+	pager = "delta"
+
+[interactive]
+	diffFilter = "delta --color-only"
+
+[delta]
+	navigate = true
+    features = my-theme zebra-dark
+    hyperlinks = true
+	hyperlinks-file-link-format = "file://{path}#{line}"
+	; hyperlinks-file-link-format = "zed://file/{path}:{line}"
+    ; syntax-theme = Coldark-Dark
+
+[delta "lazygit"]
+	line-numbers = false
+	hunk-header-style = omit
+	file-style = omit
+	file-decoration-style = none
+
+[delta "my-theme"]
+    commit-decoration-style = bold box ul
+    dark = true
+    file-decoration-style = none
+    file-style = omit
+    hunk-header-decoration-style = "#022b45" box ul
+    hunk-header-file-style = "bold yellow"
+    hunk-header-line-number-style = bold "#003300"
+    hunk-header-style = file syntax
+    line-numbers = true
+    line-numbers-left-style = "#022b45"
+    line-numbers-minus-style = red
+    line-numbers-plus-style = green
+    line-numbers-right-style = "#022b45"
+    line-numbers-zero-style = "#999999"
+    minus-emph-style = normal "#80002a"
+    minus-style = normal "#330011"
+    plus-emph-style = syntax "#003300"
+    plus-style = syntax "#001a00"
+    side-by-side = true
+
+[delta "zebra-dark"]
+    minus-style = syntax "#330f0f"
+    minus-emph-style = syntax "#4f1917"
+    plus-style = syntax "#0e2f19"
+    plus-emph-style = syntax "#174525"
+    map-styles = \
+       bold purple => syntax "#330f29", \
+       bold blue => syntax "#271344", \
+       bold cyan => syntax "#0d3531", \
+       bold yellow => syntax "#222f14"
+    zero-style = syntax
+    whitespace-error-style = "#aaaaaa"
+
+[help]
+	autocorrect = "immediate"
+
+[log]
+	date = "iso"
+
+[diff]
+    algorithm = histogram       # readable diffs when code is moved or restructured
+	colorMoved = default        # moved blocks get their own color
+    colorMovedWS = allow-indentation-change  # consider the same block moved even if it changed indentation
+
+[merge]
+	conflictStyle = zdiff3      # conflicts also show the common base
+
 [rerere]
-	enable = true  # remember how to solve a merge conflict and apply resolution automatically next time
+	enabled = true              # remember conflict resolutions and reapply them
+	autoupdate = true           # stage reapplied resolutions automatically
+
+[pull]
+	ff = only
+
+[fetch]
+	prune = true                # remove origin/* branches deleted on the remote
+	# pruneTags = true          # WARNING: also deletes local tags that don't exist on the remote
+
+[rebase]
+	updateRefs = true           # move stacked branches along during a rebase
+	autoStash = true            # allow rebasing with uncommitted changes
+	autoSquash = true           # place fixup! commits automatically
+
+[push]
+	default = current
+	autoSetupRemote = true
+	followTags = true
+    useForceIfIncludes = true   # --force-with-lease also checks you integrated the remote state
+
+[branch]
+	sort = -committerdate       # most recently active branches first
+
+[tag]
+	sort = version:refname      # v1.10 after v1.9
+
+[safe]
+	bareRepository = explicit   # never discover bare repos automatically (protects against malicious repos)
+
 [alias]
 	diffw = diff --word-diff
+    dlog  = -c diff.external=difft log --ext-diff
+	dshow = -c diff.external=difft show --ext-diff
+	ddiff = -c diff.external=difft diff
+
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+
+[gpg]
+	format = "ssh"
 
 [url "git@github.com:laermannjan/"]
     insteadOf = https://github.com/laermannjan/
