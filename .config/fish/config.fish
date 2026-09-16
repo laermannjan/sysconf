@@ -1,4 +1,10 @@
-status is-interactive || return
+if not status is-interactive
+    /Users/jan/.local/bin/mise activate fish --shims | source
+    return
+end
+
+# NOTE: this must be first
+/Users/jan/.local/bin/mise activate fish | source # added by https://mise.run/fish
 
 set fish_greeting
 set -g fish_color_command blue
@@ -61,5 +67,3 @@ if test (uname) != Darwin && not set -q SSH_CONNECTION
         source $ssh_env &>/dev/null
     end
 end
-
-/Users/jan/.local/bin/mise activate fish | source # added by https://mise.run/fish
