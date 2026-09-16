@@ -75,7 +75,6 @@ shellcheck = "latest"
 gitleaks = "latest"
 taplo = "latest"
 shfmt = "latest"
-atuin = "latest"
 
 [env]
 EDITOR = "nvim"
