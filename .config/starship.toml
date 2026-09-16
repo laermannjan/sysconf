@@ -2,7 +2,7 @@
 add_newline = false
 fill = " "
 format = "$time$all$character"
-right_format = "$nix_shell"
+# right_format = "$nix_shell"
 
 [aws]
 disabled = true
@@ -17,15 +17,6 @@ vicmd_symbol = "[❮](bold green)"
 min_time = 5000
 min_time_to_notify = 30000
 show_notifications = true
-
-[custom.env_slug]
-command = "SYMBOL=\"\"\nDYN_ENV=$(git branch --show-current | cut -s -d '+' -f 2)\n\n[[ -z $DYN_ENV ]] && [[ $ENVIRONMENT_SLUG == \"testing\" ]] && exit\n\n[[ -z $DYN_ENV ]] && [[ $ENVIRONMENT_SLUG =~ ^dyn_ ]] && SYMBOL=\"🚧 mismatch \"\n[[ -n $DYN_ENV ]] && [[ \"dyn_$DYN_ENV\" != $ENVIRONMENT_SLUG ]] && SYMBOL=\"🚧 mismatch \"\n\n[[ -z $ENVIRONMENT_SLUG ]] && ENVIRONMENT_SLUG=\"<undefined env slug>\"\n\n[[ $ENVIRONMENT_SLUG =~ ^prod ]] && SYMBOL=\"🛑 $SYMBOL\" && ENVIRONMENT_SLUG=$ENVIRONMENT_SLUG\n\necho \"$SYMBOL$ENVIRONMENT_SLUG\"\n"
-description = "Display ENVIRONMENT_SLUG if set and notify if "
-disabled = false
-format = "(in [$symbol($output )]($style))"
-shell = "[\"bash\", \"--noprofile\", \"--norc\"]"
-style = "bold red"
-when = "[[ $(git ls-remote --get-url) =~ gitlab.com:alcemy ]] && [[ -f $(git rev-parse --show-toplevel)/.env ]]"
 
 [directory]
 truncate_to_repo = true
