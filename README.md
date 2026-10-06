@@ -1,5 +1,8 @@
 # sysconf
 
+> [!NOTE]
+> Archived. My setup moved to [mise bootstrap](https://mise.jdx.dev/bootstrap.html) and now lives in a private repository.
+
 ```sh
 # on mac
 xcode-select --install
